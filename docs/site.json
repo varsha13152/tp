@@ -1,7 +1,7 @@
 {
   "baseUrl": "",
   "titlePrefix": "InnSync",
-  "titleSuffix": "AddressBook Level-3",
+  "titleSuffix": "InnSync",
   "faviconPath": "images/SeEduLogo.png",
   "style": {
     "codeTheme": "light"
