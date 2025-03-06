@@ -11,6 +11,16 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
+### Guan Qun
+
+<img src="images/monobeartae.png" width="200px">
+
+[[homepage](https://www.linkedin.com/in/tan-guan-qun-0417751b3/)]
+[[github](https://github.com/monobeartae)]
+[[portfolio](team/johndoe.md)]
+
+* Role: Integration
+
 ### Hai Hui
 
 <img src="images/iuhiah.png" width="200px">
