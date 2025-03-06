@@ -11,15 +11,15 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
+### V Varsha
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/varsha13152.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[homepage](https://www.linkedin.com/in/varsha-v-561659214/)]
+[[github](https://github.com/varsha13152)]
+[[portfolio](team/varsha.md)]
 
-* Role: Project Advisor
+* Role: Code Quality
 
 ### Jane Doe
 
