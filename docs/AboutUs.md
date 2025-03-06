@@ -11,6 +11,16 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
+### Hai Hui
+
+<img src="images/iuhiah.png" width="200px">
+
+[[homepage](https://www.linkedin.com/in/hai-hui-lee-659160261/)]
+[[github](https://github.com/iuhiah)]
+[[portfolio](team/iuhiah.md)]
+
+* Role: Documentation
+
 ### V Varsha
 
 <img src="images/varsha13152.png" width="200px">
@@ -20,42 +30,3 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[portfolio](team/varsha.md)]
 
 * Role: Code Quality
-
-### Jane Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Team Lead
-* Responsibilities: UI
-
-### Johnny Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: Data
-
-### Jean Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: Dev Ops + Threading
-
-### James Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: UI
