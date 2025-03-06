@@ -20,3 +20,13 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[portfolio](team/iuhiah.md)]
 
 * Role: Documentation
+
+### V Varsha
+
+<img src="images/varsha13152.png" width="200px">
+
+[[homepage](https://www.linkedin.com/in/varsha-v-561659214/)]
+[[github](https://github.com/varsha13152)]
+[[portfolio](team/varsha.md)]
+
+* Role: Code Quality
