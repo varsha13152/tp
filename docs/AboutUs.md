@@ -11,6 +11,14 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
+### Michael Cheong
+
+<img src="images/michael.png" width="200px">
+
+[[github](https://github.com/Reshiro)]
+
+* Role: Testing
+
 ### Guan Qun
 
 <img src="images/monobeartae.png" width="200px">
