@@ -274,13 +274,14 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
+* is a host for guests to stay at one or more properties on hosting platforms _(i.e. AirBnB)_
 * has a need to manage a significant number of contacts
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: Allows AirBnB hosts to manage all their property management related contacts faster than a typical mouse/GUI driven app
 
 
 ### User stories
