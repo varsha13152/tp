@@ -13,7 +13,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Michael Cheong
 
-<img src="images/michael.png" width="200px">
+<img src="images/reshiro.png" width="200px">
 
 [[github](https://github.com/Reshiro)]
 
