@@ -1,4 +1,4 @@
----
+D---
   layout: default.md
   title: "Developer Guide"
   pageNav: 3
@@ -287,29 +287,38 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                 | So that I can…​                                                        |
-|----------|--------------------------------------------|------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                   | see usage instructions       | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person             |                                                                        |
-| `* * *`  | user                                       | delete a person              | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name        | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name         | locate a person easily                                                 |
+| Priority | As a …​                                     | I want to …​                             | So that I can…​                                                         |
+|----------|--------------------------------------------|-----------------------------------------|------------------------------------------------------------------------|
+| `* * *`  | new user                                   | see usage instructions                  | refer to instructions when I forget how to use the App                 |
+| `* * *`  | Airbnb host                                | list all persons                        | see all the persons I have added                                       |
+| `* * *`  | Airbnb host                                | add a new person                        | add a person to the address book                                       |
+| `* * *`  | Airbnb host                                | edit a person                           | update details of a person                                             |
+| `* * *`  | Airbnb host                                | delete a person                         | remove entries that I no longer need                                   |
+| `* * *`  | Airbnb host                                | clear all persons                       | start over with a clean slate                                          |
+| `* * *`  | Airbnb host                                | find a person by name                   | locate details of persons without having to go through the entire list |
+| `* *`    | Airbnb host                                | filter persons by property booked       | locate a person easily                                                 |
+| `* *`    | Airbnb host                                | filter persons by date of stay          | locate a person easily                                                 |
+| `* *`    | Airbnb host                                | filter persons by tag                   | locate a person easily                                                 |
+| `* *`    | Airbnb host                                | filter persons by next upcoming booking | locate a person easily                                                 |
+| `* *`    | Airbnb host                                | save person details to a file           | backup my address book                                                 |
+| `* *`    | Airbnb host                                | load person details from a file         | restore my address book                                                |
+| `* *`    | Airbnb host                                | undo the last command                   | recover from mistakes                                                  |
+| `*`      | user with many persons in the address book | sort persons by name                    | locate a person easily                                                 |
 
 *{More to be added}*
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `InnSync` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case: UC01 - Delete a person**
 
 **MSS**
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
+2.  InnSync shows a list of persons
 3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+4.  InnSync deletes the person
 
     Use case ends.
 
@@ -321,11 +330,55 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. The given index is invalid.
 
-    * 3a1. AddressBook shows an error message.
+    * 3a1. InnSync shows an error message.
 
       Use case resumes at step 2.
 
-*{More to be added}*
+**Use case: UC03 - Edit a person**
+
+**MSS**
+
+1.  User requests to list persons
+2.  InnSync shows a list of persons
+3.  User requests to edit a specific person in the list
+4.  InnSync shows the updated details of the person.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. InnSync shows an error message.
+
+      Use case resumes at step 2.
+
+* 4a. The given arguments are invalid.
+
+    * 4a1. InnSync shows an error message.
+
+      Use case resumes at step 2.
+
+**Use case: UC04 - Find a person by name**
+
+**MSS**
+
+1.  User requests to find a person by name
+2.  InnSync shows the details of the person if found.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The given name is invalid.
+
+    * 2a1. InnSync shows an error message.
+
+      Use case ends.
 
 ### Non-Functional Requirements
 
