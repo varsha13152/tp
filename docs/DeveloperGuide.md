@@ -332,8 +332,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
 2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-*{More to be added}*
+4.  The application size should not be more than 100mb to enable user to have easy installation on various devices.
+5.  The application should also be optimized such that its CPU and memory usage is low so that it can run on low end machine.
+6.  The system should be optimised for a single-user operation instead of multiple user operation.
+7.  The application should not crash during network failure and be reliable enough for continuous use case during operation hours.
+8.  The data used should be stored in structured and human-readable format like JSON.
+9.  Should be easily extendable so that new features can be added without having to refactor the entire project.
 
 ### Glossary
 
