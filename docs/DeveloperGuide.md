@@ -310,7 +310,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is `InnSync` and the **Actor** is the `AirBnB Host`, unless specified otherwise)
+(For all use cases below, the **System** is `InnSync` and the **Actor** is the `user`, unless specified otherwise)
 
 **Use case: UC01 - Add a person**
 
@@ -326,11 +326,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**
 
 * 2a. The input format is invalid.
+
     * 2a1. InnSync shows an error message and informs the user of the proper format.
+
     * Use case resumes at step 1.
     
 * 2b. The person already exists in InnSync.
+
     * 2b1. InnSync shows an error message and informs the user that the person already exists.
+
     * Use case resumes at step 1.
 
 **Use case: UC02 - Delete a person**
@@ -346,7 +350,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**
 
 * 1a. The given index is invalid.
+
     * 1a1. InnSync shows an error message and informs the user that the index is invalid.
+
     * Use case resumes at step 1.
 
 **Use case: UC03 - Edit a person**
@@ -372,9 +378,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-* 4a. The given arguments are invalid.
+* 3b. The given tag is invalid.
 
-    * 4a1. InnSync shows an error message.
+    * 3b1. InnSync shows an error message.
 
       Use case resumes at step 2.
 
@@ -389,11 +395,55 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. InnSync shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. The given date tag is invalid.
+
+    * 3b1. InnSync shows an error message.
+
+      Use case resumes at step 2.
+
 * 2a. The given name is invalid.
 
     * 2a1. InnSync shows an error message.
 
       Use case ends.
+
+**Use case: UC05 - Add Tag to Contact**
+
+**MSS**
+
+1.  User requests to list persons.
+2.  InnSync shows a list of persons.
+3.  User requests to add a tag to a contact.
+4.  InnSync shows selected contact detail with tag.
+
+    Use case ends.
+
+**Use case: UC06 - Add a Date Tag to Contact**
+
+**MSS**
+
+1.  User requests to list persons.
+2.  InnSync shows a list of persons.
+3.  User requests to add a date tag to a contact.
+4.  InnSync shows selected contact detail with tag.
+
+      Use case resumes at step 2.
+
+* 4a. The given arguments are invalid.
+
+    * 4a1. InnSync shows an error message.
+
+      Use case resumes at step 2.
 
 **Use case: UC07 - List persons**
 
@@ -402,9 +452,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1. User requests to list all persons.
 2. InnSync displays a list of all persons.
 
-
 * 2a. The list is empty.
+
     * 2a1. InnSync shows a message indicating that the list is empty.
+
     * Use case ends.
 
 ### Non-Functional Requirements
