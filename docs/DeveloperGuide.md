@@ -50,7 +50,7 @@ The bulk of the app's work is done by the following four components:
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The *Sequence Diagram* below shows how the components interact with each other for the scenario where the Airbnb Host issues the command `delete 1`.
 
 <puml src="diagrams/ArchitectureSequenceDiagram.puml" width="574" />
 
@@ -310,7 +310,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is `InnSync` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is `InnSync` and the **Actor** is  `Airbnb Host`, unless specified otherwise)
 
 **Use case: UC01 - Add a visitor**
 
@@ -343,7 +343,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests to delete a specific visitor.
+1. Airbnb Host requests to delete a specific visitor.
 2. InnSync deletes the visitor.
 3. InnSync displays a message for successful deletion of a visitor's contact.
 
@@ -386,7 +386,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-* 3b. The given tag is invalid.
+* 3b. Input argument(s) are invalid  tag.
 
     * 3b1. InnSync shows an error message.
 
@@ -394,7 +394,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3c. The contact already exists in InnSync
 
-    * 3b1. InnSync shows an error message that the contact already exists.
+    * 3c1. InnSync shows an error message that the contact already exists.
 
       Use case resumes at step 2.
 
@@ -402,8 +402,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to find a visitor by name
-2.  InnSync shows the details of the person if found.
+1.  Airbnb Host requests to find a visitor by name
+2.  InnSync shows the details of the visitor if found.
 
     Use case ends.
 
@@ -414,60 +414,86 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. The given name is invalid.
 
-    * 3a1. InnSync shows an error message
-
-      Use case resumes at step 2.
-
-* 3b. The given name is invalid.
-
-    * 2a1. InnSync shows an error message.
+    * 3a1. InnSync shows an error message.
 
       Use case ends.
+
 
 **Use case: UC05 - Add Tag to Contact**
 
 **MSS**
 
-1.  User requests to list visitor.
-2.  InnSync shows a list of visitor.
-3.  User requests to add a tag to a contact.
-4.  InnSync shows selected contact detail with tag.
-5.  InnSync updates local JSON file with updated contact detail
+1.  Airbnb Host requests to list visitors
+2.  InnSync shows a list of visitors
+3.  Airbnb Host requests to add a tag to a specific visitor in the list
+4.  InnSync validates the entered tag (ie. missing input)
+5.  InnSync updates the contact with the new provided tag
+6.  InnSync shows the updated details of the visitor.
+7.  InnSync updates local JSON file with updated contact detail
 
     Use case ends.
 
-**Use case: UC06 - Add a Date Tag to Contact**
+**Extensions**
+
+* 2a. The list is empty.
+   * 2a1. InnSync shows an error message that there are no saved contacts.
+  
+    Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. InnSync shows an error message.
+      Use case resumes at step 2.
+
+* 4a. Input argument(s) are invalid.
+
+    * 4a1. InnSync shows an error message.
+      Use case resumes at step 2.
+
+**Use case: UC06 - Add Date Tag to Contact**
 
 **MSS**
 
-1.  User requests to list visitor.
-2.  InnSync shows a list of visitor.
-3.  User requests to add a date tag to a contact.
-4.  InnSync shows selected contact detail with tag.
-5.  InnSync updates local JSON file with updated contact detail
+1.  Airbnb Host requests to list visitors
+2.  InnSync shows a list of visitors
+3.  Airbnb Host requests to add a date tag to a specific visitor in the list
+4.  InnSync validates the entered tag (ie. date time format, missing input)
+5.  InnSync updates the contact with the new provided date tag
+6.  InnSync shows the updated details of the visitor.
+7.  InnSync updates local JSON file with updated contact detail
 
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+   * 2a1. InnSync shows an error message that there are no saved contacts.
+  
+    Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. InnSync shows an error message.
       Use case resumes at step 2.
 
-* 4a. The given arguments are invalid.
+* 4a. Input argument(s) are invalid.
 
     * 4a1. InnSync shows an error message.
-
       Use case resumes at step 2.
 
 **Use case: UC07 - List visitors**
 
 **MSS**
 
-1. User requests to list all visitors.
+1. Airbnb Host requests to list all visitors.
 2. InnSync displays a list of all visitors.
 
 * 2a. The list is empty.
 
-    * 2a1. InnSync shows a message indicating that the list is empty.
-
-    * Use case ends.
+    * 2a1. InnSync shows a message that the list is empty.
+     Use case ends.
   
 **Use case: UC08 - Help**
 
@@ -475,7 +501,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1. Airbnb Host wants to see the user guide
 2. InnSync displays a pop up with a hyperlink to the user guide 
-   * Use case ends.
+   Use case ends.
 
 **Use case: UC09 - Clear**
 
@@ -483,7 +509,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1. Airbnb Host remove all visitor contacts in the database 
 2. InnSync clears the database and updates local JSON file
-   * Use case ends.
+   Use case ends.
   
 **Use case: UC09 - Exit**
 
@@ -491,7 +517,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1. Airbnb Host wants to exit the application
 2. InnSync is terminated 
-   * Use case ends.
+   Use case ends.
 
 ### Non-Functional Requirements
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
