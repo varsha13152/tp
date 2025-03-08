@@ -300,32 +300,59 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is `InnSync` and the **Actor** is the `AirBnB Host`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case: UC01 - Add a person**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests to add a person with specified details.
+2. InnSync validates the input.
+3. InnSync adds the person.
+4. InnSync shows a success message.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The input format is invalid.
+    * 2a1. InnSync shows an error message.
+    * Use case resumes at step 1.
+    
+* 2b. The person already exists in InnSync.
+    * 2b1. InnSync shows an error message.
+    * Use case resumes at step 1.
+
+**Use case: UC02 - Delete a person**
+
+**MSS**
+
+1. User requests to delete a specific person.
+2. InnSync deletes the person.
+3. InnSync shows a success message.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The given index is invalid.
+    * 1a1. InnSync shows an error message.
+    * Use case resumes at step 1.
+
+**Use case: UC07 - List persons**
+
+**MSS**
+
+1. User requests to list all persons.
+2. InnSync displays a list of all persons.
 
     Use case ends.
 
 **Extensions**
 
 * 2a. The list is empty.
-
-  Use case ends.
-
-* 3a. The given index is invalid.
-
-    * 3a1. AddressBook shows an error message.
-
-      Use case resumes at step 2.
-
-*{More to be added}*
+    * 2a1. InnSync shows a message indicating that the list is empty.
+    * Use case ends.
 
 ### Non-Functional Requirements
 
