@@ -11,11 +11,24 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
+### Tan Xing Zhong
+
+<img src="images/tanxingzhong.png" width="200px">
+
+[[linkedin](https://www.linkedin.com/in/tan-xing-zhong-677492346/edit/forms/skills/new/?profileFormEntryPoint=PROFILE_SECTION)]
+[[github](https://github.com/TanXingZhong)]
+[[resume](https://drive.google.com/file/d/1WZkiFqrl-ZK3FwXPm555aZXWv69SyzfE/view?usp=sharing)]
+[[portfolio](team/tanxingzhong.md)]
+
+* Role: Leader
+* Responsibilities: Deliverables and deadlines
+
 ### Michael Cheong
 
 <img src="images/reshiro.png" width="200px">
 
 [[github](https://github.com/Reshiro)]
+[[portfolio](team/reshiro.md)]
 
 * Role: Testing
 
@@ -25,7 +38,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 [[homepage](https://www.linkedin.com/in/tan-guan-qun-0417751b3/)]
 [[github](https://github.com/monobeartae)]
-[[portfolio](team/johndoe.md)]
+[[portfolio](team/monobeartae.md)]
 
 * Role: Integration
 
