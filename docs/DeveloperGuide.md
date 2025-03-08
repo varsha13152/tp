@@ -316,11 +316,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**
 
 * 2a. The input format is invalid.
-    * 2a1. InnSync shows an error message.
+    * 2a1. InnSync shows an error message and informs the user of the proper format.
     * Use case resumes at step 1.
     
 * 2b. The person already exists in InnSync.
-    * 2b1. InnSync shows an error message.
+    * 2b1. InnSync shows an error message and informs the user that the person already exists.
     * Use case resumes at step 1.
 
 **Use case: UC02 - Delete a person**
@@ -336,7 +336,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**
 
 * 1a. The given index is invalid.
-    * 1a1. InnSync shows an error message.
+    * 1a1. InnSync shows an error message and informs the user that the index is invalid.
     * Use case resumes at step 1.
 
 **Use case: UC07 - List persons**
