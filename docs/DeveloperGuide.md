@@ -309,30 +309,44 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `InnSync` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is `InnSync` and the **Actor** is the `AirBnB Host`, unless specified otherwise)
 
-**Use case: UC01 - Delete a person**
+**Use case: UC01 - Add a person**
 
 **MSS**
 
-1.  User requests to list persons
-2.  InnSync shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  InnSync deletes the person
+1. User requests to add a person with specified details.
+2. InnSync validates the input.
+3. InnSync adds the person.
+4. InnSync shows a success message.
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 2a. The input format is invalid.
+    * 2a1. InnSync shows an error message and informs the user of the proper format.
+    * Use case resumes at step 1.
+    
+* 2b. The person already exists in InnSync.
+    * 2b1. InnSync shows an error message and informs the user that the person already exists.
+    * Use case resumes at step 1.
 
-  Use case ends.
+**Use case: UC02 - Delete a person**
 
-* 3a. The given index is invalid.
+**MSS**
 
-    * 3a1. InnSync shows an error message.
+1. User requests to delete a specific person.
+2. InnSync deletes the person.
+3. InnSync shows a success message.
 
-      Use case resumes at step 2.
+    Use case ends.
+
+**Extensions**
+
+* 1a. The given index is invalid.
+    * 1a1. InnSync shows an error message and informs the user that the index is invalid.
+    * Use case resumes at step 1.
 
 **Use case: UC03 - Edit a person**
 
@@ -379,6 +393,18 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2a1. InnSync shows an error message.
 
       Use case ends.
+
+**Use case: UC07 - List persons**
+
+**MSS**
+
+1. User requests to list all persons.
+2. InnSync displays a list of all persons.
+
+
+* 2a. The list is empty.
+    * 2a1. InnSync shows a message indicating that the list is empty.
+    * Use case ends.
 
 ### Non-Functional Requirements
 
