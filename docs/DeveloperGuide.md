@@ -1,4 +1,4 @@
----
+D---
   layout: default.md
   title: "Developer Guide"
   pageNav: 3
@@ -290,19 +290,19 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | Priority | As a …​                                     | I want to …​                             | So that I can…​                                                         |
 |----------|--------------------------------------------|-----------------------------------------|------------------------------------------------------------------------|
 | `* * *`  | new user                                   | see usage instructions                  | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | list all persons                        | see all the persons I have added                                       |
-| `* * *`  | user                                       | add a new person                        | add a person to the address book                                       |
-| `* * *`  | user                                       | edit a person                           | update details of a person                                             |
-| `* * *`  | user                                       | delete a person                         | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | clear all persons                       | start over with a clean slate                                          |
-| `* * *`  | user                                       | find a person by name                   | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | filter persons by property booked       | locate a person easily                                                 |
-| `* *`    | user                                       | filter persons by date of stay          | locate a person easily                                                 |
-| `* *`    | user                                       | filter persons by tag                   | locate a person easily                                                 |
-| `* *`    | user                                       | filter persons by next upcoming booking | locate a person easily                                                 |
-| `* *`    | user                                       | save person details to a file           | backup my address book                                                 |
-| `* *`    | user                                       | load person details from a file         | restore my address book                                                |
-| `* *`    | user                                       | undo the last command                   | recover from mistakes                                                  |
+| `* * *`  | Airbnb host                                | list all persons                        | see all the persons I have added                                       |
+| `* * *`  | Airbnb host                                | add a new person                        | add a person to the address book                                       |
+| `* * *`  | Airbnb host                                | edit a person                           | update details of a person                                             |
+| `* * *`  | Airbnb host                                | delete a person                         | remove entries that I no longer need                                   |
+| `* * *`  | Airbnb host                                | clear all persons                       | start over with a clean slate                                          |
+| `* * *`  | Airbnb host                                | find a person by name                   | locate details of persons without having to go through the entire list |
+| `* *`    | Airbnb host                                | filter persons by property booked       | locate a person easily                                                 |
+| `* *`    | Airbnb host                                | filter persons by date of stay          | locate a person easily                                                 |
+| `* *`    | Airbnb host                                | filter persons by tag                   | locate a person easily                                                 |
+| `* *`    | Airbnb host                                | filter persons by next upcoming booking | locate a person easily                                                 |
+| `* *`    | Airbnb host                                | save person details to a file           | backup my address book                                                 |
+| `* *`    | Airbnb host                                | load person details from a file         | restore my address book                                                |
+| `* *`    | Airbnb host                                | undo the last command                   | recover from mistakes                                                  |
 | `*`      | user with many persons in the address book | sort persons by name                    | locate a person easily                                                 |
 
 *{More to be added}*
