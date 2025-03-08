@@ -150,7 +150,7 @@ The `Storage` component,
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.address.commons` package.
+Classes used by multiple components are in the `seedu.innsync.commons` package.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -330,7 +330,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2a1. InnSync shows an error message and informs the user of the proper format.
 
     * Use case resumes at step 1.
-    
+
 * 2b. The person already exists in InnSync.
 
     * 2b1. InnSync shows an error message and informs the user that the person already exists.
