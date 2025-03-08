@@ -300,16 +300,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is `InnSync` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case: UC05 - Add Tag to Contact**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list persons.
+2.  InnSync shows a list of persons.
+3.  User requests to add a tag to a contact.
+4.  InnSync shows selected contact detail with tag.
 
     Use case ends.
 
@@ -321,11 +321,42 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. The given index is invalid.
 
-    * 3a1. AddressBook shows an error message.
+    * 3a1. InnSync shows an error message.
+
+      Use case resumes at step 2.
+* 3b. The given tag is invalid.
+
+    * 3b1. InnSync shows an error message.
 
       Use case resumes at step 2.
 
-*{More to be added}*
+**Use case: UC06 - Add a Date Tag to Contact**
+
+**MSS**
+
+1.  User requests to list persons.
+2.  InnSync shows a list of persons.
+3.  User requests to add a date tag to a contact.
+4.  InnSync shows selected contact detail with tag.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. InnSync shows an error message.
+
+      Use case resumes at step 2.
+* 3b. The given date tag is invalid.
+
+    * 3b1. InnSync shows an error message.
+
+      Use case resumes at step 2.
 
 ### Non-Functional Requirements
 
