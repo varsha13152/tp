@@ -1,4 +1,4 @@
----
+D---
   layout: default.md
   title: "Developer Guide"
   pageNav: 3
@@ -274,33 +274,148 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
+* is a host for guests to stay at one or more properties on hosting platforms _(i.e. AirBnB)_
 * has a need to manage a significant number of contacts
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: Allows AirBnB hosts to manage all their property management related contacts faster than a typical mouse/GUI driven app
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                 | So that I can…​                                                        |
-|----------|--------------------------------------------|------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                   | see usage instructions       | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person             |                                                                        |
-| `* * *`  | user                                       | delete a person              | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name        | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name         | locate a person easily                                                 |
+| Priority | As a …​                                     | I want to …​                             | So that I can…​                                                         |
+|----------|--------------------------------------------|-----------------------------------------|------------------------------------------------------------------------|
+| `* * *`  | new user                                   | see usage instructions                  | refer to instructions when I forget how to use the App                 |
+| `* * *`  | Airbnb host                                | list all persons                        | see all the persons I have added                                       |
+| `* * *`  | Airbnb host                                | add a new person                        | add a person to the address book                                       |
+| `* * *`  | Airbnb host                                | edit a person                           | update details of a person                                             |
+| `* * *`  | Airbnb host                                | delete a person                         | remove entries that I no longer need                                   |
+| `* * *`  | Airbnb host                                | clear all persons                       | start over with a clean slate                                          |
+| `* * *`  | Airbnb host                                | find a person by name                   | locate details of persons without having to go through the entire list |
+| `* *`    | Airbnb host                                | filter persons by property booked       | locate a person easily                                                 |
+| `* *`    | Airbnb host                                | filter persons by date of stay          | locate a person easily                                                 |
+| `* *`    | Airbnb host                                | filter persons by tag                   | locate a person easily                                                 |
+| `* *`    | Airbnb host                                | filter persons by next upcoming booking | locate a person easily                                                 |
+| `* *`    | Airbnb host                                | save person details to a file           | backup my address book                                                 |
+| `* *`    | Airbnb host                                | load person details from a file         | restore my address book                                                |
+| `* *`    | Airbnb host                                | undo the last command                   | recover from mistakes                                                  |
+| `*`      | user with many persons in the address book | sort persons by name                    | locate a person easily                                                 |
 
 *{More to be added}*
 
 ### Use cases
 
 (For all use cases below, the **System** is `InnSync` and the **Actor** is the `user`, unless specified otherwise)
+
+**Use case: UC01 - Add a person**
+
+**MSS**
+
+1. User requests to add a person with specified details.
+2. InnSync validates the input.
+3. InnSync adds the person.
+4. InnSync shows a success message.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The input format is invalid.
+
+    * 2a1. InnSync shows an error message and informs the user of the proper format.
+
+    * Use case resumes at step 1.
+    
+* 2b. The person already exists in InnSync.
+
+    * 2b1. InnSync shows an error message and informs the user that the person already exists.
+
+    * Use case resumes at step 1.
+
+**Use case: UC02 - Delete a person**
+
+**MSS**
+
+1. User requests to delete a specific person.
+2. InnSync deletes the person.
+3. InnSync shows a success message.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The given index is invalid.
+
+    * 1a1. InnSync shows an error message and informs the user that the index is invalid.
+
+    * Use case resumes at step 1.
+
+**Use case: UC03 - Edit a person**
+
+**MSS**
+
+1.  User requests to list persons
+2.  InnSync shows a list of persons
+3.  User requests to edit a specific person in the list
+4.  InnSync shows the updated details of the person.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. InnSync shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. The given tag is invalid.
+
+    * 3b1. InnSync shows an error message.
+
+      Use case resumes at step 2.
+
+**Use case: UC04 - Find a person by name**
+
+**MSS**
+
+1.  User requests to find a person by name
+2.  InnSync shows the details of the person if found.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. InnSync shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. The given date tag is invalid.
+
+    * 3b1. InnSync shows an error message.
+
+      Use case resumes at step 2.
+
+* 2a. The given name is invalid.
+
+    * 2a1. InnSync shows an error message.
+
+      Use case ends.
 
 **Use case: UC05 - Add Tag to Contact**
 
@@ -313,23 +428,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
-**Extensions**
-
-* 2a. The list is empty.
-
-  Use case ends.
-
-* 3a. The given index is invalid.
-
-    * 3a1. InnSync shows an error message.
-
-      Use case resumes at step 2.
-* 3b. The given tag is invalid.
-
-    * 3b1. InnSync shows an error message.
-
-      Use case resumes at step 2.
-
 **Use case: UC06 - Add a Date Tag to Contact**
 
 **MSS**
@@ -339,24 +437,26 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 3.  User requests to add a date tag to a contact.
 4.  InnSync shows selected contact detail with tag.
 
-    Use case ends.
+      Use case resumes at step 2.
 
-**Extensions**
+* 4a. The given arguments are invalid.
+
+    * 4a1. InnSync shows an error message.
+
+      Use case resumes at step 2.
+
+**Use case: UC07 - List persons**
+
+**MSS**
+
+1. User requests to list all persons.
+2. InnSync displays a list of all persons.
 
 * 2a. The list is empty.
 
-  Use case ends.
+    * 2a1. InnSync shows a message indicating that the list is empty.
 
-* 3a. The given index is invalid.
-
-    * 3a1. InnSync shows an error message.
-
-      Use case resumes at step 2.
-* 3b. The given date tag is invalid.
-
-    * 3b1. InnSync shows an error message.
-
-      Use case resumes at step 2.
+    * Use case ends.
 
 ### Non-Functional Requirements
 
