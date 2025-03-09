@@ -50,7 +50,7 @@ The bulk of the app's work is done by the following four components:
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The *Sequence Diagram* below shows how the components interact with each other for the scenario where the Airbnb Host issues the command `delete 1`.
 
 <puml src="diagrams/ArchitectureSequenceDiagram.puml" width="574" />
 
@@ -291,59 +291,61 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | Priority | As a …​                                     | I want to …​                             | So that I can…​                                                         |
 |----------|--------------------------------------------|-----------------------------------------|------------------------------------------------------------------------|
 | `* * *`  | new user                                   | see usage instructions                  | refer to instructions when I forget how to use the App                 |
-| `* * *`  | Airbnb host                                | list all persons                        | see all the persons I have added                                       |
-| `* * *`  | Airbnb host                                | add a new person                        | add a person to the address book                                       |
-| `* * *`  | Airbnb host                                | edit a person                           | update details of a person                                             |
+| `* * *`  | Airbnb host                                | list all visitors                       | see all the visitors I have added                                      |
+| `* * *`  | Airbnb host                                | add a new person                        | keep track of who is visiting my property                              |
+| `* * *`  | Airbnb host                                | edit a person                           | update details of a visitor                                            |
 | `* * *`  | Airbnb host                                | delete a person                         | remove entries that I no longer need                                   |
-| `* * *`  | Airbnb host                                | clear all persons                       | start over with a clean slate                                          |
-| `* * *`  | Airbnb host                                | find a person by name                   | locate details of persons without having to go through the entire list |
-| `* *`    | Airbnb host                                | filter persons by property booked       | locate a person easily                                                 |
-| `* *`    | Airbnb host                                | filter persons by date of stay          | locate a person easily                                                 |
-| `* *`    | Airbnb host                                | filter persons by tag                   | locate a person easily                                                 |
-| `* *`    | Airbnb host                                | filter persons by next upcoming booking | locate a person easily                                                 |
+| `* * *`  | Airbnb host                                | clear all visitors                      | start over with a clean slate                                          |
+| `* * *`  | Airbnb host                                | find a person by name                   | quickly find a specific visior                                         |
+| `* *`    | Airbnb host                                | filter visitors by property booked      | quickly find visitors who visited a specific property                  |
+| `* *`    | Airbnb host                                | filter visitors by date of stay         | quickly find vistors using specific time periods                       |
+| `* *`    | meticulous Airbnb host                     | filter visitors by tag                  | quickly find visitors using personalised categories                    |
+| `* *`    | Airbnb host                                | filter visitors by next upcoming booking| prepare for future bookings efficiently                                |
 | `* *`    | Airbnb host                                | save person details to a file           | backup my address book                                                 |
 | `* *`    | Airbnb host                                | load person details from a file         | restore my address book                                                |
 | `* *`    | Airbnb host                                | undo the last command                   | recover from mistakes                                                  |
-| `*`      | user with many persons in the address book | sort persons by name                    | locate a person easily                                                 |
+| `*`      | user with many visitors in the address book| sort visitors by name                   | find visitors efficiently                                              |
 
 *{More to be added}*
 
 ### Use cases
 
-(For all use cases below, the **System** is `InnSync` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is `InnSync` and the **Actor** is  `Airbnb Host`, unless specified otherwise)
 
-**Use case: UC01 - Add a person**
+**Use case: UC01 - Add a visitor**
 
 **MSS**
 
-1. User requests to add a person with specified details.
+1. Airbnb Host requests to add a visitor with specified details.
 2. InnSync validates the input.
-3. InnSync adds the person.
+3. InnSync adds the visitor.
 4. InnSync shows a success message.
 
-    Use case ends.
+  * Use case ends.
 
 **Extensions**
 
 * 2a. The input format is invalid.
 
-    * 2a1. InnSync shows an error message and informs the user of the proper format.
+    * 2a1. InnSync shows an error message and informs the Airbnb Host of the proper format.
+
+    * Use case resumes at step 1.
+    
+* 2b. The visitor already exists in InnSync.
+
+    * 2b1. InnSync shows an error message and informs the Airbnb Host that the visitor already exists.
 
     * Use case resumes at step 1.
 
-* 2b. The person already exists in InnSync.
-
-    * 2b1. InnSync shows an error message and informs the user that the person already exists.
-
-    * Use case resumes at step 1.
-
+* Guarantees: The contact is successfully created and stored in the system if the input data is valid. Duplicate contacts will not be created.
+  
 **Use case: UC02 - Delete a person**
 
 **MSS**
 
-1. User requests to delete a specific person.
-2. InnSync deletes the person.
-3. InnSync shows a success message.
+1. Airbnb Host requests to delete a specific visitor.
+2. InnSync deletes the visitor.
+3. InnSync displays a message for successful deletion of a visitor's contact.
 
     Use case ends.
 
@@ -351,26 +353,32 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. The given index is invalid.
 
-    * 1a1. InnSync shows an error message and informs the user that the index is invalid.
+    * 1a1. InnSync shows an error message and informs the Airbnb Host that the index is invalid.
 
     * Use case resumes at step 1.
+  
+*  Guarantees: The contact is successfully deleted from InnSync, and any persistent storage.
 
 **Use case: UC03 - Edit a person**
 
 **MSS**
 
-1.  User requests to list persons
-2.  InnSync shows a list of persons
-3.  User requests to edit a specific person in the list
-4.  InnSync shows the updated details of the person.
+1.  Airbnb Host requests to list visitors
+2.  InnSync shows a list of visitors
+3.  Airbnb Host requests to edit a specific visitor in the list
+4.  InnSync validates the entered detail 
+5.  InnSync updates the contact with the new provided detail
+6.  InnSync shows the updated details of the visitor.
+7.  InnSync updates local JSON file with updated contact detail
 
     Use case ends.
 
 **Extensions**
 
 * 2a. The list is empty.
-
-  Use case ends.
+   * 2a1. InnSync shows an error message that there are no saved contacts.
+  
+    Use case ends.
 
 * 3a. The given index is invalid.
 
@@ -378,9 +386,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-* 3b. The given tag is invalid.
+* 3b. Input argument(s) are invalid  tag.
 
     * 3b1. InnSync shows an error message.
+
+      Use case resumes at step 2.
+
+* 3c. The contact already exists in InnSync
+
+    * 3c1. InnSync shows an error message that the contact already exists.
 
       Use case resumes at step 2.
 
@@ -388,89 +402,148 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to find a person by name
-2.  InnSync shows the details of the person if found.
+1.  Airbnb Host requests to find a visitor by name
+2.  InnSync shows the details of the visitor if found.
 
     Use case ends.
 
 **Extensions**
 
 * 2a. The list is empty.
+  * 2a1. InnSync shows an error message that there are no contacts available
 
   Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. The given name is invalid.
 
     * 3a1. InnSync shows an error message.
 
-      Use case resumes at step 2.
-
-* 3b. The given date tag is invalid.
-
-    * 3b1. InnSync shows an error message.
-
-      Use case resumes at step 2.
-
-* 2a. The given name is invalid.
-
-    * 2a1. InnSync shows an error message.
-
       Use case ends.
+
 
 **Use case: UC05 - Add Tag to Contact**
 
 **MSS**
 
-1.  User requests to list persons.
-2.  InnSync shows a list of persons.
-3.  User requests to add a tag to a contact.
-4.  InnSync shows selected contact detail with tag.
+1.  Airbnb Host requests to list visitors
+2.  InnSync shows a list of visitors
+3.  Airbnb Host requests to add a tag to a specific visitor in the list
+4.  InnSync validates the entered tag (ie. missing input)
+5.  InnSync updates the contact with the new provided tag
+6.  InnSync shows the updated details of the visitor.
+7.  InnSync updates local JSON file with updated contact detail
 
     Use case ends.
 
-**Use case: UC06 - Add a Date Tag to Contact**
+**Extensions**
 
-**MSS**
+* 2a. The list is empty.
+   * 2a1. InnSync shows an error message that there are no saved contacts.
+  
+    Use case ends.
 
-1.  User requests to list persons.
-2.  InnSync shows a list of persons.
-3.  User requests to add a date tag to a contact.
-4.  InnSync shows selected contact detail with tag.
+* 3a. The given index is invalid.
 
+    * 3a1. InnSync shows an error message.
       Use case resumes at step 2.
 
-* 4a. The given arguments are invalid.
+* 4a. Input argument(s) are invalid.
 
     * 4a1. InnSync shows an error message.
-
       Use case resumes at step 2.
 
-**Use case: UC07 - List persons**
+**Use case: UC06 - Add Date Tag to Contact**
 
 **MSS**
 
-1. User requests to list all persons.
-2. InnSync displays a list of all persons.
+1.  Airbnb Host requests to list visitors
+2.  InnSync shows a list of visitors
+3.  Airbnb Host requests to add a date tag to a specific visitor in the list
+4.  InnSync validates the entered tag (ie. date time format, missing input)
+5.  InnSync updates the contact with the new provided date tag
+6.  InnSync shows the updated details of the visitor.
+7.  InnSync updates local JSON file with updated contact detail
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+   * 2a1. InnSync shows an error message that there are no saved contacts.
+  
+    Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. InnSync shows an error message.
+      Use case resumes at step 2.
+
+* 4a. Input argument(s) are invalid.
+
+    * 4a1. InnSync shows an error message.
+      Use case resumes at step 2.
+
+**Use case: UC07 - List visitors**
+
+**MSS**
+
+1. Airbnb Host requests to list all visitors.
+2. InnSync displays a list of all visitors.
 
 * 2a. The list is empty.
 
-    * 2a1. InnSync shows a message indicating that the list is empty.
+    * 2a1. InnSync shows a message that the list is empty.
+     Use case ends.
+  
+**Use case: UC08 - Help**
 
-    * Use case ends.
+**MSS**
+
+1. Airbnb Host wants to see the user guide
+2. InnSync displays a pop up with a hyperlink to the user guide 
+   Use case ends.
+
+**Use case: UC09 - Clear**
+
+**MSS**
+
+1. Airbnb Host remove all visitor contacts in the database 
+2. InnSync clears the database and updates local JSON file
+   Use case ends.
+  
+**Use case: UC09 - Exit**
+
+**MSS**
+
+1. Airbnb Host wants to exit the application
+2. InnSync is terminated 
+   Use case ends.
 
 ### Non-Functional Requirements
-
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+2.  Should be able to hold up to 1000 visitors without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-*{More to be added}*
+4.  The application size should not be more than 100mb to enable user to have easy installation on various devices.
+5.  The application should also be optimized such that its CPU and memory usage is low so that it can run on low end machine.
+6.  The system should be optimised for a single-user operation instead of multiple user operation.
+7.  The application should not crash during network failure and be reliable enough for continuous use case during operation hours.
+8.  The data used should be stored in structured and human-readable format like JSON.
+9.  Should be easily extendable so that new features can be added without having to refactor the entire project.
 
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Private contact detail**: A contact detail that is not meant to be shared with others
-
+* **Airbnb host**: An Airbnb host is an individual or business that list their property on the platform for short-term rentals. The host provide accommodations in the forms of aparments, houses or rooms for guests, typically for leisure activities.
+* **Visitor**:  Any individual who accesses an Airbnb property, including guests staying at the property, service providers performing work, or other authorized individuals. Visitors may include cleaners, maintenance personnel, property inspectors, delivery services, and other vendors.
+* **AB-3**: This represents the code name for the AddressBook Level 3 application, which was used as the base framework for student customised CLI management system to be developed.
+* **CLI (Command Line Interface)**: A text-based interface where users interact with the application with a keyboard typing commands instead of using a graphical user interface.
+* **JAR**: A packed file format used in Java that contains compiled java codes to enable easy distribution, portability and execution that includes libraries and resources to allow the program to function.
+* **JSON (JavaScript Object Notation)**: A lightweight data format widely used for storing and exchanging structured data in a human-readable, that is often used in databases and APIs.
+* **GUI (Graphical User Interface)**: A visual graphical interface that allows users to interact with the application using various graphical elements like search box, buttons, textbox and eta.
+* **Prerequisite**: A set of rules or instructions to be executed before prior to executing a particular task.
+* **MSS (Main Success Scenario)**:It describes the most straightforward interaction for a given use case, which assumes that nothing goes wrong.
+* **API (Application Programming Interface)**: A set of rules or protocols that govern the application to allow different software applications to work together by communication with each other.
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Instructions for manual testing**
@@ -503,9 +576,9 @@ testers are expected to do more *exploratory* testing.
 
 ### Deleting a person
 
-1. Deleting a person while all persons are being shown
+1. Deleting a person while all visitors are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   1. Prerequisites: List all visitors using the `list` command. Multiple visitors in the list.
 
    1. Test case: `delete 1`<br>
       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
