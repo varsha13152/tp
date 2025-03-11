@@ -27,23 +27,28 @@ public class PhoneTest {
         // invalid phone numbers
         assertFalse(Phone.isValidPhone("")); // empty string
         assertFalse(Phone.isValidPhone(" ")); // spaces only
-        assertFalse(Phone.isValidPhone("91")); // less than 3 numbers
+        assertFalse(Phone.isValidPhone("65 919283")); // doesnt start with +
+        assertFalse(Phone.isValidPhone("+65919283")); // no space between country code and phone
+        assertFalse(Phone.isValidPhone("+65 919283")); // less than 7 numbers
+        assertFalse(Phone.isValidPhone("+68435 919283")); // country code limit exceeded
         assertFalse(Phone.isValidPhone("phone")); // non-numeric
         assertFalse(Phone.isValidPhone("9011p041")); // alphabets within digits
-        assertFalse(Phone.isValidPhone("9312 1534")); // spaces within digits
 
         // valid phone numbers
-        assertTrue(Phone.isValidPhone("911")); // exactly 3 numbers
-        assertTrue(Phone.isValidPhone("93121534"));
-        assertTrue(Phone.isValidPhone("124293842033123")); // long phone numbers
+        assertTrue(Phone.isValidPhone("+010 9312 1534")); // spaces within digits
+        assertTrue(Phone.isValidPhone("+62 1234567")); // exactly 7 numbers
+        assertTrue(Phone.isValidPhone("+61 123456789012345")); // exactly 15 numbers
+        assertTrue(Phone.isValidPhone("+6 91318172")); // exactly 1 digit code
+        assertTrue(Phone.isValidPhone("+6192 9118172")); // exactly 4 digit code
+        assertTrue(Phone.isValidPhone("+65 9 3 1 2 1 5 3 4")); // can contain spaces between digits
     }
 
     @Test
     public void equals() {
-        Phone phone = new Phone("999");
+        Phone phone = new Phone("+65 9999 9999");
 
         // same values -> returns true
-        assertTrue(phone.equals(new Phone("999")));
+        assertTrue(phone.equals(new Phone("+65 9999 9999")));
 
         // same object -> returns true
         assertTrue(phone.equals(phone));
@@ -55,6 +60,6 @@ public class PhoneTest {
         assertFalse(phone.equals(5.0f));
 
         // different values -> returns false
-        assertFalse(phone.equals(new Phone("995")));
+        assertFalse(phone.equals(new Phone("+65 9999 9995")));
     }
 }
