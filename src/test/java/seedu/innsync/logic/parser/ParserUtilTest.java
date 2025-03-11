@@ -80,6 +80,13 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseName_validValueWithConsecutiveSpaces_returnsNormalizedName() throws ParseException {
+        String nameWithConsecutiveSpaces = "Alex   Yeoh";
+        Name expectedName = new Name("Alex Yeoh");
+        assertEquals(expectedName, ParserUtil.parseName(nameWithConsecutiveSpaces));
+    }
+
+    @Test
     public void parsePhone_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parsePhone((String) null));
     }
@@ -123,6 +130,13 @@ public class ParserUtilTest {
         String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
         Address expectedAddress = new Address(VALID_ADDRESS);
         assertEquals(expectedAddress, ParserUtil.parseAddress(addressWithWhitespace));
+    }
+
+    @Test
+    public void parseAddress_validValueWithConsecutiveSpaces_returnsNormalizedAddress() throws ParseException {
+        String addressWithConsecutiveSpaces = "Blk  123   Clementi    Road";
+        Address expectedAddress = new Address("Blk 123 Clementi Road");
+        assertEquals(expectedAddress, ParserUtil.parseAddress(addressWithConsecutiveSpaces));
     }
 
     @Test
