@@ -33,14 +33,14 @@ public class PhoneTest {
         assertFalse(Phone.isValidPhone("+68435 919283")); // country code limit exceeded
         assertFalse(Phone.isValidPhone("phone")); // non-numeric
         assertFalse(Phone.isValidPhone("9011p041")); // alphabets within digits
+        assertFalse(Phone.isValidPhone("+010 9312 1534")); // invalid country code
 
         // valid phone numbers
-        assertTrue(Phone.isValidPhone("+010 9312 1534")); // spaces within digits
-        assertTrue(Phone.isValidPhone("+62 1234567")); // exactly 7 numbers
-        assertTrue(Phone.isValidPhone("+61 123456789012345")); // exactly 15 numbers
-        assertTrue(Phone.isValidPhone("+6 91318172")); // exactly 1 digit code
-        assertTrue(Phone.isValidPhone("+6192 9118172")); // exactly 4 digit code
-        assertTrue(Phone.isValidPhone("+65 9 3 1 2 1 5 3 4")); // can contain spaces between digits
+        assertTrue(Phone.isValidPhone("+65 1234567")); // exactly 7 numbers
+        assertTrue(Phone.isValidPhone("+65 123456789012345")); // exactly 15 numbers
+        assertTrue(Phone.isValidPhone("+65 91318172")); // exactly 1 digit code
+        assertTrue(Phone.isValidPhone("+677 9118172")); // exactly 3 digit code
+        assertTrue(Phone.isValidPhone("+65 9 3 1 2 1 5 3 4")); // spaces between digits
     }
 
     @Test
