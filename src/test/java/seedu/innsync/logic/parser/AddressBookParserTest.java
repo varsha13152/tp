@@ -23,7 +23,6 @@ import seedu.innsync.logic.commands.FindCommand;
 import seedu.innsync.logic.commands.HelpCommand;
 import seedu.innsync.logic.commands.ListCommand;
 import seedu.innsync.logic.parser.exceptions.ParseException;
-import seedu.innsync.model.person.NameContainsKeywordsPredicate;
 import seedu.innsync.model.person.Person;
 import seedu.innsync.testutil.EditPersonDescriptorBuilder;
 import seedu.innsync.testutil.PersonBuilder;
@@ -73,7 +72,7 @@ public class AddressBookParserTest {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        assertEquals(new FindCommand(keywords, FindCommand.SearchType.NAME), command);
     }
 
     @Test
