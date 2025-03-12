@@ -76,6 +76,22 @@ public class EditCommandParser implements Parser<EditCommand> {
     }
 
     /**
+     * Parses {@code Collection<String> bookingTags} into a {@code Set<BookingTag>} if {@code bookingTags} is non-empty.
+     * If {@code bookingTags} contain only one element which is an empty string, it will be parsed into a
+     * {@code Set<BookingTag>} containing zero booking tags.
+     */
+    private Optional<Set<BookingTag>> parseBookingTagsForEdit(Collection<String> bookingTags) throws ParseException {
+        assert bookingTags != null;
+
+        if (bookingTags.isEmpty()) {
+            return Optional.empty();
+        }
+        Collection<String> bookingTagSet = bookingTags.size() == 1 && bookingTags.contains("")
+                ? Collections.emptySet() : bookingTags;
+        return Optional.of(ParserUtil.parseBookingTags(bookingTagSet));
+    }
+
+    /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
      * If {@code tags} contain only one element which is an empty string, it will be parsed into a
      * {@code Set<Tag>} containing zero tags.
@@ -89,16 +105,4 @@ public class EditCommandParser implements Parser<EditCommand> {
         Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
         return Optional.of(ParserUtil.parseTags(tagSet));
     }
-
-    private Optional<Set<BookingTag>> parseBookingTagsForEdit(Collection<String> bookingTags) throws ParseException {
-        assert bookingTags != null;
-
-        if (bookingTags.isEmpty()) {
-            return Optional.empty();
-        }
-        Collection<String> bookingTagSet = bookingTags.size() == 1 && bookingTags.contains("")
-                ? Collections.emptySet() : bookingTags;
-        return Optional.of(ParserUtil.parseBookingTags(bookingTagSet));
-    }
-
 }

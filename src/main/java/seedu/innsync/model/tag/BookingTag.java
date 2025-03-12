@@ -5,6 +5,7 @@ import static seedu.innsync.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents a Tag in the address book.
@@ -44,8 +45,17 @@ public class BookingTag {
     public static boolean isValidBookingTagName(String test) {
         if (test.matches(VALIDATION_REGEX)) {
             String[] split = test.split(" from/| to/");
-            LocalDateTime startDate = LocalDateTime.parse(split[1], DATE_TIME_FORMATTER);
-            LocalDateTime endDate = LocalDateTime.parse(split[2], DATE_TIME_FORMATTER);
+
+            LocalDateTime startDate;
+            LocalDateTime endDate;
+
+            try {
+                startDate = LocalDateTime.parse(split[1], DATE_TIME_FORMATTER);
+                endDate = LocalDateTime.parse(split[2], DATE_TIME_FORMATTER);
+            } catch (DateTimeParseException e) {
+                return false;
+            }
+
             return startDate.isBefore(endDate);
         } else {
             return false;
