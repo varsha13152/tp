@@ -52,6 +52,9 @@ public class FindCommand extends Command {
         return this.predicate;
     }
 
+    public SearchType getSearchType() {
+        return this.searchType;
+    }
 
     /**
      * Creates a predicate based on the search type and keywords
