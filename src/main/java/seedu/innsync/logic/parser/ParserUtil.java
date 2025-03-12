@@ -13,6 +13,7 @@ import seedu.innsync.model.person.Address;
 import seedu.innsync.model.person.Email;
 import seedu.innsync.model.person.Name;
 import seedu.innsync.model.person.Phone;
+import seedu.innsync.model.tag.DateTag;
 import seedu.innsync.model.tag.Tag;
 
 /**
