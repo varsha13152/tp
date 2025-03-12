@@ -105,8 +105,8 @@ public class ParserUtil {
     public static BookingTag parseBookingTag(String bookingTag) throws ParseException {
         requireNonNull(bookingTag);
         String trimmedBookingTag = bookingTag.trim();
-        if (!Tag.isValidTagName(trimmedBookingTag)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+        if (!BookingTag.isValidBookingTagName(trimmedBookingTag)) {
+            throw new ParseException(BookingTag.MESSAGE_CONSTRAINTS);
         }
         return new BookingTag(trimmedBookingTag);
     }
