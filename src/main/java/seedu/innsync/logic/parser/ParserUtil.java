@@ -13,6 +13,7 @@ import seedu.innsync.model.person.Address;
 import seedu.innsync.model.person.Email;
 import seedu.innsync.model.person.Name;
 import seedu.innsync.model.person.Phone;
+import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
 
 /**
@@ -37,17 +38,17 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String name} into a {@code Name}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Leading and trailing whitespaces will be trimmed, and consecutive spaces will be normalized.
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
     public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
-        String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
+        String normalizedName = StringUtil.normalizeWhitespace(name);
+        if (!Name.isValidName(normalizedName)) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
-        return new Name(trimmedName);
+        return new Name(normalizedName);
     }
 
     /**
@@ -67,17 +68,17 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String address} into an {@code Address}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Leading and trailing whitespaces will be trimmed, and consecutive spaces will be normalized.
      *
      * @throws ParseException if the given {@code address} is invalid.
      */
     public static Address parseAddress(String address) throws ParseException {
         requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
+        String normalizedAddress = StringUtil.normalizeWhitespace(address);
+        if (!Address.isValidAddress(normalizedAddress)) {
             throw new ParseException(Address.MESSAGE_CONSTRAINTS);
         }
-        return new Address(trimmedAddress);
+        return new Address(normalizedAddress);
     }
 
     /**
@@ -93,6 +94,33 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String bookingTag} into a {@code bookingTag}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code bookingTag} is invalid.
+     */
+    public static BookingTag parseBookingTag(String bookingTag) throws ParseException {
+        requireNonNull(bookingTag);
+        String trimmedBookingTag = bookingTag.trim();
+        if (!BookingTag.isValidBookingTagName(trimmedBookingTag)) {
+            throw new ParseException(BookingTag.MESSAGE_CONSTRAINTS);
+        }
+        return new BookingTag(trimmedBookingTag);
+    }
+
+    /**
+     * Parses {@code Collection<String> bookingTags} into a {@code Set<BookingTag>}.
+     */
+    public static Set<BookingTag> parseBookingTags(Collection<String> bookingTags) throws ParseException {
+        requireNonNull(bookingTags);
+        final Set<BookingTag> bookingTagSet = new HashSet<>();
+        for (String bookingTagName : bookingTags) {
+            bookingTagSet.add(parseBookingTag(bookingTagName));
+        }
+        return bookingTagSet;
     }
 
     /**
