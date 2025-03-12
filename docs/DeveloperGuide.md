@@ -330,7 +330,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2a1. InnSync shows an error message and informs the Airbnb Host of the proper format.
 
     * Use case resumes at step 1.
-
+    
 * 2b. The visitor already exists in InnSync.
 
     * 2b1. InnSync shows an error message and informs the Airbnb Host that the visitor already exists.
@@ -493,7 +493,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2a. The list is empty.
 
     * 2a1. InnSync shows a message that the list is empty.
-      * Use case ends.
+     Use case ends.
   
 **Use case: UC08 - Help**
 
@@ -509,15 +509,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1. Airbnb Host remove all visitor contacts in the database 
 2. InnSync clears the database and updates local JSON file
-   * Use case ends.
+   Use case ends.
   
 **Use case: UC09 - Exit**
 
 **MSS**
 
 1. Airbnb Host wants to exit the application
-2. InnSync is terminated
-   * Use case ends.
+2. InnSync is terminated 
+   Use case ends.
 
 ### Non-Functional Requirements
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
