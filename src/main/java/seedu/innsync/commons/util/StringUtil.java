@@ -65,4 +65,12 @@ public class StringUtil {
             return false;
         }
     }
+
+    /**
+     * Normalizes multiple consecutive whitespace characters into a single space.
+     * Leading and trailing whitespaces will also be trimmed.
+     */
+    public static String normalizeWhitespace(String str) {
+        return str.trim().replaceAll("\\s+", " ");
+    }
 }
