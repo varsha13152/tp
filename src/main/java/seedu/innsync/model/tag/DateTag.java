@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.innsync.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a Tag in the address book.
@@ -13,9 +14,11 @@ public class DateTag {
 
     public static final String MESSAGE_CONSTRAINTS = "Date tag names should in the format of YYYY-MM-DD";
     public static final String VALIDATION_REGEX = "\\d{4}-\\d{2}-\\d{2}";
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public final LocalDateTime dateTagDate;
     public final String dateTagName;
+
 
     /**
      * Constructs a {@code Tag}.
@@ -26,7 +29,7 @@ public class DateTag {
         requireNonNull(dateTagName);
         checkArgument(isValidDateTagName(dateTagName), MESSAGE_CONSTRAINTS);
         this.dateTagName = dateTagName;
-        this.dateTagDate = LocalDateTime.parse(dateTagName);
+        this.dateTagDate = LocalDateTime.parse(dateTagName, DATE_TIME_FORMATTER);
     }
 
     /**
