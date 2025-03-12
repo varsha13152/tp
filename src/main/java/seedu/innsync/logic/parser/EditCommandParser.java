@@ -3,6 +3,7 @@ package seedu.innsync.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.innsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_BOOKINGTAG;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -35,7 +36,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(
                     args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
-                    PREFIX_ADDRESS, PREFIX_DATETAG, PREFIX_TAG);
+                    PREFIX_ADDRESS, PREFIX_BOOKINGTAG, PREFIX_TAG);
 
         Index index;
 
@@ -62,7 +63,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
 
-        parseBookingTagsForEdit(argMultimap.getAllValues(PREFIX_DATETAG))
+        parseBookingTagsForEdit(argMultimap.getAllValues(PREFIX_BOOKINGTAG))
                 .ifPresent(editPersonDescriptor::setBookingTags);
 
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
