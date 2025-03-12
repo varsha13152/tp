@@ -50,6 +50,15 @@ public class SampleDataUtil {
     }
 
     /**
+     * Returns a date tag set containing the list of strings given.
+     */
+    public static Set<DateTag> getDateTagSet(String... strings) {
+        return Arrays.stream(strings)
+                .map(DateTag::new)
+                .collect(Collectors.toSet());
+    }
+
+    /**
      * Returns a tag set containing the list of strings given.
      */
     public static Set<Tag> getTagSet(String... strings) {
@@ -57,5 +66,4 @@ public class SampleDataUtil {
                 .map(Tag::new)
                 .collect(Collectors.toSet());
     }
-
 }
