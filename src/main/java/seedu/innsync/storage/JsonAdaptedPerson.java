@@ -15,7 +15,7 @@ import seedu.innsync.model.person.Email;
 import seedu.innsync.model.person.Name;
 import seedu.innsync.model.person.Person;
 import seedu.innsync.model.person.Phone;
-import seedu.innsync.model.tag.DateTag;
+import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
 
 /**
@@ -29,6 +29,7 @@ class JsonAdaptedPerson {
     private final String phone;
     private final String email;
     private final String address;
+    private final List<JsonAdaptedBookingTag> bookingTags = new ArrayList<>();
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
@@ -36,12 +37,16 @@ class JsonAdaptedPerson {
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+                             @JsonProperty("email") String email, @JsonProperty("address") String address,
+                             @JsonProperty("bookingTags") List<JsonAdaptedBookingTag> bookingTags,
+                             @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        if (bookingTags != null) {
+            this.bookingTags.addAll(bookingTags);
+        }
         if (tags != null) {
             this.tags.addAll(tags);
         }
@@ -55,6 +60,9 @@ class JsonAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+        bookingTags.addAll(source.getBookingTags().stream()
+                .map(JsonAdaptedBookingTag::new)
+                .collect(Collectors.toList()));
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -69,6 +77,10 @@ class JsonAdaptedPerson {
         final List<Tag> personTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tags) {
             personTags.add(tag.toModelType());
+        }
+        final List<BookingTag> personBookingTags = new ArrayList<>();
+        for (JsonAdaptedBookingTag bookingTag : bookingTags) {
+            personBookingTags.add(bookingTag.toModelType());
         }
 
         if (name == null) {
@@ -103,8 +115,10 @@ class JsonAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
+        final Set<BookingTag> modelBookingTags = new HashSet<>(personBookingTags);
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelBookingTags, modelTags);
     }
 
 }

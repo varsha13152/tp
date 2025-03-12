@@ -26,7 +26,7 @@ import seedu.innsync.model.person.Email;
 import seedu.innsync.model.person.Name;
 import seedu.innsync.model.person.Person;
 import seedu.innsync.model.person.Phone;
-import seedu.innsync.model.tag.DateTag;
+import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
 
 /**
@@ -100,9 +100,11 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
+        Set<BookingTag> updatedBookingTags =
+            editPersonDescriptor.getBookingTags().orElse(personToEdit.getBookingTags());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedBookingTags, updatedTags);
     }
 
     @Override
@@ -138,6 +140,7 @@ public class EditCommand extends Command {
         private Phone phone;
         private Email email;
         private Address address;
+        private Set<BookingTag> bookingTags;
         private Set<Tag> tags;
 
         public EditPersonDescriptor() {}
@@ -151,6 +154,7 @@ public class EditCommand extends Command {
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
+            setBookingTags(toCopy.bookingTags);
             setTags(toCopy.tags);
         }
 
@@ -158,7 +162,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, bookingTags, tags);
         }
 
         public void setName(Name name) {
@@ -191,6 +195,14 @@ public class EditCommand extends Command {
 
         public Optional<Address> getAddress() {
             return Optional.ofNullable(address);
+        }
+
+        public void setBookingTags(Set<BookingTag> bookingTags) {
+            this.bookingTags = (bookingTags != null) ? new HashSet<>(bookingTags) : null;
+        }
+
+        public Optional<Set<BookingTag>> getBookingTags() {
+            return (bookingTags != null) ? Optional.of(Collections.unmodifiableSet(bookingTags)) : Optional.empty();
         }
 
         /**
@@ -226,6 +238,7 @@ public class EditCommand extends Command {
                     && Objects.equals(phone, otherEditPersonDescriptor.phone)
                     && Objects.equals(email, otherEditPersonDescriptor.email)
                     && Objects.equals(address, otherEditPersonDescriptor.address)
+                    && Objects.equals(bookingTags, otherEditPersonDescriptor.bookingTags)
                     && Objects.equals(tags, otherEditPersonDescriptor.tags);
         }
 
@@ -236,6 +249,7 @@ public class EditCommand extends Command {
                     .add("phone", phone)
                     .add("email", email)
                     .add("address", address)
+                    .add("bookingTags", bookingTags)
                     .add("tags", tags)
                     .toString();
         }

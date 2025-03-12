@@ -17,6 +17,7 @@ import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.logic.commands.EditCommand;
 import seedu.innsync.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.innsync.logic.parser.exceptions.ParseException;
+import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
 
 /**
@@ -60,6 +61,10 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
+
+        parseBookingTagsForEdit(argMultimap.getAllValues(PREFIX_DATETAG))
+                .ifPresent(editPersonDescriptor::setBookingTags);
+
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
@@ -84,15 +89,15 @@ public class EditCommandParser implements Parser<EditCommand> {
         return Optional.of(ParserUtil.parseTags(tagSet));
     }
 
-    private Optional<Set<DateTag>> parseDateTagsForEdit(Collection<String> dateTags) throws ParseException {
-        assert dateTags != null;
+    private Optional<Set<BookingTag>> parseBookingTagsForEdit(Collection<String> bookingTags) throws ParseException {
+        assert bookingTags != null;
 
-        if (dateTags.isEmpty()) {
+        if (bookingTags.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> dateTagSet = dateTags.size() == 1 && dateTags.contains("")
-                ? Collections.emptySet() : dateTags;
-        return Optional.of(ParserUtil.parseDateTags(dateTagSet));
+        Collection<String> bookingTagSet = bookingTags.size() == 1 && bookingTags.contains("")
+                ? Collections.emptySet() : bookingTags;
+        return Optional.of(ParserUtil.parseBookingTags(bookingTagSet));
     }
 
 }

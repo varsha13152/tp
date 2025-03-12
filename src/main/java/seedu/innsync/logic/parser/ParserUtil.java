@@ -13,7 +13,7 @@ import seedu.innsync.model.person.Address;
 import seedu.innsync.model.person.Email;
 import seedu.innsync.model.person.Name;
 import seedu.innsync.model.person.Phone;
-import seedu.innsync.model.tag.DateTag;
+import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
 
 /**
@@ -94,6 +94,33 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String bookingTag} into a {@code bookingTag}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code bookingTag} is invalid.
+     */
+    public static BookingTag parseBookingTag(String bookingTag) throws ParseException {
+        requireNonNull(bookingTag);
+        String trimmedBookingTag = bookingTag.trim();
+        if (!Tag.isValidTagName(trimmedBookingTag)) {
+            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+        }
+        return new BookingTag(trimmedBookingTag);
+    }
+
+    /**
+     * Parses {@code Collection<String> bookingTags} into a {@code Set<BookingTag>}.
+     */
+    public static Set<BookingTag> parseBookingTags(Collection<String> bookingTags) throws ParseException {
+        requireNonNull(bookingTags);
+        final Set<BookingTag> bookingTagSet = new HashSet<>();
+        for (String bookingTagName : bookingTags) {
+            bookingTagSet.add(parseBookingTag(bookingTagName));
+        }
+        return bookingTagSet;
     }
 
     /**

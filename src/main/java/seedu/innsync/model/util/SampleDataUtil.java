@@ -11,13 +11,16 @@ import seedu.innsync.model.person.Email;
 import seedu.innsync.model.person.Name;
 import seedu.innsync.model.person.Person;
 import seedu.innsync.model.person.Phone;
-import seedu.innsync.model.tag.DateTag;
+import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
+
+    public static final Set<BookingTag> EMPTY_DATETAGS = getBookingTagSet();
+
     public static Person[] getSamplePersons() {
         return new Person[] {
             new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
@@ -52,9 +55,9 @@ public class SampleDataUtil {
     /**
      * Returns a date tag set containing the list of strings given.
      */
-    public static Set<DateTag> getDateTagSet(String... strings) {
+    public static Set<BookingTag> getBookingTagSet(String... strings) {
         return Arrays.stream(strings)
-                .map(DateTag::new)
+                .map(BookingTag::new)
                 .collect(Collectors.toSet());
     }
 

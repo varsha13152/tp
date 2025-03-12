@@ -4,34 +4,34 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.innsync.commons.exceptions.IllegalValueException;
-import seedu.innsync.model.tag.DateTag;
+import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
 
 /**
  * Jackson-friendly version of {@link Tag}.
  */
-class JsonAdaptedDateTag {
+class JsonAdaptedBookingTag {
 
-    private final String dateTagName;
+    private final String bookingTagName;
 
     /**
      * Constructs a {@code JsonAdaptedTag} with the given {@code tagName}.
      */
     @JsonCreator
-    public JsonAdaptedDateTag(String dateTagName) {
-        this.dateTagName = dateTagName;
+    public JsonAdaptedBookingTag(String bookingTagName) {
+        this.bookingTagName = bookingTagName;
     }
 
     /**
      * Converts a given {@code Tag} into this class for Jackson use.
      */
-    public JsonAdaptedDateTag(DateTag source) {
-        dateTagName = source.dateTagName;
+    public JsonAdaptedBookingTag(BookingTag source) {
+        bookingTagName = source.bookingTagName;
     }
 
     @JsonValue
-    public String getDateTagName() {
-        return dateTagName;
+    public String getBookingTagName() {
+        return bookingTagName;
     }
 
     /**
@@ -39,11 +39,11 @@ class JsonAdaptedDateTag {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
      */
-    public DateTag toModelType() throws IllegalValueException {
-        if (!Tag.isValidTagName(dateTagName)) {
+    public BookingTag toModelType() throws IllegalValueException {
+        if (!Tag.isValidTagName(bookingTagName)) {
             throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);
         }
-        return new DateTag(dateTagName);
+        return new BookingTag(bookingTagName);
     }
 
 }

@@ -8,34 +8,34 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a Tag in the address book.
- * Guarantees: immutable; name is valid as declared in {@link #isValidDateTagName(String)}
+ * Guarantees: immutable; name is valid as declared in {@link #isValidBookingTagName(String)}
  */
-public class DateTag {
+public class BookingTag {
 
     public static final String MESSAGE_CONSTRAINTS = "Date tag names should in the format of YYYY-MM-DD";
     public static final String VALIDATION_REGEX = "\\d{4}-\\d{2}-\\d{2}";
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    public final LocalDateTime dateTagDate;
-    public final String dateTagName;
+    public final LocalDateTime bookingTagDate;
+    public final String bookingTagName;
 
 
     /**
      * Constructs a {@code Tag}.
      *
-     * @param dateTagName A valid tag name.
+     * @param bookingTagName A valid tag name.
      */
-    public DateTag(String dateTagName) {
-        requireNonNull(dateTagName);
-        checkArgument(isValidDateTagName(dateTagName), MESSAGE_CONSTRAINTS);
-        this.dateTagName = dateTagName;
-        this.dateTagDate = LocalDateTime.parse(dateTagName, DATE_TIME_FORMATTER);
+    public BookingTag(String bookingTagName) {
+        requireNonNull(bookingTagName);
+        checkArgument(isValidBookingTagName(bookingTagName), MESSAGE_CONSTRAINTS);
+        this.bookingTagName = bookingTagName;
+        this.bookingTagDate = LocalDateTime.parse(bookingTagName, DATE_TIME_FORMATTER);
     }
 
     /**
      * Returns true if a given string is a valid tag name.
      */
-    public static boolean isValidDateTagName(String test) {
+    public static boolean isValidBookingTagName(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -50,20 +50,20 @@ public class DateTag {
             return false;
         }
 
-        DateTag otherDateTag = (DateTag) other;
-        return dateTagName.equals(otherDateTag.dateTagName);
+        BookingTag otherBookingTag = (BookingTag) other;
+        return bookingTagName.equals(otherBookingTag.bookingTagName);
     }
 
     @Override
     public int hashCode() {
-        return dateTagName.hashCode();
+        return bookingTagName.hashCode();
     }
 
     /**
      * Format state as text for viewing.
      */
     public String toString() {
-        return '[' + dateTagName + ']';
+        return '[' + bookingTagName + ']';
     }
 
 }
