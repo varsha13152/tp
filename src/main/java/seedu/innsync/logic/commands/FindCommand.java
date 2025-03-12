@@ -65,22 +65,22 @@ public class FindCommand extends Command {
      */
     private boolean matchField(Person person, String keyword, SearchType searchType) {
         switch (searchType) {
-            case NAME:
-                return person.getName().fullName.toLowerCase().contains(keyword);
-            case PHONE:
-                return person.getPhone() != null &&
-                        person.getPhone().value.toLowerCase().contains(keyword);
-            case EMAIL:
-                return person.getEmail() != null &&
-                        person.getEmail().value.toLowerCase().contains(keyword);
-            case ADDRESS:
-                return person.getAddress() != null &&
-                        person.getAddress().value.toLowerCase().contains(keyword);
-            case TAG:
-                return person.getTags().stream()
-                        .anyMatch(tag -> tag.tagName.toLowerCase().contains(keyword));
-            default:
-                return false;
+        case NAME:
+            return person.getName().fullName.toLowerCase().contains(keyword);
+        case PHONE:
+            return person.getPhone() != null
+                    && person.getPhone().value.toLowerCase().contains(keyword);
+        case EMAIL:
+            return person.getEmail() != null
+                    && person.getEmail().value.toLowerCase().contains(keyword);
+        case ADDRESS:
+            return person.getAddress() != null
+                    && person.getAddress().value.toLowerCase().contains(keyword);
+        case TAG:
+            return person.getTags().stream()
+                    .anyMatch(tag -> tag.tagName.toLowerCase().contains(keyword));
+        default:
+            return false;
         }
     }
 
@@ -103,8 +103,8 @@ public class FindCommand extends Command {
         }
 
         FindCommand otherFindCommand = (FindCommand) other;
-        return this.predicate.equals(otherFindCommand.predicate) &&
-                this.searchType == otherFindCommand.searchType;
+        return this.predicate.equals(otherFindCommand.predicate)
+                && this.searchType == otherFindCommand.searchType;
     }
 
     @Override

@@ -94,18 +94,18 @@ public class FindCommandParser implements Parser<FindCommand> {
      */
     private boolean isValidKeyword(String keyword, FindCommand.SearchType searchType) {
         switch (searchType) {
-            case NAME:
-                return NAME_VALIDATION_REGEX.matcher(keyword).matches();
-            case PHONE:
-                return PHONE_VALIDATION_REGEX.matcher(keyword).matches();
-            case EMAIL:
-                return EMAIL_VALIDATION_REGEX.matcher(keyword).matches();
-            case ADDRESS:
-                return ADDRESS_VALIDATION_REGEX.matcher(keyword).matches();
-            case TAG:
-                return TAG_VALIDATION_REGEX.matcher(keyword).matches();
-            default:
-                return false;
+        case NAME:
+            return NAME_VALIDATION_REGEX.matcher(keyword).matches();
+        case PHONE:
+            return PHONE_VALIDATION_REGEX.matcher(keyword).matches();
+        case EMAIL:
+            return EMAIL_VALIDATION_REGEX.matcher(keyword).matches();
+        case ADDRESS:
+            return ADDRESS_VALIDATION_REGEX.matcher(keyword).matches();
+        case TAG:
+            return TAG_VALIDATION_REGEX.matcher(keyword).matches();
+        default:
+            return false;
         }
     }
 
@@ -115,27 +115,27 @@ public class FindCommandParser implements Parser<FindCommand> {
     private ParseException createValidationException(FindCommand.SearchType searchType, List<String> invalidKeywords) {
         String errorMessage;
         switch (searchType) {
-            case NAME:
-                errorMessage = "Invalid name format. Names should only contain alphabets, spaces, apostrophes," +
-                        " and/or hyphens.";
-                break;
-            case PHONE:
-                errorMessage = "Invalid phone format. Phone should only contain digits.";
+        case NAME:
+            errorMessage = "Invalid name format. Names should only contain alphabets, spaces, apostrophes,"
+                    + " and/or hyphens.";
+            break;
+        case PHONE:
+            errorMessage = "Invalid phone format. Phone should only contain digits.";
 
-                break;
-            case EMAIL:
-                errorMessage = "Invalid email format. Email should only contain alphanumeric characters, dots, '@',"
-                        +  " underscores, and hyphens.";
-                break;
-            case ADDRESS:
-                errorMessage = "Invalid address format. Address should only contain alphanumeric characters, spaces,"
-                        + " hyphens, and hashes.";
-                break;
-            case TAG:
-                errorMessage = "Invalid tag format. Tags should only contain alphanumeric characters.";
-                break;
-            default:
-                errorMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
+            break;
+        case EMAIL:
+            errorMessage = "Invalid email format. Email should only contain alphanumeric characters, dots, '@',"
+                    + " underscores, and hyphens.";
+            break;
+        case ADDRESS:
+            errorMessage = "Invalid address format. Address should only contain alphanumeric characters, spaces,"
+                    + " hyphens, and hashes.";
+            break;
+        case TAG:
+            errorMessage = "Invalid tag format. Tags should only contain alphanumeric characters.";
+            break;
+        default:
+            errorMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
         }
 
         return new ParseException(errorMessage + " Invalid keywords: " + String.join(", ", invalidKeywords));
