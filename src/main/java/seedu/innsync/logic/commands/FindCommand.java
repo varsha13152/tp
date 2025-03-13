@@ -20,7 +20,7 @@ public class FindCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds persons by a specific field. \n"
             + "Parameters: \n"
-            + "  By Name: n/KEYWORD [MORE_KEYWORDS]...\n"
+            + "  By Name: KEYWORD [MORE_KEYWORDS]... OR n/KEYWORD [MORE_KEYWORDS]...\n"
             + "  By Phone: p/KEYWORD [MORE_KEYWORDS]...\n"
             + "  By Email: e/KEYWORD [MORE_KEYWORDS]...\n"
             + "  By Address: a/KEYWORD [MORE_KEYWORDS]...\n"
