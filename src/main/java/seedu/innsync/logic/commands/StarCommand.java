@@ -5,6 +5,7 @@ import static seedu.innsync.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import javafx.collections.ObservableList;
 import seedu.innsync.commons.core.index.Index;
+import seedu.innsync.commons.util.ToStringBuilder;
 import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.Model;
@@ -20,8 +21,8 @@ public class StarCommand extends Command {
             + ": Stars the contact identified by the index number used in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
-    public static final String MESSAGE_SUCCESS = "Contact '%s' has been successfully starred!";
-    public static final String MESSAGE_FAILURE = "Contact '%s' is already starred!";
+    public static final String MESSAGE_SUCCESS = "Contact has been successfully starred!: %s";
+    public static final String MESSAGE_FAILURE = "Contact was already starred!: %s";
 
     private final Index index;
 
@@ -44,12 +45,12 @@ public class StarCommand extends Command {
 
         Person person = lastShownList.get(this.index.getZeroBased());
         if (person.getStarred()) {
-            throw new CommandException(String.format(MESSAGE_FAILURE, person.getName()));
+            throw new CommandException(String.format(MESSAGE_FAILURE, Messages.format(person)));
         }
         Person starredPerson = getStarredPerson(person);
         model.setPerson(person, starredPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, person.getName()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(starredPerson)));
     }
 
     private Person getStarredPerson(Person personToCopy) {
@@ -60,5 +61,27 @@ public class StarCommand extends Command {
                 personToCopy.getBookingTags(),
                 personToCopy.getTags(),
                 true);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof StarCommand)) {
+            return false;
+        }
+
+        StarCommand otherStarCommand = (StarCommand) other;
+        return index.equals(otherStarCommand.index);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("index", index)
+                .toString();
     }
 }
