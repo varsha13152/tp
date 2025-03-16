@@ -29,6 +29,7 @@ class JsonAdaptedPerson {
     private final String phone;
     private final String email;
     private final String address;
+    private final boolean starred;
     private final List<JsonAdaptedBookingTag> bookingTags = new ArrayList<>();
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
@@ -39,11 +40,13 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
                              @JsonProperty("email") String email, @JsonProperty("address") String address,
                              @JsonProperty("bookingTags") List<JsonAdaptedBookingTag> bookingTags,
-                             @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+                             @JsonProperty("tags") List<JsonAdaptedTag> tags,
+                             @JsonProperty("starred") boolean starred) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.starred = starred;
         if (bookingTags != null) {
             this.bookingTags.addAll(bookingTags);
         }
@@ -60,6 +63,7 @@ class JsonAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+        starred = source.getStarred();
         bookingTags.addAll(source.getBookingTags().stream()
                 .map(JsonAdaptedBookingTag::new)
                 .collect(Collectors.toList()));
@@ -118,7 +122,9 @@ class JsonAdaptedPerson {
         final Set<BookingTag> modelBookingTags = new HashSet<>(personBookingTags);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelBookingTags, modelTags);
+
+        final boolean modelStarred = starred;
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelBookingTags, modelTags, modelStarred);
     }
 
 }
