@@ -2,6 +2,9 @@ package seedu.innsync.logic.parser;
 
 import static seedu.innsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,6 +29,9 @@ public class FindCommandParser implements Parser<FindCommand> {
             Pattern.compile("^[a-zA-Z0-9\\s\\-#]+$");
     private static final Pattern TAG_VALIDATION_REGEX =
             Pattern.compile("^[a-zA-Z0-9]+$");
+    private static final Pattern BOOKING_VALIDATION_REGEX =
+            Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
@@ -49,6 +55,8 @@ public class FindCommandParser implements Parser<FindCommand> {
             return parseFieldSearch(trimmedArgs, FindCommand.SearchType.ADDRESS);
         } else if (trimmedArgs.startsWith("t/")) {
             return parseFieldSearch(trimmedArgs, FindCommand.SearchType.TAG);
+        } else if (trimmedArgs.startsWith("b/")) {
+            return parseFieldSearch(trimmedArgs, FindCommand.SearchType.BOOKING);
         }
 
         List<String> keywords = Arrays.asList(trimmedArgs.split("\\s+"));
@@ -94,18 +102,29 @@ public class FindCommandParser implements Parser<FindCommand> {
      */
     private boolean isValidKeyword(String keyword, FindCommand.SearchType searchType) {
         switch (searchType) {
-        case NAME:
-            return NAME_VALIDATION_REGEX.matcher(keyword).matches();
-        case PHONE:
-            return PHONE_VALIDATION_REGEX.matcher(keyword).matches();
-        case EMAIL:
-            return EMAIL_VALIDATION_REGEX.matcher(keyword).matches();
-        case ADDRESS:
-            return ADDRESS_VALIDATION_REGEX.matcher(keyword).matches();
-        case TAG:
-            return TAG_VALIDATION_REGEX.matcher(keyword).matches();
-        default:
-            return false;
+            case NAME:
+                return NAME_VALIDATION_REGEX.matcher(keyword).matches();
+            case PHONE:
+                return PHONE_VALIDATION_REGEX.matcher(keyword).matches();
+            case EMAIL:
+                return EMAIL_VALIDATION_REGEX.matcher(keyword).matches();
+            case ADDRESS:
+                return ADDRESS_VALIDATION_REGEX.matcher(keyword).matches();
+            case TAG:
+                return TAG_VALIDATION_REGEX.matcher(keyword).matches();
+            case BOOKING:
+                if (BOOKING_VALIDATION_REGEX.matcher(keyword).matches()) {
+                    try {
+                        // Validate date format
+                        LocalDate.parse(keyword, DATE_FORMAT);
+                        return true;
+                    } catch (DateTimeParseException e) {
+                        return false;
+                    }
+                }
+                return false;
+            default:
+                return false;
         }
     }
 
@@ -115,27 +134,29 @@ public class FindCommandParser implements Parser<FindCommand> {
     private ParseException createValidationException(FindCommand.SearchType searchType, List<String> invalidKeywords) {
         String errorMessage;
         switch (searchType) {
-        case NAME:
-            errorMessage = "Invalid name format. Names should only contain alphabets, spaces, apostrophes,"
-                    + " and/or hyphens.";
-            break;
-        case PHONE:
-            errorMessage = "Invalid phone format. Phone should only contain digits.";
-
-            break;
-        case EMAIL:
-            errorMessage = "Invalid email format. Email should only contain alphanumeric characters, dots, '@',"
-                    + " underscores, and hyphens.";
-            break;
-        case ADDRESS:
-            errorMessage = "Invalid address format. Address should only contain alphanumeric characters, spaces,"
-                    + " hyphens, and hashes.";
-            break;
-        case TAG:
-            errorMessage = "Invalid tag format. Tags should only contain alphanumeric characters.";
-            break;
-        default:
-            errorMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
+            case NAME:
+                errorMessage = "Invalid name format. Names should only contain alphabets, spaces, apostrophes,"
+                        + " and/or hyphens.";
+                break;
+            case PHONE:
+                errorMessage = "Invalid phone format. Phone should only contain digits.";
+                break;
+            case EMAIL:
+                errorMessage = "Invalid email format. Email should only contain alphanumeric characters, dots, '@',"
+                        + " underscores, and hyphens.";
+                break;
+            case ADDRESS:
+                errorMessage = "Invalid address format. Address should only contain alphanumeric characters, spaces,"
+                        + " hyphens, and hashes.";
+                break;
+            case TAG:
+                errorMessage = "Invalid tag format. Tags should only contain alphanumeric characters.";
+                break;
+            case BOOKING:
+                errorMessage = "Invalid date format. Dates should be in the format yyyy-MM-dd.";
+                break;
+            default:
+                errorMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
         }
 
         return new ParseException(errorMessage + " Invalid keywords: " + String.join(", ", invalidKeywords));
