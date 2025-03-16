@@ -330,7 +330,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2a1. InnSync shows an error message and informs the Airbnb Host of the proper format.
 
     * Use case resumes at step 1.
-    
+
 * 2b. The visitor already exists in InnSync.
 
     * 2b1. InnSync shows an error message and informs the Airbnb Host that the visitor already exists.
@@ -338,7 +338,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * Use case resumes at step 1.
 
 * Guarantees: The contact is successfully created and stored in the system if the input data is valid. Duplicate contacts will not be created.
-  
+
 **Use case: UC02 - Delete a person**
 
 **MSS**
@@ -356,7 +356,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 1a1. InnSync shows an error message and informs the Airbnb Host that the index is invalid.
 
     * Use case resumes at step 1.
-  
+
 *  Guarantees: The contact is successfully deleted from InnSync, and any persistent storage.
 
 **Use case: UC03 - Edit a person**
@@ -366,7 +366,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1.  Airbnb Host requests to list visitors
 2.  InnSync shows a list of visitors
 3.  Airbnb Host requests to edit a specific visitor in the list
-4.  InnSync validates the entered detail 
+4.  InnSync validates the entered detail
 5.  InnSync updates the contact with the new provided detail
 6.  InnSync shows the updated details of the visitor.
 7.  InnSync updates local JSON file with updated contact detail
@@ -377,7 +377,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2a. The list is empty.
    * 2a1. InnSync shows an error message that there are no saved contacts.
-  
+
     Use case ends.
 
 * 3a. The given index is invalid.
@@ -439,7 +439,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2a. The list is empty.
    * 2a1. InnSync shows an error message that there are no saved contacts.
-  
+
     Use case ends.
 
 * 3a. The given index is invalid.
@@ -470,7 +470,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2a. The list is empty.
    * 2a1. InnSync shows an error message that there are no saved contacts.
-  
+
     Use case ends.
 
 * 3a. The given index is invalid.
@@ -494,29 +494,29 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     * 2a1. InnSync shows a message that the list is empty.
      Use case ends.
-  
+
 **Use case: UC08 - Help**
 
 **MSS**
 
 1. Airbnb Host wants to see the user guide
-2. InnSync displays a pop up with a hyperlink to the user guide 
+2. InnSync displays a pop up with a hyperlink to the user guide
    Use case ends.
 
 **Use case: UC09 - Clear**
 
 **MSS**
 
-1. Airbnb Host remove all visitor contacts in the database 
+1. Airbnb Host remove all visitor contacts in the database
 2. InnSync clears the database and updates local JSON file
    Use case ends.
-  
+
 **Use case: UC09 - Exit**
 
 **MSS**
 
 1. Airbnb Host wants to exit the application
-2. InnSync is terminated 
+2. InnSync is terminated
    Use case ends.
 
 ### Non-Functional Requirements
