@@ -179,7 +179,8 @@ public class FindCommandParserTest {
     @Test
     public void parse_invalidTagFormat_throwsParseException() {
         assertParseFailure(parser, "t/invalid-tag",
-                "Invalid tag format. Tags should only contain alphanumeric characters. Invalid keywords: invalid-tag");
+                "Invalid tag format. Tags should only contain alphanumeric characters."
+                        + " Invalid keywords: invalid-tag");
     }
 
     @Test
@@ -195,6 +196,7 @@ public class FindCommandParserTest {
 
         // Tag with valid and invalid keywords
         assertParseFailure(parser, "t/friends family-members",
-                "Invalid tag format. Tags should only contain alphanumeric characters. Invalid keywords: family-members");
+                "Invalid tag format. Tags should only contain alphanumeric characters. "
+                        + "Invalid keywords: family-members");
     }
 }
