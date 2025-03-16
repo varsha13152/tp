@@ -2,7 +2,6 @@ package seedu.innsync.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -13,7 +12,7 @@ import seedu.innsync.model.person.Person;
 
 /**
  * Finds and lists persons in address book whose details match the given keywords.
- * Supports searching by one field at a time: name, phone, email, address, tags, or booking tags.
+ * Supports searching by one field at a time: name, phone, email, address, or tags.
  */
 public class FindCommand extends Command {
 
@@ -26,12 +25,10 @@ public class FindCommand extends Command {
             + "  By Email: e/KEYWORD [MORE_KEYWORDS]...\n"
             + "  By Address: a/KEYWORD [MORE_KEYWORDS]...\n"
             + "  By Tag: t/KEYWORD [MORE_KEYWORDS]...\n"
-            + "  By Booking: b/DATE [MORE_DATES]...\n"
             + "Examples: \n"
             + "  " + COMMAND_WORD + " n/John\n"
             + "  " + COMMAND_WORD + " p/91234567\n"
-            + "  " + COMMAND_WORD + " t/friend\n"
-            + "  " + COMMAND_WORD + " b/2024-10-15";
+            + "  " + COMMAND_WORD + " t/friend";
 
     private final Predicate<Person> predicate;
     private final SearchType searchType;
@@ -40,7 +37,7 @@ public class FindCommand extends Command {
      * Enum to represent the type of search being performed
      */
     public enum SearchType {
-        NAME, PHONE, EMAIL, ADDRESS, TAG, BOOKING
+        NAME, PHONE, EMAIL, ADDRESS, TAG
     }
 
     /**
@@ -90,17 +87,6 @@ public class FindCommand extends Command {
         case TAG:
             return person.getTags().stream()
                     .anyMatch(tag -> tag.tagName.toLowerCase().contains(keyword));
-        case BOOKING:
-            return person.getBookingTags().stream()
-                    .anyMatch(bookingTag -> {
-                        // Check if the date falls within the booking period
-                        try {
-                            LocalDateTime date = LocalDateTime.parse(keyword + "T00:00:00");
-                            return !date.isBefore(bookingTag.startDate) && !date.isAfter(bookingTag.endDate);
-                        } catch (Exception e) {
-                            return false;
-                        }
-                    });
         default:
             return false;
         }
