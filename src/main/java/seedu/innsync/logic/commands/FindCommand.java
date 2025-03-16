@@ -76,33 +76,33 @@ public class FindCommand extends Command {
      */
     private boolean matchField(Person person, String keyword, SearchType searchType) {
         switch (searchType) {
-            case NAME:
-                return person.getName().fullName.toLowerCase().contains(keyword);
-            case PHONE:
-                return person.getPhone() != null
-                        && person.getPhone().value.toLowerCase().contains(keyword);
-            case EMAIL:
-                return person.getEmail() != null
-                        && person.getEmail().value.toLowerCase().contains(keyword);
-            case ADDRESS:
-                return person.getAddress() != null
-                        && person.getAddress().value.toLowerCase().contains(keyword);
-            case TAG:
-                return person.getTags().stream()
-                        .anyMatch(tag -> tag.tagName.toLowerCase().contains(keyword));
-            case BOOKING:
-                return person.getBookingTags().stream()
-                        .anyMatch(bookingTag -> {
-                            // Check if the date falls within the booking period
-                            try {
-                                LocalDateTime date = LocalDateTime.parse(keyword + "T00:00:00");
-                                return !date.isBefore(bookingTag.startDate) && !date.isAfter(bookingTag.endDate);
-                            } catch (Exception e) {
-                                return false;
-                            }
-                        });
-            default:
-                return false;
+        case NAME:
+            return person.getName().fullName.toLowerCase().contains(keyword);
+        case PHONE:
+            return person.getPhone() != null
+                    && person.getPhone().value.toLowerCase().contains(keyword);
+        case EMAIL:
+            return person.getEmail() != null
+                    && person.getEmail().value.toLowerCase().contains(keyword);
+        case ADDRESS:
+            return person.getAddress() != null
+                    && person.getAddress().value.toLowerCase().contains(keyword);
+        case TAG:
+            return person.getTags().stream()
+                    .anyMatch(tag -> tag.tagName.toLowerCase().contains(keyword));
+        case BOOKING:
+            return person.getBookingTags().stream()
+                    .anyMatch(bookingTag -> {
+                        // Check if the date falls within the booking period
+                        try {
+                            LocalDateTime date = LocalDateTime.parse(keyword + "T00:00:00");
+                            return !date.isBefore(bookingTag.startDate) && !date.isAfter(bookingTag.endDate);
+                        } catch (Exception e) {
+                            return false;
+                        }
+                    });
+        default:
+            return false;
         }
     }
 
