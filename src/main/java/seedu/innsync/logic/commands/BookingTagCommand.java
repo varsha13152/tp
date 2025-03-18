@@ -25,7 +25,7 @@ public class BookingTagCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) {property} from/{start-date} to/{end-date}\n"
             + "Example: " + COMMAND_WORD + " 1 b/BeachHouse from/2025-06-01 to/2025-06-10";
     public static final String MESSAGE_SUCCESS = "Booking tag successfully added: %s";
-    public static final String MESSAGE_FAILURE = "Failed to add booking tag. The tag may already exist or be invalid: %s";
+    public static final String MESSAGE_FAILURE = "Failed to add booking tag. The booking tag %s overlaps with an existing tag.";
     private final Index index;
     private final BookingTag bookingTag;
 
@@ -52,16 +52,29 @@ public class BookingTagCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(editedPerson)));
     }
 
-    private Person addBookingTagPerson(Person personToCopy, BookingTag bookingTag) {
+    private Person addBookingTagPerson(Person personToCopy, BookingTag bookingTag) throws CommandException {
         Set<BookingTag> updatedBookingTags = new HashSet<>(personToCopy.getBookingTags());
+        for (BookingTag existingTag : updatedBookingTags) {
+            if (isOverlapping(existingTag, bookingTag)) {
+                throw new CommandException(String.format(MESSAGE_FAILURE, bookingTag.toPrettier()));
+            }
+        }
         updatedBookingTags.add(bookingTag);
-        return new Person(personToCopy.getName(),
+        return new Person(
+                personToCopy.getName(),
                 personToCopy.getPhone(),
                 personToCopy.getEmail(),
                 personToCopy.getAddress(),
                 updatedBookingTags,
                 personToCopy.getTags()
-                );
+        );
+    }
+
+    /**
+     * Helper method to check if two booking tags overlap
+     */
+    private boolean isOverlapping(BookingTag tag1, BookingTag tag2) {
+        return !(tag1.endDate.isBefore(tag2.startDate) || tag2.endDate.isBefore(tag1.startDate));
     }
 
     @Override

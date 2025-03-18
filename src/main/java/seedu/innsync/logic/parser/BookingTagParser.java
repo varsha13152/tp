@@ -3,10 +3,12 @@ package seedu.innsync.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.innsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_BOOKINGTAG;
+import static seedu.innsync.logic.parser.ParserUtil.parseBookingTag;
 
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.commons.exceptions.IllegalValueException;
 import seedu.innsync.logic.commands.BookingTagCommand;
+import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.logic.parser.exceptions.ParseException;
 import seedu.innsync.model.tag.BookingTag;
 
@@ -25,16 +27,14 @@ public class BookingTagParser implements Parser<BookingTagCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_BOOKINGTAG);
         Index index;
-        String bookingTag;
+        BookingTag bookingTag;
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
-            bookingTag = argMultimap.getValue(PREFIX_BOOKINGTAG).orElse("");
+            bookingTag = ParserUtil.parseBookingTag(argMultimap.getValue(PREFIX_BOOKINGTAG).orElse(""));
         } catch (IllegalValueException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     BookingTagCommand.MESSAGE_USAGE), ive);
         }
-
-        return new BookingTagCommand(index, new BookingTag(bookingTag));
+        return new BookingTagCommand(index, bookingTag);
     }
-
 }
