@@ -1,8 +1,12 @@
 package seedu.innsync.logic.commands;
 
+import static seedu.innsync.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.innsync.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.commons.util.ToStringBuilder;
 import seedu.innsync.logic.Messages;
@@ -11,8 +15,8 @@ import seedu.innsync.model.Model;
 import seedu.innsync.model.person.Person;
 import seedu.innsync.model.tag.BookingTag;
 
-import static seedu.innsync.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.innsync.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+
+
 
 /**
  * Adds a person to the address book.
@@ -25,7 +29,8 @@ public class BookingTagCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) {property} from/{start-date} to/{end-date}\n"
             + "Example: " + COMMAND_WORD + " 1 b/BeachHouse from/2025-06-01 to/2025-06-10";
     public static final String MESSAGE_SUCCESS = "Booking tag successfully added: %s";
-    public static final String MESSAGE_FAILURE = "Failed to add booking tag. The booking tag %s overlaps with an existing tag.";
+    public static final String MESSAGE_FAILURE = "Failed to add booking tag. "
+            + "The booking tag %s overlaps with an existing tag.";
     private final Index index;
     private final BookingTag bookingTag;
 

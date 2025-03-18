@@ -2,7 +2,6 @@ package seedu.innsync.testutil;
 
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.innsync.logic.commands.CommandTestUtil.VALID_BOOKING_TAG_HOUSE;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_NAME_AMY;
