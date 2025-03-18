@@ -26,7 +26,7 @@ public class PersonBuilder {
     private Phone phone;
     private Email email;
     private Address address;
-    private Set<BookingTag> bookingTag;
+    private Set<BookingTag> bookingTags;
     private Set<Tag> tags;
 
     /**
@@ -37,7 +37,7 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
-        bookingTag = new HashSet<>();
+        bookingTags = new HashSet<>();
         tags = new HashSet<>();
     }
 
@@ -49,7 +49,7 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
-        bookingTag = personToCopy.getBookingTags();
+        bookingTags = new HashSet<>(personToCopy.getBookingTags());
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -64,8 +64,8 @@ public class PersonBuilder {
     /**
      *
      */
-    public PersonBuilder withBookingTag(String bookingTag) {
-        this.bookingTag = SampleDataUtil.getBookingTagSet(bookingTag);
+    public PersonBuilder withBookingTags(String ... bookingTags) {
+        this.bookingTags = SampleDataUtil.getBookingTagSet(bookingTags);
         return this;
     }
 
@@ -102,7 +102,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, address, bookingTag, tags);
+        return new Person(name, phone, email, address, bookingTags, tags);
     }
 
 }
