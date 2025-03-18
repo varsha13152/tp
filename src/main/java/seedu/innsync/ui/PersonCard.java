@@ -56,7 +56,7 @@ public class PersonCard extends UiPart<Region> {
         email.setText(person.getEmail().value);
         person.getBookingTags().stream()
                 .sorted(Comparator.comparing(bookingTag -> bookingTag.bookingTagName))
-                .forEach(bookingTag -> bookingTags.getChildren().add(new Label(bookingTag.bookingTagName)));
+                .forEach(bookingTag -> bookingTags.getChildren().add(new Label(bookingTag.toPrettier())));
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

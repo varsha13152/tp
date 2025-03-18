@@ -64,7 +64,7 @@ public class PersonBuilder {
     /**
      *
      */
-    public PersonBuilder withBookingTag(String bookingTag) {
+    public PersonBuilder withBookingTag(String ... bookingTag) {
         this.bookingTag = SampleDataUtil.getBookingTagSet(bookingTag);
         return this;
     }

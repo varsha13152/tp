@@ -53,7 +53,7 @@ public class BookingTagCommand extends Command {
     }
 
     private Person addBookingTagPerson(Person personToCopy, BookingTag bookingTag) {
-        Set<BookingTag> updatedBookingTags = new HashSet<>(personToCopy.getBookingTags());;
+        Set<BookingTag> updatedBookingTags = new HashSet<>(personToCopy.getBookingTags());
         updatedBookingTags.add(bookingTag);
         return new Person(personToCopy.getName(),
                 personToCopy.getPhone(),

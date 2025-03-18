@@ -61,7 +61,7 @@ class JsonAdaptedPerson {
         email = source.getEmail().value;
         address = source.getAddress().value;
         bookingTags.addAll(source.getBookingTags().stream()
-                .map(JsonAdaptedBookingTag::new)
+                .map(seedu.innsync.storage.JsonAdaptedBookingTag::new)
                 .collect(Collectors.toList()));
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
