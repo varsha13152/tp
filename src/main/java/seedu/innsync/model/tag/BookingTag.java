@@ -22,6 +22,7 @@ public class BookingTag {
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public final String bookingTagName;
+    public final String bookingTag;
     public final LocalDateTime startDate;
     public final LocalDateTime endDate;
 
@@ -35,6 +36,7 @@ public class BookingTag {
         checkArgument(isValidBookingTagName(bookingTagName), MESSAGE_CONSTRAINTS);
         String[] split = bookingTagName.split(" from/| to/");
         this.bookingTagName = bookingTagName;
+        this.bookingTag = split[0];
         this.startDate = LocalDate.parse(split[1], DATE_FORMATTER).atStartOfDay();
         this.endDate = LocalDate.parse(split[2], DATE_FORMATTER).atStartOfDay();
     }
@@ -83,10 +85,17 @@ public class BookingTag {
     }
 
     /**
-     * Format state as text for viewing.
+     * Format state as text for storage.
      */
     public String toString() {
         return '[' + bookingTagName + ']';
     }
 
+    /**
+     * Format state as text for viewing.
+     */
+    public String toPrettier() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yy");
+        return bookingTag + " " + startDate.format(formatter) + " to " + endDate.format(formatter);
+    }
 }

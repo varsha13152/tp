@@ -34,7 +34,11 @@
             </image>
         </ImageView>
       </HBox>
-      <FlowPane fx:id="tags" />
+      <FlowPane fx:id="tags">
+        <padding>
+          <Insets bottom="5"/>
+        </padding>
+      </FlowPane>
       <FlowPane fx:id="bookingTags" />
       <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
       <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
