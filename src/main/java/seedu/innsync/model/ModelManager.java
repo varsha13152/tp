@@ -116,11 +116,19 @@ public class ModelManager implements Model {
     //=========== Filtered Person List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * Returns an unmodifiable view of the sorted filtered list of {@code Person} backed by the internal list of
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
+    public ObservableList<Person> getPersonList() {
+        return getSortedFilteredPersonList(COMPARATOR_SHOW_STARRED_FIRST);
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    private ObservableList<Person> getFilteredPersonList() {
         return filteredPersons;
     }
 
@@ -128,8 +136,7 @@ public class ModelManager implements Model {
      * Returns a sorted unmodifiable view of the list of {@code Person} backed by the internal list of
      * {@code versionedAddressBook}
      */
-    @Override
-    public ObservableList<Person> getSortedFilteredPersonList(Comparator<Person> comparator) {
+    private ObservableList<Person> getSortedFilteredPersonList(Comparator<Person> comparator) {
         ObservableList<Person> filteredList = getFilteredPersonList();
         SortedList<Person> sortedList = new SortedList<>(filteredList);
         sortedList.setComparator(comparator);

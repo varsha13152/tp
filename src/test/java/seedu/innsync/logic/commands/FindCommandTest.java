@@ -60,7 +60,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(Collections.singletonList("xyzzzy"), FindCommand.SearchType.NAME);
         expectedModel.updateFilteredPersonList(command.getPredicate());
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
+        assertEquals(Collections.emptyList(), model.getPersonList());
     }
 
     @Test
@@ -69,7 +69,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(Arrays.asList("Kurz", "Elle", "Kunz"), FindCommand.SearchType.NAME);
         expectedModel.updateFilteredPersonList(command.getPredicate());
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getPersonList());
     }
 
     @Test

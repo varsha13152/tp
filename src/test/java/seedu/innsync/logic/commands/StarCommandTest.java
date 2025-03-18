@@ -31,7 +31,7 @@ public class StarCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Person personToStar = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person personToStar = model.getPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Person expectedPerson = new PersonBuilder(personToStar).withStarred(true).build();
         StarCommand starCommand = new StarCommand(INDEX_FIRST_PERSON);
 
@@ -46,7 +46,7 @@ public class StarCommandTest {
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getPersonList().size() + 1);
         StarCommand starCommand = new StarCommand(outOfBoundIndex);
 
         assertCommandFailure(starCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -55,7 +55,7 @@ public class StarCommandTest {
     @Test
     public void execute_validIndexStarredPerson_failure() {
         Model testModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        Person personToStar = testModel.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person personToStar = testModel.getPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Person expectedPerson = new PersonBuilder(personToStar).withStarred(true).build();
         testModel.setPerson(personToStar, expectedPerson);
         StarCommand starCommand = new StarCommand(INDEX_FIRST_PERSON);
