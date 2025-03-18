@@ -15,6 +15,9 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
+    /** {@code Predicate} that evaluates to true for starred persons only */
+    Predicate<Person> PREDICATE_SHOW_STARRED_PERSONS = person -> person.getStarred();
+
     Comparator<Person> COMPARATOR_SHOW_STARRED_FIRST = Comparator.comparing(Person::getStarred,
             Comparator.reverseOrder()).thenComparing(Person::getName);
 
