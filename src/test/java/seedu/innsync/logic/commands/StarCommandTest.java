@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.logic.Messages;
+import seedu.innsync.model.AddressBook;
 import seedu.innsync.model.Model;
 import seedu.innsync.model.ModelManager;
 import seedu.innsync.model.UserPrefs;
@@ -26,7 +27,7 @@ import seedu.innsync.testutil.PersonBuilder;
  */
 public class StarCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -37,7 +38,7 @@ public class StarCommandTest {
         String expectedMessage = String.format(StarCommand.MESSAGE_SUCCESS,
                 Messages.format(personToStar));
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(personToStar, expectedPerson);
 
         assertCommandSuccess(starCommand, model, expectedMessage, expectedModel);
@@ -53,14 +54,15 @@ public class StarCommandTest {
 
     @Test
     public void execute_validIndexStarredPerson_failure() {
-        Person personToStar = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Model testModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Person personToStar = testModel.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Person expectedPerson = new PersonBuilder(personToStar).withStarred(true).build();
-        model.setPerson(personToStar, expectedPerson);
+        testModel.setPerson(personToStar, expectedPerson);
         StarCommand starCommand = new StarCommand(INDEX_FIRST_PERSON);
 
         String expectedMessage = String.format(StarCommand.MESSAGE_FAILURE,
                 Messages.format(personToStar));
-        assertCommandFailure(starCommand, model, expectedMessage);
+        assertCommandFailure(starCommand, testModel, expectedMessage);
     }
 
     @Test
