@@ -18,6 +18,7 @@ import seedu.innsync.logic.commands.ExitCommand;
 import seedu.innsync.logic.commands.FindCommand;
 import seedu.innsync.logic.commands.HelpCommand;
 import seedu.innsync.logic.commands.ListCommand;
+import seedu.innsync.logic.commands.StarCommand;
 import seedu.innsync.logic.parser.exceptions.ParseException;
 
 /**
@@ -71,6 +72,9 @@ public class AddressBookParser {
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
+
+        case StarCommand.COMMAND_WORD:
+            return new StarCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();

@@ -4,11 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.innsync.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.innsync.commons.core.GuiSettings;
 import seedu.innsync.commons.core.LogsCenter;
 import seedu.innsync.model.person.Person;
@@ -120,6 +122,18 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return filteredPersons;
+    }
+
+    /**
+     * Returns a sorted unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Person> getSortedFilteredPersonList(Comparator<Person> comparator) {
+        ObservableList<Person> filteredList = getFilteredPersonList();
+        SortedList<Person> sortedList = new SortedList<>(filteredList);
+        sortedList.setComparator(comparator);
+        return sortedList;
     }
 
     @Override

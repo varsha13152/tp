@@ -8,6 +8,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
@@ -26,6 +28,11 @@
           </minWidth>
         </Label>
         <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
+        <ImageView fx:id="starIcon" fitWidth="16" fitHeight="16" visible="false">
+            <image>
+                <Image url="@/images/star-icon.png" />
+            </image>
+        </ImageView>
       </HBox>
       <FlowPane fx:id="tags">
         <padding>
