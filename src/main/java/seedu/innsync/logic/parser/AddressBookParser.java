@@ -19,7 +19,6 @@ import seedu.innsync.logic.commands.FindCommand;
 import seedu.innsync.logic.commands.HelpCommand;
 import seedu.innsync.logic.commands.ListCommand;
 import seedu.innsync.logic.parser.exceptions.ParseException;
-import seedu.innsync.model.tag.BookingTag;
 
 /**
  * Parses user input.

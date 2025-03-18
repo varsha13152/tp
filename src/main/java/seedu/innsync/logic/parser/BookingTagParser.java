@@ -3,12 +3,10 @@ package seedu.innsync.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.innsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_BOOKINGTAG;
-import static seedu.innsync.logic.parser.ParserUtil.parseBookingTag;
 
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.commons.exceptions.IllegalValueException;
 import seedu.innsync.logic.commands.BookingTagCommand;
-import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.logic.parser.exceptions.ParseException;
 import seedu.innsync.model.tag.BookingTag;
 
