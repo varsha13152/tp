@@ -154,7 +154,7 @@ Examples:
 
 Allows users to search for a contact by their name, phone, address, email, tag, booking tag 
 
-Format: `find [n/]KEYWORD [MORE_KEYWORDS] | p/KEYWORD [MORE_KEYWORDS] | e/KEYWORD [MORE_KEYWORDS] | a/KEYWORD [MORE_KEYWORDS] | t/KEYWORD [MORE_KEYWORDS] | b/DATE [MORE_DATES]`
+Format: `find [n/]KEYWORD [MORE_KEYWORDS] | p/PHONE [MORE_PHONES] | e/EMAIL [MORE_EMAILS] | a/ADDRESS [MORE_ADDRESS] | t/TAG [MORE_TAGS] | b/DATE [MORE_DATES]`
 
 #### Search Modes:
 
