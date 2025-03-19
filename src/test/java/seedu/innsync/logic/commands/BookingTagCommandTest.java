@@ -2,6 +2,7 @@ package seedu.innsync.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.innsync.logic.commands.CommandTestUtil.INVALID_BOOKINGTAG_DESC;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_BOOKINGTAG_BEACHHOUSE;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_BOOKINGTAG_HOTEL;
 import static seedu.innsync.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -20,6 +21,7 @@ import seedu.innsync.model.ModelManager;
 import seedu.innsync.model.UserPrefs;
 import seedu.innsync.model.person.Person;
 import seedu.innsync.model.tag.BookingTag;
+import seedu.innsync.testutil.EditPersonDescriptorBuilder;
 import seedu.innsync.testutil.PersonBuilder;
 
 public class BookingTagCommandTest {
@@ -54,6 +56,15 @@ public class BookingTagCommandTest {
                 new BookingTag(VALID_BOOKINGTAG_BEACHHOUSE));
 
         assertCommandFailure(command, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_overlapBookingTagDate_failure() {
+        Index indexLastPerson = Index.fromOneBased(model.getPersonList().size());
+        BookingTag validBookingTag = new BookingTag(VALID_BOOKINGTAG_BEACHHOUSE);
+        BookingTagCommand bookingTagCommand = new BookingTagCommand(indexLastPerson, validBookingTag);
+        String expectedMessage = String.format(BookingTagCommand.MESSAGE_FAILURE, validBookingTag.toPrettier());
+        assertCommandFailure(bookingTagCommand, model, expectedMessage);
     }
 
     @Test
