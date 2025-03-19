@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.innsync.logic.commands.FindCommand;
 import seedu.innsync.model.Model;
 import seedu.innsync.model.ModelManager;
 import seedu.innsync.model.UserPrefs;
@@ -93,7 +94,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(Collections.singletonList("Meier"), FindCommand.SearchType.NAME);
         expectedModel.updateFilteredPersonList(command.getPredicate());
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(BENSON, DANIEL), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(BENSON, DANIEL), model.getPersonList());
     }
 
     @Test
@@ -103,7 +104,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(Collections.singletonList("Pauline"), FindCommand.SearchType.NAME);
         expectedModel.updateFilteredPersonList(command.getPredicate());
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.singletonList(ALICE), model.getFilteredPersonList());
+        assertEquals(Collections.singletonList(ALICE), model.getPersonList());
     }
 
     @Test
@@ -113,7 +114,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(Collections.singletonList("87652533"), FindCommand.SearchType.PHONE);
         expectedModel.updateFilteredPersonList(command.getPredicate());
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.singletonList(DANIEL), model.getFilteredPersonList());
+        assertEquals(Collections.singletonList(DANIEL), model.getPersonList());
     }
 
     @Test
@@ -123,7 +124,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(Collections.singletonList("9482"), FindCommand.SearchType.PHONE);
         expectedModel.updateFilteredPersonList(command.getPredicate());
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ELLE, FIONA, GEORGE), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(ELLE, FIONA, GEORGE), model.getPersonList());
     }
 
     @Test
@@ -133,7 +134,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(Collections.singletonList("anna"), FindCommand.SearchType.EMAIL);
         expectedModel.updateFilteredPersonList(command.getPredicate());
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.singletonList(GEORGE), model.getFilteredPersonList());
+        assertEquals(Collections.singletonList(GEORGE), model.getPersonList());
     }
 
     @Test
@@ -143,7 +144,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(Collections.singletonList("example.com"), FindCommand.SearchType.EMAIL);
         expectedModel.updateFilteredPersonList(command.getPredicate());
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE), model.getPersonList());
     }
 
     @Test
@@ -156,7 +157,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(Collections.singletonList("street"), FindCommand.SearchType.ADDRESS);
         expectedModel.updateFilteredPersonList(command.getPredicate());
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, DANIEL, GEORGE), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(CARL, DANIEL, GEORGE), model.getPersonList());
     }
 
     @Test
@@ -166,7 +167,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(Collections.singletonList("tokyo"), FindCommand.SearchType.ADDRESS);
         expectedModel.updateFilteredPersonList(command.getPredicate());
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.singletonList(FIONA), model.getFilteredPersonList());
+        assertEquals(Collections.singletonList(FIONA), model.getPersonList());
     }
 
     @Test
@@ -176,7 +177,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(Collections.singletonList("friends"), FindCommand.SearchType.TAG);
         expectedModel.updateFilteredPersonList(command.getPredicate());
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICE, BENSON, DANIEL), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(ALICE, BENSON, DANIEL), model.getPersonList());
     }
 
     @Test
@@ -186,7 +187,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(Collections.singletonList("owesMoney"), FindCommand.SearchType.TAG);
         expectedModel.updateFilteredPersonList(command.getPredicate());
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.singletonList(BENSON), model.getFilteredPersonList());
+        assertEquals(Collections.singletonList(BENSON), model.getPersonList());
     }
 
     @Test
@@ -196,7 +197,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(Arrays.asList("friends", "owesMoney"), FindCommand.SearchType.TAG);
         expectedModel.updateFilteredPersonList(command.getPredicate());
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICE, BENSON, DANIEL), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(ALICE, BENSON, DANIEL), model.getPersonList());
     }
 
     @Test
@@ -206,21 +207,21 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(Collections.singletonList("alice"), FindCommand.SearchType.NAME);
         expectedModel.updateFilteredPersonList(command.getPredicate());
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.singletonList(ALICE), model.getFilteredPersonList());
+        assertEquals(Collections.singletonList(ALICE), model.getPersonList());
 
         // Case insensitive search for "PAULINE"
         expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         command = new FindCommand(Collections.singletonList("PAULINE"), FindCommand.SearchType.NAME);
         expectedModel.updateFilteredPersonList(command.getPredicate());
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.singletonList(ALICE), model.getFilteredPersonList());
+        assertEquals(Collections.singletonList(ALICE), model.getPersonList());
 
         // Case insensitive search for "FrIeNdS" tag
         expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         command = new FindCommand(Collections.singletonList("FrIeNdS"), FindCommand.SearchType.TAG);
         expectedModel.updateFilteredPersonList(command.getPredicate());
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICE, BENSON, DANIEL), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(ALICE, BENSON, DANIEL), model.getPersonList());
     }
 
     @Test
