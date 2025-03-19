@@ -121,7 +121,7 @@ Examples:
 
 Adds a booking tag into the person in the address book.
 
-Format: `add INDEX [KEYWORD] from/YYYY-MM-DD to/YYYY-MM-DD`
+Format: `addbt INDEX [KEYWORD] from/YYYY-MM-DD to/YYYY-MM-DD`
 
 * Adds the booking tag to the person specified by 'INDEX'. The index refers to the index number shown in the displayed person LIST. The index **must be a positive integer**
 * All the fields must be provided.
