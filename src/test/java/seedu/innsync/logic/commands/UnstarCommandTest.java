@@ -35,7 +35,7 @@ public class UnstarCommandTest {
         Person personToUnstar = model.getPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Person starredPerson = new PersonBuilder(personToUnstar).withStarred(true).build();
         model.setPerson(personToUnstar, starredPerson);
-        
+
         // Now unstar the person
         Person personToUnstarNow = model.getPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Person expectedPerson = new PersonBuilder(personToUnstarNow).withStarred(false).build();
@@ -66,7 +66,7 @@ public class UnstarCommandTest {
         // Ensure the person is not starred
         Person unstarredPerson = new PersonBuilder(personToUnstar).withStarred(false).build();
         testModel.setPerson(personToUnstar, unstarredPerson);
-        
+
         UnstarCommand unstarCommand = new UnstarCommand(INDEX_FIRST_PERSON);
 
         String expectedMessage = String.format(UnstarCommand.MESSAGE_FAILURE,
