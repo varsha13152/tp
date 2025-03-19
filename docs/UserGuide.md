@@ -103,7 +103,7 @@ Shows a list of all starred persons in the address book.
 
 Format: `liststar`
 
-### Staring a person : `star`
+### Starring a person : `star`
 
 Stars a person in the address book.
 
