@@ -288,23 +288,24 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                     | I want to …​                             | So that I can…​                                                         |
-|----------|--------------------------------------------|-----------------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                   | see usage instructions                  | refer to instructions when I forget how to use the App                 |
-| `* * *`  | Airbnb host                                | list all visitors                       | see all the visitors I have added                                      |
-| `* * *`  | Airbnb host                                | add a new person                        | keep track of who is visiting my property                              |
-| `* * *`  | Airbnb host                                | edit a person                           | update details of a visitor                                            |
-| `* * *`  | Airbnb host                                | delete a person                         | remove entries that I no longer need                                   |
-| `* * *`  | Airbnb host                                | clear all visitors                      | start over with a clean slate                                          |
-| `* * *`  | Airbnb host                                | find a person by name                   | quickly find a specific visior                                         |
-| `* *`    | Airbnb host                                | filter visitors by property booked      | quickly find visitors who visited a specific property                  |
-| `* *`    | Airbnb host                                | filter visitors by date of stay         | quickly find vistors using specific time periods                       |
-| `* *`    | meticulous Airbnb host                     | filter visitors by tag                  | quickly find visitors using personalised categories                    |
-| `* *`    | Airbnb host                                | filter visitors by next upcoming booking| prepare for future bookings efficiently                                |
-| `* *`    | Airbnb host                                | save person details to a file           | backup my address book                                                 |
-| `* *`    | Airbnb host                                | load person details from a file         | restore my address book                                                |
-| `* *`    | Airbnb host                                | undo the last command                   | recover from mistakes                                                  |
-| `*`      | user with many visitors in the address book| sort visitors by name                   | find visitors efficiently                                              |
+| Priority | As a …​                                     | I want to …​                             | So that I can…​                                       |
+|----------|--------------------------------------------|------------------------------------------|-------------------------------------------------------|
+| `* * *`  | new user                                   | see usage instructions                   | refer to instructions when I forget how to use the App |
+| `* * *`  | Airbnb host                                | list all visitors                        | see all the visitors I have added                     |
+| `* * *`  | Airbnb host                                | add a new person                         | keep track of who is visiting my property             |
+| `* * *`  | Airbnb host                                | edit a person                            | update details of a visitor                           |
+| `* * *`  | Airbnb host                                | delete a person                          | remove entries that I no longer need                  |
+| `* * *`  | Airbnb host                                | clear all visitors                       | start over with a clean slate                         |
+| `* * *`  | Airbnb host                                | find a person by name                    | quickly find a specific visior                        |
+| `* * *`  | Airbnb host                                | add a booking tag to a person by index   | quickly assign the vistor to their property           |
+| `* *`    | Airbnb host                                | filter visitors by property booked       | quickly find visitors who visited a specific property |
+| `* *`    | Airbnb host                                | filter visitors by date of stay          | quickly find vistors using specific time periods      |
+| `* *`    | meticulous Airbnb host                     | filter visitors by tag                   | quickly find visitors using personalised categories   |
+| `* *`    | Airbnb host                                | filter visitors by next upcoming booking | prepare for future bookings efficiently               |
+| `* *`    | Airbnb host                                | save person details to a file            | backup my address book                                |
+| `* *`    | Airbnb host                                | load person details from a file          | restore my address book                               |
+| `* *`    | Airbnb host                                | undo the last command                    | recover from mistakes                                 |
+| `*`      | user with many visitors in the address book| sort visitors by name                    | find visitors efficiently                             |
 
 *{More to be added}*
 
@@ -452,15 +453,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 4a1. InnSync shows an error message.
       Use case resumes at step 2.
 
-**Use case: UC06 - Add Date Tag to Contact**
+**Use case: UC06 - Add Booking Tag to Contact**
 
 **MSS**
 
 1.  Airbnb Host requests to list visitors
 2.  InnSync shows a list of visitors
-3.  Airbnb Host requests to add a date tag to a specific visitor in the list
-4.  InnSync validates the entered tag (ie. date time format, missing input)
-5.  InnSync updates the contact with the new provided date tag
+3.  Airbnb Host requests to add a booking tag to a specific visitor in the list
+4.  InnSync validates the entered booking tag (ie. date format, missing input)
+5.  InnSync updates the contact with the new provided booking tag
 6.  InnSync shows the updated details of the visitor.
 7.  InnSync updates local JSON file with updated contact detail
 
@@ -481,6 +482,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 4a. Input argument(s) are invalid.
 
     * 4a1. InnSync shows an error message.
+      Use case resumes at step 2.
+  
+* 5a. The given booking tag date overlaps with an existing booking tag.
+
+    * 5a1. InnSync shows an error message.
       Use case resumes at step 2.
 
 **Use case: UC07 - List visitors**
