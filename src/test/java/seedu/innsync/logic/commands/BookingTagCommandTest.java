@@ -2,7 +2,6 @@ package seedu.innsync.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.innsync.logic.commands.CommandTestUtil.INVALID_BOOKINGTAG_DESC;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_BOOKINGTAG_BEACHHOUSE;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_BOOKINGTAG_HOTEL;
 import static seedu.innsync.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -21,7 +20,6 @@ import seedu.innsync.model.ModelManager;
 import seedu.innsync.model.UserPrefs;
 import seedu.innsync.model.person.Person;
 import seedu.innsync.model.tag.BookingTag;
-import seedu.innsync.testutil.EditPersonDescriptorBuilder;
 import seedu.innsync.testutil.PersonBuilder;
 
 public class BookingTagCommandTest {
@@ -30,21 +28,21 @@ public class BookingTagCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() throws Exception {
-        Index indexLastPerson = Index.fromOneBased(model.getPersonList().size());
-        Person lastPerson = model.getPersonList().get(indexLastPerson.getZeroBased());
+        Index indexFirstPerson = Index.fromOneBased(INDEX_FIRST_PERSON.getOneBased());
+        Person firstPerson = model.getPersonList().get(indexFirstPerson.getZeroBased());
 
         BookingTag validBookingTag = new BookingTag(VALID_BOOKINGTAG_BEACHHOUSE);
 
-        Person editedPerson = new PersonBuilder(lastPerson)
+        Person editedPerson = new PersonBuilder(firstPerson)
                 .withBookingTags(VALID_BOOKINGTAG_BEACHHOUSE)
                 .build();
 
-        BookingTagCommand bookingTagCommand = new BookingTagCommand(indexLastPerson, validBookingTag);
+        BookingTagCommand bookingTagCommand = new BookingTagCommand(indexFirstPerson, validBookingTag);
 
         String expectedMessage = String.format(BookingTagCommand.MESSAGE_SUCCESS, Messages.format(editedPerson));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(lastPerson, editedPerson);
+        expectedModel.setPerson(firstPerson, editedPerson);
 
         assertCommandSuccess(bookingTagCommand, model, expectedMessage, expectedModel);
     }
