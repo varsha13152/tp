@@ -280,12 +280,15 @@ _Details coming soon ..._
 ## Command summary
 
 Action     | Format, Examples
------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 **Addbt**  | `addbt INDEX <KEYWORD> from/YYYY-MM-DD to/YYYY-MM-DD` <br> e.g.. `addbt 1 Hotel from/2025-10-10 to/2025-10-11`
+**Star**   | `star INDEX` <br> e.g., `star 1`
+**Unstar** | `unstar INDEX` <br> e.g., `unstar 1`
+**Liststar**| `liststar`
 **Clear**  | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find**   | `find [n/]KEYWORD [MORE_KEYWORDS] | p/KEYWORD [MORE_KEYWORDS] | e/KEYWORD [MORE_KEYWORDS] | a/KEYWORD [MORE_KEYWORDS] | t/KEYWORD [MORE_KEYWORDS] | b/DATE [MORE_DATES]`<br> e.g., `find James Jake`
+**Find**   | `find [n/KEYWORD] [p/KEYWORD] [e/KEYWORD] [a/KEYWORD] [t/KEYWORD] [b/DATE]` <br> e.g., `find n/James Jake`
 **List**   | `list`
 **Help**   | `help`
