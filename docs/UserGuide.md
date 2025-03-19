@@ -131,8 +131,7 @@ Format: `addbt INDEX [KEYWORD] from/YYYY-MM-DD to/YYYY-MM-DD`
 
 Examples:
 * `addbt 1 Hotel from/2025-10-10 to/2025-10-11` Adds the booking tag to the 1st person on the list.
-* `addbt 1 Hotel from/2025-11-10 to/2025-11-11` Adds another booking tag to the 1st person on the list.
- 
+
 ### Locating persons by name: `find`
 
 Finds persons whose names contain any of the given keywords.
@@ -217,6 +216,7 @@ _Details coming soon ..._
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Addbt**  | `addbt INDEX <KEYWORD> from/YYYY-MM-DD to/YYYY-MM-DD` <br> e.g.. `addbt 1 Hotel from/2025-10-10 to/2025-10-11`
 **Clear**  | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
