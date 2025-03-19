@@ -71,7 +71,7 @@ public class BookingTag {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof Tag)) {
+        if (!(other instanceof BookingTag)) {
             return false;
         }
 
