@@ -20,7 +20,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.innsync.logic.commands.FindCommand;
 import seedu.innsync.model.Model;
 import seedu.innsync.model.ModelManager;
 import seedu.innsync.model.UserPrefs;
@@ -75,7 +74,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(Collections.singletonList("xyzzzy"), FindCommand.SearchType.NAME);
         expectedModel.updateFilteredPersonList(command.getPredicate());
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
+        assertEquals(Collections.emptyList(), model.getPersonList());
     }
 
     @Test
@@ -84,7 +83,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(Arrays.asList("Kurz", "Meyer", "Kunz"), FindCommand.SearchType.NAME);
         expectedModel.updateFilteredPersonList(command.getPredicate());
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getPersonList());
     }
 
     @Test

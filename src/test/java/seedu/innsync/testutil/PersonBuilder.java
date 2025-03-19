@@ -21,12 +21,14 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "+65 85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final boolean DEFAULT_STARRED = false;
 
     private Name name;
     private Phone phone;
     private Email email;
     private Address address;
-    private Set<BookingTag> bookingTag;
+    private boolean starred;
+    private Set<BookingTag> bookingTags;
     private Set<Tag> tags;
 
     /**
@@ -37,7 +39,8 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
-        bookingTag = new HashSet<>();
+        starred = DEFAULT_STARRED;
+        bookingTags = new HashSet<>();
         tags = new HashSet<>();
     }
 
@@ -49,7 +52,8 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
-        bookingTag = personToCopy.getBookingTags();
+        starred = personToCopy.getStarred();
+        bookingTags = new HashSet<>(personToCopy.getBookingTags());
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -64,8 +68,8 @@ public class PersonBuilder {
     /**
      *
      */
-    public PersonBuilder withBookingTag(String bookingTag) {
-        this.bookingTag = SampleDataUtil.getBookingTagSet(bookingTag);
+    public PersonBuilder withBookingTags(String ... bookingTags) {
+        this.bookingTags = SampleDataUtil.getBookingTagSet(bookingTags);
         return this;
     }
 
@@ -101,8 +105,16 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Starred} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withStarred(boolean starred) {
+        this.starred = starred;
+        return this;
+    }
+
     public Person build() {
-        return new Person(name, phone, email, address, bookingTag, tags);
+        return new Person(name, phone, email, address, bookingTags, tags, starred);
     }
 
 }

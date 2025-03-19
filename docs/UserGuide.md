@@ -31,7 +31,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * `add n/John Doe p/+65 98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -101,7 +101,7 @@ Format: `list`
 
 Edits an existing person in the address book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [b/BOOKING_TAG]…​ [t/TAG]…​`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -109,28 +109,94 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/` without
     specifying any tags after it.
+* You can remove all the person’s booking tags by typing `b/` without
+  specifying any booking tags after it.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+*  `edit 2 n/Betsy Crower b/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing booking tags.
 
-### Locating persons by name: `find`
+### Adding a booking tag : `addbt`
 
-Finds persons whose names contain any of the given keywords.
+Adds a booking tag into the person in the address book.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `addbt INDEX [KEYWORD] from/YYYY-MM-DD to/YYYY-MM-DD`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Adds the booking tag to the person specified by 'INDEX'. The index refers to the index number shown in the displayed person LIST. The index **must be a positive integer**
+* All the fields must be provided.
+* The date format has to be exactly the same "YYYY-MM-DD".
+* When adding a new booking tag the new booking tag will be appended to the previous booking tags if they exist.
+* When adding a booking tag for a time interval that has already occurred for the person, it will be rejected.
 
 Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+* `addbt 1 Hotel from/2025-10-10 to/2025-10-11` Adds the booking tag to the 1st person on the list.
+
+### Locating persons: `find`
+
+Allows users to search for a contact by their name, phone, address, email, tag, booking tag 
+
+Format: `find [n/]KEYWORD [MORE_KEYWORDS] | p/KEYWORD [MORE_KEYWORDS] | e/KEYWORD [MORE_KEYWORDS] | a/KEYWORD [MORE_KEYWORDS] | t/KEYWORD [MORE_KEYWORDS] | b/DATE [MORE_DATES]`
+
+#### Search Modes:
+
+| Prefix | Field       | Description                                  | Example                    |
+|--------|-------------|----------------------------------------------|----------------------------|
+| (none) or `n/` | Name        | Searches through contact names              | `find John` or `find n/John` |
+| `p/`    | Phone       | Searches through phone numbers               | `find p/9123`              |
+| `e/`    | Email       | Searches through email addresses             | `find e/@example.com`      |
+| `a/`    | Address     | Searches through addresses                   | `find a/Clementi`          |
+| `t/`    | Tag         | Searches through contact tags                | `find t/friend`            |
+| `b/`    | Booking     | Searches for contacts with bookings that include the specified date(s) | `find b/2025-01-01` |
+
+#### Search Behavior:
+
+* **Case-insensitive** - Search is not affected by upper or lower case (e.g., `find john` matches `John Doe`)
+* **Order-independent** - The order of keywords doesn't matter (e.g., `find Bo Hans` matches `Hans Bo`)
+* **Partial matching** - Keywords are matched partially against fields (e.g., `find Jo` matches `John`)
+* **Field-specific** - Only one search field type can be used per command
+* **Multiple keywords** - Multiple search terms can be provided for any field type. Contacts matching any keyword will be returned (e.g., `find John Jane` returns contacts with either name)
+
+#### Special Notes for Booking Searches:
+
+* Dates must be in the `yyyy-MM-dd` format (e.g., `2025-01-01` for January 1, 2025)
+* A contact is matched if the specified date falls within the booking's start and end dates
+* Multiple dates can be specified to find contacts with bookings during any of those dates
+
+#### Examples:
+
+**Searching by name:**
+* `find John` - Finds contacts with "John" in their name
+* `find alex david` - Finds contacts with either "alex" or "david" in their name
+![result for 'find alex david'](images/findAlexDavidResult.png)
+
+**Searching by phone:**
+* `find p/9123` - Finds contacts whose phone numbers contain "9123"
+* `find p/8765 9123` - Finds contacts whose phone numbers contain either "8765" or "9123"
+
+**Searching by email:**
+* `find e/@example.com` - Finds contacts with email addresses containing "@example.com"
+* `find e/gmail yahoo` - Finds contacts with email addresses containing either "gmail" or "yahoo"
+
+**Searching by address:**
+* `find a/Clementi` - Finds contacts with "Clementi" in their addresses
+* `find a/Street Avenue` - Finds contacts with either "Street" or "Avenue" in their addresses
+
+**Searching by tag:**
+* `find t/friend` - Finds contacts tagged as "friend"
+* `find t/colleague family` - Finds contacts tagged as either "colleague" or "family"
+
+**Searching by booking date:**
+* `find b/2024-12-25` - Finds contacts with bookings that include December 25, 2024
+* `find b/2025-01-01 2025-02-14` - Finds contacts with bookings that include either January 1, 2025 or February 14, 2025
+
+#### Common Errors and How to Resolve Them:
+
+* **Invalid format**: Make sure to use the correct prefix for your search type
+* **Invalid date format**: Booking dates must follow the `yyyy-MM-dd` format exactly
+* **No matches found**: Try using shorter or more general keywords to widen your search
+* **Invalid characters**: Make sure your search terms contain only valid characters for the search field
+
 
 ### Deleting a person : `delete`
 
@@ -198,9 +264,10 @@ _Details coming soon ..._
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Addbt**  | `addbt INDEX <KEYWORD> from/YYYY-MM-DD to/YYYY-MM-DD` <br> e.g.. `addbt 1 Hotel from/2025-10-10 to/2025-10-11`
 **Clear**  | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Find**   | `find [n/]KEYWORD [MORE_KEYWORDS] | p/KEYWORD [MORE_KEYWORDS] | e/KEYWORD [MORE_KEYWORDS] | a/KEYWORD [MORE_KEYWORDS] | t/KEYWORD [MORE_KEYWORDS] | b/DATE [MORE_DATES]`<br> e.g., `find James Jake`
 **List**   | `list`
 **Help**   | `help`

@@ -26,6 +26,7 @@ public class Person {
     private final Address address;
     private final Set<BookingTag> bookingTags = new HashSet<>();
     private final Set<Tag> tags = new HashSet<>();
+    private final boolean starred;
 
     /**
      * Every field must be present and not null.
@@ -39,6 +40,22 @@ public class Person {
         this.address = address;
         this.bookingTags.addAll(bookingTags);
         this.tags.addAll(tags);
+        this.starred = false;
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Person(Name name, Phone phone, Email email, Address address, Set<BookingTag> bookingTags,
+                  Set<Tag> tags, boolean starred) {
+        requireAllNonNull(name, phone, email, address, bookingTags, tags);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.bookingTags.addAll(bookingTags);
+        this.tags.addAll(tags);
+        this.starred = starred;
     }
 
     public Name getName() {
@@ -55,6 +72,10 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public boolean getStarred() {
+        return starred;
     }
 
     public Set<BookingTag> getBookingTags() {
@@ -102,6 +123,7 @@ public class Person {
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
+                && starred == otherPerson.starred
                 && bookingTags.equals(otherPerson.bookingTags)
                 && tags.equals(otherPerson.tags);
     }
@@ -121,6 +143,7 @@ public class Person {
                 .add("address", address)
                 .add("bookingTags", bookingTags)
                 .add("tags", tags)
+                .add("starred", starred)
                 .toString();
     }
 

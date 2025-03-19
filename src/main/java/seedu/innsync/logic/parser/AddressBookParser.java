@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 import seedu.innsync.commons.core.LogsCenter;
 import seedu.innsync.logic.commands.AddCommand;
+import seedu.innsync.logic.commands.BookingTagCommand;
 import seedu.innsync.logic.commands.ClearCommand;
 import seedu.innsync.logic.commands.Command;
 import seedu.innsync.logic.commands.DeleteCommand;
@@ -17,6 +18,9 @@ import seedu.innsync.logic.commands.ExitCommand;
 import seedu.innsync.logic.commands.FindCommand;
 import seedu.innsync.logic.commands.HelpCommand;
 import seedu.innsync.logic.commands.ListCommand;
+import seedu.innsync.logic.commands.ListStarCommand;
+import seedu.innsync.logic.commands.StarCommand;
+import seedu.innsync.logic.commands.UnstarCommand;
 import seedu.innsync.logic.parser.exceptions.ParseException;
 
 /**
@@ -56,6 +60,9 @@ public class AddressBookParser {
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
+        case BookingTagCommand.COMMAND_WORD:
+            return new BookingTagParser().parse(arguments);
+
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
@@ -68,8 +75,17 @@ public class AddressBookParser {
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
+        case StarCommand.COMMAND_WORD:
+            return new StarCommandParser().parse(arguments);
+
+        case UnstarCommand.COMMAND_WORD:
+            return new UnstarCommandParser().parse(arguments);
+
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case ListStarCommand.COMMAND_WORD:
+            return new ListStarCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

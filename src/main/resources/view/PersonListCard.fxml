@@ -8,6 +8,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
@@ -18,7 +20,7 @@
       <padding>
         <Insets top="5" right="5" bottom="5" left="15" />
       </padding>
-      <HBox spacing="0.5" alignment="CENTER_LEFT">
+      <HBox spacing="5.0" alignment="CENTER_LEFT">
         <Label fx:id="id" styleClass="cell_big_label">
           <minWidth>
             <!-- Ensures that the label text is never truncated -->
@@ -26,8 +28,17 @@
           </minWidth>
         </Label>
         <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
+        <ImageView fx:id="starIcon" fitWidth="16" fitHeight="16" visible="false">
+            <image>
+                <Image url="@/images/star-icon.png" />
+            </image>
+        </ImageView>
       </HBox>
-      <FlowPane fx:id="tags" />
+      <FlowPane fx:id="tags">
+        <padding>
+          <Insets bottom="5"/>
+        </padding>
+      </FlowPane>
       <FlowPane fx:id="bookingTags" />
       <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
       <Label fx:id="address" styleClass="cell_small_label" text="\$address" />

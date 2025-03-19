@@ -2,6 +2,7 @@ package seedu.innsync.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_BOOKINGTAG;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -44,9 +45,10 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_BOOKINGTAG + "BOOKING_TAG] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
+            + PREFIX_PHONE + "+65 91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
@@ -71,7 +73,7 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Person> lastShownList = model.getPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -104,7 +106,8 @@ public class EditCommand extends Command {
             editPersonDescriptor.getBookingTags().orElse(personToEdit.getBookingTags());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedBookingTags, updatedTags);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedBookingTags,
+                updatedTags, personToEdit.getStarred());
     }
 
     @Override
