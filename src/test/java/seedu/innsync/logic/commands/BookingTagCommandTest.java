@@ -28,21 +28,21 @@ public class BookingTagCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() throws Exception {
-        Index indexLastPerson = Index.fromOneBased(model.getPersonList().size());
-        Person lastPerson = model.getPersonList().get(indexLastPerson.getZeroBased());
+        Index indexFirstPerson = Index.fromOneBased(INDEX_FIRST_PERSON.getOneBased());
+        Person firstPerson = model.getPersonList().get(indexFirstPerson.getZeroBased());
 
         BookingTag validBookingTag = new BookingTag(VALID_BOOKINGTAG_BEACHHOUSE);
 
-        Person editedPerson = new PersonBuilder(lastPerson)
+        Person editedPerson = new PersonBuilder(firstPerson)
                 .withBookingTags(VALID_BOOKINGTAG_BEACHHOUSE)
                 .build();
 
-        BookingTagCommand bookingTagCommand = new BookingTagCommand(indexLastPerson, validBookingTag);
+        BookingTagCommand bookingTagCommand = new BookingTagCommand(indexFirstPerson, validBookingTag);
 
         String expectedMessage = String.format(BookingTagCommand.MESSAGE_SUCCESS, Messages.format(editedPerson));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(lastPerson, editedPerson);
+        expectedModel.setPerson(firstPerson, editedPerson);
 
         assertCommandSuccess(bookingTagCommand, model, expectedMessage, expectedModel);
     }
@@ -54,6 +54,15 @@ public class BookingTagCommandTest {
                 new BookingTag(VALID_BOOKINGTAG_BEACHHOUSE));
 
         assertCommandFailure(command, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_overlapBookingTagDate_failure() {
+        Index indexLastPerson = Index.fromOneBased(model.getPersonList().size());
+        BookingTag validBookingTag = new BookingTag(VALID_BOOKINGTAG_BEACHHOUSE);
+        BookingTagCommand bookingTagCommand = new BookingTagCommand(indexLastPerson, validBookingTag);
+        String expectedMessage = String.format(BookingTagCommand.MESSAGE_FAILURE, validBookingTag.toPrettier());
+        assertCommandFailure(bookingTagCommand, model, expectedMessage);
     }
 
     @Test

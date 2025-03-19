@@ -53,7 +53,7 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         starred = personToCopy.getStarred();
-        bookingTags = personToCopy.getBookingTags();
+        bookingTags = new HashSet<>(personToCopy.getBookingTags());
         tags = new HashSet<>(personToCopy.getTags());
     }
 
