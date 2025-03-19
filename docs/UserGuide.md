@@ -4,9 +4,9 @@
   pageNav: 3
 ---
 
-# AB-3 User Guide
+# InnSync User Guide
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+InnSync is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, InnSync can get your contact management tasks done faster than traditional GUI apps.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -96,6 +96,24 @@ Examples:
 Shows a list of all persons in the address book.
 
 Format: `list`
+
+### Listing all starred persons : `liststar`
+
+Shows a list of all starred persons in the address book.
+
+Format: `liststar`
+
+### Staring a person : `star`
+
+Stars a person in the address book.
+
+Format: `star INDEX`
+
+### Unstar a person : `unstar`
+
+Unstar a starred person in the address book.
+
+Format: `unstar INDEX`
 
 ### Editing a person : `edit`
 
