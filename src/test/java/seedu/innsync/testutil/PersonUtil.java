@@ -1,6 +1,7 @@
 package seedu.innsync.testutil;
 
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_BOOKINGTAG;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -11,6 +12,7 @@ import java.util.Set;
 import seedu.innsync.logic.commands.AddCommand;
 import seedu.innsync.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.innsync.model.person.Person;
+import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
 
 /**
@@ -34,6 +36,9 @@ public class PersonUtil {
         sb.append(PREFIX_PHONE + person.getPhone().value + " ");
         sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
         sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
+        person.getBookingTags().stream().forEach(
+                s -> sb.append(PREFIX_BOOKINGTAG + s.bookingTagName + " ")
+        );
         person.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
@@ -49,6 +54,14 @@ public class PersonUtil {
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
+        if (descriptor.getBookingTags().isPresent()) {
+            Set<BookingTag> bookingTags = descriptor.getBookingTags().get();
+            if (bookingTags.isEmpty()) {
+                sb.append(PREFIX_BOOKINGTAG).append(" ");
+            } else {
+                bookingTags.forEach(s -> sb.append(PREFIX_BOOKINGTAG).append(s.bookingTagName).append(" "));
+            }
+        }
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

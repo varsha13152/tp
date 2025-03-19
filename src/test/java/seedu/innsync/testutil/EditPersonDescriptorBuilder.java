@@ -10,6 +10,7 @@ import seedu.innsync.model.person.Email;
 import seedu.innsync.model.person.Name;
 import seedu.innsync.model.person.Person;
 import seedu.innsync.model.person.Phone;
+import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
 
 /**
@@ -36,6 +37,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setPhone(person.getPhone());
         descriptor.setEmail(person.getEmail());
         descriptor.setAddress(person.getAddress());
+        descriptor.setBookingTags(person.getBookingTags());
         descriptor.setTags(person.getTags());
     }
 
@@ -68,6 +70,16 @@ public class EditPersonDescriptorBuilder {
      */
     public EditPersonDescriptorBuilder withAddress(String address) {
         descriptor.setAddress(new Address(address));
+        return this;
+    }
+
+    /**
+     * Parses the {@code bookingTags} into a {@code Set<BookingTag>} and set it to the {@code EditPersonDescriptor}
+     * that we are building.
+     */
+    public EditPersonDescriptorBuilder withBookingTags(String... bookingTags) {
+        Set<BookingTag> bookingTagSet = Stream.of(bookingTags).map(BookingTag::new).collect(Collectors.toSet());
+        descriptor.setBookingTags(bookingTagSet);
         return this;
     }
 
