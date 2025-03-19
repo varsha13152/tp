@@ -289,6 +289,6 @@ Action     | Format, Examples
 **Clear**  | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find**   | `find [n/KEYWORD] [p/KEYWORD] [e/KEYWORD] [a/KEYWORD] [t/KEYWORD] [b/DATE]` <br> e.g., `find n/James Jake`
+**Find**   |`find KEYWORD [MORE_KEYWORDS]` or<br>`find n/NAME [MORE_NAMES]` or<br>`find p/PHONE [MORE_PHONES]` or<br>`find e/EMAIL [MORE_EMAILS]` or<br>`find a/ADDRESS [MORE_ADDRESSES]` or<br>`find t/TAG [MORE_TAGS]` or<br>`find b/DATE [MORE_DATES]`<br>e.g., `find James Jake` or `find p/9123` or `find b/2025-01-01`
 **List**   | `list`
 **Help**   | `help`
