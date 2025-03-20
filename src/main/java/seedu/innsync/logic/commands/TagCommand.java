@@ -1,6 +1,7 @@
 package seedu.innsync.logic.commands;
 
 import static seedu.innsync.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.innsync.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.HashSet;
@@ -23,10 +24,10 @@ public class TagCommand extends Command {
     public static final String COMMAND_WORD = "addtag";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds tag to the contact identified by the index number in the displayed person list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: INDEX (must be a positive integer) "
+            + PREFIX_TAG + "TAG\n"
             + "Example: " + COMMAND_WORD + " 1 t/friend";
     public static final String MESSAGE_SUCCESS = "Tag successfully added: %s";
-    public static final String MESSAGE_FAILURE = "Failed to add tag.";
     private final Index index;
     private final Tag tag;
 

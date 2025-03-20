@@ -27,6 +27,7 @@ public class BookingTagParser implements Parser<BookingTagCommand> {
         Index index;
         BookingTag bookingTag;
         try {
+            argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_BOOKINGTAG);
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
             bookingTag = ParserUtil.parseBookingTag(argMultimap.getValue(PREFIX_BOOKINGTAG).orElse(""));
         } catch (IllegalValueException ive) {

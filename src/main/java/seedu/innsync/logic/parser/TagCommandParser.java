@@ -27,6 +27,7 @@ public class TagCommandParser implements Parser<TagCommand> {
         Index index;
         Tag tag;
         try {
+            argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TAG);
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
             tag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).orElse(""));
         } catch (IllegalValueException ive) {
