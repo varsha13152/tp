@@ -9,7 +9,11 @@ import java.util.Set;
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.commons.util.StringUtil;
 import seedu.innsync.logic.parser.exceptions.ParseException;
-import seedu.innsync.model.person.*;
+import seedu.innsync.model.person.Address;
+import seedu.innsync.model.person.Email;
+import seedu.innsync.model.person.Memo;
+import seedu.innsync.model.person.Name;
+import seedu.innsync.model.person.Phone;
 import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
 

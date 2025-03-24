@@ -1,14 +1,14 @@
 package seedu.innsync.logic.parser;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.innsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_MEMO;
+
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.commons.exceptions.IllegalValueException;
 import seedu.innsync.logic.commands.MemoCommand;
 import seedu.innsync.logic.parser.exceptions.ParseException;
 import seedu.innsync.model.person.Memo;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.innsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.innsync.logic.parser.CliSyntax.PREFIX_MEMO;
 
 /**
  * Parses input arguments and creates a new MemoCommand object

@@ -1,6 +1,11 @@
 package seedu.innsync.logic.commands;
 
-import java.text.MessageFormat;
+import static seedu.innsync.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_MEMO;
+import static seedu.innsync.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+
+import java.util.List;
+
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.commons.util.ToStringBuilder;
 import seedu.innsync.logic.Messages;
@@ -8,13 +13,6 @@ import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.Model;
 import seedu.innsync.model.person.Memo;
 import seedu.innsync.model.person.Person;
-
-import java.util.List;
-
-import static seedu.innsync.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.innsync.logic.parser.CliSyntax.PREFIX_MEMO;
-import static seedu.innsync.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-
 
 /**
  * Adds a memo to the person in the address book.

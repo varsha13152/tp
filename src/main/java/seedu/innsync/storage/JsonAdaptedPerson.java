@@ -10,7 +10,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.innsync.commons.exceptions.IllegalValueException;
-import seedu.innsync.model.person.*;
+import seedu.innsync.model.person.Address;
+import seedu.innsync.model.person.Email;
+import seedu.innsync.model.person.Memo;
+import seedu.innsync.model.person.Name;
+import seedu.innsync.model.person.Person;
+import seedu.innsync.model.person.Phone;
 import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
 
@@ -129,7 +134,8 @@ class JsonAdaptedPerson {
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
         final boolean modelStarred = starred;
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelMemo, modelBookingTags, modelTags, modelStarred);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelMemo, modelBookingTags,
+                modelTags, modelStarred);
     }
 
 }

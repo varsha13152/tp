@@ -25,6 +25,7 @@ public class Person {
     // Data fields
     private final Address address;
     private final Memo memo;
+
     private final Set<BookingTag> bookingTags = new HashSet<>();
     private final Set<Tag> tags = new HashSet<>();
     private final boolean starred;
