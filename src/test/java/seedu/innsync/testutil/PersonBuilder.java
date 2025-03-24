@@ -3,11 +3,7 @@ package seedu.innsync.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.innsync.model.person.Address;
-import seedu.innsync.model.person.Email;
-import seedu.innsync.model.person.Name;
-import seedu.innsync.model.person.Person;
-import seedu.innsync.model.person.Phone;
+import seedu.innsync.model.person.*;
 import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
 import seedu.innsync.model.util.SampleDataUtil;
@@ -22,11 +18,13 @@ public class PersonBuilder {
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final boolean DEFAULT_STARRED = false;
+    public static final String DEFAULT_MEMO = "";
 
     private Name name;
     private Phone phone;
     private Email email;
     private Address address;
+    private Memo memo;
     private boolean starred;
     private Set<BookingTag> bookingTags;
     private Set<Tag> tags;
@@ -39,6 +37,7 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
+        memo = new Memo(DEFAULT_MEMO);
         starred = DEFAULT_STARRED;
         bookingTags = new HashSet<>();
         tags = new HashSet<>();
@@ -52,6 +51,7 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
+        memo = personToCopy.getMemo();
         starred = personToCopy.getStarred();
         bookingTags = new HashSet<>(personToCopy.getBookingTags());
         tags = new HashSet<>(personToCopy.getTags());
@@ -90,6 +90,14 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code Memo} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withMemo(String memo) {
+        this.memo = new Memo(memo);
+        return this;
+    }
+
+    /**
      * Sets the {@code Phone} of the {@code Person} that we are building.
      */
     public PersonBuilder withPhone(String phone) {
@@ -114,7 +122,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, address, bookingTags, tags, starred);
+        return new Person(name, phone, email, address, memo, bookingTags, tags, starred);
     }
 
 }

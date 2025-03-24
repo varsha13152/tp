@@ -1,12 +1,7 @@
 package seedu.innsync.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.innsync.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.innsync.logic.parser.CliSyntax.PREFIX_BOOKINGTAG;
-import static seedu.innsync.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.innsync.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.innsync.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.innsync.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.innsync.logic.parser.CliSyntax.*;
 import static seedu.innsync.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -22,11 +17,7 @@ import seedu.innsync.commons.util.ToStringBuilder;
 import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.Model;
-import seedu.innsync.model.person.Address;
-import seedu.innsync.model.person.Email;
-import seedu.innsync.model.person.Name;
-import seedu.innsync.model.person.Person;
-import seedu.innsync.model.person.Phone;
+import seedu.innsync.model.person.*;
 import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
 
@@ -45,6 +36,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_MEMO + "MEMO] "
             + "[" + PREFIX_BOOKINGTAG + "BOOKING_TAG] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -102,11 +94,12 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
+        Memo updatedMemo = editPersonDescriptor.getMemo().orElse(personToEdit.getMemo());
         Set<BookingTag> updatedBookingTags =
             editPersonDescriptor.getBookingTags().orElse(personToEdit.getBookingTags());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedBookingTags,
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedMemo, updatedBookingTags,
                 updatedTags, personToEdit.getStarred());
     }
 
@@ -143,6 +136,7 @@ public class EditCommand extends Command {
         private Phone phone;
         private Email email;
         private Address address;
+        private Memo memo;
         private Set<BookingTag> bookingTags;
         private Set<Tag> tags;
 
@@ -157,6 +151,7 @@ public class EditCommand extends Command {
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
+            setMemo(toCopy.memo);
             setBookingTags(toCopy.bookingTags);
             setTags(toCopy.tags);
         }
@@ -165,7 +160,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, bookingTags, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, memo, bookingTags, tags);
         }
 
         public void setName(Name name) {
@@ -198,6 +193,14 @@ public class EditCommand extends Command {
 
         public Optional<Address> getAddress() {
             return Optional.ofNullable(address);
+        }
+
+        public void setMemo(Memo memo) {
+            this.memo = memo;
+        }
+
+        public Optional<Memo> getMemo() {
+            return Optional.ofNullable(memo);
         }
 
         public void setBookingTags(Set<BookingTag> bookingTags) {
@@ -241,6 +244,7 @@ public class EditCommand extends Command {
                     && Objects.equals(phone, otherEditPersonDescriptor.phone)
                     && Objects.equals(email, otherEditPersonDescriptor.email)
                     && Objects.equals(address, otherEditPersonDescriptor.address)
+                    && Objects.equals(memo, otherEditPersonDescriptor.memo)
                     && Objects.equals(bookingTags, otherEditPersonDescriptor.bookingTags)
                     && Objects.equals(tags, otherEditPersonDescriptor.tags);
         }
@@ -252,6 +256,7 @@ public class EditCommand extends Command {
                     .add("phone", phone)
                     .add("email", email)
                     .add("address", address)
+                    .add("memo", memo)
                     .add("bookingTags", bookingTags)
                     .add("tags", tags)
                     .toString();

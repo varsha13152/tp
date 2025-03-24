@@ -24,6 +24,7 @@ public class Person {
 
     // Data fields
     private final Address address;
+    private final Memo memo;
     private final Set<BookingTag> bookingTags = new HashSet<>();
     private final Set<Tag> tags = new HashSet<>();
     private final boolean starred;
@@ -31,13 +32,14 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<BookingTag> bookingTags,
+    public Person(Name name, Phone phone, Email email, Address address, Memo memo, Set<BookingTag> bookingTags,
                   Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, bookingTags, tags);
+        requireAllNonNull(name, phone, email, address, memo, bookingTags, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.memo = memo;
         this.bookingTags.addAll(bookingTags);
         this.tags.addAll(tags);
         this.starred = false;
@@ -46,13 +48,14 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<BookingTag> bookingTags,
+    public Person(Name name, Phone phone, Email email, Address address, Memo memo, Set<BookingTag> bookingTags,
                   Set<Tag> tags, boolean starred) {
         requireAllNonNull(name, phone, email, address, bookingTags, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.memo = memo;
         this.bookingTags.addAll(bookingTags);
         this.tags.addAll(tags);
         this.starred = starred;
@@ -77,6 +80,8 @@ public class Person {
     public boolean getStarred() {
         return starred;
     }
+
+    public Memo getMemo() { return memo; }
 
     public Set<BookingTag> getBookingTags() {
         return Collections.unmodifiableSet(bookingTags);
@@ -124,6 +129,7 @@ public class Person {
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
                 && starred == otherPerson.starred
+                && memo.equals(otherPerson.memo)
                 && bookingTags.equals(otherPerson.bookingTags)
                 && tags.equals(otherPerson.tags);
     }
@@ -131,7 +137,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, bookingTags, tags);
+        return Objects.hash(name, phone, email, address, memo, bookingTags, tags);
     }
 
     @Override
@@ -141,6 +147,7 @@ public class Person {
                 .add("phone", phone)
                 .add("email", email)
                 .add("address", address)
+                .add("memo", memo)
                 .add("bookingTags", bookingTags)
                 .add("tags", tags)
                 .add("starred", starred)

@@ -10,11 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.innsync.commons.exceptions.IllegalValueException;
-import seedu.innsync.model.person.Address;
-import seedu.innsync.model.person.Email;
-import seedu.innsync.model.person.Name;
-import seedu.innsync.model.person.Person;
-import seedu.innsync.model.person.Phone;
+import seedu.innsync.model.person.*;
 import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
 
@@ -29,6 +25,7 @@ class JsonAdaptedPerson {
     private final String phone;
     private final String email;
     private final String address;
+    private final String memo;
     private final boolean starred;
     private final List<JsonAdaptedBookingTag> bookingTags = new ArrayList<>();
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
@@ -39,6 +36,7 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
                              @JsonProperty("email") String email, @JsonProperty("address") String address,
+                             @JsonProperty("memo") String memo,
                              @JsonProperty("bookingTags") List<JsonAdaptedBookingTag> bookingTags,
                              @JsonProperty("tags") List<JsonAdaptedTag> tags,
                              @JsonProperty("starred") boolean starred) {
@@ -46,6 +44,7 @@ class JsonAdaptedPerson {
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.memo = memo;
         this.starred = starred;
         if (bookingTags != null) {
             this.bookingTags.addAll(bookingTags);
@@ -63,6 +62,7 @@ class JsonAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+        memo = source.getMemo().value;
         starred = source.getStarred();
         bookingTags.addAll(source.getBookingTags().stream()
                 .map(JsonAdaptedBookingTag::new)
@@ -119,12 +119,17 @@ class JsonAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
+        if (memo == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Memo.class.getSimpleName()));
+        }
+        final Memo modelMemo = new Memo(memo);
+
         final Set<BookingTag> modelBookingTags = new HashSet<>(personBookingTags);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
         final boolean modelStarred = starred;
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelBookingTags, modelTags, modelStarred);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelMemo, modelBookingTags, modelTags, modelStarred);
     }
 
 }
