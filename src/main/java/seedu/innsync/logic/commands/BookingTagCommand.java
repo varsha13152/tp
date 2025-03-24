@@ -70,6 +70,7 @@ public class BookingTagCommand extends Command {
                 personToCopy.getPhone(),
                 personToCopy.getEmail(),
                 personToCopy.getAddress(),
+                personToCopy.getMemo(),
                 updatedBookingTags,
                 personToCopy.getTags(),
                 personToCopy.getStarred()
