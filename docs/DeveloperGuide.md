@@ -483,7 +483,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     * 4a1. InnSync shows an error message.
       Use case resumes at step 2.
-  
+
 * 5a. The given booking tag date overlaps with an existing booking tag.
 
     * 5a1. InnSync shows an error message.
