@@ -11,7 +11,6 @@ import static seedu.innsync.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.innsync.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.innsync.testutil.TypicalPersons.getTypicalAddressBook;
 
-import java.text.MessageFormat;
 import org.junit.jupiter.api.Test;
 
 import seedu.innsync.commons.core.index.Index;
@@ -20,8 +19,8 @@ import seedu.innsync.model.AddressBook;
 import seedu.innsync.model.Model;
 import seedu.innsync.model.ModelManager;
 import seedu.innsync.model.UserPrefs;
-import seedu.innsync.model.person.Person;
 import seedu.innsync.model.person.Memo;
+import seedu.innsync.model.person.Person;
 import seedu.innsync.testutil.PersonBuilder;
 
 /**

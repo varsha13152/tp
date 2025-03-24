@@ -1,5 +1,13 @@
 package seedu.innsync.testutil;
 
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_BOOKINGTAG;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_MEMO;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_TAG;
+
 import java.util.Set;
 
 import seedu.innsync.logic.commands.AddCommand;
@@ -7,8 +15,6 @@ import seedu.innsync.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.innsync.model.person.Person;
 import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
-
-import static seedu.innsync.logic.parser.CliSyntax.*;
 
 /**
  * A utility class for Person.

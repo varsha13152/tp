@@ -3,7 +3,12 @@ package seedu.innsync.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.innsync.model.person.*;
+import seedu.innsync.model.person.Address;
+import seedu.innsync.model.person.Email;
+import seedu.innsync.model.person.Memo;
+import seedu.innsync.model.person.Name;
+import seedu.innsync.model.person.Person;
+import seedu.innsync.model.person.Phone;
 import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
 import seedu.innsync.model.util.SampleDataUtil;
