@@ -11,6 +11,7 @@ import static seedu.innsync.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.innsync.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.innsync.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.text.MessageFormat;
 import org.junit.jupiter.api.Test;
 
 import seedu.innsync.commons.core.index.Index;
@@ -39,7 +40,7 @@ public class MemoCommandTest {
 
         MemoCommand memoCommand = new MemoCommand(INDEX_FIRST_PERSON, new Memo(editedPerson.getMemo().value));
 
-        String expectedMessage = String.format(MemoCommand.MESSAGE_ADD_MEMO_SUCCESS, editedPerson);
+        String expectedMessage = String.format(MemoCommand.MESSAGE_ADD_MEMO_SUCCESS, Messages.format(editedPerson));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
@@ -55,7 +56,7 @@ public class MemoCommandTest {
         MemoCommand memoCommand = new MemoCommand(INDEX_FIRST_PERSON,
                 new Memo(editedPerson.getMemo().toString()));
 
-        String expectedMessage = String.format(MemoCommand.MESSAGE_DELETE_MEMO_SUCCESS, editedPerson);
+        String expectedMessage = String.format(MemoCommand.MESSAGE_DELETE_MEMO_SUCCESS, Messages.format(editedPerson));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
@@ -73,7 +74,7 @@ public class MemoCommandTest {
 
         MemoCommand memoCommand = new MemoCommand(INDEX_FIRST_PERSON, new Memo(editedPerson.getMemo().value));
 
-        String expectedMessage = String.format(MemoCommand.MESSAGE_ADD_MEMO_SUCCESS, editedPerson);
+        String expectedMessage = String.format(MemoCommand.MESSAGE_ADD_MEMO_SUCCESS, Messages.format(editedPerson));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);

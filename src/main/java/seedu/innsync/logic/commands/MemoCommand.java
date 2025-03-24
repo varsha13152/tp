@@ -1,5 +1,6 @@
 package seedu.innsync.logic.commands;
 
+import java.text.MessageFormat;
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.commons.util.ToStringBuilder;
 import seedu.innsync.logic.Messages;
@@ -54,7 +55,8 @@ public class MemoCommand extends Command {
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                personToEdit.getAddress(), memo, personToEdit.getBookingTags(), personToEdit.getTags());
+                personToEdit.getAddress(), memo, personToEdit.getBookingTags(), personToEdit.getTags(),
+                personToEdit.getStarred());
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -68,7 +70,7 @@ public class MemoCommand extends Command {
      */
     private String generateSuccessMessage(Person personToEdit) {
         String message = !memo.value.isEmpty() ? MESSAGE_ADD_MEMO_SUCCESS : MESSAGE_DELETE_MEMO_SUCCESS;
-        return String.format(message, personToEdit);
+        return String.format(message, Messages.format(personToEdit));
     }
 
     @Override
