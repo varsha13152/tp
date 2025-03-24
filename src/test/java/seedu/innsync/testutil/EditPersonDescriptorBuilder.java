@@ -5,11 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.innsync.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.innsync.model.person.Address;
-import seedu.innsync.model.person.Email;
-import seedu.innsync.model.person.Name;
-import seedu.innsync.model.person.Person;
-import seedu.innsync.model.person.Phone;
+import seedu.innsync.model.person.*;
 import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
 
@@ -37,6 +33,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setPhone(person.getPhone());
         descriptor.setEmail(person.getEmail());
         descriptor.setAddress(person.getAddress());
+        descriptor.setMemo(person.getMemo());
         descriptor.setBookingTags(person.getBookingTags());
         descriptor.setTags(person.getTags());
     }
@@ -70,6 +67,14 @@ public class EditPersonDescriptorBuilder {
      */
     public EditPersonDescriptorBuilder withAddress(String address) {
         descriptor.setAddress(new Address(address));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Memo} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withMemo(String memo) {
+        descriptor.setMemo(new Memo(memo));
         return this;
     }
 

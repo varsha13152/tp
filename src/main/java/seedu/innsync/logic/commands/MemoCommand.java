@@ -82,8 +82,8 @@ public class MemoCommand extends Command {
             return false;
         }
 
-        MemoCommand otherBookingTag = (MemoCommand) other;
-        return index.equals(otherBookingTag.index);
+        MemoCommand otherMemo = (MemoCommand) other;
+        return index.equals(otherMemo.index) && memo.equals(otherMemo.memo);
     }
 
     @Override

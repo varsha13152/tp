@@ -1,12 +1,5 @@
 package seedu.innsync.testutil;
 
-import static seedu.innsync.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.innsync.logic.parser.CliSyntax.PREFIX_BOOKINGTAG;
-import static seedu.innsync.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.innsync.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.innsync.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.innsync.logic.parser.CliSyntax.PREFIX_TAG;
-
 import java.util.Set;
 
 import seedu.innsync.logic.commands.AddCommand;
@@ -14,6 +7,8 @@ import seedu.innsync.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.innsync.model.person.Person;
 import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
+
+import static seedu.innsync.logic.parser.CliSyntax.*;
 
 /**
  * A utility class for Person.
@@ -36,6 +31,7 @@ public class PersonUtil {
         sb.append(PREFIX_PHONE + person.getPhone().value + " ");
         sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
         sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
+        sb.append(PREFIX_MEMO + person.getMemo().value + " ");
         person.getBookingTags().stream().forEach(
                 s -> sb.append(PREFIX_BOOKINGTAG + s.bookingTagName + " ")
         );
@@ -54,6 +50,7 @@ public class PersonUtil {
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
+        descriptor.getMemo().ifPresent(memo -> sb.append(PREFIX_MEMO).append(memo.value).append(" "));
         if (descriptor.getBookingTags().isPresent()) {
             Set<BookingTag> bookingTags = descriptor.getBookingTags().get();
             if (bookingTags.isEmpty()) {
