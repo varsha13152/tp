@@ -13,7 +13,7 @@ Class MemoCommand {
 }
 Class CommandException
 
-RemarkCommand -up-|> Command
+MemoCommand -up-|> Command
 Command ..> CommandException: throws >
-RemarkCommand .right.> CommandException: throws >
+MemoCommand .right.> CommandException: throws >
 @enduml
