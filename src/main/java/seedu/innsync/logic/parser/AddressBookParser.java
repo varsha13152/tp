@@ -93,6 +93,9 @@ public class AddressBookParser {
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
 
+        case TagCommand.COMMAND_WORD:
+            return new TagCommandParser().parse(arguments);
+
         case MemoCommand.COMMAND_WORD:
             return new MemoCommandParser().parse(arguments);
 

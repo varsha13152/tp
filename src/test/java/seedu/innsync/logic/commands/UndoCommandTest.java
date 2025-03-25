@@ -1,6 +1,7 @@
 package seedu.innsync.logic.commands;
 
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_BOOKINGTAG_BEACHHOUSE;
+import static seedu.innsync.logic.commands.CommandTestUtil.VALID_MEMO_AMY;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.innsync.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.innsync.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -53,6 +54,15 @@ public class UndoCommandTest {
         Person person = modifiedModel.getPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         boolean wasStarred = person.getStarred();
         modifiedModel.setPerson(person, new PersonBuilder(person).withStarred(!wasStarred).build());
+        UndoCommand undoCommand = new UndoCommand();
+        assertCommandSuccess(undoCommand, modifiedModel, UndoCommand.MESSAGE_SUCCESS, model);
+    }
+
+    @Test
+    public void execute_undoMemo_success() {
+        Model modifiedModel = new ModelManager(this.model.getAddressBook(), new UserPrefs());
+        Person person = modifiedModel.getPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        modifiedModel.setPerson(person, new PersonBuilder(person).withMemo(VALID_MEMO_AMY).build());
         UndoCommand undoCommand = new UndoCommand();
         assertCommandSuccess(undoCommand, modifiedModel, UndoCommand.MESSAGE_SUCCESS, model);
     }
