@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_BOOKINGTAG;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_MEMO;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_TAG;
@@ -35,6 +36,8 @@ public class CommandTestUtil {
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
+    public static final String VALID_MEMO_AMY = "AMY";
+    public static final String VALID_MEMO_BOB = "BOB";
     public static final String VALID_BOOKINGTAG_BEACHHOUSE = "BeachHouse from/2025-06-01 to/2025-06-10";
     public static final String VALID_BOOKINGTAG_HOTEL = "Hotel from/2025-06-01 to/2025-06-10";
     public static final String VALID_TAG_HUSBAND = "husband";
@@ -48,6 +51,8 @@ public class CommandTestUtil {
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
     public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
+    public static final String MEMO_DESC_AMY = " " + PREFIX_MEMO + VALID_MEMO_AMY;
+    public static final String MEMO_DESC_BOB = " " + PREFIX_MEMO + VALID_MEMO_BOB;
     public static final String BOOKINGTAG_DESC_AMY = " " + PREFIX_BOOKINGTAG + VALID_BOOKINGTAG_BEACHHOUSE;
     public static final String BOOKINGTAG_DESC_BOB = " " + PREFIX_BOOKINGTAG + VALID_BOOKINGTAG_HOTEL;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
