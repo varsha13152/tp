@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 
 import seedu.innsync.commons.core.LogsCenter;
 import seedu.innsync.logic.commands.AddCommand;
-import seedu.innsync.logic.commands.BookingTagCommand;
 import seedu.innsync.logic.commands.ClearCommand;
 import seedu.innsync.logic.commands.Command;
 import seedu.innsync.logic.commands.DeleteCommand;
@@ -21,6 +20,7 @@ import seedu.innsync.logic.commands.ListCommand;
 import seedu.innsync.logic.commands.ListStarCommand;
 import seedu.innsync.logic.commands.MemoCommand;
 import seedu.innsync.logic.commands.StarCommand;
+import seedu.innsync.logic.commands.TagCommand;
 import seedu.innsync.logic.commands.UnstarCommand;
 import seedu.innsync.logic.parser.exceptions.ParseException;
 
@@ -61,9 +61,6 @@ public class AddressBookParser {
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
-        case BookingTagCommand.COMMAND_WORD:
-            return new BookingTagParser().parse(arguments);
-
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
@@ -81,6 +78,9 @@ public class AddressBookParser {
 
         case UnstarCommand.COMMAND_WORD:
             return new UnstarCommandParser().parse(arguments);
+
+        case TagCommand.COMMAND_WORD:
+                return new TagCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();

@@ -1,6 +1,7 @@
 package seedu.innsync.logic.commands;
 
-import static seedu.innsync.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_BOOKINGTAG;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.innsync.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -14,30 +15,41 @@ import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.Model;
 import seedu.innsync.model.person.Person;
+import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
 
 /**
- * Adds a tag into a person to the address book.
+ * Adds a (booking) tag into a person to the address book.
  */
 public class TagCommand extends Command {
 
     public static final String COMMAND_WORD = "addtag";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds tag to the contact identified by the index number in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_TAG + "TAG\n"
-            + "Example: " + COMMAND_WORD + " 1 t/friend";
+            + PREFIX_BOOKINGTAG + "{property} from/{start-date} to/{end-date}\n"
+            + "Example: " + COMMAND_WORD + " 1 t/friend"
+            + "Example: " + COMMAND_WORD + " 1 b/BeachHouse from/2025-06-01 to/2025-06-10";
     public static final String MESSAGE_SUCCESS = "Tag successfully added: %s";
+    // failure only applies to booking tag
+    public static final String MESSAGE_FAILURE = "Failed to add booking tag. "
+            + "The booking tag %s overlaps with an existing tag.";
+
     private final Index index;
-    private final Tag tag;
+    private final Set<Tag> tagList;
+    private final Set<BookingTag> bookingTagList;
 
     /**
      * Creates an TagCommand to add the specified {@code index}
+     * and {@code tag}
      */
-    public TagCommand(Index index, Tag tag) {
-        requireAllNonNull(index, tag);
+    public TagCommand(Index index, Set<Tag> tagList, Set<BookingTag> bookingTagList) {
+        requireNonNull(index);
         this.index = index;
-        this.tag = tag;
+        this.tagList = tagList;
+        this.bookingTagList = bookingTagList;
     }
 
     @Override
@@ -48,25 +60,47 @@ public class TagCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(this.index.getZeroBased());
-        Person editedPerson = addTagPerson(personToEdit, tag);
+        Person editedPerson = addTagsPerson(personToEdit, tagList, bookingTagList);
+
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(editedPerson)));
     }
 
-    private Person addTagPerson(Person personToCopy, Tag tag) {
+    private Person addTagsPerson(Person personToCopy, Set<Tag> tags, Set<BookingTag> bookingTags) throws CommandException {
         Set<Tag> updatedTags = new HashSet<>(personToCopy.getTags());
-        updatedTags.add(tag);
+        Set<BookingTag> updatedBookingTags = new HashSet<>(personToCopy.getBookingTags());
+
+        for (Tag tag : tags) {
+            updatedTags.add(tag);
+        }
+        for (BookingTag bookingTag : bookingTags) {
+            for (BookingTag existingTag : updatedBookingTags) {
+                if (isOverlapping(existingTag, bookingTag)) {
+                    throw new CommandException(String.format(MESSAGE_FAILURE, bookingTag.toPrettier()));
+                }
+            }
+            updatedBookingTags.add(bookingTag);
+        }
+
         return new Person(
                 personToCopy.getName(),
                 personToCopy.getPhone(),
                 personToCopy.getEmail(),
                 personToCopy.getAddress(),
                 personToCopy.getMemo(),
-                personToCopy.getBookingTags(),
+                updatedBookingTags,
                 updatedTags,
                 personToCopy.getStarred()
         );
+    }
+
+    /**
+     * Helper method to check if two booking tags overlap
+     */
+    private boolean isOverlapping(BookingTag tag1, BookingTag tag2) {
+        return !(tag1.endDate.isBefore(tag2.startDate) || tag2.endDate.isBefore(tag1.startDate));
     }
 
     @Override
