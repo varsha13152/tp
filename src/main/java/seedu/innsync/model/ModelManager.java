@@ -22,6 +22,7 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
+    private final AddressBook backupAddressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
 
@@ -34,6 +35,7 @@ public class ModelManager implements Model {
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
+        this.backupAddressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
@@ -97,11 +99,13 @@ public class ModelManager implements Model {
 
     @Override
     public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+        this.backupAddressBook.resetData(this.addressBook);
+        this.addressBook.removePerson(target);
     }
 
     @Override
     public void addPerson(Person person) {
+        this.backupAddressBook.resetData(this.addressBook);
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
@@ -109,8 +113,19 @@ public class ModelManager implements Model {
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
-
+        this.backupAddressBook.resetData(this.addressBook);
         addressBook.setPerson(target, editedPerson);
+    }
+
+    @Override
+    public boolean revertToLastModified() {
+        if (this.backupAddressBook.equals(this.addressBook)) {
+            return false;
+        }
+        AddressBook prevAddressBook = new AddressBook(this.backupAddressBook);
+        this.addressBook.resetData(this.backupAddressBook);
+        this.backupAddressBook.resetData(prevAddressBook);
+        return true;
     }
 
     //=========== Filtered Person List Accessors =============================================================

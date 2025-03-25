@@ -21,6 +21,7 @@ import seedu.innsync.logic.commands.ListStarCommand;
 import seedu.innsync.logic.commands.MemoCommand;
 import seedu.innsync.logic.commands.StarCommand;
 import seedu.innsync.logic.commands.TagCommand;
+import seedu.innsync.logic.commands.UndoCommand;
 import seedu.innsync.logic.commands.UnstarCommand;
 import seedu.innsync.logic.parser.exceptions.ParseException;
 
@@ -87,6 +88,12 @@ public class AddressBookParser {
 
         case ListStarCommand.COMMAND_WORD:
             return new ListStarCommand();
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+
+        case TagCommand.COMMAND_WORD:
+            return new TagCommandParser().parse(arguments);
 
         case MemoCommand.COMMAND_WORD:
             return new MemoCommandParser().parse(arguments);
