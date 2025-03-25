@@ -68,7 +68,8 @@ public class TagCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(editedPerson)));
     }
 
-    private Person addTagsPerson(Person personToCopy, Set<Tag> tags, Set<BookingTag> bookingTags) throws CommandException {
+    private Person addTagsPerson(Person personToCopy, Set<Tag> tags, Set<BookingTag> bookingTags)
+            throws CommandException {
         Set<Tag> updatedTags = new HashSet<>(personToCopy.getTags());
         Set<BookingTag> updatedBookingTags = new HashSet<>(personToCopy.getBookingTags());
 
@@ -92,8 +93,7 @@ public class TagCommand extends Command {
                 personToCopy.getMemo(),
                 updatedBookingTags,
                 updatedTags,
-                personToCopy.getStarred()
-        );
+                personToCopy.getStarred());
     }
 
     /**

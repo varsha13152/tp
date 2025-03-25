@@ -81,7 +81,7 @@ public class AddressBookParser {
             return new UnstarCommandParser().parse(arguments);
 
         case TagCommand.COMMAND_WORD:
-                return new TagCommandParser().parse(arguments);
+            return new TagCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
