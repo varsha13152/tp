@@ -58,6 +58,7 @@ public class StarCommand extends Command {
                 personToCopy.getPhone(),
                 personToCopy.getEmail(),
                 personToCopy.getAddress(),
+                personToCopy.getMemo(),
                 personToCopy.getBookingTags(),
                 personToCopy.getTags(),
                 true);

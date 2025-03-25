@@ -42,7 +42,7 @@ public class UnstarCommandTest {
         UnstarCommand unstarCommand = new UnstarCommand(INDEX_FIRST_PERSON);
 
         String expectedMessage = String.format(UnstarCommand.MESSAGE_SUCCESS,
-                Messages.format(personToUnstarNow));
+                Messages.format(expectedPerson));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(personToUnstarNow, expectedPerson);

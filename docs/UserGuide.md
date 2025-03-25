@@ -152,7 +152,7 @@ Examples:
 
 ### Locating persons: `find`
 
-Allows users to search for a contact by their name, phone, address, email, tag, booking tag 
+Allows users to search for a contact by their name, phone, address, email, tag, booking tag
 
 Format: `find [n/]KEYWORD [MORE_KEYWORDS] | p/PHONE [MORE_PHONES] | e/EMAIL [MORE_EMAILS] | a/ADDRESS [MORE_ADDRESS] | t/TAG [MORE_TAGS] | b/DATE [MORE_DATES]`
 

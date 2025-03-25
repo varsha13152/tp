@@ -36,7 +36,7 @@ public class StarCommandTest {
         StarCommand starCommand = new StarCommand(INDEX_FIRST_PERSON);
 
         String expectedMessage = String.format(StarCommand.MESSAGE_SUCCESS,
-                Messages.format(personToStar));
+                Messages.format(expectedPerson));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(personToStar, expectedPerson);
@@ -61,7 +61,7 @@ public class StarCommandTest {
         StarCommand starCommand = new StarCommand(INDEX_FIRST_PERSON);
 
         String expectedMessage = String.format(StarCommand.MESSAGE_FAILURE,
-                Messages.format(personToStar));
+                Messages.format(expectedPerson));
         assertCommandFailure(starCommand, testModel, expectedMessage);
     }
 

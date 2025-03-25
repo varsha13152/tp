@@ -11,6 +11,7 @@ import seedu.innsync.commons.util.StringUtil;
 import seedu.innsync.logic.parser.exceptions.ParseException;
 import seedu.innsync.model.person.Address;
 import seedu.innsync.model.person.Email;
+import seedu.innsync.model.person.Memo;
 import seedu.innsync.model.person.Name;
 import seedu.innsync.model.person.Phone;
 import seedu.innsync.model.tag.BookingTag;
@@ -94,6 +95,17 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String Memo} into an {@code Memo}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     */
+    public static Memo parseMemo(String memo) throws ParseException {
+        requireNonNull(memo);
+        String trimmedMemo = memo.trim();
+        return new Memo(trimmedMemo);
     }
 
     /**
