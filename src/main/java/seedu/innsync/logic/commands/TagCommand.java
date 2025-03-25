@@ -23,7 +23,7 @@ import seedu.innsync.model.tag.Tag;
  */
 public class TagCommand extends Command {
 
-    public static final String COMMAND_WORD = "addtag";
+    public static final String COMMAND_WORD = "tag";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds tag to the contact identified by the index number in the displayed person list.\n"
