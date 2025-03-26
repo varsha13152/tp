@@ -4,9 +4,7 @@ import static seedu.innsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_BOOKINGTAG;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.List;
 import java.util.stream.Stream;
-
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.logic.commands.UntagCommand;
 import seedu.innsync.logic.parser.exceptions.ParseException;
@@ -28,12 +26,16 @@ public class UntagCommandParser implements Parser<UntagCommand> {
         if (!atLeastOnePrefixPresent(argMultimap, PREFIX_BOOKINGTAG, PREFIX_TAG)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UntagCommand.MESSAGE_USAGE));
         }
-
+        boolean hasBookingTag = argMultimap.getValue(PREFIX_BOOKINGTAG).isPresent();
+        boolean hasTag = argMultimap.getValue(PREFIX_TAG).isPresent();
+        if (hasBookingTag == hasTag) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UntagCommand.MESSAGE_USAGE));
+        }
         Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        List<String> bookingTagList = argMultimap.getAllValues(PREFIX_BOOKINGTAG);
-        List<String> tagList = argMultimap.getAllValues(PREFIX_TAG);
+        String bookingTag = argMultimap.getValue(PREFIX_BOOKINGTAG).orElse("");
+        String tag = argMultimap.getValue(PREFIX_TAG).orElse("");
 
-        return new UntagCommand(index, tagList, bookingTagList);
+        return new UntagCommand(index, bookingTag, tag);
     }
 
     /**
