@@ -82,7 +82,9 @@ public class Person {
         return starred;
     }
 
-    public Memo getMemo() { return memo; }
+    public Memo getMemo() {
+        return memo;
+    }
 
     public Set<BookingTag> getBookingTags() {
         return Collections.unmodifiableSet(bookingTags);
