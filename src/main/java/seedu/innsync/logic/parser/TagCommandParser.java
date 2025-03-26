@@ -1,13 +1,15 @@
 package seedu.innsync.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.innsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_BOOKINGTAG;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.Set;
+
 import seedu.innsync.commons.core.index.Index;
-import seedu.innsync.commons.exceptions.IllegalValueException;
 import seedu.innsync.logic.commands.TagCommand;
 import seedu.innsync.logic.parser.exceptions.ParseException;
+import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
 
 /**
@@ -23,17 +25,12 @@ public class TagCommandParser implements Parser<TagCommand> {
     @Override
     public TagCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG);
-        Index index;
-        Tag tag;
-        try {
-            argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TAG);
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-            tag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).orElse(""));
-        } catch (IllegalValueException ive) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    TagCommand.MESSAGE_USAGE), ive);
-        }
-        return new TagCommand(index, tag);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_BOOKINGTAG, PREFIX_TAG);
+
+        Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
+        Set<BookingTag> bookingTagList = ParserUtil.parseBookingTags(argMultimap.getAllValues(PREFIX_BOOKINGTAG));
+        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+
+        return new TagCommand(index, tagList, bookingTagList);
     }
 }
