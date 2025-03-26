@@ -33,10 +33,10 @@ public class PersonListPanel extends UiPart<Region> {
         super(FXML);
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
-        
+
         MultipleSelectionModel<Person> selectionModel = personListView.getSelectionModel();
         selectionModel.setSelectionMode(SelectionMode.SINGLE);
-        
+
         // Add listener for selection changes
         selectionModel.selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (selectionConsumer != null) {

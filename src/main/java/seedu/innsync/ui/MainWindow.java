@@ -120,7 +120,7 @@ public class MainWindow extends UiPart<Stage> {
         // Initialize person detail panel and add it to left panel
         personDetailPanel = new PersonDetailPanel();
         leftPanelPlaceholder.getChildren().add(personDetailPanel.getRoot());
-        
+
         // Connect person list selection to detail panel
         personListPanel.setSelectionConsumer(person -> personDetailPanel.setPerson(person));
 
