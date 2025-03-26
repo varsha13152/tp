@@ -147,7 +147,7 @@
 }
 
 .status-bar {
-    -fx-background-color: #ffffff;
+    -fx-background-color: #FF5A60;
 }
 
 .result-display {
@@ -163,7 +163,7 @@
 
 .status-bar .label {
     -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: #333333;
+    -fx-text-fill: #ffffff;
     -fx-padding: 4px;
     -fx-pref-height: 30px;
 }
@@ -197,21 +197,37 @@
 }
 
 .menu-bar {
-    -fx-background-color: #ffffff;
+    -fx-background-color: #FF5A60;
 }
 
 .menu-bar .label {
     -fx-font-size: 14pt;
     -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: #333333;
+    -fx-text-fill: #ffffff;
     -fx-opacity: 0.9;
 }
 
 .menu .left-container {
+    -fx-background-color: #FF5A60;
+}
+
+.menu:hover, .menu:showing {
     -fx-background-color: #ffffff;
 }
 
-.menu:hover, .menu:showing, .menu-item:focused, .menu-item:hover {
+.menu:hover .label, .menu:showing .label {
+    -fx-text-fill: #FF5A60;
+}
+
+.menu-item .label {
+    -fx-text-fill: #333333;
+}
+
+.menu-item:focused .label, .menu-item:hover .label {
+    -fx-text-fill: #ffffff;
+}
+
+.menu-item:focused, .menu-item:hover {
     -fx-background-color: #FF5A60;
 }
 
