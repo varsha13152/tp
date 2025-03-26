@@ -124,6 +124,35 @@ public class CommandTestUtil {
         assertEquals(expectedAddressBook, actualModel.getAddressBook());
         assertEquals(expectedFilteredList, actualModel.getPersonList());
     }
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - a {@code CommandException} is thrown <br>
+     * - the CommandException message is one of the messages in {@code expectedMessages} <br>
+     * - the address book, filtered person list and selected person in {@code actualModel} remain unchanged
+     */
+    public static void assertCommandFailure(Command command, Model actualModel, String[] expectedMessages) {
+        // we are unable to defensively copy the model for comparison later, so we can
+        // only do so by copying its components.
+        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getPersonList());
+
+        assertThrows(CommandException.class, () -> {
+            try {
+                command.execute(actualModel);
+            } catch (CommandException ce) {
+                boolean matches = Arrays.stream(expectedMessages).anyMatch(ce.getMessage()::equals);
+                if (!matches) {
+                    throw new AssertionError("CommandException message does not match any expected messages.");
+                }
+                throw ce;
+            }
+        });
+
+        assertEquals(expectedAddressBook, actualModel.getAddressBook());
+        assertEquals(expectedFilteredList, actualModel.getPersonList());
+    }
+
     /**
      * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
      * {@code model}'s address book.
