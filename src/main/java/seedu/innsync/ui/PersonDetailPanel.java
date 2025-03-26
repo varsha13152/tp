@@ -19,28 +19,28 @@ public class PersonDetailPanel extends UiPart<Region> {
 
     @FXML
     private Label nameLabel;
-    
+
     @FXML
     private Label phoneLabel;
-    
+
     @FXML
     private Label emailLabel;
-    
+
     @FXML
     private Label addressLabel;
-    
+
     @FXML
     private FlowPane detailTags;
-    
+
     @FXML
     private FlowPane detailBookingTags;
-    
+
     @FXML
     private ImageView detailStarIcon;
-    
+
     @FXML
     private VBox placeholderBox;
-    
+
     /**
      * Creates a {@code PersonDetailPanel} with a default placeholder.
      */
@@ -48,7 +48,7 @@ public class PersonDetailPanel extends UiPart<Region> {
         super(FXML);
         showPlaceholder();
     }
-    
+
     /**
      * Updates the panel with the details of the given person.
      */
@@ -57,22 +57,22 @@ public class PersonDetailPanel extends UiPart<Region> {
             showPlaceholder();
             return;
         }
-        
+
         // Hide placeholder and show details
         placeholderBox.setVisible(false);
         placeholderBox.setManaged(false);
-        
+
         // Set person details
         nameLabel.setText(person.getName().fullName);
         phoneLabel.setText(person.getPhone().value);
         emailLabel.setText(person.getEmail().value);
         addressLabel.setText(person.getAddress().value);
         detailStarIcon.setVisible(person.getStarred());
-        
+
         // Clear previous tags
         detailTags.getChildren().clear();
         detailBookingTags.getChildren().clear();
-        
+
         // Add tags
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
@@ -81,7 +81,7 @@ public class PersonDetailPanel extends UiPart<Region> {
                     tagLabel.getStyleClass().add("detail-tag");
                     detailTags.getChildren().add(tagLabel);
                 });
-        
+
         // Add booking tags
         person.getBookingTags().stream()
                 .sorted(Comparator.comparing(bookingTag -> bookingTag.bookingTagName))
@@ -91,7 +91,7 @@ public class PersonDetailPanel extends UiPart<Region> {
                     detailBookingTags.getChildren().add(bookingTagLabel);
                 });
     }
-    
+
     /**
      * Shows the placeholder when no person is selected.
      */
@@ -103,7 +103,7 @@ public class PersonDetailPanel extends UiPart<Region> {
         detailStarIcon.setVisible(false);
         detailTags.getChildren().clear();
         detailBookingTags.getChildren().clear();
-        
+
         placeholderBox.setVisible(true);
         placeholderBox.setManaged(true);
     }
