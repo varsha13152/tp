@@ -36,7 +36,7 @@ public class UntagCommandParser implements Parser<UntagCommand> {
         String bookingTag = argMultimap.getValue(PREFIX_BOOKINGTAG).orElse("");
         String tag = argMultimap.getValue(PREFIX_TAG).orElse("");
 
-        return new UntagCommand(index, bookingTag, tag);
+        return new UntagCommand(index, tag, bookingTag);
     }
     /**
      * Returns true if at least one of the prefixes is present in the {@code ArgumentMultimap}.
