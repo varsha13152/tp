@@ -39,7 +39,7 @@ public class CommandTestUtil {
     public static final String VALID_MEMO_AMY = "AMY";
     public static final String VALID_MEMO_BOB = "BOB";
     public static final String VALID_BOOKINGTAG_BEACHHOUSE = "BeachHouse from/2025-06-01 to/2025-06-10";
-    public static final String VALID_BOOKINGTAG_HOTEL = "Hotel from/2025-06-01 to/2025-06-10";
+    public static final String VALID_BOOKINGTAG_HOTEL = "Hotel from/2025-06-11 to/2025-06-15";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
@@ -64,6 +64,8 @@ public class CommandTestUtil {
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_BOOKINGTAG_DESC = " " + PREFIX_TAG + "hotel from/"; // '*' not allowed in tags
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+
+    public static final String OVERLAPPING_BOOKINGTAG_INN = "Inn from/2025-06-08 to/2025-06-12";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

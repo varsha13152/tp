@@ -1,6 +1,7 @@
 package seedu.innsync.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static java.util.Objects.requireNonNullElse;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_BOOKINGTAG;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.innsync.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -48,8 +49,8 @@ public class TagCommand extends Command {
     public TagCommand(Index index, Set<Tag> tagList, Set<BookingTag> bookingTagList) {
         requireNonNull(index);
         this.index = index;
-        this.tagList = tagList;
-        this.bookingTagList = bookingTagList;
+        this.tagList = requireNonNullElse(tagList, new HashSet<>());
+        this.bookingTagList = requireNonNullElse(bookingTagList, new HashSet<>());
     }
 
     @Override
