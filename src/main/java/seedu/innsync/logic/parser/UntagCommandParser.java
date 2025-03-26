@@ -5,6 +5,7 @@ import static seedu.innsync.logic.parser.CliSyntax.PREFIX_BOOKINGTAG;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.stream.Stream;
+
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.logic.commands.UntagCommand;
 import seedu.innsync.logic.parser.exceptions.ParseException;
@@ -37,7 +38,6 @@ public class UntagCommandParser implements Parser<UntagCommand> {
 
         return new UntagCommand(index, bookingTag, tag);
     }
-
     /**
      * Returns true if at least one of the prefixes is present in the {@code ArgumentMultimap}.
      */
