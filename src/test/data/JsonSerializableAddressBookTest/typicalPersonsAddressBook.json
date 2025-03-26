@@ -5,6 +5,7 @@
     "phone" : "+65 94351253",
     "email" : "alice@example.com",
     "address" : "123, Jurong West Ave 6, #08-111",
+    "memo" : "long term stay.",
     "starred": false,
     "bookingTags" : [ ],
     "tags" : [ "friends" ]
@@ -13,6 +14,7 @@
     "phone" : "+65 98765432",
     "email" : "johnd@example.com",
     "address" : "311, Clementi Ave 2, #02-25",
+    "memo" : "Wants extra food",
     "starred": false,
     "bookingTags" : [ ],
     "tags" : [ "owesMoney", "friends" ]
@@ -21,6 +23,7 @@
     "phone" : "+65 95352563",
     "email" : "heinz@example.com",
     "address" : "wall street",
+    "memo" : "",
     "starred": false,
     "bookingTags" : [ ],
     "tags" : [ ]
@@ -29,6 +32,7 @@
     "phone" : "+65 87652533",
     "email" : "cornelia@example.com",
     "address" : "10th street",
+    "memo" : "",
     "starred": false,
     "bookingTags" : [ ],
     "tags" : [ "friends" ]
@@ -37,6 +41,7 @@
     "phone" : "+65 9482224",
     "email" : "werner@example.com",
     "address" : "michegan ave",
+    "memo" : "",
     "starred": false,
     "bookingTags" : [ ],
     "tags" : [ ]
@@ -45,6 +50,7 @@
     "phone" : "+65 9482427",
     "email" : "lydia@example.com",
     "address" : "little tokyo",
+    "memo" : "",
     "starred": false,
     "bookingTags" : [ ],
     "tags" : [ ]
@@ -53,6 +59,7 @@
     "phone" : "+65 9482442",
     "email" : "anna@example.com",
     "address" : "4th street",
+    "memo" : "",
     "starred": false,
     "bookingTags" : ["BeachHouse from/2025-06-01 to/2025-06-10"],
     "tags" : [ ]
