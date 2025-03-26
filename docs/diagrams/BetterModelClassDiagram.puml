@@ -24,4 +24,5 @@ Person *--> Phone
 Person *--> Email
 Person *--> Address
 Person *--> Star
+Person *--> Memo
 @enduml
