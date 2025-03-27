@@ -152,34 +152,44 @@ Examples:
 
 ### Locating persons: `find`
 
-Allows users to search for a contact by their name, phone, address, email, tag, booking tag
+Allows users to search for a contact by their name, phone, address, email, tag, memo, booking date, or booking property.
 
-Format: `find [n/]KEYWORD [MORE_KEYWORDS] | p/PHONE [MORE_PHONES] | e/EMAIL [MORE_EMAILS] | a/ADDRESS [MORE_ADDRESS] | t/TAG [MORE_TAGS] | b/DATE [MORE_DATES]`
+Format: `find [n/]KEYWORD [MORE_KEYWORDS] | p/KEYWORD [MORE_KEYWORDS] | e/KEYWORD [MORE_KEYWORDS] | a/KEYWORD [MORE_KEYWORDS] | t/KEYWORD [MORE_KEYWORDS] | m/KEYWORD [MORE_KEYWORDS] | bd/DATE [MORE_DATES] | bp/PROPERTY [MORE_PROPERTIES]`
 
 #### Search Modes:
 
-| Prefix | Field       | Description                                  | Example                    |
-|--------|-------------|----------------------------------------------|----------------------------|
-| (none) or `n/` | Name        | Searches through contact names              | `find John` or `find n/John` |
-| `p/`    | Phone       | Searches through phone numbers               | `find p/9123`              |
-| `e/`    | Email       | Searches through email addresses             | `find e/@example.com`      |
-| `a/`    | Address     | Searches through addresses                   | `find a/Clementi`          |
-| `t/`    | Tag         | Searches through contact tags                | `find t/friend`            |
-| `b/`    | Booking     | Searches for contacts with bookings that include the specified date(s) | `find b/2025-01-01` |
+| Prefix | Field            | Description                                  | Example                    |
+|--------|------------------|----------------------------------------------|----------------------------|
+| (none) or `n/` | Name     | Searches through contact names              | `find John` or `find n/John` |
+| `p/`    | Phone           | Searches through phone numbers               | `find p/9123`              |
+| `e/`    | Email           | Searches through email addresses             | `find e/@example.com`      |
+| `a/`    | Address         | Searches through addresses                   | `find a/Clementi`          |
+| `t/`    | Tag             | Searches through contact tags                | `find t/friend`            |
+| `m/`    | Memo            | Searches through contact memos               | `find m/important`         |
+| `bd/`   | Booking Date    | Searches for contacts with bookings that include the specified date(s) | `find bd/2025-01-01` |
+| `bp/`   | Booking Property | Searches for contacts with bookings at the specified property | `find bp/BeachHouse` |
+
 
 #### Search Behavior:
 
 * **Case-insensitive** - Search is not affected by upper or lower case (e.g., `find john` matches `John Doe`)
 * **Order-independent** - The order of keywords doesn't matter (e.g., `find Bo Hans` matches `Hans Bo`)
 * **Partial matching** - Keywords are matched partially against fields (e.g., `find Jo` matches `John`)
-* **Field-specific** - Only one search field type can be used per command
-* **Multiple keywords** - Multiple search terms can be provided for any field type. Contacts matching any keyword will be returned (e.g., `find John Jane` returns contacts with either name)
+
+* **Multiple fields**:
+  * Different search field types can be combined (e.g., `find n/John t/friend`)
+  * When multiple field types are specified, only contacts matching ALL specified fields are returned (e.g., `find n/John t/friend` returns contacts named John who are also tagged as friend)
+
+* **Multiple keywords**:
+  * Multiple search terms can be provided for any field type
+  * When multiple keywords are provided for the same field, contacts matching ANY of those keywords are returned (e.g., `find John Jane` returns contacts with either "John" or "Jane" in their name)
 
 #### Special Notes for Booking Searches:
 
 * Dates must be in the `yyyy-MM-dd` format (e.g., `2025-01-01` for January 1, 2025)
 * A contact is matched if the specified date falls within the booking's start and end dates
 * Multiple dates can be specified to find contacts with bookings during any of those dates
+* Booking property searches match property names partially (e.g., `find bp/Beach` matches `BeachHouse`)
 
 #### Examples:
 
@@ -204,9 +214,21 @@ Format: `find [n/]KEYWORD [MORE_KEYWORDS] | p/PHONE [MORE_PHONES] | e/EMAIL [MOR
 * `find t/friend` - Finds contacts tagged as "friend"
 * `find t/colleague family` - Finds contacts tagged as either "colleague" or "family"
 
+**Searching by memo:**
+* `find m/important` - Finds contacts with "important" in their memos
+* `find m/call meeting` - Finds contacts with either "call" or "meeting" in their memos
+
 **Searching by booking date:**
-* `find b/2024-12-25` - Finds contacts with bookings that include December 25, 2024
-* `find b/2025-01-01 2025-02-14` - Finds contacts with bookings that include either January 1, 2025 or February 14, 2025
+* `find bd/2024-12-25` - Finds contacts with bookings that include December 25, 2024
+* `find bd/2025-01-01 2025-02-14` - Finds contacts with bookings that include either January 1, 2025 or February 14, 2025
+
+**Searching by booking property:**
+* `find bp/Beach` - Finds contacts with bookings at properties containing "Beach" (e.g., "BeachHouse", "SunnyBeach")
+* `find bp/Villa Resort` - Finds contacts with bookings at properties containing either "Villa" or "Resort"
+
+**Combining search fields:**
+* `find n/John t/friend` - Finds contacts named John who are also tagged as friend
+* `find n/John m/important bd/2025-01-01` - Finds contacts named John who have "important" in their memos and have a booking on January 1, 2025
 
 #### Common Errors and How to Resolve Them:
 
@@ -214,6 +236,7 @@ Format: `find [n/]KEYWORD [MORE_KEYWORDS] | p/PHONE [MORE_PHONES] | e/EMAIL [MOR
 * **Invalid date format**: Booking dates must follow the `yyyy-MM-dd` format exactly
 * **No matches found**: Try using shorter or more general keywords to widen your search
 * **Invalid characters**: Make sure your search terms contain only valid characters for the search field
+* **Duplicate fields**: Each field type can only be specified once in a command
 
 
 ### Deleting a person : `delete`
