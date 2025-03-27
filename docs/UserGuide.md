@@ -57,7 +57,6 @@ In this comprehensive user guide, we will take you to experience a full journey 
       - [3.3.2 Parameters:](#332-parameters)
       - [3.3.3 Command Format:](#333-command-format)
   - [4. Features](#4-features)
-  - [4.0 Command Summary](#40-command-summary)
   - [4.1 Viewing help : `help`](#41-viewing-help--help)
   - [4.2 Features related to person](#42-features-related-to-person)
     - [4.2.1 Adding a person: `add`](#421-adding-a-person-add)
@@ -76,24 +75,25 @@ In this comprehensive user guide, we will take you to experience a full journey 
   - [4.5 Features related to finding](#45-features-related-to-finding)
     - [4.5.1 Locating persons: `find`](#451-locating-persons-find)
       - [Search Modes:](#search-modes)
-      - [Multiple Field Search:](#multiple-field-search)
       - [Search Behavior:](#search-behavior)
       - [Special Notes for Booking Searches:](#special-notes-for-booking-searches)
       - [Examples:](#examples)
-      - [Common Errors and How to Fix Them:](#common-errors-and-how-to-fix-them)
+      - [Common Errors and How to Resolve Them:](#common-errors-and-how-to-resolve-them)
   - [4.6 General features](#46-general-features)
     - [4.6.1 Clearing all entries : `clear`](#461-clearing-all-entries--clear)
     - [4.6.2 Exiting the program : `exit`](#462-exiting-the-program--exit)
-    - [4.6.3 Undoing the last change : `undo`](#463-undoing-the-last-change--undo)
     - [4.7 Saving the data](#47-saving-the-data)
     - [4.8 Editing the data file](#48-editing-the-data-file)
   - [5. FAQ](#5-faq)
   - [6. Known issues](#6-known-issues)
+- [Command Summary](#command-summary)
 
 
 [5. FAQ](#5-faq)
 
 [6. Known issues](#6-known-issues)
+
+[7. Command summary](#7-command-summary)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -220,17 +220,16 @@ Essentially they are to be supplied by the user.
 
 **Note:** All user inputs including parameters will be trimmed (all leading and trailing whitespaces will be ignored).
 
-
-| Parameter     | Parameter Prefix | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-|---------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `NAME `       | `n/`             | Specifies the name of a guest. <br/><br/> **Requirements:** <ul><li>Names must contain only alphabetic characters and whitespace.</li><li>Names with only whitespace are not allowed.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `PHONE`       | `p/`             | Specifies the phone number of a guest. <br/><br/> Requirements: <ul><li>Phone numbers should be in the format <code>+[COUNTRY_CODE] [NUMBER]</code>.</li><li>The country code must be valid.</li><li>The number should be at least 7 digits long and at most 15 digits long.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                  |
-| `EMAIL`       | `e/`             | Specifies the email of a guest. <br/><br/> Requirements: <ul><li>Emails should be of the format <code>local-part@domain</code>.</li><li>The local-part should only contain alphanumeric characters and the following special characters (excluding the parentheses): <code>[SPECIAL_CHARACTERS]</code>, and must not start or end with a special character.</li><li>This is followed by an '@' and then a domain name made up of domain labels separated by periods.</li><li>The domain name must end with a domain label that is at least 2 characters long.</li><li>Each domain label must start and end with an alphanumeric character and may contain hyphens in between.</li></ul> |                                                                                                                                                    |
-| `ADDRESS`     | `a/`             | Specifies the address of a guest. <br/><br/> Requirements: <ul><li>Addresses can take any values.</li><li>The address should not be blank.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| `MEMO`        | `m/`             | Specifies the memo of a guest. <br/><br/> Requirements: <ul><li>Memos can take any values.</li><li>Memos should not be null.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| `BOOKING_TAG` | `d/`             | Specifies the booking tag of a guest. <br/><br/> Requirements: <ul><li>Booking tags should be of the format <code>{property} from/{start-date} to/{end-date}</code>.</li><li>Start-date and end-date must be in the format <code>yyyy-MM-dd</code>.</li><li>The start-date should be before the end-date.</li></ul>                                                                                                                                                                                                                                                                                                                                                                     |
-| `TAG `        | `t/`             | Specifies the tag name of a guest. <br/><br/> Requirements: <ul><li>Tag names should be alphanumeric.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |                                                                                                                                                                                                                                                                                                |
-| `INDEX`       | Not Applicable   | Refers to the index number shown in the List Panel. <br/><br/> **Requirements:** <ul><li>Must be a positive integer.</li><li>The value must fall within the valid range.</li><li>A valid range represents the set of positive values starting from 1 to the number of guests within the list.</li><li>Example: If there are 10 guests in the list, the valid range will be from 1 to 10 (inclusive).</li></ul>                                                                                                                                                                                                                                                                          |
+| Parameter | Parameter Prefix | Description |
+|-----------|------------------|--------------|
+| `NAME` | `n/` | Specifies the name of a guest. <br/><br/> **Requirements:** <ul><li>Names must contain only alphabetic characters and whitespace.</li><li>Names with only whitespace are not allowed.</li></ul> |
+| `PHONE` | `p/` | Specifies the phone number of a guest. <br/><br/> Requirements: <ul><li>Phone numbers should be in the format <code>+[COUNTRY_CODE] [NUMBER]</code>.</li><li>The country code must be valid.</li><li>The number should be at least 7 digits long and at most 15 digits long.</li></ul> |
+| `EMAIL` | `e/` | Specifies the email of a guest. <br/><br/> Requirements: <ul><li>Emails should be of the format <code>local-part@domain</code>.</li><li>The local-part should only contain alphanumeric characters and the following special characters (excluding the parentheses): <code>[SPECIAL_CHARACTERS]</code>, and must not start or end with a special character.</li><li>This is followed by an '@' and then a domain name made up of domain labels separated by periods.</li><li>The domain name must end with a domain label that is at least 2 characters long.</li><li>Each domain label must start and end with an alphanumeric character and may contain hyphens in between.</li></ul> |
+| `ADDRESS` | `a/` | Specifies the address of a guest. <br/><br/> Requirements: <ul><li>Addresses can take any values.</li><li>The address should not be blank.</li></ul> |
+| `MEMO` | `m/` | Specifies the memo of a guest. <br/><br/> Requirements: <ul><li>Memos can take any values.</li><li>Memos should not be null.</li></ul> |
+| `BOOKING_TAG` | `d/` | Specifies the booking tag of a guest. <br/><br/> Requirements: <ul><li>Booking tags should be of the format <code>{property} from/{start-date} to/{end-date}</code>.</li><li>Start-date and end-date must be in the format <code>yyyy-MM-dd</code>.</li><li>The start-date should be before the end-date.</li></ul> |
+| `TAG` | `t/` | Specifies the tag name of a guest. <br/><br/> Requirements: <ul><li>Tag names should be alphanumeric.</li></ul> |
+| `INDEX` | Not Applicable | Refers to the index number shown in the List Panel. <br/><br/> **Requirements:** <ul><li>Must be a positive integer.</li><li>The value must fall within the valid range.</li><li>A valid range represents the set of positive values starting from 1 to the number of guests within the list.</li><li>Example: If there are 10 guests in the list, the valid range will be from 1 to 10 (inclusive).</li></ul> |
 
 #### 3.3.3 Command Format:
 
@@ -255,6 +254,10 @@ To understand how a full command is interpreted, we will utilise the following e
 > 2. `COMMAND` + `PARAMETER_PREFIX` + `PARAMETER`
 > 3. `COMMAND` + `INDEX` + `PARAMETER_PREFIX` + `PARAMETER`
 
+--------------------------------------------------------------------------------------------------------------------
+
+## 4. Features
+
 <box type="info" seamless>
 
 **Notes about the command format:**<br>
@@ -276,28 +279,6 @@ To understand how a full command is interpreted, we will utilise the following e
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </box>
-
---------------------------------------------------------------------------------------------------------------------
-
-## 4. Features
-## 4.0 Command Summary
-| Action        | Format, Examples                                                                                                                                                                                                                                                                                                 |
-|---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**       | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/+82 22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`                                                                                                                                         |
-| **Tag**       | `tag INDEX r/TAG` <br> e.g.. `tag 1 b/TAG`  or <br/> `tag INDEX b/<KEYWORD> from/YYYY-MM-DD to/YYYY-MM-DD` <br> e.g.. `tag 1 b/Hotel from/2025-10-10 to/2025-10-11`                                                                                                                                              |
-| **Untag**     | `untag INDEX t/TAG` <br> e.g., `untag 1 t/TEST` or <br/> `untag INDEX b/{property} {from/} {to/}` <br> e.g., `untag 1 b/Hotel from/2025-10-10 to/2025-10-11`                                                                                                                                                     |
-| **Memo**      | `memo INDEX m/MEMO` <br/> e.g., `memo 1 m/TEST`                                                                                                                                                                                                                                                                  |
-| **Star**      | `star INDEX` <br> e.g., `star 1`                                                                                                                                                                                                                                                                                 |                                                                                                                                                                                                                                                               |
-| **Unstar**    | `unstar INDEX` <br> e.g., `unstar 1`                                                                                                                                                                                                                                                                             |
-| **Liststar**  | `liststar`                                                                                                                                                                                                                                                                                                       |
-| **Clear**     | `clear`                                                                                                                                                                                                                                                                                                          |
-| **Delete**    | `delete INDEX`<br> e.g., `delete 3`  <br/>                                                                                                                                                                                                                                                                       |  
-| **Edit**      | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                                                                                                                                   |
-| **Find**      | `find KEYWORD [MORE_KEYWORDS]` or<br>`find n/NAME [MORE_NAMES]` or<br>`find p/PHONE [MORE_PHONES]` or<br>`find e/EMAIL [MORE_EMAILS]` or<br>`find a/ADDRESS [MORE_ADDRESSES]` or<br>`find t/TAG [MORE_TAGS]` or<br>`find m/MEMO [MORE_MEMOS]` or<br>`find bd/DATE [MORE_DATES]` or<br>`find bp/PROPERTY [MORE_PROPERTIES]`<br>You can also search across multiple fields at once:<br>`find n/NAME p/PHONE t/TAG ...`<br>Examples:<br>`find James Jake`<br>`find p/9123`<br>`find bd/2025-01-01`<br>`find n/John p/9123 t/VIP` (finds visitors matching any of these criteria) |
-| **List**      | `list`                                                                                                                                                                                                                                                                                                           |    
-| **Undo**      | `undo`                                                                                                                                                                                                                                                                                                           |    
-| **Help**      | `help`                                                                                                                                                                                                                                                                                                           |                                                                                                                                                                                                                                                                                                                  |
-
 
 ## 4.1 Viewing help : `help`
 
@@ -321,8 +302,8 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 </box>
 
 Examples:
-* `add n/John Doe p/+65 98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/+65 1234567 t/criminal`
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
 ### 4.2.2 Editing a person : `edit`
 
@@ -340,7 +321,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [b/BOOKING_TAG]…�
   specifying any booking tags after it.
 
 Examples:
-*  `edit 1 p/+65 91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `+65 91234567` and `johndoe@example.com` respectively.
+*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 *  `edit 2 n/Betsy Crower b/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing booking tags.
 
@@ -446,95 +427,93 @@ Examples:
 ## 4.5 Features related to finding
 
 ### 4.5.1 Locating persons: `find`
-Allows hosts to search for a visitor by their name, phone, address, email, tags, memos, or booking details. This is useful for quickly finding visitors with specific characteristics or booking preferences.
 
-Format: `find [n/]KEYWORD [MORE_KEYWORDS] | p/KEYWORD [MORE_KEYWORDS] | e/KEYWORD [MORE_KEYWORDS] | a/KEYWORD [MORE_KEYWORDS] | t/KEYWORD [MORE_KEYWORDS] | m/KEYWORD [MORE_KEYWORDS] | bd/DATE [MORE_DATES] | bp/PROPERTY [MORE_KEYWORDS]`
+Allows users to search for a contact by their name, phone, address, email, tag, memo, booking date, or booking property.
 
-> **Tip:** If you don't include any prefix (like n/, p/, etc.), the search will look through visitor names by default.
+Format: `find [n/]KEYWORD [MORE_KEYWORDS] | p/KEYWORD [MORE_KEYWORDS] | e/KEYWORD [MORE_KEYWORDS] | a/KEYWORD [MORE_KEYWORDS] | t/KEYWORD [MORE_KEYWORDS] | m/KEYWORD [MORE_KEYWORDS] | bd/DATE [MORE_DATES] | bp/KEYWORD [MORE_KEYWORDS]`
 
 #### Search Modes:
 
-| Prefix | Field             | Description                                  | Example                    |
-|--------|-------------------|----------------------------------------------|----------------------------|
-| (none) or `n/` | Name      | Searches through visitor names              | `find John` or `find n/John` |
-| `p/`    | Phone            | Searches through phone numbers               | `find p/9123`              |
-| `e/`    | Email            | Searches through email addresses             | `find e/@example.com`      |
-| `a/`    | Address          | Searches through home addresses              | `find a/Clementi`          |
-| `t/`    | Tag              | Searches through visitor tags (e.g., VIP, frequent)  | `find t/VIP`          |
-| `m/`    | Memo             | Searches through host notes about visitors     | `find m/allergies`         |
-| `bd/`   | Booking Date     | Searches for visitors with bookings on specific dates | `find bd/2025-01-01` |
-| `bp/`   | Booking Property | Searches for visitors with bookings at specific properties | `find bp/BeachHouse` |
 
-#### Multiple Field Search:
+| Prefix | Field            | Description                                  | Example                    |
+|--------|------------------|----------------------------------------------|----------------------------|
+| (none) or `n/` | Name     | Searches through contact names              | `find John` or `find n/John` |
+| `p/`    | Phone           | Searches through phone numbers               | `find p/9123`              |
+| `e/`    | Email           | Searches through email addresses             | `find e/@example.com`      |
+| `a/`    | Address         | Searches through addresses                   | `find a/Clementi`          |
+| `t/`    | Tag             | Searches through contact tags                | `find t/friend`            |
+| `m/`    | Memo            | Searches through contact memos               | `find m/important`         |
+| `bd/`   | Booking Date    | Searches for contacts with bookings that include the specified date(s) | `find bd/2025-01-01` |
+| `bp/`   | Booking Property | Searches for contacts with bookings at the specified property | `find bp/BeachHouse` |
 
-You can search across different fields at the same time. The search will show any visitor who matches at least one of your search keywords.
-
-Examples:
-* `find n/John a/Clementi` - Finds visitors with "John" in their name or "Clementi" in their address
-* `find n/John p/91234567 t/VIP` - Finds visitors with "John" in their name, "91234567" in their phone, or tagged as "VIP"
 
 #### Search Behavior:
 
-* **Default search field**: If no prefix is provided, the search will look through visitor names
-* **Not case-sensitive** - Uppercase or lowercase doesn't matter (e.g., `find john` finds `John Doe`)
-* **Flexible word order** - The order of keywords doesn't matter (e.g., `find Bo Hans` finds `Hans Bo`)
-* **Partial word matching** - Finds matches even with part of a word (e.g., `find Jo` finds `John`)
-* **Multiple field matching** - Finds visitors matching any of your search fields (e.g., searching for a name and address will find visitors matching either one)
-* **Multiple keyword matching** - When using multiple keywords for the same field, visitors matching any keyword will be found (e.g., `find John Jane` finds visitors with either name)
+* **Case-insensitive** - Search is not affected by upper or lower case (e.g., `find john` matches `John Doe`)
+* **Order-independent** - The order of keywords doesn't matter (e.g., `find Bo Hans` matches `Hans Bo`)
+* **Partial matching** - Keywords are matched partially against fields (e.g., `find Jo` matches `John`)
+
+* **Multiple fields**:
+  * Different search field types can be combined (e.g., `find n/John t/friend`)
+  * When multiple field types are specified, only contacts matching ALL specified fields are returned (e.g., `find n/John t/friend` returns contacts named John who are also tagged as friend)
+
+* **Multiple keywords**:
+  * Multiple search terms can be provided for any field type
+  * When multiple keywords are provided for the same field, contacts matching ANY of those keywords are returned (e.g., `find John Jane` returns contacts with either "John" or "Jane" in their name)
 
 #### Special Notes for Booking Searches:
 
-* **Booking Dates:** Dates must be in the `yyyy-MM-dd` format (e.g., `2025-01-01` for January 1, 2025)
-* **Date Matching:** A visitor is matched if the specified date falls within their booking period
-* **Booking Properties:** Searches through property names in booking tags (e.g., "BeachHouse", "MountainCabin")
+* Dates must be in the `yyyy-MM-dd` format (e.g., `2025-01-01` for January 1, 2025)
+* A contact is matched if the specified date falls within the booking's start and end dates
+* Multiple dates can be specified to find contacts with bookings during any of those dates
+* Booking property searches match property names partially (e.g., `find bp/Beach` matches `BeachHouse`)
 
 #### Examples:
 
 **Searching by name:**
-* `find John` - Finds visitors with "John" in their name
-* `find alex david` - Finds visitors with either "alex" or "david" in their name
+* `find John` - Finds contacts with "John" in their name
+* `find alex david` - Finds contacts with either "alex" or "david" in their name
 ![result for 'find alex david'](images/findAlexDavidResult.png)
 
 **Searching by phone:**
-* `find p/9123` - Finds visitors whose phone numbers contain "9123"
-* `find p/8765 9123` - Finds visitors whose phone numbers contain either "8765" or "9123"
+* `find p/9123` - Finds contacts whose phone numbers contain "9123"
+* `find p/8765 9123` - Finds contacts whose phone numbers contain either "8765" or "9123"
 
 **Searching by email:**
-* `find e/@example.com` - Finds visitors with email addresses containing "@example.com"
-* `find e/gmail yahoo` - Finds visitors with email addresses containing either "gmail" or "yahoo"
+* `find e/@example.com` - Finds contacts with email addresses containing "@example.com"
+* `find e/gmail yahoo` - Finds contacts with email addresses containing either "gmail" or "yahoo"
 
 **Searching by address:**
-* `find a/Clementi` - Finds visitors with "Clementi" in their addresses
-* `find a/Street Avenue` - Finds visitors with either "Street" or "Avenue" in their addresses
+* `find a/Clementi` - Finds contacts with "Clementi" in their addresses
+* `find a/Street Avenue` - Finds contacts with either "Street" or "Avenue" in their addresses
 
 **Searching by tag:**
-* `find t/VIP` - Finds visitors tagged as "VIP"
-* `find t/family pet-friendly` - Finds visitors tagged as either "family" or "pet-friendly"
+* `find t/friend` - Finds contacts tagged as "friend"
+* `find t/colleague family` - Finds contacts tagged as either "colleague" or "family"
 
 **Searching by memo:**
-* `find m/breakfast` - Finds visitors with "breakfast" in their memos
-* `find m/allergies late-checkout` - Finds visitors with either "allergies" or "late-checkout" in their memos
+* `find m/important` - Finds contacts with "important" in their memos
+* `find m/call meeting` - Finds contacts with either "call" or "meeting" in their memos
 
 **Searching by booking date:**
-* `find bd/2024-12-25` - Finds visitors with bookings that include December 25, 2024
-* `find bd/2025-01-01 2025-02-14` - Finds visitors with bookings that include either January 1, 2025 or February 14, 2025
+* `find bd/2024-12-25` - Finds contacts with bookings that include December 25, 2024
+* `find bd/2025-01-01 2025-02-14` - Finds contacts with bookings that include either January 1, 2025 or February 14, 2025
 
 **Searching by booking property:**
-* `find bp/Beach` - Finds visitors with bookings at properties containing "Beach" in the name
-* `find bp/House Villa` - Finds visitors with bookings at properties containing either "House" or "Villa"
+* `find bp/Beach` - Finds contacts with bookings at properties containing "Beach" (e.g., "BeachHouse", "SunnyBeach")
+* `find bp/Villa Resort` - Finds contacts with bookings at properties containing either "Villa" or "Resort"
 
-**Multi-field search examples:**
-* `find n/John a/Street` - Finds visitors with either "John" in their name or "Street" in their address
-* `find p/9123 e/gmail t/VIP` - Finds visitors with "9123" in their phone, "gmail" in their email, or tagged as "VIP"
-* `find n/Alice bd/2025-06-01` - Finds visitors with "Alice" in their name or have a booking on June 1, 2025
+**Combining search fields:**
+* `find n/John t/friend` - Finds contacts named John who are also tagged as friend
+* `find n/John m/important bd/2025-01-01` - Finds contacts named John who have "important" in their memos and have a booking on January 1, 2025
 
-#### Common Errors and How to Fix Them:
+#### Common Errors and How to Resolve Them:
 
-* **Wrong format**: Double-check you're using the correct prefix for your search type
-* **Wrong date format**: Booking dates must be exactly in the `yyyy-MM-dd` format
-* **No results**: Try shorter or more general keywords to widen your search
-* **Invalid characters**: Make sure your keywords only use allowed characters for each field
-* **Missing keyword**: Each search field needs at least one keyword after the prefix
+* **Invalid format**: Make sure to use the correct prefix for your search type
+* **Invalid date format**: Booking dates must follow the `yyyy-MM-dd` format exactly
+* **No matches found**: Try using shorter or more general keywords to widen your search
+* **Invalid characters**: Make sure your search terms contain only valid characters for the search field
+* **Duplicate fields**: Each field type can only be specified once in a command
 
 ## 4.6 General features
 
@@ -549,13 +528,6 @@ Format: `clear`
 Exits the program.
 
 Format: `exit`
-
-### 4.6.3 Undoing the last change : `undo`
-
-Undoes the last modification to the addressbook, reverting it to its original state before the last modification.      
-Edit, add, delete, tag, untag, star, unstar, memo and undo are the moficiations which can be undone.
-
-Format: `undo`
 
 ### 4.7 Saving the data
 
@@ -585,3 +557,23 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
+
+--------------------------------------------------------------------------------------------------------------------
+
+# Command Summary
+
+| Action | Format, Examples |
+|--------|-----------------|
+| **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` |
+| **Tag** | `tag INDEX r/TAG` <br> e.g.. `tag 1 b/TAG`  or <br/> `tag INDEX b/<KEYWORD> from/YYYY-MM-DD to/YYYY-MM-DD` <br> e.g.. `tag 1 b/Hotel from/2025-10-10 to/2025-10-11` |
+| **Untag** | `untag INDEX t/TAG` <br> e.g., `untag 1 t/TEST` or <br/> `untag INDEX b/{property} {from/} {to/}` <br> e.g., `untag 1 b/Hotel from/2025-10-10 to/2025-10-11` |
+| **Memo** | `memo INDEX m/MEMO` <br/> e.g., `memo 1 m/TEST` |
+| **Star** | `star INDEX` <br> e.g., `star 1` |
+| **Unstar** | `unstar INDEX` <br> e.g., `unstar 1` |
+| **Liststar** | `liststar` |
+| **Clear** | `clear` |
+| **Delete** | `delete INDEX`<br> e.g., `delete 3` |  
+| **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com` |
+| **Find** | `find KEYWORD [MORE_KEYWORDS]` or<br>`find n/NAME [MORE_NAMES]` or<br>`find p/PHONE [MORE_PHONES]` or<br>`find e/EMAIL [MORE_EMAILS]` or<br>`find a/ADDRESS [MORE_ADDRESSES]` or<br>`find t/TAG [MORE_TAGS]` or<br>`find b/DATE [MORE_DATES]`<br>e.g., `find James Jake` or `find p/9123` or `find b/2025-01-01` |
+| **List** | `list` |    
+| **Help** | `help` |
