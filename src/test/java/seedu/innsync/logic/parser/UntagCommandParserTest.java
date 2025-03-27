@@ -1,10 +1,10 @@
 package seedu.innsync.logic.parser;
 
+import static seedu.innsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.innsync.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.innsync.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.innsync.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.innsync.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.innsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.innsync.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 
 import org.junit.jupiter.api.Test;
 
