@@ -110,14 +110,17 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
+    public void execute_multipleSearchTypes_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
-        criteria.put(FindCommand.SearchType.NAME, Arrays.asList("Kurz", "Meyer", "Kunz"));
+        criteria.put(FindCommand.SearchType.NAME, Collections.singletonList("Kurz"));
+        criteria.put(FindCommand.SearchType.ADDRESS, Collections.singletonList("tokyo"));
+        criteria.put(FindCommand.SearchType.TAG, Collections.singletonList("owesMoney"));
+
         FindCommand command = new FindCommand(criteria);
         expectedModel.updateFilteredPersonList(command.getPredicate());
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getPersonList());
+        assertEquals(Arrays.asList(BENSON, CARL, FIONA), model.getPersonList());
     }
 
     @Test
@@ -394,9 +397,11 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_multipleSearchCriteriaAnd_personsFound() {
-        // Using name "Meier" AND tag "friends" should match only Daniel (not Benson who also has Meier)
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
+    public void execute_multipleSearchCriteriaOr_personsFound() {
+        // Using name "Meier" OR tag "friends" OR phone "87652533" should match Daniel, Benson, Alice
+        // (Daniel has Meier in name, friends tag, and that phone number; Benson has Meier in name and friends tag;
+        // Alice has friends tag)
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.NAME, Collections.singletonList("Meier"));
         criteria.put(FindCommand.SearchType.TAG, Collections.singletonList("friends"));
@@ -405,21 +410,23 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(criteria);
         expectedModel.updateFilteredPersonList(command.getPredicate());
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.singletonList(DANIEL), model.getPersonList());
+        assertEquals(Arrays.asList(ALICE, BENSON, DANIEL), model.getPersonList());
     }
 
     @Test
     public void execute_bookingCriteriaWithOthers_personsFound() {
-        // Using name "George" AND booking property "Beach" should match only George
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
+        // Using name "George" OR booking property "Beach" OR address "street" should match
+        // George, Carl, and Daniel (George has all three, Carl and Daniel have "street" in address)
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.NAME, Collections.singletonList("George"));
         criteria.put(FindCommand.SearchType.BOOKING_PROPERTY, Collections.singletonList("Beach"));
+        criteria.put(FindCommand.SearchType.ADDRESS, Collections.singletonList("street"));
 
         FindCommand command = new FindCommand(criteria);
         expectedModel.updateFilteredPersonList(command.getPredicate());
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.singletonList(GEORGE), model.getPersonList());
+        assertEquals(Arrays.asList(CARL, DANIEL, GEORGE), model.getPersonList());
     }
 
     @Test

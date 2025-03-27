@@ -21,8 +21,6 @@ import seedu.innsync.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a new FindCommand object
  */
 public class FindCommandParser implements Parser<FindCommand> {
-
-    // Regex patterns for different field validations (relaxed for partial matching)
     private static final Pattern NAME_VALIDATION_REGEX =
             Pattern.compile("^[a-zA-Z\\s'\\-]+$");
     private static final Pattern PHONE_VALIDATION_REGEX =
@@ -198,13 +196,14 @@ public class FindCommandParser implements Parser<FindCommand> {
      */
     private String validateKeywordsString(String prefix, String keywordsString) throws ParseException {
         if (keywordsString == null) {
-            throw new ParseException("Search terms missing for search flag: " + prefix);
+            throw new ParseException("keywords missing for search flag: " + prefix);
         }
 
         keywordsString = keywordsString.trim();
         if (keywordsString.isEmpty()) {
-            throw new ParseException("Search term cannot be empty for " + getFieldNameFromPrefix(prefix)
-                    + ". Please provide at least one search term after " + prefix);
+            String term = prefix.equals("bd/") ? "date" : "keyword";
+            throw new ParseException("Please enter at least one " + term + " after " + prefix
+                    + " when searching by " + getFieldNameFromPrefix(prefix) + ".");
         }
 
         return keywordsString;
@@ -282,7 +281,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         case "n/":
             return "name";
         case "p/":
-            return "phone";
+            return "phone number";
         case "e/":
             return "email";
         case "a/":
@@ -315,9 +314,7 @@ public class FindCommandParser implements Parser<FindCommand> {
             throw new IllegalArgumentException("Search field cannot be empty");
         }
 
-        // Assert prefix is not null or empty
         assert prefix != null && !prefix.isEmpty() : "Prefix must be non-null and non-empty";
-        // Assert prefix is valid (already checked by isValidPrefix)
         assert isValidPrefix(prefix) : "Prefix must be valid";
 
         switch (prefix) {
@@ -338,7 +335,6 @@ public class FindCommandParser implements Parser<FindCommand> {
         case "m/":
             return SearchType.MEMO;
         default:
-            // This should never happen because we validate with isValidPrefix first
             throw new IllegalArgumentException("Unsupported search field: " + prefix);
         }
     }
@@ -365,21 +361,18 @@ public class FindCommandParser implements Parser<FindCommand> {
      * Checks that keywords are not null or empty.
      */
     private void checkKeywordsNotNullOrEmpty(List<String> keywords, SearchType searchType) throws ParseException {
-        // Check for null parameters
         if (keywords == null) {
-            throw new IllegalArgumentException("Search term cannot be null");
+            throw new IllegalArgumentException("Keyword after search field cannot be null");
         }
         if (searchType == null) {
             throw new IllegalArgumentException("Search field cannot be null");
         }
 
-        // Ensure keywords list is not empty
         if (keywords.isEmpty()) {
-            throw new ParseException("At least one search term must be provided for " + searchType + " search");
+            throw new ParseException("Please provide at least one keyword when searching by" + searchType);
         }
 
-        // Assert parameters are valid
-        assert keywords != null : "Search term list must be non-null";
+        assert keywords != null : "Keyword list must be non-null";
         assert searchType != null : "Search type must be non-null";
         assert !keywords.isEmpty() : "Keywords list must not be empty";
     }
@@ -393,7 +386,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         for (String keyword : keywords) {
             // Check for null keywords
             if (keyword == null) {
-                throw new IllegalArgumentException("Search term cannot be null");
+                throw new IllegalArgumentException("Keyword cannot be null");
             }
 
             if (!isValidKeyword(keyword, searchType)) {
@@ -429,14 +422,14 @@ public class FindCommandParser implements Parser<FindCommand> {
     private void checkKeywordAndSearchTypeNotNull(String keyword, SearchType searchType) {
         // Check for null parameters
         if (keyword == null) {
-            throw new IllegalArgumentException("Search term cannot be null");
+            throw new IllegalArgumentException("Keyword cannot be null");
         }
         if (searchType == null) {
             throw new IllegalArgumentException("Search type cannot be null");
         }
 
         // Assert parameters are valid
-        assert keyword != null : "Search term must be non-null";
+        assert keyword != null : "Keyword must be non-null";
         assert searchType != null : "Search type must be non-null";
     }
 
@@ -476,7 +469,7 @@ public class FindCommandParser implements Parser<FindCommand> {
             }
         } catch (Exception e) {
             // Log the exception for debugging
-            System.err.println("Error validating search term: " + e.getMessage());
+            System.err.println("Error validating keyword: " + e.getMessage());
             return false;
         }
     }
@@ -503,7 +496,7 @@ public class FindCommandParser implements Parser<FindCommand> {
      */
     private ParseException createValidationException(FindCommand.SearchType searchType, List<String> invalidKeywords) {
         String errorMessage = getErrorMessageForSearchType(searchType);
-        return new ParseException(errorMessage + " Invalid search terms(s): " + String.join(", ", invalidKeywords));
+        return new ParseException(errorMessage + " Invalid keyword(s): " + String.join(", ", invalidKeywords));
     }
 
     /**

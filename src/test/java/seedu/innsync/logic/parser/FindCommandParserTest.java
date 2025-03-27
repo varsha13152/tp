@@ -26,25 +26,24 @@ public class FindCommandParserTest {
     @Test
     public void parse_emptyKeywords_throwsParseException() {
         // Empty after prefix - check for correct error message from parser
-        assertParseFailure(parser, "n/", "Search term cannot be empty for name. "
-                + "Please provide at least one search term after n/");
-        assertParseFailure(parser, "p/", "Search term cannot be empty for phone."
-                + " Please provide at least one search term after p/");
-        assertParseFailure(parser, "e/", "Search term cannot be empty for email."
-                + " Please provide at least one search term after e/");
-        assertParseFailure(parser, "a/", "Search term cannot be empty for address."
-                + " Please provide at least one search term after a/");
-        assertParseFailure(parser, "t/", "Search term cannot be empty for tag."
-                + " Please provide at least one search term after t/");
+        assertParseFailure(parser, "n/",
+                "Please enter at least one keyword after n/ when searching by name.");
+        assertParseFailure(parser, "p/",
+                "Please enter at least one keyword after p/ when searching by phone number.");
+        assertParseFailure(parser, "e/",
+                "Please enter at least one keyword after e/ when searching by email.");
+        assertParseFailure(parser, "a/",
+                "Please enter at least one keyword after a/ when searching by address.");
+        assertParseFailure(parser, "t/",
+                "Please enter at least one keyword after t/ when searching by tag.");
         // New prefixes
-        assertParseFailure(parser, "m/", "Search term cannot be empty for memo."
-                + " Please provide at least one search term after m/");
-        assertParseFailure(parser, "bd/", "Search term cannot be empty for booking date."
-                + " Please provide at least one search term after bd/");
-        assertParseFailure(parser, "bp/", "Search term cannot be empty for booking property."
-                + " Please provide at least one search term after bp/");
+        assertParseFailure(parser, "m/",
+                "Please enter at least one keyword after m/ when searching by memo.");
+        assertParseFailure(parser, "bd/",
+                "Please enter at least one date after bd/ when searching by booking date.");
+        assertParseFailure(parser, "bp/",
+                "Please enter at least one keyword after bp/ when searching by booking property.");
     }
-
     @Test
     public void parse_validArgsNoPrefix_returnsFindCommand() {
         // Test with multiple words - no prefix
@@ -322,34 +321,34 @@ public class FindCommandParserTest {
     public void parse_invalidNameFormat_throwsParseException() {
         assertParseFailure(parser, "n/Alice1",
                 "Invalid name format. Names should only contain alphabets, spaces, apostrophes,"
-                        + " and/or hyphens. Invalid search terms(s): Alice1");
+                        + " and/or hyphens. Invalid keyword(s): Alice1");
     }
 
     @Test
     public void parse_invalidPhoneFormat_throwsParseException() {
         assertParseFailure(parser, "p/123abc",
-                "Invalid phone format. Phone numbers should only contain digits. Invalid search terms(s): 123abc");
+                "Invalid phone format. Phone numbers should only contain digits. Invalid keyword(s): 123abc");
     }
 
     @Test
     public void parse_invalidEmailFormat_throwsParseException() {
         assertParseFailure(parser, "e/invalid*email",
                 "Invalid email format. Emails should only contain alphanumeric characters, dots, '@',"
-                        + " underscores, and hyphens. Invalid search terms(s): invalid*email");
+                        + " underscores, and hyphens. Invalid keyword(s): invalid*email");
     }
 
     @Test
     public void parse_invalidAddressFormat_throwsParseException() {
         assertParseFailure(parser, "a/invalid~address",
                 "Invalid address format. Addresses should only contain alphanumeric characters, spaces,"
-                        + " hyphens, and hashes. Invalid search terms(s): invalid~address");
+                        + " hyphens, and hashes. Invalid keyword(s): invalid~address");
     }
 
     @Test
     public void parse_invalidTagFormat_throwsParseException() {
         assertParseFailure(parser, "t/invalid-tag",
                 "Invalid tag format. Tags should only contain alphanumeric characters."
-                        + " Invalid search terms(s): invalid-tag");
+                        + " Invalid keyword(s): invalid-tag");
     }
 
     // New tests for invalid formats with new search types
@@ -357,25 +356,25 @@ public class FindCommandParserTest {
     public void parse_invalidMemoFormat_throwsParseException() {
         assertParseFailure(parser, "m/invalid~memo",
                 "Invalid memo format. Memos should only contain alphanumeric characters, spaces, punctuation,"
-                        + " and basic symbols. Invalid search terms(s): invalid~memo");
+                        + " and basic symbols. Invalid keyword(s): invalid~memo");
     }
 
     @Test
     public void parse_invalidBookingDateFormat_throwsParseException() {
         assertParseFailure(parser, "bd/20-06-2025",
                 "Invalid booking date format. Dates should be in the format yyyy-MM-dd "
-                        + "(e.g., 2024-10-15). Invalid search terms(s): 20-06-2025");
+                        + "(e.g., 2024-10-15). Invalid keyword(s): 20-06-2025");
 
         assertParseFailure(parser, "bd/2025/06/01",
                 "Invalid booking date format. Dates should be in the format yyyy-MM-dd "
-                        + "(e.g., 2024-10-15). Invalid search terms(s): 2025/06/01");
+                        + "(e.g., 2024-10-15). Invalid keyword(s): 2025/06/01");
     }
 
     @Test
     public void parse_invalidBookingPropertyFormat_throwsParseException() {
         assertParseFailure(parser, "bp/Beach~House",
                 "Invalid booking property format. Property names should only contain alphanumeric characters,"
-                        + " spaces, and hyphens. Invalid search terms(s): Beach~House");
+                        + " spaces, and hyphens. Invalid keyword(s): Beach~House");
     }
 
     @Test
@@ -383,29 +382,29 @@ public class FindCommandParserTest {
         // Name with valid and invalid keywords
         assertParseFailure(parser, "n/John Doe123",
                 "Invalid name format. Names should only contain alphabets, spaces, apostrophes,"
-                        + " and/or hyphens. Invalid search terms(s): Doe123");
+                        + " and/or hyphens. Invalid keyword(s): Doe123");
 
         // Phone with valid and invalid keywords
         assertParseFailure(parser, "p/12345678 9876-5432",
-                "Invalid phone format. Phone numbers should only contain digits. Invalid search terms(s): 9876-5432");
+                "Invalid phone format. Phone numbers should only contain digits. Invalid keyword(s): 9876-5432");
 
         // Tag with valid and invalid keywords
         assertParseFailure(parser, "t/friends family-members",
                 "Invalid tag format. Tags should only contain alphanumeric characters. "
-                        + "Invalid search terms(s): family-members");
+                        + "Invalid keyword(s): family-members");
 
         // New search types with mixed valid and invalid keywords
         assertParseFailure(parser, "m/important notes~ reminder",
                 "Invalid memo format. Memos should only contain alphanumeric characters, spaces, punctuation,"
-                        + " and basic symbols. Invalid search terms(s): notes~");
+                        + " and basic symbols. Invalid keyword(s): notes~");
 
         assertParseFailure(parser, "bd/2025-06-01 06-01-2025",
                 "Invalid booking date format. Dates should be in the format yyyy-MM-dd "
-                        + "(e.g., 2024-10-15). Invalid search terms(s): 06-01-2025");
+                        + "(e.g., 2024-10-15). Invalid keyword(s): 06-01-2025");
 
         assertParseFailure(parser, "bp/Beach House Resort~ Villa",
                 "Invalid booking property format. Property names should only contain alphanumeric characters,"
-                        + " spaces, and hyphens. Invalid search terms(s): Resort~");
+                        + " spaces, and hyphens. Invalid keyword(s): Resort~");
     }
 
     @Test
