@@ -26,8 +26,7 @@ public class UntagCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Removes the tag from the contact identified by the index number used in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_TAG + "TAG\n"
-            + "or "
+            + PREFIX_TAG + "TAG\n" + "OR "
             + PREFIX_BOOKINGTAG + "{property} from/{start-date} to/{end-date}\n"
             + "Example: " + COMMAND_WORD + " 1 t/friends";
     public static final String MESSAGE_SUCCESS = "Tag has been successfully removed!: %s";
@@ -83,7 +82,7 @@ public class UntagCommand extends Command {
         if (!toRemoveTag.isEmpty()) {
             Tag tagToRemove = new Tag(toRemoveTag);
             if (!tagList.contains(tagToRemove)) {
-                throw new CommandException(String.format(MESSAGE_FAILURE_TAG, toRemoveBookingTag));
+                throw new CommandException(String.format(MESSAGE_FAILURE_TAG, toRemoveTag));
             } else {
                 tagList.remove(tagToRemove);
             }
