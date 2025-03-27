@@ -114,72 +114,98 @@ Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-### Locating persons: `find`
+### Locating visitors: `find`
 
-Allows users to search for a contact by their name, phone, address, email, tag, booking tag 
+Allows hosts to search for a visitor by their name, phone, address, email, tags, memos, or booking details. This is useful for quickly finding visitors with specific characteristics or booking preferences.
 
-Format: `find [n/]KEYWORD [MORE_KEYWORDS] | p/KEYWORD [MORE_KEYWORDS] | e/KEYWORD [MORE_KEYWORDS] | a/KEYWORD [MORE_KEYWORDS] | t/KEYWORD [MORE_KEYWORDS] | b/DATE [MORE_DATES]`
+Format: `find [n/]KEYWORD [MORE_KEYWORDS] | p/KEYWORD [MORE_KEYWORDS] | e/KEYWORD [MORE_KEYWORDS] | a/KEYWORD [MORE_KEYWORDS] | t/KEYWORD [MORE_KEYWORDS] | m/KEYWORD [MORE_KEYWORDS] | bd/DATE [MORE_DATES] | bp/PROPERTY [MORE_KEYWORDS]`
+
+> **Tip:** If you don't include any prefix (like n/, p/, etc.), the search will look through visitor names by default.
 
 #### Search Modes:
 
-| Prefix | Field       | Description                                  | Example                    |
-|--------|-------------|----------------------------------------------|----------------------------|
-| (none) or `n/` | Name        | Searches through contact names              | `find John` or `find n/John` |
-| `p/`    | Phone       | Searches through phone numbers               | `find p/9123`              |
-| `e/`    | Email       | Searches through email addresses             | `find e/@example.com`      |
-| `a/`    | Address     | Searches through addresses                   | `find a/Clementi`          |
-| `t/`    | Tag         | Searches through contact tags                | `find t/friend`            |
-| `b/`    | Booking     | Searches for contacts with bookings that include the specified date(s) | `find b/2025-01-01` |
+| Prefix | Field             | Description                                  | Example                    |
+|--------|-------------------|----------------------------------------------|----------------------------|
+| (none) or `n/` | Name      | Searches through visitor names              | `find John` or `find n/John` |
+| `p/`    | Phone            | Searches through phone numbers               | `find p/9123`              |
+| `e/`    | Email            | Searches through email addresses             | `find e/@example.com`      |
+| `a/`    | Address          | Searches through home addresses              | `find a/Clementi`          |
+| `t/`    | Tag              | Searches through visitor tags (e.g., VIP, frequent)  | `find t/VIP`          |
+| `m/`    | Memo             | Searches through host notes about visitors     | `find m/allergies`         |
+| `bd/`   | Booking Date     | Searches for visitors with bookings on specific dates | `find bd/2025-01-01` |
+| `bp/`   | Booking Property | Searches for visitors with bookings at specific properties | `find bp/BeachHouse` |
+
+#### Multiple Field Search:
+
+You can search across different fields at the same time. The search will show any visitor who matches at least one of your search keywords.
+
+Examples:
+* `find n/John a/Clementi` - Finds visitors with "John" in their name or "Clementi" in their address
+* `find n/John p/91234567 t/VIP` - Finds visitors with "John" in their name, "91234567" in their phone, or tagged as "VIP"
 
 #### Search Behavior:
 
-* **Case-insensitive** - Search is not affected by upper or lower case (e.g., `find john` matches `John Doe`)
-* **Order-independent** - The order of keywords doesn't matter (e.g., `find Bo Hans` matches `Hans Bo`)
-* **Partial matching** - Keywords are matched partially against fields (e.g., `find Jo` matches `John`)
-* **Field-specific** - Only one search field type can be used per command
-* **Multiple keywords** - Multiple search terms can be provided for any field type. Contacts matching any keyword will be returned (e.g., `find John Jane` returns contacts with either name)
+* **Default search field**: If no prefix is provided, the search will look through visitor names
+* **Not case-sensitive** - Uppercase or lowercase doesn't matter (e.g., `find john` finds `John Doe`)
+* **Flexible word order** - The order of keywords doesn't matter (e.g., `find Bo Hans` finds `Hans Bo`)
+* **Partial word matching** - Finds matches even with part of a word (e.g., `find Jo` finds `John`)
+* **Multiple field matching** - Finds visitors matching any of your search fields (e.g., searching for a name and address will find visitors matching either one)
+* **Multiple keyword matching** - When using multiple keywords for the same field, visitors matching any keyword will be found (e.g., `find John Jane` finds visitors with either name)
 
 #### Special Notes for Booking Searches:
 
-* Dates must be in the `yyyy-MM-dd` format (e.g., `2025-01-01` for January 1, 2025)
-* A contact is matched if the specified date falls within the booking's start and end dates
-* Multiple dates can be specified to find contacts with bookings during any of those dates
+* **Booking Dates:** Dates must be in the `yyyy-MM-dd` format (e.g., `2025-01-01` for January 1, 2025)
+* **Date Matching:** A visitor is matched if the specified date falls within their booking period
+* **Booking Properties:** Searches through property names in booking tags (e.g., "BeachHouse", "MountainCabin")
 
 #### Examples:
 
 **Searching by name:**
-* `find John` - Finds contacts with "John" in their name
-* `find alex david` - Finds contacts with either "alex" or "david" in their name
+* `find John` - Finds visitors with "John" in their name
+* `find alex david` - Finds visitors with either "alex" or "david" in their name
 ![result for 'find alex david'](images/findAlexDavidResult.png)
 
 **Searching by phone:**
-* `find p/9123` - Finds contacts whose phone numbers contain "9123"
-* `find p/8765 9123` - Finds contacts whose phone numbers contain either "8765" or "9123"
+* `find p/9123` - Finds visitors whose phone numbers contain "9123"
+* `find p/8765 9123` - Finds visitors whose phone numbers contain either "8765" or "9123"
 
 **Searching by email:**
-* `find e/@example.com` - Finds contacts with email addresses containing "@example.com"
-* `find e/gmail yahoo` - Finds contacts with email addresses containing either "gmail" or "yahoo"
+* `find e/@example.com` - Finds visitors with email addresses containing "@example.com"
+* `find e/gmail yahoo` - Finds visitors with email addresses containing either "gmail" or "yahoo"
 
 **Searching by address:**
-* `find a/Clementi` - Finds contacts with "Clementi" in their addresses
-* `find a/Street Avenue` - Finds contacts with either "Street" or "Avenue" in their addresses
+* `find a/Clementi` - Finds visitors with "Clementi" in their addresses
+* `find a/Street Avenue` - Finds visitors with either "Street" or "Avenue" in their addresses
 
 **Searching by tag:**
-* `find t/friend` - Finds contacts tagged as "friend"
-* `find t/colleague family` - Finds contacts tagged as either "colleague" or "family"
+* `find t/VIP` - Finds visitors tagged as "VIP"
+* `find t/family pet-friendly` - Finds visitors tagged as either "family" or "pet-friendly"
+
+**Searching by memo:**
+* `find m/breakfast` - Finds visitors with "breakfast" in their memos
+* `find m/allergies late-checkout` - Finds visitors with either "allergies" or "late-checkout" in their memos
 
 **Searching by booking date:**
-* `find b/2024-12-25` - Finds contacts with bookings that include December 25, 2024
-* `find b/2025-01-01 2025-02-14` - Finds contacts with bookings that include either January 1, 2025 or February 14, 2025
+* `find bd/2024-12-25` - Finds visitors with bookings that include December 25, 2024
+* `find bd/2025-01-01 2025-02-14` - Finds visitors with bookings that include either January 1, 2025 or February 14, 2025
 
-#### Common Errors and How to Resolve Them:
+**Searching by booking property:**
+* `find bp/Beach` - Finds visitors with bookings at properties containing "Beach" in the name
+* `find bp/House Villa` - Finds visitors with bookings at properties containing either "House" or "Villa"
 
-* **Invalid format**: Make sure to use the correct prefix for your search type
-* **Invalid date format**: Booking dates must follow the `yyyy-MM-dd` format exactly
-* **No matches found**: Try using shorter or more general keywords to widen your search
-* **Invalid characters**: Make sure your search terms contain only valid characters for the search field
+**Multi-field search examples:**
+* `find n/John a/Street` - Finds visitors with either "John" in their name or "Street" in their address
+* `find p/9123 e/gmail t/VIP` - Finds visitors with "9123" in their phone, "gmail" in their email, or tagged as "VIP"
+* `find n/Alice bd/2025-06-01` - Finds visitors with "Alice" in their name or have a booking on June 1, 2025
 
+#### Common Errors and How to Fix Them:
 
+* **Wrong format**: Double-check you're using the correct prefix for your search type
+* **Wrong date format**: Booking dates must be exactly in the `yyyy-MM-dd` format
+* **No results**: Try shorter or more general keywords to widen your search
+* **Invalid characters**: Make sure your keywords only use allowed characters for each field
+* **Missing keyword**: Each search field needs at least one keyword after the prefix
+  
 ### Deleting a person : `delete`
 
 Deletes the specified person from the address book.
@@ -245,10 +271,10 @@ _Details coming soon ..._
 
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 **Clear**  | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find**   | `find [n/]KEYWORD [MORE_KEYWORDS] | p/KEYWORD [MORE_KEYWORDS] | e/KEYWORD [MORE_KEYWORDS] | a/KEYWORD [MORE_KEYWORDS] | t/KEYWORD [MORE_KEYWORDS] | b/DATE [MORE_DATES]`<br> e.g., `find James Jake`
+**Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Find**   | `find [n/]KEYWORD [MORE_KEYWORDS] | p/KEYWORD [MORE_KEYWORDS] | e/KEYWORD [MORE_KEYWORDS] | a/KEYWORD [MORE_KEYWORDS] | t/KEYWORD [MORE_KEYWORDS] | m/KEYWORD [MORE_KEYWORDS] | bd/DATE [MORE_DATES] | bp/PROPERTY [MORE_KEYWORDS]`<br> e.g., `find James Jake` or `find p/9123 t/VIP`
 **List**   | `list`
 **Help**   | `help`
