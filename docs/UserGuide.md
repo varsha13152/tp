@@ -275,8 +275,8 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 </box>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/John Doe p/+65 98765432 e/johnd@example.com a/John street, block 123, #01-01`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/+65 1234567 t/criminal`
 
 ### 4.2.2 Editing a person : `edit`
 
@@ -294,7 +294,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [b/BOOKING_TAG]…�
   specifying any booking tags after it.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+*  `edit 1 p/+65 91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `+65 91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 *  `edit 2 n/Betsy Crower b/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing booking tags.
 
@@ -513,7 +513,7 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 
 | Action        | Format, Examples                                                                                                                                                                                                                                                                                                 |
 |---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**       | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`                                                                                                                                         |
+| **Add**       | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/+82 22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`                                                                                                                                         |
 | **Tag**       | `tag INDEX r/TAG` <br> e.g.. `tag 1 b/TAG`  or <br/> `tag INDEX b/<KEYWORD> from/YYYY-MM-DD to/YYYY-MM-DD` <br> e.g.. `tag 1 b/Hotel from/2025-10-10 to/2025-10-11`                                                                                                                                              |
 | **Untag**     | `untag INDEX t/TAG` <br> e.g., `untag 1 t/TEST` or <br/> `untag INDEX b/{property} {from/} {to/}` <br> e.g., `untag 1 b/Hotel from/2025-10-10 to/2025-10-11`                                                                                                                                                     |
 | **Memo**      | `memo INDEX m/MEMO` <br/> e.g., `memo 1 m/TEST`                                                                                                                                                                                                                                                                  |
