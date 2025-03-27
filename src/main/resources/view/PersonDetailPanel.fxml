@@ -50,6 +50,10 @@
 
   <Region prefHeight="20.0" />
 
+  <!-- Memo -->
+  <Label text="Memo:" styleClass="detail-section" />
+  <FlowPane fx:id="detailMemo" hgap="5" vgap="5" />
+
   <!-- Tags -->
   <Label text="Tags:" styleClass="detail-section" />
   <FlowPane fx:id="detailTags" hgap="5" vgap="5" />
