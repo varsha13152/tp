@@ -43,10 +43,13 @@ public class Messages {
                 .append(person.getEmail())
                 .append("; Address: ")
                 .append(person.getAddress())
+                .append("; Memo: ")
+                .append(person.getMemo())
                 .append("; BookingTags: ");
         person.getBookingTags().forEach(builder::append);
         builder.append("; Tags: ");
         person.getTags().forEach(builder::append);
+        builder.append("; Starred: ").append(person.getStarred());
         return builder.toString();
     }
 

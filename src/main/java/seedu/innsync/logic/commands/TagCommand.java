@@ -1,6 +1,9 @@
 package seedu.innsync.logic.commands;
 
-import static seedu.innsync.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
+import static java.util.Objects.requireNonNullElse;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_BOOKINGTAG;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.innsync.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.HashSet;
@@ -14,33 +17,39 @@ import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.Model;
 import seedu.innsync.model.person.Person;
 import seedu.innsync.model.tag.BookingTag;
-
-
-
+import seedu.innsync.model.tag.Tag;
 
 /**
- * Adds a person to the address book.
+ * Adds a (booking) tag into a person to the address book.
  */
-public class BookingTagCommand extends Command {
+public class TagCommand extends Command {
 
-    public static final String COMMAND_WORD = "addbt";
+    public static final String COMMAND_WORD = "tag";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds a booking tag to the contact identified by the index number in the displayed person list.\n"
-            + "Parameters: INDEX (must be a positive integer) {property} from/{start-date} to/{end-date}\n"
-            + "Example: " + COMMAND_WORD + " 1 b/BeachHouse from/2025-06-01 to/2025-06-10";
-    public static final String MESSAGE_SUCCESS = "Booking tag successfully added: %s";
+            + ": Adds tag to the contact identified by the index number in the displayed person list.\n"
+            + "Parameters: INDEX (must be a positive integer) "
+            + PREFIX_TAG + "TAG\n"
+            + PREFIX_BOOKINGTAG + "{property} from/{start-date} to/{end-date}\n"
+            + "Example: " + COMMAND_WORD + " 1 t/friend b/BeachHouse from/2025-06-01 to/2025-06-10";
+    public static final String MESSAGE_SUCCESS = "Tag successfully added: %s";
+    // failure only applies to booking tag
     public static final String MESSAGE_FAILURE = "Failed to add booking tag. "
             + "The booking tag %s overlaps with an existing tag.";
+
     private final Index index;
-    private final BookingTag bookingTag;
+    private final Set<Tag> tagList;
+    private final Set<BookingTag> bookingTagList;
 
     /**
-     * Creates an BookingTagCommand to add the specified {@code index}
+     * Creates an TagCommand to add the specified {@code index}
+     * and {@code tag}
      */
-    public BookingTagCommand(Index index, BookingTag bookingTag) {
-        requireAllNonNull(index, bookingTag);
+    public TagCommand(Index index, Set<Tag> tagList, Set<BookingTag> bookingTagList) {
+        requireNonNull(index);
         this.index = index;
-        this.bookingTag = bookingTag;
+        this.tagList = requireNonNullElse(tagList, new HashSet<>());
+        this.bookingTagList = requireNonNullElse(bookingTagList, new HashSet<>());
     }
 
     @Override
@@ -51,29 +60,40 @@ public class BookingTagCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(this.index.getZeroBased());
-        Person editedPerson = addBookingTagPerson(personToEdit, bookingTag);
+        Person editedPerson = addTagsPerson(personToEdit, tagList, bookingTagList);
+
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(editedPerson)));
     }
 
-    private Person addBookingTagPerson(Person personToCopy, BookingTag bookingTag) throws CommandException {
+    private Person addTagsPerson(Person personToCopy, Set<Tag> tags, Set<BookingTag> bookingTags)
+            throws CommandException {
+        Set<Tag> updatedTags = new HashSet<>(personToCopy.getTags());
         Set<BookingTag> updatedBookingTags = new HashSet<>(personToCopy.getBookingTags());
-        for (BookingTag existingTag : updatedBookingTags) {
-            if (isOverlapping(existingTag, bookingTag)) {
-                throw new CommandException(String.format(MESSAGE_FAILURE, bookingTag.toPrettier()));
-            }
+
+        for (Tag tag : tags) {
+            updatedTags.add(tag);
         }
-        updatedBookingTags.add(bookingTag);
+        for (BookingTag bookingTag : bookingTags) {
+            for (BookingTag existingTag : updatedBookingTags) {
+                if (isOverlapping(existingTag, bookingTag)) {
+                    throw new CommandException(String.format(MESSAGE_FAILURE, bookingTag.toPrettier()));
+                }
+            }
+            updatedBookingTags.add(bookingTag);
+        }
+
         return new Person(
                 personToCopy.getName(),
                 personToCopy.getPhone(),
                 personToCopy.getEmail(),
                 personToCopy.getAddress(),
+                personToCopy.getMemo(),
                 updatedBookingTags,
-                personToCopy.getTags(),
-                personToCopy.getStarred()
-        );
+                updatedTags,
+                personToCopy.getStarred());
     }
 
     /**
@@ -90,12 +110,12 @@ public class BookingTagCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof BookingTagCommand)) {
+        if (!(other instanceof TagCommand)) {
             return false;
         }
 
-        BookingTagCommand otherBookingTag = (BookingTagCommand) other;
-        return index.equals(otherBookingTag.index);
+        TagCommand otherTag = (TagCommand) other;
+        return index.equals(otherTag.index);
     }
 
     @Override
