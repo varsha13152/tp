@@ -30,6 +30,9 @@ public class PersonDetailPanel extends UiPart<Region> {
     private Label addressLabel;
 
     @FXML
+    private FlowPane detailMemo;
+
+    @FXML
     private FlowPane detailTags;
 
     @FXML
@@ -69,9 +72,19 @@ public class PersonDetailPanel extends UiPart<Region> {
         addressLabel.setText(person.getAddress().value);
         detailStarIcon.setVisible(person.getStarred());
 
+        // Clear previous memo
+        detailMemo.getChildren().clear();
+
         // Clear previous tags
         detailTags.getChildren().clear();
         detailBookingTags.getChildren().clear();
+
+        // Add memo
+        if (person.getMemo() != null && person.getMemo().value != null && !person.getMemo().value.isEmpty()) {
+            Label memoLabel = new Label(person.getMemo().value);
+            memoLabel.getStyleClass().add("detail-memo");
+            detailMemo.getChildren().add(memoLabel);
+        }
 
         // Add tags
         person.getTags().stream()
