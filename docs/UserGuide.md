@@ -8,7 +8,7 @@
 
 ## Welcome to the InnSync User Guide
 
-Welcome to the **InnSync User Guide** – your essential companion for managing contacts and guest information 
+Welcome to the **InnSync User Guide** – your essential companion for managing contacts and guest information
 efficiently. Designed specifically for Airbnb owners.
 
 In this comprehensive user guide, we will take you to experience a full journey with InnSync step by step.
@@ -51,7 +51,7 @@ In this comprehensive user guide, we will take you to experience a full journey 
   - [4.4.1 Adding a booking tag](#441-adding-a-booking-tag--tag)
   - [4.4.2 Adding a tag](#442-adding-a-tag--tag)
   - [4.4.3 Untagging a booking tag](#443-untagging-a-booking-tag--untag)
-  - [4.4.4 Untagging a tag](#444-untagging-a-tag--untag) 
+  - [4.4.4 Untagging a tag](#444-untagging-a-tag--untag)
 - [4.5 Features related to finding](#45-features-related-to-finding)
   - [4.5.1 Locating a person](#451-locating-persons-find)
 - [4.6 General features](#46-general-features)
@@ -59,7 +59,7 @@ In this comprehensive user guide, we will take you to experience a full journey 
   - [4.6.2 Exiting the program](#462-exiting-the-program--exit)
 - [4.7 Saving the data](#47-saving-the-data)
 - [4.8 Editing the data file](#48-editing-the-data-file)
-  
+
 
 [5. FAQ](#5-faq)
 
@@ -73,9 +73,9 @@ In this comprehensive user guide, we will take you to experience a full journey 
 
 ### 1.1 What is InnSync
 
-InnSync is a desktop application designed specifically for managing contacts for AirBnB owners, 
-optimized for use via a Command Line Interface** (CLI) while still having the benefits of a 
-Graphical User Interface (GUI). If you can type fast, InnSync can get your contact management 
+InnSync is a desktop application designed specifically for managing contacts for AirBnB owners,
+optimized for use via a Command Line Interface** (CLI) while still having the benefits of a
+Graphical User Interface (GUI). If you can type fast, InnSync can get your contact management
 tasks done faster than traditional GUI apps.
 
 Key Features:
@@ -84,7 +84,7 @@ Key Features:
 * Automatic Data Persistence: Your changes are saved automatically to ensure all guest details remain current.
 
 ### 1.2 User Proficiency and Expectations
-* Technical Skills: InnSync is designed for users with basic command line experience and familiarity with 
+* Technical Skills: InnSync is designed for users with basic command line experience and familiarity with
 file navigation.
 
 * Efficiency: Built for Airbnb owners, the tool prioritizes quick, streamlined workflows to manage guest and
@@ -94,8 +94,8 @@ contact information.
 to a broad range of technical proficiency.
 
 ### 1.3 Why This Guide Matters
-This guide is crafted to help you fully leverage InnSync’s features. As an Airbnb owner, managing guest details 
-quickly and accurately is vital. This guide provides clear instructions, examples, and troubleshooting tips so 
+This guide is crafted to help you fully leverage InnSync’s features. As an Airbnb owner, managing guest details
+quickly and accurately is vital. This guide provides clear instructions, examples, and troubleshooting tips so
 you can optimize your workflow and focus on delivering a great guest experience.
 
 --------------------------------------------------------------------------------------------------------------------
@@ -137,7 +137,7 @@ First-time users are strongly encouraged to read the Quick Start section before 
    * Linux: Tutorial on how to open a terminal [here.](https://ubuntu.com/tutorials/command-line-for-beginners#1-overview)
 
 5.  Navigate to the folder by using `cd` into the folder you put the jar file in, and use the `java -jar innsync.jar` command to run the application.<br>
- 
+
 6. A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
     ![Ui](images/Ui.png)
 
@@ -168,7 +168,7 @@ the feature section. Let's try to familiarize ourselves with the basic component
 > **Tip:** All the command words are case-sensitive!
 >
 > * `add` is different from `Add`
-> * 
+> *
 #### 3.3.1 Parameter Prefixes:
 
 In InnSync, a parameter prefix acts as a delimiter for specifying different types of parameters in commands.
@@ -200,8 +200,8 @@ Essentially they are to be supplied by the user.
 | `EMAIL`       | `e/`             | Specifies the email of a guest. <br/><br/> Requirements: <ul><li>Emails should be of the format <code>local-part@domain</code>.</li><li>The local-part should only contain alphanumeric characters and the following special characters (excluding the parentheses): <code>[SPECIAL_CHARACTERS]</code>, and must not start or end with a special character.</li><li>This is followed by an '@' and then a domain name made up of domain labels separated by periods.</li><li>The domain name must end with a domain label that is at least 2 characters long.</li><li>Each domain label must start and end with an alphanumeric character and may contain hyphens in between.</li></ul> |                                                                                                                                                    |
 | `ADDRESS`     | `a/`             | Specifies the address of a guest. <br/><br/> Requirements: <ul><li>Addresses can take any values.</li><li>The address should not be blank.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | `MEMO`        | `m/`             | Specifies the memo of a guest. <br/><br/> Requirements: <ul><li>Memos can take any values.</li><li>Memos should not be null.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| `BOOKING_TAG` | `d/`             | Specifies the booking tag of a guest. <br/><br/> Requirements: <ul><li>Booking tags should be of the format <code>{property} from/{start-date} to/{end-date}</code>.</li><li>Start-date and end-date must be in the format <code>yyyy-MM-dd</code>.</li><li>The start-date should be before the end-date.</li></ul>                                                                                                                                                                                                                                                                                                                                                                     | 
-| `TAG `        | `t/`             | Specifies the tag name of a guest. <br/><br/> Requirements: <ul><li>Tag names should be alphanumeric.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ||                                                                                                                                                                                                                                                                                                |
+| `BOOKING_TAG` | `d/`             | Specifies the booking tag of a guest. <br/><br/> Requirements: <ul><li>Booking tags should be of the format <code>{property} from/{start-date} to/{end-date}</code>.</li><li>Start-date and end-date must be in the format <code>yyyy-MM-dd</code>.</li><li>The start-date should be before the end-date.</li></ul>                                                                                                                                                                                                                                                                                                                                                                     |
+| `TAG `        | `t/`             | Specifies the tag name of a guest. <br/><br/> Requirements: <ul><li>Tag names should be alphanumeric.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |                                                                                                                                                                                                                                                                                                |
 | `INDEX`       | Not Applicable   | Refers to the index number shown in the List Panel. <br/><br/> **Requirements:** <ul><li>Must be a positive integer.</li><li>The value must fall within the valid range.</li><li>A valid range represents the set of positive values starting from 1 to the number of guests within the list.</li><li>Example: If there are 10 guests in the list, the valid range will be from 1 to 10 (inclusive).</li></ul>                                                                                                                                                                                                                                                                          |
 
 #### 3.3.3 Command Format:
@@ -511,18 +511,18 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 
 ## 7. Command summary
 
-| Action       | Format, Examples                                                                                                                                                                                                                                                                                                 |
-|--------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**      | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`                                                                                                                                            |
-| **Tag**      | `tag INDEX r/TAG` <br> e.g.. `tag 1 b/TAG`  or <br/> `tag INDEX b/<KEYWORD> from/YYYY-MM-DD to/YYYY-MM-DD` <br> e.g.. `tag 1 b/Hotel from/2025-10-10 to/2025-10-11`                                                                                                                                              |
-| **Untag**    | `untag INDEX t/TAG` <br> e.g., `untag 1 t/TEST` or <br/> `untag INDEX b/{property} {from/} {to/}` <br> e.g., `untag 1 b/Hotel from/2025-10-10 to/2025-10-11`                                                                                                                                                     |
-| **Memo**     | `memo INDEX m/MEMO` <br/> e.g., `memo 1 m/TEST`                                                                                                                                                                                                                                                                  |
-| **Star**     | `star INDEX` <br> e.g., `star 1`                                                                                                                                                                                                                                                                                 |                                                                                                                                                                                                                                                                                                                   |
-| **Unstar**   | `unstar INDEX` <br> e.g., `unstar 1`                                                                                                                                                                                                                                                                             |
-| **Liststar** | `liststar`                                                                                                                                                                                                                                                                                                       |
-| **Clear**    | `clear`                                                                                                                                                                                                                                                                                                          |
-| **Delete**   | `delete INDEX`<br> e.g., `delete 3`  <br/>                                                                                                                                                                                                                                                                       |  
-| **Edit**     | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                                                                                                                                      |
-| **Find**     | `find KEYWORD [MORE_KEYWORDS]` or<br>`find n/NAME [MORE_NAMES]` or<br>`find p/PHONE [MORE_PHONES]` or<br>`find e/EMAIL [MORE_EMAILS]` or<br>`find a/ADDRESS [MORE_ADDRESSES]` or<br>`find t/TAG [MORE_TAGS]` or<br>`find b/DATE [MORE_DATES]`<br>e.g., `find James Jake` or `find p/9123` or `find b/2025-01-01` |
-| **List**     | `list`                                                                                                                                                                                                                                                                                                           |    
-| **Help**     | `help`                                                                                                                                                                                                                                                                                                           |                                                                                                                                                                                                                                                                                                                  |
+| Action        | Format, Examples                                                                                                                                                                                                                                                                                                 |
+|---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**       | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`                                                                                                                                         |
+| **Tag**       | `tag INDEX r/TAG` <br> e.g.. `tag 1 b/TAG`  or <br/> `tag INDEX b/<KEYWORD> from/YYYY-MM-DD to/YYYY-MM-DD` <br> e.g.. `tag 1 b/Hotel from/2025-10-10 to/2025-10-11`                                                                                                                                              |
+| **Untag**     | `untag INDEX t/TAG` <br> e.g., `untag 1 t/TEST` or <br/> `untag INDEX b/{property} {from/} {to/}` <br> e.g., `untag 1 b/Hotel from/2025-10-10 to/2025-10-11`                                                                                                                                                     |
+| **Memo**      | `memo INDEX m/MEMO` <br/> e.g., `memo 1 m/TEST`                                                                                                                                                                                                                                                                  |
+| **Star**      | `star INDEX` <br> e.g., `star 1`                                                                                                                                                                                                                                                                                 |                                                                                                                                                                                                                                                               |
+| **Unstar**    | `unstar INDEX` <br> e.g., `unstar 1`                                                                                                                                                                                                                                                                             |
+| **Liststar**  | `liststar`                                                                                                                                                                                                                                                                                                       |
+| **Clear**     | `clear`                                                                                                                                                                                                                                                                                                          |
+| **Delete**    | `delete INDEX`<br> e.g., `delete 3`  <br/>                                                                                                                                                                                                                                                                       |  
+| **Edit**      | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                                                                                                                                   |
+| **Find**      | `find KEYWORD [MORE_KEYWORDS]` or<br>`find n/NAME [MORE_NAMES]` or<br>`find p/PHONE [MORE_PHONES]` or<br>`find e/EMAIL [MORE_EMAILS]` or<br>`find a/ADDRESS [MORE_ADDRESSES]` or<br>`find t/TAG [MORE_TAGS]` or<br>`find b/DATE [MORE_DATES]`<br>e.g., `find James Jake` or `find p/9123` or `find b/2025-01-01` |
+| **List**      | `list`                                                                                                                                                                                                                                                                                                           |    
+| **Help**      | `help`                                                                                                                                                                                                                                                                                                           |                                                                                                                                                                                                                                                                                                                  |
