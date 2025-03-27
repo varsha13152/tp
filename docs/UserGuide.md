@@ -227,7 +227,7 @@ Essentially they are to be supplied by the user.
 | `EMAIL` | `e/` | Specifies the email of a guest. <br/><br/> Requirements: <ul><li>Emails should be of the format <code>local-part@domain</code>.</li><li>The local-part should only contain alphanumeric characters and the following special characters (excluding the parentheses): <code>[SPECIAL_CHARACTERS]</code>, and must not start or end with a special character.</li><li>This is followed by an '@' and then a domain name made up of domain labels separated by periods.</li><li>The domain name must end with a domain label that is at least 2 characters long.</li><li>Each domain label must start and end with an alphanumeric character and may contain hyphens in between.</li></ul> |
 | `ADDRESS` | `a/` | Specifies the address of a guest. <br/><br/> Requirements: <ul><li>Addresses can take any values.</li><li>The address should not be blank.</li></ul> |
 | `MEMO` | `m/` | Specifies the memo of a guest. <br/><br/> Requirements: <ul><li>Memos can take any values.</li><li>Memos should not be null.</li></ul> |
-| `BOOKING_TAG` | `d/` | Specifies the booking tag of a guest. <br/><br/> Requirements: <ul><li>Booking tags should be of the format <code>{property} from/{start-date} to/{end-date}</code>.</li><li>Start-date and end-date must be in the format <code>yyyy-MM-dd</code>.</li><li>The start-date should be before the end-date.</li></ul> |
+| `BOOKING_TAG` | `b/` | Specifies the booking tag of a guest. <br/><br/> Requirements: <ul><li>Booking tags should be of the format <code>{property} from/{start-date} to/{end-date}</code>.</li><li>Start-date and end-date must be in the format <code>yyyy-MM-dd</code>.</li><li>The start-date should be before the end-date.</li></ul> |
 | `TAG` | `t/` | Specifies the tag name of a guest. <br/><br/> Requirements: <ul><li>Tag names should be alphanumeric.</li></ul> |
 | `INDEX` | Not Applicable | Refers to the index number shown in the List Panel. <br/><br/> **Requirements:** <ul><li>Must be a positive integer.</li><li>The value must fall within the valid range.</li><li>A valid range represents the set of positive values starting from 1 to the number of guests within the list.</li><li>Example: If there are 10 guests in the list, the valid range will be from 1 to 10 (inclusive).</li></ul> |
 
@@ -455,7 +455,7 @@ Format: `find [n/]KEYWORD [MORE_KEYWORDS...] | p/KEYWORD [MORE_KEYWORDS...] | e/
 
 * **Multiple fields**:
   * Different search field types can be combined (e.g., `find n/John t/friend`)
-  * When multiple field types are specified, only contacts matching ANY specified fields are returned (e.g., `find n/John t/friend` returns contacts named John and contacts who are tagged as friend)
+  * When multiple field types are specified, only contacts matching ANY specified fields are returned (e.g., `find n/John t/friend` returns contacts named John as well as contacts who are tagged as friend)
 
 * **Multiple keywords**:
   * Multiple search terms can be provided for any field type
@@ -488,8 +488,8 @@ Format: `find [n/]KEYWORD [MORE_KEYWORDS...] | p/KEYWORD [MORE_KEYWORDS...] | e/
 * `find a/Street Avenue` - Finds contacts with either "Street" or "Avenue" in their addresses
 
 **Searching by tag:**
-* `find t/friend` - Finds contacts tagged as "friend"
-* `find t/colleague family` - Finds contacts tagged as either "colleague" or "family"
+* `find t/fri` - Finds contacts with tags containing "fri" (e.g., "friend", "friendly")
+* `find t/work col` - Finds contacts with tags containing either "work" or "col"  (e.g., "network", "colleague", "collaboration")
 
 **Searching by memo:**
 * `find m/important` - Finds contacts with "important" in their memos
@@ -504,8 +504,8 @@ Format: `find [n/]KEYWORD [MORE_KEYWORDS...] | p/KEYWORD [MORE_KEYWORDS...] | e/
 * `find bp/Villa Resort` - Finds contacts with bookings at properties containing either "Villa" or "Resort"
 
 **Combining search fields:**
-* `find n/John t/friend` - Finds contacts named John or contacts tagged as friend
-* `find n/John m/important bd/2025-01-01` - Finds contacts that has "John" in their name, have "important" in their memos, or have a booking on January 1, 2025.
+* `find n/Jo t/fri` - Finds contacts with names containing "Jo" (e.g., "John", "Joseph") or tags containing "fri" (e.g., "friend", "friendly")
+* `find n/Jo m/import bd/2025-01` - Finds contacts with names containing "Jo", memos containing "import" (e.g., "important"), or bookings in January 2025
 
 #### Common Errors and How to Resolve Them:
 
