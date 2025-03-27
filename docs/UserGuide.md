@@ -430,7 +430,7 @@ Examples:
 
 Allows users to search for a contact by their name, phone, address, email, tag, memo, booking date, or booking property.
 
-Format: `find [n/]KEYWORD [MORE_KEYWORDS] | p/KEYWORD [MORE_KEYWORDS] | e/KEYWORD [MORE_KEYWORDS] | a/KEYWORD [MORE_KEYWORDS] | t/KEYWORD [MORE_KEYWORDS] | m/KEYWORD [MORE_KEYWORDS] | bd/DATE [MORE_DATES] | bp/KEYWORD [MORE_KEYWORDS]`
+Format: `find [n/]KEYWORD [MORE_KEYWORDS...] | p/KEYWORD [MORE_KEYWORDS...] | e/KEYWORD [MORE_KEYWORDS...] | a/KEYWORD [MORE_KEYWORDS...] | t/KEYWORD [MORE_KEYWORDS...] | m/KEYWORD [MORE_KEYWORDS...] | bd/DATE [MORE_DATES...] | bp/KEYWORD [MORE_KEYWORDS...]`
 
 #### Search Modes:
 
@@ -455,7 +455,7 @@ Format: `find [n/]KEYWORD [MORE_KEYWORDS] | p/KEYWORD [MORE_KEYWORDS] | e/KEYWOR
 
 * **Multiple fields**:
   * Different search field types can be combined (e.g., `find n/John t/friend`)
-  * When multiple field types are specified, only contacts matching ALL specified fields are returned (e.g., `find n/John t/friend` returns contacts named John who are also tagged as friend)
+  * When multiple field types are specified, only contacts matching ANY specified fields are returned (e.g., `find n/John t/friend` returns contacts named John and contacts who are tagged as friend)
 
 * **Multiple keywords**:
   * Multiple search terms can be provided for any field type
@@ -504,8 +504,8 @@ Format: `find [n/]KEYWORD [MORE_KEYWORDS] | p/KEYWORD [MORE_KEYWORDS] | e/KEYWOR
 * `find bp/Villa Resort` - Finds contacts with bookings at properties containing either "Villa" or "Resort"
 
 **Combining search fields:**
-* `find n/John t/friend` - Finds contacts named John who are also tagged as friend
-* `find n/John m/important bd/2025-01-01` - Finds contacts named John who have "important" in their memos and have a booking on January 1, 2025
+* `find n/John t/friend` - Finds contacts named John or contacts tagged as friend
+* `find n/John m/important bd/2025-01-01` - Finds contacts that has "John" in their name, have "important" in their memos, or have a booking on January 1, 2025.
 
 #### Common Errors and How to Resolve Them:
 
