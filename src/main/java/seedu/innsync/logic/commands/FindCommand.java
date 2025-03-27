@@ -31,7 +31,7 @@ public class FindCommand extends Command {
             + "  By Tag: t/KEYWORD [MORE_KEYWORDS]...\n"
             + "  By Memo: m/KEYWORD [MORE_KEYWORDS]...\n"
             + "  By BookingTag (Date): bd/DATE [MORE_DATES]...\n"
-            + "  By BookingTag (Property): bp/PROPERTY [MORE_PROPERTIES]...\n"
+            + "  By BookingTag (Property): bp/PROPERTY [MORE_KEYWORDS]...\n"
             + "Examples: \n"
             + "  " + COMMAND_WORD + " n/John\n"
             + "  " + COMMAND_WORD + " p/91234567\n"
@@ -49,7 +49,7 @@ public class FindCommand extends Command {
      * Enum to represent the type of search being performed
      */
     public enum SearchType {
-        NAME, PHONE, EMAIL, ADDRESS, TAG, BOOKING, BOOKING_DATE, BOOKING_PROPERTY, MEMO
+        NAME, PHONE, EMAIL, ADDRESS, TAG, BOOKING_DATE, BOOKING_PROPERTY, MEMO
     }
 
     /**
@@ -143,8 +143,6 @@ public class FindCommand extends Command {
             return matchAddressField(person, keyword);
         case TAG:
             return matchTagField(person, keyword);
-        case BOOKING:
-            return matchBookingField(person, keyword);
         case BOOKING_DATE:
             return matchBookingDateField(person, keyword);
         case BOOKING_PROPERTY:
@@ -215,19 +213,6 @@ public class FindCommand extends Command {
         return person.getTags() != null && person.getTags().stream()
                 .filter(tag -> tag != null) // Filter out any null tags for robustness
                 .anyMatch(tag -> tag.tagName != null && tag.tagName.toLowerCase().contains(keyword));
-    }
-
-    /**
-     * Matches a person's booking tags against a keyword (legacy booking search)
-     */
-    private boolean matchBookingField(Person person, String keyword) {
-        // Early return for null booking tags
-        if (person.getBookingTags() == null) {
-            return false;
-        }
-
-        return person.getBookingTags().stream()
-                .anyMatch(bookingTag -> isDateInBookingPeriod(keyword, bookingTag));
     }
 
     /**

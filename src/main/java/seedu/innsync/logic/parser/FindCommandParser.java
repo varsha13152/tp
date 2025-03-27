@@ -269,7 +269,6 @@ public class FindCommandParser implements Parser<FindCommand> {
                 || prefix.equals("e/")
                 || prefix.equals("a/")
                 || prefix.equals("t/")
-                || prefix.equals("b/")
                 || prefix.equals("bd/")
                 || prefix.equals("bp/")
                 || prefix.equals("m/");
@@ -290,8 +289,6 @@ public class FindCommandParser implements Parser<FindCommand> {
             return "address";
         case "t/":
             return "tag";
-        case "b/":
-            return "booking date";
         case "bd/":
             return "booking date";
         case "bp/":
@@ -334,8 +331,6 @@ public class FindCommandParser implements Parser<FindCommand> {
             return SearchType.ADDRESS;
         case "t/":
             return SearchType.TAG;
-        case "b/":
-            return SearchType.BOOKING;
         case "bd/":
             return SearchType.BOOKING_DATE;
         case "bp/":
@@ -470,8 +465,6 @@ public class FindCommandParser implements Parser<FindCommand> {
                 return ADDRESS_VALIDATION_REGEX.matcher(keyword).matches();
             case TAG:
                 return TAG_VALIDATION_REGEX.matcher(keyword).matches();
-            case BOOKING:
-                return BOOKING_VALIDATION_REGEX.matcher(keyword).matches() && validateDateFormat(keyword);
             case BOOKING_DATE:
                 return BOOKING_DATE_VALIDATION_REGEX.matcher(keyword).matches() && validateDateFormat(keyword);
             case BOOKING_PROPERTY:
@@ -531,9 +524,6 @@ public class FindCommandParser implements Parser<FindCommand> {
                     + " hyphens, and hashes.";
         case TAG:
             return "Invalid tag format. Tags should only contain alphanumeric characters.";
-        case BOOKING:
-            return "Invalid booking date format. Dates should be in the format yyyy-MM-dd "
-                    + "(e.g., 2024-10-15).";
         case BOOKING_DATE:
             return "Invalid booking date format. Dates should be in the format yyyy-MM-dd "
                     + "(e.g., 2024-10-15).";

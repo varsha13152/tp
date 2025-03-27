@@ -259,19 +259,6 @@ public class FindCommandParserTest {
         }
     }
 
-    // Test for backward compatibility of b/ prefix
-    @Test
-    public void parse_validLegacyBookingArgs_returnsFindCommand() {
-        try {
-            FindCommand command = parser.parse("b/2025-06-01");
-            Map<SearchType, List<String>> criteria = command.getSearchCriteria();
-            assertEquals(1, criteria.size());
-            assertEquals(true, criteria.containsKey(SearchType.BOOKING));
-        } catch (ParseException pe) {
-            fail("Failed to parse valid input: " + pe.getMessage());
-        }
-    }
-
     // Test for multiple field searches
     @Test
     public void parse_multipleValidFields_returnsFindCommand() {
