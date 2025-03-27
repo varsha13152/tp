@@ -19,6 +19,8 @@ import seedu.innsync.model.tag.BookingTag;
 /**
  * Finds and lists persons in address book whose details match the given keywords.
  * Supports searching by multiple fields simultaneously: name, phone, email, address, tags, booking tags, memo.
+ * Uses OR logic between different search types - a person matches if they match ANY of the search criteria.
+ * Uses OR logic between keywords of the same type - a person matches a search type if they match ANY of its keywords.
  */
 public class FindCommand extends Command {
 
@@ -81,12 +83,13 @@ public class FindCommand extends Command {
 
     /**
      * Creates a combined predicate based on all search criteria
+     * Uses OR logic between different search types - a person matches if they match ANY of the search criteria
      * @throws IllegalStateException if search criteria map is null or empty
      */
     private Predicate<Person> createCombinedPredicate() {
         validateSearchCriteria();
-        logger.info("Creating combined predicate from search criteria");
-        return person -> matchesAllSearchCriteria(person);
+        logger.info("Creating combined predicate from search criteria with OR logic between fields");
+        return person -> matchesAnySearchCriteria(person);
     }
 
     /**
@@ -104,10 +107,10 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Checks if a person matches all search criteria
+     * Checks if a person matches any of the search criteria (OR logic between different search types)
      */
-    private boolean matchesAllSearchCriteria(Person person) {
-        return searchCriteria.entrySet().stream().allMatch(entry -> {
+    private boolean matchesAnySearchCriteria(Person person) {
+        return searchCriteria.entrySet().stream().anyMatch(entry -> {
             SearchType type = entry.getKey();
             List<String> keywords = entry.getValue();
 
@@ -394,7 +397,7 @@ public class FindCommand extends Command {
 
             if (inPeriod && logger.isLoggable(Level.FINE)) {
                 logger.fine("Date '" + dateString + "' is in booking period: "
-                       + bookingTag.startDate + " to " + bookingTag.endDate);
+                        + bookingTag.startDate + " to " + bookingTag.endDate);
             }
 
             return inPeriod;
