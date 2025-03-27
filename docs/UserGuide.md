@@ -37,6 +37,7 @@ In this comprehensive user guide, we will take you to experience a full journey 
     - [3.3.3 Command Format](#3-3-3-command-format)
 
 [4. Features](#4-features)
+- [4.0 Command Summary](#4-0-command-summary)
 - [4.1 Viewing help](#4-1-viewing-help--help)
 - [4.2 Features related to person](#4-2-features-related-to-person)
   - [4.2.1 Adding a person](#4-2-1-adding-a-person-add)
@@ -57,6 +58,7 @@ In this comprehensive user guide, we will take you to experience a full journey 
 - [4.6 General features](#4-6-general-features)
   - [4.6.1 Clearing all entries](#4-6-1-clearing-all-entries--clear)
   - [4.6.2 Exiting the program](#4-6-2-exiting-the-program--exit)
+  - [4.6.3 Undoing the last change](#4-6-3-undoing-the-last-change--undo)
 - [4.7 Saving the data](#4-7-saving-the-data)
 - [4.8 Editing the data file](#4-8-editing-the-data-file)
 
@@ -64,8 +66,6 @@ In this comprehensive user guide, we will take you to experience a full journey 
 [5. FAQ](#5-faq)
 
 [6. Known issues](#6-known-issues)
-
-[7. Command summary](#7-command-summary)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -227,10 +227,6 @@ To understand how a full command is interpreted, we will utilise the following e
 > 2. `COMMAND` + `PARAMETER_PREFIX` + `PARAMETER`
 > 3. `COMMAND` + `INDEX` + `PARAMETER_PREFIX` + `PARAMETER`
 
---------------------------------------------------------------------------------------------------------------------
-
-## 4. Features
-
 <box type="info" seamless>
 
 **Notes about the command format:**<br>
@@ -252,6 +248,28 @@ To understand how a full command is interpreted, we will utilise the following e
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </box>
+
+--------------------------------------------------------------------------------------------------------------------
+
+## 4. Features
+## 4.0 Command Summary
+| Action        | Format, Examples                                                                                                                                                                                                                                                                                                 |
+|---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**       | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/+82 22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`                                                                                                                                         |
+| **Tag**       | `tag INDEX r/TAG` <br> e.g.. `tag 1 b/TAG`  or <br/> `tag INDEX b/<KEYWORD> from/YYYY-MM-DD to/YYYY-MM-DD` <br> e.g.. `tag 1 b/Hotel from/2025-10-10 to/2025-10-11`                                                                                                                                              |
+| **Untag**     | `untag INDEX t/TAG` <br> e.g., `untag 1 t/TEST` or <br/> `untag INDEX b/{property} {from/} {to/}` <br> e.g., `untag 1 b/Hotel from/2025-10-10 to/2025-10-11`                                                                                                                                                     |
+| **Memo**      | `memo INDEX m/MEMO` <br/> e.g., `memo 1 m/TEST`                                                                                                                                                                                                                                                                  |
+| **Star**      | `star INDEX` <br> e.g., `star 1`                                                                                                                                                                                                                                                                                 |                                                                                                                                                                                                                                                               |
+| **Unstar**    | `unstar INDEX` <br> e.g., `unstar 1`                                                                                                                                                                                                                                                                             |
+| **Liststar**  | `liststar`                                                                                                                                                                                                                                                                                                       |
+| **Clear**     | `clear`                                                                                                                                                                                                                                                                                                          |
+| **Delete**    | `delete INDEX`<br> e.g., `delete 3`  <br/>                                                                                                                                                                                                                                                                       |  
+| **Edit**      | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                                                                                                                                   |
+| **Find**      | `find KEYWORD [MORE_KEYWORDS]` or<br>`find n/NAME [MORE_NAMES]` or<br>`find p/PHONE [MORE_PHONES]` or<br>`find e/EMAIL [MORE_EMAILS]` or<br>`find a/ADDRESS [MORE_ADDRESSES]` or<br>`find t/TAG [MORE_TAGS]` or<br>`find b/DATE [MORE_DATES]`<br>e.g., `find James Jake` or `find p/9123` or `find b/2025-01-01` |
+| **List**      | `list`                                                                                                                                                                                                                                                                                                           |    
+| **Undo**      | `undo`                                                                                                                                                                                                                                                                                                           |    
+| **Help**      | `help`                                                                                                                                                                                                                                                                                                           |                                                                                                                                                                                                                                                                                                                  |
+
 
 ## 4.1 Viewing help : `help`
 
@@ -275,8 +293,8 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 </box>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/John Doe p/+65 98765432 e/johnd@example.com a/John street, block 123, #01-01`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/+65 1234567 t/criminal`
 
 ### 4.2.2 Editing a person : `edit`
 
@@ -294,7 +312,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [b/BOOKING_TAG]…�
   specifying any booking tags after it.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+*  `edit 1 p/+65 91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `+65 91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 *  `edit 2 n/Betsy Crower b/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing booking tags.
 
@@ -478,6 +496,13 @@ Exits the program.
 
 Format: `exit`
 
+### 4.6.3 Undoing the last change : `undo`
+
+Undoes the last modification to the addressbook, reverting it to its original state before the last modification.      
+Edit, add, delete, tag, untag, star, unstar, memo and undo are the moficiations which can be undone.
+
+Format: `undo`
+
 ### 4.7 Saving the data
 
 AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
@@ -507,22 +532,6 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
 
---------------------------------------------------------------------------------------------------------------------
 
-## 7. Command summary
 
-| Action        | Format, Examples                                                                                                                                                                                                                                                                                                 |
-|---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**       | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`                                                                                                                                         |
-| **Tag**       | `tag INDEX r/TAG` <br> e.g.. `tag 1 b/TAG`  or <br/> `tag INDEX b/<KEYWORD> from/YYYY-MM-DD to/YYYY-MM-DD` <br> e.g.. `tag 1 b/Hotel from/2025-10-10 to/2025-10-11`                                                                                                                                              |
-| **Untag**     | `untag INDEX t/TAG` <br> e.g., `untag 1 t/TEST` or <br/> `untag INDEX b/{property} {from/} {to/}` <br> e.g., `untag 1 b/Hotel from/2025-10-10 to/2025-10-11`                                                                                                                                                     |
-| **Memo**      | `memo INDEX m/MEMO` <br/> e.g., `memo 1 m/TEST`                                                                                                                                                                                                                                                                  |
-| **Star**      | `star INDEX` <br> e.g., `star 1`                                                                                                                                                                                                                                                                                 |                                                                                                                                                                                                                                                               |
-| **Unstar**    | `unstar INDEX` <br> e.g., `unstar 1`                                                                                                                                                                                                                                                                             |
-| **Liststar**  | `liststar`                                                                                                                                                                                                                                                                                                       |
-| **Clear**     | `clear`                                                                                                                                                                                                                                                                                                          |
-| **Delete**    | `delete INDEX`<br> e.g., `delete 3`  <br/>                                                                                                                                                                                                                                                                       |  
-| **Edit**      | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                                                                                                                                   |
-| **Find**      | `find KEYWORD [MORE_KEYWORDS]` or<br>`find n/NAME [MORE_NAMES]` or<br>`find p/PHONE [MORE_PHONES]` or<br>`find e/EMAIL [MORE_EMAILS]` or<br>`find a/ADDRESS [MORE_ADDRESSES]` or<br>`find t/TAG [MORE_TAGS]` or<br>`find b/DATE [MORE_DATES]`<br>e.g., `find James Jake` or `find p/9123` or `find b/2025-01-01` |
-| **List**      | `list`                                                                                                                                                                                                                                                                                                           |    
-| **Help**      | `help`                                                                                                                                                                                                                                                                                                           |                                                                                                                                                                                                                                                                                                                  |
+
