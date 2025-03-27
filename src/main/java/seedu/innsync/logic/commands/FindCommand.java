@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import seedu.innsync.commons.util.ToStringBuilder;
 import seedu.innsync.logic.Messages;
@@ -21,6 +23,7 @@ import seedu.innsync.model.tag.BookingTag;
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
+    private static final Logger logger = Logger.getLogger(FindCommand.class.getName());
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds persons by one or more fields simultaneously. \n"
             + "Parameters: \n"
@@ -33,14 +36,15 @@ public class FindCommand extends Command {
             + "  By BookingTag (Date): bd/DATE [MORE_DATES]...\n"
             + "  By BookingTag (Property): bp/PROPERTY [MORE_KEYWORDS]...\n"
             + "Examples: \n"
+            + "  " + COMMAND_WORD + " John\n"
             + "  " + COMMAND_WORD + " n/John\n"
             + "  " + COMMAND_WORD + " p/91234567\n"
             + "  " + COMMAND_WORD + " t/friend\n"
-            + "  " + COMMAND_WORD + " m/important\n"
+            + "  " + COMMAND_WORD + " m/breakfast \n"
             + "  " + COMMAND_WORD + " bd/2024-10-15\n"
             + "  " + COMMAND_WORD + " bp/BeachHouse\n"
             + "  " + COMMAND_WORD + " n/John a/Clementi\n"
-            + "  " + COMMAND_WORD + " n/John p/91234567 t/friend m/important";
+            + "  " + COMMAND_WORD + " n/John p/91234567 t/friend m/breakfast";
 
 
     private final Map<SearchType, List<String>> searchCriteria;
@@ -57,6 +61,7 @@ public class FindCommand extends Command {
      */
     public FindCommand(Map<SearchType, List<String>> searchCriteria) {
         this.searchCriteria = searchCriteria;
+        logger.info("FindCommand initialized with search criteria: " + searchCriteria);
     }
 
     public Map<SearchType, List<String>> getSearchCriteria() {
@@ -70,6 +75,7 @@ public class FindCommand extends Command {
      * @throws IllegalStateException if search criteria map is null or empty
      */
     public Predicate<Person> getPredicate() {
+        logger.fine("Getting predicate from search criteria");
         return createCombinedPredicate();
     }
 
@@ -79,6 +85,7 @@ public class FindCommand extends Command {
      */
     private Predicate<Person> createCombinedPredicate() {
         validateSearchCriteria();
+        logger.info("Creating combined predicate from search criteria");
         return person -> matchesAllSearchCriteria(person);
     }
 
@@ -91,6 +98,7 @@ public class FindCommand extends Command {
 
         // Throw IllegalStateException if map is empty
         if (searchCriteria.isEmpty()) {
+            logger.warning("Search criteria map is empty");
             throw new IllegalStateException("At least one search criterion must be provided");
         }
     }
@@ -99,17 +107,21 @@ public class FindCommand extends Command {
      * Checks if a person matches all search criteria
      */
     private boolean matchesAllSearchCriteria(Person person) {
-        // Must match ALL specified field types (AND logic between fields)
         return searchCriteria.entrySet().stream().allMatch(entry -> {
             SearchType type = entry.getKey();
             List<String> keywords = entry.getValue();
 
-            // Assert that the key and value are not null
             assert type != null : "Search type cannot be null";
             assert keywords != null : "Keywords list cannot be null for search type: " + type;
 
-            // For each field type, match ANY of the keywords (OR logic within a field)
-            return matchesAnyKeyword(person, type, keywords);
+            boolean matches = matchesAnyKeyword(person, type, keywords);
+
+            if (logger.isLoggable(Level.FINE)) {
+                logger.fine("Person " + person.getName().fullName
+                        + " match for criteria type " + type + ": " + matches);
+            }
+
+            return matches;
         });
     }
 
@@ -150,6 +162,7 @@ public class FindCommand extends Command {
         case MEMO:
             return matchMemoField(person, keyword);
         default:
+            logger.warning("Unsupported search type encountered: " + searchType);
             throw new IllegalArgumentException("Unsupported search type: " + searchType);
         }
     }
@@ -160,12 +173,15 @@ public class FindCommand extends Command {
     private void validateMatchFieldParameters(Person person, String keyword, SearchType searchType) {
         // Validate parameters
         if (person == null) {
+            logger.warning("Null person provided for matching");
             throw new IllegalArgumentException("Person cannot be null");
         }
         if (keyword == null) {
+            logger.warning("Null keyword provided for matching");
             throw new IllegalArgumentException("Keyword cannot be null");
         }
         if (searchType == null) {
+            logger.warning("Null searchType provided for matching");
             throw new IllegalArgumentException("SearchType cannot be null");
         }
 
@@ -178,31 +194,47 @@ public class FindCommand extends Command {
      * Matches a person's name against a keyword
      */
     private boolean matchNameField(Person person, String keyword) {
-        return person.getName().fullName.toLowerCase().contains(keyword);
+        boolean matches = person.getName().fullName.toLowerCase().contains(keyword);
+        if (matches && logger.isLoggable(Level.FINE)) {
+            logger.fine("Name match found: " + person.getName().fullName + " contains '" + keyword + "'");
+        }
+        return matches;
     }
 
     /**
      * Matches a person's phone against a keyword
      */
     private boolean matchPhoneField(Person person, String keyword) {
-        return person.getPhone() != null
+        boolean matches = person.getPhone() != null
                 && person.getPhone().value.toLowerCase().contains(keyword);
+        if (matches && logger.isLoggable(Level.FINE)) {
+            logger.fine("Phone match found: " + person.getPhone().value + " contains '" + keyword + "'");
+        }
+        return matches;
     }
 
     /**
      * Matches a person's email against a keyword
      */
     private boolean matchEmailField(Person person, String keyword) {
-        return person.getEmail() != null
+        boolean matches = person.getEmail() != null
                 && person.getEmail().value.toLowerCase().contains(keyword);
+        if (matches && logger.isLoggable(Level.FINE)) {
+            logger.fine("Email match found: " + person.getEmail().value + " contains '" + keyword + "'");
+        }
+        return matches;
     }
 
     /**
      * Matches a person's address against a keyword
      */
     private boolean matchAddressField(Person person, String keyword) {
-        return person.getAddress() != null
+        boolean matches = person.getAddress() != null
                 && person.getAddress().value.toLowerCase().contains(keyword);
+        if (matches && logger.isLoggable(Level.FINE)) {
+            logger.fine("Address match found: " + person.getAddress().value + " contains '" + keyword + "'");
+        }
+        return matches;
     }
 
     /**
@@ -210,9 +242,19 @@ public class FindCommand extends Command {
      */
     private boolean matchTagField(Person person, String keyword) {
         // Verify tags collection is not null before attempting to stream
-        return person.getTags() != null && person.getTags().stream()
+        if (person.getTags() == null) {
+            return false;
+        }
+
+        boolean matches = person.getTags().stream()
                 .filter(tag -> tag != null) // Filter out any null tags for robustness
                 .anyMatch(tag -> tag.tagName != null && tag.tagName.toLowerCase().contains(keyword));
+
+        if (matches && logger.isLoggable(Level.FINE)) {
+            logger.fine("Tag match found for person: " + person.getName().fullName
+                    + " with keyword: '" + keyword + "'");
+        }
+        return matches;
     }
 
     /**
@@ -220,25 +262,36 @@ public class FindCommand extends Command {
      * @throws IllegalArgumentException if person or keyword is null
      */
     private boolean matchBookingDateField(Person person, String keyword) {
-        // Validate parameters
-        if (person == null) {
-            throw new IllegalArgumentException("Person cannot be null when matching booking date");
-        }
-        if (keyword == null) {
-            throw new IllegalArgumentException("Keyword cannot be null when matching booking date");
-        }
+        try {
+            if (person == null) {
+                logger.warning("Null person provided for booking date matching");
+                throw new IllegalArgumentException("Person cannot be null when matching booking date");
+            }
+            if (keyword == null) {
+                logger.warning("Null keyword provided for booking date matching");
+                throw new IllegalArgumentException("Keyword cannot be null when matching booking date");
+            }
 
-        // Assert parameters are valid
-        assert !keyword.isEmpty() : "Booking date keyword cannot be empty";
+            assert !keyword.isEmpty() : "Booking date keyword cannot be empty";
 
-        // Early return for null booking tags
-        if (person.getBookingTags() == null) {
-            return false;
+            if (person.getBookingTags() == null) {
+                return false;
+            }
+
+            boolean matches = person.getBookingTags().stream()
+                    .filter(tag -> tag != null) // Filter out any null booking tags for robustness
+                    .anyMatch(bookingTag -> isDateInBookingPeriod(keyword, bookingTag));
+
+            if (matches && logger.isLoggable(Level.FINE)) {
+                logger.fine("Booking date match found for person: " + person.getName().fullName
+                        + " with date: '" + keyword + "'");
+            }
+
+            return matches;
+        } catch (Exception e) {
+            logger.warning("Error in matchBookingDateField: " + e.getMessage());
+            throw e;
         }
-
-        return person.getBookingTags().stream()
-                .filter(tag -> tag != null) // Filter out any null booking tags for robustness
-                .anyMatch(bookingTag -> isDateInBookingPeriod(keyword, bookingTag));
     }
 
     /**
@@ -246,26 +299,35 @@ public class FindCommand extends Command {
      * @throws IllegalArgumentException if person or keyword is null
      */
     private boolean matchBookingPropertyField(Person person, String keyword) {
-        // Validate parameters
-        if (person == null) {
-            throw new IllegalArgumentException("Person cannot be null when matching booking property");
-        }
-        if (keyword == null) {
-            throw new IllegalArgumentException("Keyword cannot be null when matching booking property");
-        }
+        try {
+            if (person == null) {
+                logger.warning("Null person provided for booking property matching");
+                throw new IllegalArgumentException("Person cannot be null when matching booking property");
+            }
+            if (keyword == null) {
+                logger.warning("Null keyword provided for booking property matching");
+                throw new IllegalArgumentException("Keyword cannot be null when matching booking property");
+            }
 
-        // Assert parameters are valid
-        assert !keyword.isEmpty() : "Booking property keyword cannot be empty";
+            assert !keyword.isEmpty() : "Booking property keyword cannot be empty";
 
-        // Early return for null booking tags
-        if (person.getBookingTags() == null) {
-            return false;
+            if (person.getBookingTags() == null) {
+                return false;
+            }
+            boolean matches = person.getBookingTags().stream()
+                    .filter(tag -> tag != null)
+                    .anyMatch(bookingTag -> bookingTag.bookingTag != null
+                            && bookingTag.bookingTag.toLowerCase().contains(keyword));
+
+            if (matches && logger.isLoggable(Level.FINE)) {
+                logger.fine("Booking property match found for person: " + person.getName().fullName
+                        + " with property: '" + keyword + "'");
+            }
+            return matches;
+        } catch (Exception e) {
+            logger.warning("Error in matchBookingPropertyField: " + e.getMessage());
+            throw e;
         }
-
-        return person.getBookingTags().stream()
-                .filter(tag -> tag != null) // Filter out any null booking tags for robustness
-                .anyMatch(bookingTag -> bookingTag.bookingTag != null
-                        && bookingTag.bookingTag.toLowerCase().contains(keyword));
     }
 
     /**
@@ -273,21 +335,32 @@ public class FindCommand extends Command {
      * @throws IllegalArgumentException if person or keyword is null
      */
     private boolean matchMemoField(Person person, String keyword) {
-        // Validate parameters
-        if (person == null) {
-            throw new IllegalArgumentException("Person cannot be null when matching memo");
-        }
-        if (keyword == null) {
-            throw new IllegalArgumentException("Keyword cannot be null when matching memo");
-        }
+        try {
+            if (person == null) {
+                logger.warning("Null person provided for memo matching");
+                throw new IllegalArgumentException("Person cannot be null when matching memo");
+            }
+            if (keyword == null) {
+                logger.warning("Null keyword provided for memo matching");
+                throw new IllegalArgumentException("Keyword cannot be null when matching memo");
+            }
 
-        // Assert parameters are valid
-        assert !keyword.isEmpty() : "Memo keyword cannot be empty";
+            assert !keyword.isEmpty() : "Memo keyword cannot be empty";
 
-        return person.getMemo() != null
-                && person.getMemo().value != null
-                && !person.getMemo().value.isEmpty()
-                && person.getMemo().value.toLowerCase().contains(keyword);
+            boolean matches = person.getMemo() != null
+                    && person.getMemo().value != null
+                    && !person.getMemo().value.isEmpty()
+                    && person.getMemo().value.toLowerCase().contains(keyword);
+
+            if (matches && logger.isLoggable(Level.FINE)) {
+                logger.fine("Memo match found for person: " + person.getName().fullName
+                        + " with keyword: '" + keyword + "'");
+            }
+            return matches;
+        } catch (Exception e) {
+            logger.warning("Error in matchMemoField: " + e.getMessage());
+            throw e;
+        }
     }
 
     /**
@@ -298,29 +371,35 @@ public class FindCommand extends Command {
      * @throws IllegalArgumentException if dateString or bookingTag is null
      */
     private boolean isDateInBookingPeriod(String dateString, BookingTag bookingTag) {
-        // Validate parameters
-        if (dateString == null) {
-            throw new IllegalArgumentException("Date string cannot be null");
-        }
-        if (bookingTag == null) {
-            throw new IllegalArgumentException("Booking tag cannot be null");
-        }
-
-        // Assert parameters are valid
-        assert !dateString.isEmpty() : "Date string cannot be empty";
-
         try {
+            if (dateString == null) {
+                logger.warning("Null date string provided for booking period check");
+                throw new IllegalArgumentException("Date string cannot be null");
+            }
+            if (bookingTag == null) {
+                logger.warning("Null booking tag provided for booking period check");
+                throw new IllegalArgumentException("Booking tag cannot be null");
+            }
+
+            assert !dateString.isEmpty() : "Date string cannot be empty";
+
             LocalDateTime date = LocalDateTime.parse(dateString + "T00:00:00");
 
-            // Check for null dates in booking tag
             if (bookingTag.startDate == null || bookingTag.endDate == null) {
+                logger.fine("Booking tag has null start or end date for date check: " + dateString);
                 return false;
             }
 
-            return !date.isBefore(bookingTag.startDate) && !date.isAfter(bookingTag.endDate);
+            boolean inPeriod = !date.isBefore(bookingTag.startDate) && !date.isAfter(bookingTag.endDate);
+
+            if (inPeriod && logger.isLoggable(Level.FINE)) {
+                logger.fine("Date '" + dateString + "' is in booking period: "
+                       + bookingTag.startDate + " to " + bookingTag.endDate);
+            }
+
+            return inPeriod;
         } catch (Exception e) {
-            // Log the exception for debugging
-            System.err.println("Error parsing date: " + e.getMessage());
+            logger.warning("Error parsing date '" + dateString + "': " + e.getMessage());
             return false;
         }
     }
@@ -328,19 +407,22 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        logger.info("Executing FindCommand with criteria: " + searchCriteria);
 
         try {
-            // Create and apply the predicate
             Predicate<Person> combinedPredicate = createCombinedPredicate();
             model.updateFilteredPersonList(combinedPredicate);
 
+            int resultCount = model.getPersonList().size();
+            logger.info("FindCommand execution complete. Found " + resultCount + " matching persons.");
+
             return new CommandResult(
-                    String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getPersonList().size()));
+                    String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, resultCount));
         } catch (IllegalStateException | IllegalArgumentException e) {
-            // Just pass through the error message
+            logger.warning("FindCommand execution failed with validation error: " + e.getMessage());
             throw new CommandException(e.getMessage());
         } catch (Exception e) {
-            // Just pass through the error message
+            logger.severe("Unexpected error in FindCommand execution: " + e.getMessage());
             throw new CommandException(e.getMessage());
         }
     }
@@ -366,3 +448,4 @@ public class FindCommand extends Command {
                 .toString();
     }
 }
+
