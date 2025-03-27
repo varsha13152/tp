@@ -122,7 +122,7 @@ public class ModelManager implements Model {
         if (this.backupAddressBook.equals(this.addressBook)) {
             return false;
         }
-        AddressBook prevAddressBook = new AddressBook(this.backupAddressBook);
+        AddressBook prevAddressBook = new AddressBook(this.addressBook);
         this.addressBook.resetData(this.backupAddressBook);
         this.backupAddressBook.resetData(prevAddressBook);
         return true;
