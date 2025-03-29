@@ -1,10 +1,12 @@
 package seedu.innsync.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.innsync.logic.commands.CommandTestUtil.OVERLAPPING_BOOKINGTAG_INN;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_BOOKINGTAG_BEACHHOUSE;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_BOOKINGTAG_HOTEL;
+import static seedu.innsync.logic.commands.CommandTestUtil.VALID_MEMO_AMY;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.innsync.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -23,6 +25,7 @@ import seedu.innsync.model.AddressBook;
 import seedu.innsync.model.Model;
 import seedu.innsync.model.ModelManager;
 import seedu.innsync.model.UserPrefs;
+import seedu.innsync.model.person.Memo;
 import seedu.innsync.model.person.Person;
 import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
@@ -154,5 +157,16 @@ public class TagCommandTest {
         assertFalse(standardCommand.equals(new TagCommand(INDEX_SECOND_PERSON,
                 Set.of(new Tag(VALID_TAG_FRIEND)),
                 Set.of(new BookingTag(VALID_BOOKINGTAG_BEACHHOUSE)))));
+    }
+
+    @Test
+    public void toStringMethod() {
+        Index targetIndex = Index.fromOneBased(1);
+        TagCommand tagCommand = new TagCommand(targetIndex, Set.of(new Tag(VALID_TAG_FRIEND)),
+                Set.of(new BookingTag(VALID_BOOKINGTAG_BEACHHOUSE)));
+        String expected = TagCommand.class.getCanonicalName() + "{index=" + targetIndex
+                + ", tagList=[" + new Tag(VALID_TAG_FRIEND)
+                + "], bookingTagList=[" + new BookingTag(VALID_BOOKINGTAG_BEACHHOUSE) + "]}";
+        assertEquals(expected, tagCommand.toString());
     }
 }

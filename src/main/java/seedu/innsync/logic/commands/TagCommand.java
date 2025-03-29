@@ -122,6 +122,8 @@ public class TagCommand extends Command {
     public String toString() {
         return new ToStringBuilder(this)
                 .add("index", index)
+                .add("tagList", tagList.toString())
+                .add("bookingTagList", bookingTagList.toString())
                 .toString();
     }
 }
