@@ -115,7 +115,8 @@ public class TagCommand extends Command {
         }
 
         TagCommand otherTag = (TagCommand) other;
-        return index.equals(otherTag.index);
+        return index.equals(otherTag.index) && tagList.equals(otherTag.tagList)
+                && bookingTagList.equals(otherTag.bookingTagList);
     }
 
     @Override
