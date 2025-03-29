@@ -12,8 +12,6 @@ import java.util.Set;
 
 import seedu.innsync.logic.commands.AddCommand;
 import seedu.innsync.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.innsync.logic.commands.StarCommand;
-import seedu.innsync.logic.commands.TagCommand;
 import seedu.innsync.model.person.Person;
 import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;

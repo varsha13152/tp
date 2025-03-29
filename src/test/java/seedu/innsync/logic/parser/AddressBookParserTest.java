@@ -10,12 +10,11 @@ import static seedu.innsync.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_BOOKINGTAG_BEACHHOUSE;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_MEMO_AMY;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.innsync.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.innsync.testutil.Assert.assertThrows;
 import static seedu.innsync.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
-import java.util.HashSet;
 import java.util.Set;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.innsync.logic.commands.AddCommand;
@@ -81,7 +80,7 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_liststar() throws Exception {
+    public void parseCommand_listStar() throws Exception {
         assertTrue(parser.parseCommand(ListStarCommand.COMMAND_WORD) instanceof ListStarCommand);
         assertTrue(parser.parseCommand(ListStarCommand.COMMAND_WORD + " 3") instanceof ListStarCommand);
     }
