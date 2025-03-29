@@ -139,7 +139,8 @@ public class MemoCommandTest {
     public void toStringMethod() {
         Index targetIndex = Index.fromOneBased(1);
         MemoCommand memoCommand = new MemoCommand(targetIndex, new Memo(VALID_MEMO_AMY));
-        String expected = MemoCommand.class.getCanonicalName() + "{index=" + targetIndex + "}";
+        String expected = MemoCommand.class.getCanonicalName() + "{index=" + targetIndex
+                + ", memo=" + new Memo(VALID_MEMO_AMY) + "}";
         assertEquals(expected, memoCommand.toString());
     }
 }
