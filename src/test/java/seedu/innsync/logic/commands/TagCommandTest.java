@@ -1,5 +1,6 @@
 package seedu.innsync.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.innsync.logic.commands.CommandTestUtil.OVERLAPPING_BOOKINGTAG_INN;
@@ -154,5 +155,16 @@ public class TagCommandTest {
         assertFalse(standardCommand.equals(new TagCommand(INDEX_SECOND_PERSON,
                 Set.of(new Tag(VALID_TAG_FRIEND)),
                 Set.of(new BookingTag(VALID_BOOKINGTAG_BEACHHOUSE)))));
+    }
+
+    @Test
+    public void toStringMethod() {
+        Index targetIndex = Index.fromOneBased(1);
+        TagCommand tagCommand = new TagCommand(targetIndex, Set.of(new Tag(VALID_TAG_FRIEND)),
+                Set.of(new BookingTag(VALID_BOOKINGTAG_BEACHHOUSE)));
+        String expected = TagCommand.class.getCanonicalName() + "{index=" + targetIndex
+                + ", tagList=[" + new Tag(VALID_TAG_FRIEND)
+                + "], bookingTagList=[" + new BookingTag(VALID_BOOKINGTAG_BEACHHOUSE) + "]}";
+        assertEquals(expected, tagCommand.toString());
     }
 }
