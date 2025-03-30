@@ -24,7 +24,6 @@ public class RequestCommandParser implements Parser<RequestCommand> {
     @Override
     public RequestCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_REQUEST);
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_REQUEST);
         if (!argMultimap.getValue(PREFIX_REQUEST).isPresent()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RequestCommand.MESSAGE_USAGE));
         }

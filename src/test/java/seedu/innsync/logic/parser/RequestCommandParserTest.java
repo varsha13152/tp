@@ -50,7 +50,8 @@ public class RequestCommandParserTest {
     @Test
     public void parse_multipleRequestNames_throwsParseException() {
         // Test multiple request names or invalid input
-        assertParseFailure(parser, "1 r/requestName1 r/requestName2",
-                String.format(Messages.getErrorMessageForDuplicatePrefixes(CliSyntax.PREFIX_REQUEST)));
+        assertParseSuccess(parser, "1 r/requestName1 r/requestName2",
+                new RequestCommand(INDEX_FIRST_PERSON,
+                        Set.of(new Request("requestName1"), new Request("requestName2"))));
     }
 }

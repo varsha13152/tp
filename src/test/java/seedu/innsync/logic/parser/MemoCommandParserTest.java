@@ -3,12 +3,15 @@ package seedu.innsync.logic.parser;
 import static seedu.innsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.innsync.logic.commands.CommandTestUtil.MEMO_DESC_AMY;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_MEMO_AMY;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_MEMO;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.innsync.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.innsync.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.innsync.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.MemoCommand;
 import seedu.innsync.model.person.Memo;
 
@@ -32,5 +35,11 @@ public class MemoCommandParserTest {
     @Test
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, MemoCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_mutipleMemos_throwsParseException() {
+        assertParseFailure(parser, "1 m/test1 m/test2 m/test3",
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_MEMO));
     }
 }
