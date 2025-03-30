@@ -8,6 +8,7 @@ import static seedu.innsync.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_MEMO;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_REQUEST;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
@@ -19,6 +20,7 @@ import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.logic.commands.EditCommand;
 import seedu.innsync.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.innsync.logic.parser.exceptions.ParseException;
+import seedu.innsync.model.request.Request;
 import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
 
@@ -37,7 +39,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(
                     args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
-                    PREFIX_ADDRESS, PREFIX_MEMO, PREFIX_BOOKINGTAG, PREFIX_TAG);
+                    PREFIX_ADDRESS, PREFIX_MEMO, PREFIX_REQUEST, PREFIX_BOOKINGTAG, PREFIX_TAG);
 
         Index index;
 
@@ -68,6 +70,9 @@ public class EditCommandParser implements Parser<EditCommand> {
             editPersonDescriptor.setMemo(ParserUtil.parseMemo(argMultimap.getValue(PREFIX_MEMO).get()));
         }
 
+        parseRequestsForEdit(argMultimap.getAllValues(PREFIX_REQUEST))
+                .ifPresent(editPersonDescriptor::setRequests);
+
         parseBookingTagsForEdit(argMultimap.getAllValues(PREFIX_BOOKINGTAG))
                 .ifPresent(editPersonDescriptor::setBookingTags);
 
@@ -78,6 +83,22 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         return new EditCommand(index, editPersonDescriptor);
+    }
+
+    /**
+     * Parses {@code Collection<String> requests} into a {@code RequestList} if {@code requests} is non-empty.
+     * If {@code requests} contain only one element which is an empty string, it will be parsed into a
+     * {@code RequestList} containing zero request.
+     */
+    private Optional<Set<Request>> parseRequestsForEdit(Collection<String> requests) throws ParseException {
+        assert requests != null;
+
+        if (requests.isEmpty()) {
+            return Optional.empty();
+        }
+        Collection<String> requestSet = requests.size() == 1 && requests.contains("")
+                ? Collections.emptySet() : requests;
+        return Optional.of(ParserUtil.parseRequests(requestSet));
     }
 
     /**

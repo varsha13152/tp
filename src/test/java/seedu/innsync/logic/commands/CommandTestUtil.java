@@ -38,6 +38,7 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_MEMO_AMY = "AMY";
     public static final String VALID_MEMO_BOB = "BOB";
+    public static final String VALID_REQUEST = "Need a $5000 wine everyday";
     public static final String VALID_BOOKINGTAG_BEACHHOUSE = "BeachHouse from/2025-06-01 to/2025-06-10";
     public static final String VALID_BOOKINGTAG_HOTEL = "Hotel from/2025-06-11 to/2025-06-15";
     public static final String VALID_TAG_HUSBAND = "husband";

@@ -109,6 +109,7 @@ public class UntagCommand extends Command {
                 personToCopy.getEmail(),
                 personToCopy.getAddress(),
                 personToCopy.getMemo(),
+                personToCopy.getRequests(),
                 bookingTagList,
                 tagList,
                 personToCopy.getStarred());
