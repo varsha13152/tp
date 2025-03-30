@@ -98,5 +98,30 @@ public class RequestTest {
         Request request = new Request("Valid Request");
         assertEquals("[Valid Request]", request.toString());
     }
+
+    // Test default completion state
+    @Test
+    void isCompleted_defaultState_false() {
+        Request request = new Request("Valid Request");
+        assertFalse(request.isCompleted());
+    }
+
+    // Test markAsCompleted()
+    @Test
+    void markAsCompleted_setsToTrue() {
+        Request request = new Request("Valid Request");
+        request.markAsCompleted();
+        assertTrue(request.isCompleted());
+    }
+
+    // Test markAsIncomplete()
+    @Test
+    void markAsIncomplete_setsToFalse() {
+        Request request = new Request("Valid Request");
+        request.markAsCompleted(); // First, mark it as completed
+        assertTrue(request.isCompleted()); // Verify it's marked
+        request.markAsIncomplete(); // Now, unmark it
+        assertFalse(request.isCompleted()); // Verify it's unmarked
+    }
 }
 
