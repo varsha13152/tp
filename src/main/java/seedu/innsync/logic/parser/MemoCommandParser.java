@@ -2,11 +2,7 @@ package seedu.innsync.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.innsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.innsync.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.innsync.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_MEMO;
-import static seedu.innsync.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.innsync.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.commons.exceptions.IllegalValueException;
@@ -28,7 +24,7 @@ public class MemoCommandParser implements Parser<MemoCommand> {
     public MemoCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_MEMO);
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_MEMO);
+
         Index index;
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
