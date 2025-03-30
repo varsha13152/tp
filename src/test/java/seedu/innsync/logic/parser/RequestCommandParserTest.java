@@ -10,7 +10,6 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.RequestCommand;
 import seedu.innsync.model.request.Request;
 

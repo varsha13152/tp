@@ -2,7 +2,6 @@ package seedu.innsync.ui;
 
 import java.util.Comparator;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
