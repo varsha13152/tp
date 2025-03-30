@@ -9,7 +9,7 @@ import static seedu.innsync.commons.util.AppUtil.checkArgument;
  */
 public class Request {
 
-    public static final String MESSAGE_CONSTRAINTS = "Request names should not contain the '/' character, "
+    public static final String MESSAGE_CONSTRAINTS = "Request names should not be empty, contain the '/' character, "
             + "and must not exceed 255 characters.";
     public static final String VALIDATION_REGEX = "^[^/]{1,255}$";
     public final String requestName;
