@@ -13,6 +13,7 @@ public class Request {
             + "and must not exceed 255 characters.";
     public static final String VALIDATION_REGEX = "^[^/]{1,255}$";
     public final String requestName;
+    private boolean isCompleted = false;
 
     /**
      * Constructs a {@code Request}.
@@ -42,6 +43,29 @@ public class Request {
         }
         Request otherRequest = (Request) other;
         return requestName.equals(otherRequest.requestName);
+    }
+
+    /**
+     * Returns whether the request is completed.
+     *
+     * @return True if the request is completed, false otherwise.
+     */
+    public boolean isCompleted() {
+        return this.isCompleted;
+    }
+
+    /**
+     * Marks the request as completed.
+     */
+    public void markAsCompleted() {
+        this.isCompleted = true;
+    }
+
+    /**
+     * Marks the request as incomplete.
+     */
+    public void markAsIncomplete() {
+        this.isCompleted = false;
     }
 
     @Override
