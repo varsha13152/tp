@@ -24,7 +24,7 @@ public class MemoCommandParser implements Parser<MemoCommand> {
     public MemoCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_MEMO);
-
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_MEMO);
         Index index;
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
