@@ -1,7 +1,7 @@
 package seedu.innsync.logic.parser;
 
 import static seedu.innsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.innsync.logic.commands.CommandTestUtil.VALID_REQUEST;
+import static seedu.innsync.logic.commands.CommandTestUtil.VALID_REQUEST_AMY;
 import static seedu.innsync.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.innsync.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.innsync.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -21,8 +21,8 @@ public class RequestCommandParserTest {
     @Test
     public void parse_validArgs_returnsRequestCommand() {
         // Test valid request name, assuming the parser expects a "requestName"
-        assertParseSuccess(parser, "1 r/" + VALID_REQUEST,
-                new RequestCommand(INDEX_FIRST_PERSON, Set.of(new Request(VALID_REQUEST))));
+        assertParseSuccess(parser, "1 r/" + VALID_REQUEST_AMY,
+                new RequestCommand(INDEX_FIRST_PERSON, Set.of(new Request(VALID_REQUEST_AMY))));
     }
 
     @Test

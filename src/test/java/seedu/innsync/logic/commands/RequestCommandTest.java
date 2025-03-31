@@ -2,7 +2,7 @@ package seedu.innsync.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static seedu.innsync.logic.commands.CommandTestUtil.VALID_REQUEST;
+import static seedu.innsync.logic.commands.CommandTestUtil.VALID_REQUEST_AMY;
 import static seedu.innsync.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.innsync.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.innsync.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -31,8 +31,8 @@ public class RequestCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() throws CommandException {
         Person personToEdit = model.getPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        RequestCommand requestCommand = new RequestCommand(INDEX_FIRST_PERSON, Set.of(new Request(VALID_REQUEST)));
-        Person editedPerson = new PersonBuilder(personToEdit).withRequests(VALID_REQUEST).build();
+        RequestCommand requestCommand = new RequestCommand(INDEX_FIRST_PERSON, Set.of(new Request(VALID_REQUEST_AMY)));
+        Person editedPerson = new PersonBuilder(personToEdit).withRequests(VALID_REQUEST_AMY).build();
         String expectedMessage = String.format(RequestCommand.MESSAGE_SUCCESS, Messages.format(editedPerson));
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
@@ -45,7 +45,7 @@ public class RequestCommandTest {
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getPersonList().size() + 1);
-        RequestCommand requestCommand = new RequestCommand(outOfBoundIndex, Set.of(new Request(VALID_REQUEST)));
+        RequestCommand requestCommand = new RequestCommand(outOfBoundIndex, Set.of(new Request(VALID_REQUEST_AMY)));
         assertCommandFailure(requestCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
