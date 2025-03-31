@@ -134,6 +134,8 @@ public class UntagCommand extends Command {
     public String toString() {
         return new ToStringBuilder(this)
                 .add("index", index)
+                .add("tag", tag)
+                .add("bookingTag", bookingTag)
                 .toString();
     }
 }
