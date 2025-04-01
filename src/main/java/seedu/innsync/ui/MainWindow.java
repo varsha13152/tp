@@ -16,7 +16,6 @@ import seedu.innsync.logic.Logic;
 import seedu.innsync.logic.commands.CommandResult;
 import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.logic.parser.exceptions.ParseException;
-import seedu.innsync.model.person.Person;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -190,9 +189,7 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             if (commandResult.isPersonModified()) {
-                Person modifiedPerson = commandResult.getPerson();
-                // personListPanel.selectPerson(modifiedPerson);
-                personDetailPanel.setPerson(modifiedPerson);
+                personListPanel.selectPerson(commandResult.getPerson());
             }
 
             if (commandResult.isShowHelp()) {

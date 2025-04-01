@@ -50,7 +50,7 @@ public class StarCommand extends Command {
         Person starredPerson = getStarredPerson(person);
         model.setPerson(person, starredPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(starredPerson)));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(starredPerson)), starredPerson);
     }
 
     private Person getStarredPerson(Person personToCopy) {
