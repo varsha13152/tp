@@ -59,6 +59,7 @@ public class UnstarCommand extends Command {
                 personToCopy.getEmail(),
                 personToCopy.getAddress(),
                 personToCopy.getMemo(),
+                personToCopy.getRequests(),
                 personToCopy.getBookingTags(),
                 personToCopy.getTags(),
                 false);

@@ -14,6 +14,7 @@ import seedu.innsync.model.person.Email;
 import seedu.innsync.model.person.Memo;
 import seedu.innsync.model.person.Name;
 import seedu.innsync.model.person.Phone;
+import seedu.innsync.model.request.Request;
 import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
 
@@ -107,6 +108,34 @@ public class ParserUtil {
         String trimmedMemo = memo.trim();
         return new Memo(trimmedMemo);
     }
+
+    /**
+     * Parses a {@code String request} into a {@code request}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code request} is invalid.
+     */
+    public static Request parseRequest(String request) throws ParseException {
+        requireNonNull(request);
+        String trimmedRequest = request.trim();
+        if (!Request.isValidRequest(trimmedRequest)) {
+            throw new ParseException(Request.MESSAGE_CONSTRAINTS);
+        }
+        return new Request(trimmedRequest);
+    }
+
+    /**
+     * Parses {@code Collection<String> requests} into a {@code RequestList}.
+     */
+    public static Set<Request> parseRequests(Collection<String> requests) throws ParseException {
+        requireNonNull(requests);
+        final Set<Request> requestSet = new HashSet<>();
+        for (String requestName : requests) {
+            requestSet.add(parseRequest(requestName));
+        }
+        return requestSet;
+    }
+
 
     /**
      * Parses a {@code String bookingTag} into a {@code bookingTag}.

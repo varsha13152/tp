@@ -6,6 +6,7 @@ import static seedu.innsync.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_MEMO;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_REQUEST;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
@@ -13,6 +14,7 @@ import java.util.Set;
 import seedu.innsync.logic.commands.AddCommand;
 import seedu.innsync.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.innsync.model.person.Person;
+import seedu.innsync.model.request.Request;
 import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
 
@@ -38,6 +40,9 @@ public class PersonUtil {
         sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
         sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
         sb.append(PREFIX_MEMO + person.getMemo().value + " ");
+        person.getRequests().stream().forEach(
+                s -> sb.append(PREFIX_REQUEST + s.requestName + " ")
+        );
         person.getBookingTags().stream().forEach(
                 s -> sb.append(PREFIX_BOOKINGTAG + s.bookingTagName + " ")
         );
@@ -57,6 +62,14 @@ public class PersonUtil {
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
         descriptor.getMemo().ifPresent(memo -> sb.append(PREFIX_MEMO).append(memo.value).append(" "));
+        if (descriptor.getRequests().isPresent()) {
+            Set<Request> requests = descriptor.getRequests().get();
+            if (requests.isEmpty()) {
+                sb.append(PREFIX_REQUEST).append(" ");
+            } else {
+                requests.forEach(s -> sb.append(PREFIX_REQUEST).append(s.requestName).append(" "));
+            }
+        }
         if (descriptor.getBookingTags().isPresent()) {
             Set<BookingTag> bookingTags = descriptor.getBookingTags().get();
             if (bookingTags.isEmpty()) {

@@ -53,8 +53,8 @@ public class MemoCommand extends Command {
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                personToEdit.getAddress(), memo, personToEdit.getBookingTags(), personToEdit.getTags(),
-                personToEdit.getStarred());
+                personToEdit.getAddress(), memo, personToEdit.getRequests(), personToEdit.getBookingTags(),
+                personToEdit.getTags(), personToEdit.getStarred());
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
