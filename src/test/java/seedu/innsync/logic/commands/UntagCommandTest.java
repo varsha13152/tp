@@ -10,6 +10,10 @@ import static seedu.innsync.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.innsync.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.innsync.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.util.Set;
+
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.innsync.commons.core.index.Index;
@@ -25,6 +29,11 @@ import seedu.innsync.testutil.PersonBuilder;
 public class UntagCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
+    @BeforeEach
+    public void setUp() {
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    }
 
     @Test
     public void execute_removeValidBookingTag_success() {
@@ -47,19 +56,24 @@ public class UntagCommandTest {
     public void execute_removeValidTag_success() {
         Index index = Index.fromZeroBased(INDEX_FIRST_PERSON.getZeroBased());
         Person personToEdit = model.getPersonList().get(index.getZeroBased());
-        personToEdit.clearTags();
 
-        Tag tag = new Tag(VALID_TAG_HUSBAND);
-        model.getTagElseCreate(tag);
-        personToEdit.addTag(tag);
-        assertTrue(personToEdit.getTags().contains(tag));
+        // get tag from person
+        Set<Tag> tags = personToEdit.getTags();
+        Tag tagToRemove = tags.iterator().next();
+        assert(tagToRemove != null);
 
-        UntagCommand untagCommand = new UntagCommand(index, tag, null);
-        String expectedMessage = String.format(UntagCommand.MESSAGE_SUCCESS, tag);
+        model.getTagElseCreate(tagToRemove);
+
+        UntagCommand untagCommand = new UntagCommand(index, tagToRemove, null);
+        String expectedMessage = String.format(UntagCommand.MESSAGE_SUCCESS, tagToRemove);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
         assertCommandSuccess(untagCommand, model, expectedMessage, expectedModel, personToEdit);
+
+        // add tag back to person
+        personToEdit.addTag(tagToRemove);
+        assertTrue(personToEdit.getTags().contains(tagToRemove));
     }
 
     @Test

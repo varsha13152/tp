@@ -87,7 +87,7 @@ public class TagCommand extends Command {
             } catch (DuplicateTagException e) {
                 throw new CommandException(MESSAGE_DUPLICATE_TAG);
             }
-        }
+    }
         for (BookingTag bookingTag : bookingTags) {
             for (BookingTag existingTag : updatedBookingTags) {
                 if (isOverlapping(existingTag, bookingTag)) {
