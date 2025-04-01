@@ -9,6 +9,7 @@ import seedu.innsync.model.person.Memo;
 import seedu.innsync.model.person.Name;
 import seedu.innsync.model.person.Person;
 import seedu.innsync.model.person.Phone;
+import seedu.innsync.model.request.Request;
 import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
 import seedu.innsync.model.util.SampleDataUtil;
@@ -31,6 +32,7 @@ public class PersonBuilder {
     private Address address;
     private Memo memo;
     private boolean starred;
+    private Set<Request> requests;
     private Set<BookingTag> bookingTags;
     private Set<Tag> tags;
 
@@ -44,6 +46,7 @@ public class PersonBuilder {
         address = new Address(DEFAULT_ADDRESS);
         memo = new Memo(DEFAULT_MEMO);
         starred = DEFAULT_STARRED;
+        requests = new HashSet<>();
         bookingTags = new HashSet<>();
         tags = new HashSet<>();
     }
@@ -58,6 +61,7 @@ public class PersonBuilder {
         address = personToCopy.getAddress();
         memo = personToCopy.getMemo();
         starred = personToCopy.getStarred();
+        requests = new HashSet<>(personToCopy.getRequests());
         bookingTags = new HashSet<>(personToCopy.getBookingTags());
         tags = new HashSet<>(personToCopy.getTags());
     }
@@ -71,7 +75,17 @@ public class PersonBuilder {
     }
 
     /**
-     *
+     * Parses the {@code requests} into a {@code Set<Request>}
+     * and set it to the {@code Person} that we are building.
+     */
+    public PersonBuilder withRequests(String ... requests) {
+        this.requests = SampleDataUtil.getRequestSet(requests);
+        return this;
+    }
+
+    /**
+     * Parses the {@code bookingTags} into a {@code Set<BookingTag>}
+     * and set it to the {@code Person} that we are building.
      */
     public PersonBuilder withBookingTags(String ... bookingTags) {
         this.bookingTags = SampleDataUtil.getBookingTagSet(bookingTags);
@@ -127,7 +141,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, address, memo, bookingTags, tags, starred);
+        return new Person(name, phone, email, address, memo, requests, bookingTags, tags, starred);
     }
 
 }

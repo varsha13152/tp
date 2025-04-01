@@ -45,7 +45,9 @@ public class Messages {
                 .append(person.getAddress())
                 .append("; Memo: ")
                 .append(person.getMemo())
-                .append("; BookingTags: ");
+                .append("; Requests: ");
+        person.getRequests().forEach(builder::append);
+        builder.append("; BookingTags: ");
         person.getBookingTags().forEach(builder::append);
         builder.append("; Tags: ");
         person.getTags().forEach(builder::append);

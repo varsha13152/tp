@@ -3,9 +3,13 @@ package seedu.innsync.ui;
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.innsync.model.person.Person;
@@ -39,10 +43,16 @@ public class PersonDetailPanel extends UiPart<Region> {
     private FlowPane detailBookingTags;
 
     @FXML
+    private FlowPane detailRequests;
+
+    @FXML
     private ImageView detailStarIcon;
 
     @FXML
     private VBox placeholderBox;
+
+    @FXML
+    private ScrollPane scrollPane;
 
     /**
      * Creates a {@code PersonDetailPanel} with a default placeholder.
@@ -75,6 +85,9 @@ public class PersonDetailPanel extends UiPart<Region> {
         // Clear previous memo
         detailMemo.getChildren().clear();
 
+        // Clear previous requests
+        detailRequests.getChildren().clear();
+
         // Clear previous tags
         detailTags.getChildren().clear();
         detailBookingTags.getChildren().clear();
@@ -85,6 +98,29 @@ public class PersonDetailPanel extends UiPart<Region> {
             memoLabel.getStyleClass().add("detail-memo");
             detailMemo.getChildren().add(memoLabel);
         }
+
+        // Add requests with a checkbox beside each
+        person.getRequests().stream()
+                .sorted(Comparator.comparing(request -> request.requestName))
+                .forEach(request -> {
+                    // Create a HBox for each request
+                    HBox hbox = new HBox(10);
+                    hbox.setAlignment(Pos.CENTER_LEFT);
+
+                    // Create the checkbox for each request
+                    CheckBox checkBox = new CheckBox();
+                    checkBox.setId("checkbox_" + request.requestName);
+
+                    // Create the label for each request
+                    Label requestLabel = new Label(request.requestName);
+                    requestLabel.getStyleClass().add("detail-request");
+
+                    // Add the checkbox and label to the HBox
+                    hbox.getChildren().addAll(checkBox, requestLabel);
+
+                    // Add the HBox to the detailRequests FlowPane
+                    detailRequests.getChildren().add(hbox);
+                });
 
         // Add tags
         person.getTags().stream()
@@ -114,8 +150,10 @@ public class PersonDetailPanel extends UiPart<Region> {
         emailLabel.setText("");
         addressLabel.setText("");
         detailStarIcon.setVisible(false);
+        detailMemo.getChildren().clear();
         detailTags.getChildren().clear();
         detailBookingTags.getChildren().clear();
+        detailRequests.getChildren().clear();
 
         placeholderBox.setVisible(true);
         placeholderBox.setManaged(true);

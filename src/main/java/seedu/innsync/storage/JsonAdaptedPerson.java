@@ -16,6 +16,7 @@ import seedu.innsync.model.person.Memo;
 import seedu.innsync.model.person.Name;
 import seedu.innsync.model.person.Person;
 import seedu.innsync.model.person.Phone;
+import seedu.innsync.model.request.Request;
 import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
 
@@ -32,6 +33,7 @@ class JsonAdaptedPerson {
     private final String address;
     private final String memo;
     private final boolean starred;
+    private final List<JsonAdaptedRequest> requests = new ArrayList<>();
     private final List<JsonAdaptedBookingTag> bookingTags = new ArrayList<>();
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
@@ -42,6 +44,7 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
                              @JsonProperty("email") String email, @JsonProperty("address") String address,
                              @JsonProperty("memo") String memo,
+                             @JsonProperty("requests") List<JsonAdaptedRequest> requests,
                              @JsonProperty("bookingTags") List<JsonAdaptedBookingTag> bookingTags,
                              @JsonProperty("tags") List<JsonAdaptedTag> tags,
                              @JsonProperty("starred") boolean starred) {
@@ -51,6 +54,9 @@ class JsonAdaptedPerson {
         this.address = address;
         this.memo = memo;
         this.starred = starred;
+        if (requests != null) {
+            this.requests.addAll(requests);
+        }
         if (bookingTags != null) {
             this.bookingTags.addAll(bookingTags);
         }
@@ -69,6 +75,9 @@ class JsonAdaptedPerson {
         address = source.getAddress().value;
         memo = source.getMemo().value;
         starred = source.getStarred();
+        requests.addAll(source.getRequests().stream()
+                .map(JsonAdaptedRequest::new)
+                .collect(Collectors.toList()));
         bookingTags.addAll(source.getBookingTags().stream()
                 .map(JsonAdaptedBookingTag::new)
                 .collect(Collectors.toList()));
@@ -90,6 +99,10 @@ class JsonAdaptedPerson {
         final List<BookingTag> personBookingTags = new ArrayList<>();
         for (JsonAdaptedBookingTag bookingTag : bookingTags) {
             personBookingTags.add(bookingTag.toModelType());
+        }
+        final List<Request> personRequests = new ArrayList<>();
+        for (JsonAdaptedRequest request : requests) {
+            personRequests.add(request.toModelType());
         }
 
         if (name == null) {
@@ -129,12 +142,15 @@ class JsonAdaptedPerson {
         }
         final Memo modelMemo = new Memo(memo);
 
+        final Set<Request> modelRequests = new HashSet<>(personRequests);
+
         final Set<BookingTag> modelBookingTags = new HashSet<>(personBookingTags);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
         final boolean modelStarred = starred;
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelMemo, modelBookingTags,
+
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelMemo, modelRequests, modelBookingTags,
                 modelTags, modelStarred);
     }
 

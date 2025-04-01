@@ -7,6 +7,7 @@ import static seedu.innsync.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_MEMO;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_REQUEST;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.innsync.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -29,6 +30,7 @@ import seedu.innsync.model.person.Memo;
 import seedu.innsync.model.person.Name;
 import seedu.innsync.model.person.Person;
 import seedu.innsync.model.person.Phone;
+import seedu.innsync.model.request.Request;
 import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
 
@@ -48,6 +50,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_MEMO + "MEMO] "
+            + "[" + PREFIX_REQUEST + "REQUEST] "
             + "[" + PREFIX_BOOKINGTAG + "BOOKING_TAG] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -106,12 +109,14 @@ public class EditCommand extends Command {
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Memo updatedMemo = editPersonDescriptor.getMemo().orElse(personToEdit.getMemo());
+        Set<Request> updatedRequestList =
+                editPersonDescriptor.getRequests().orElse(personToEdit.getRequests());
         Set<BookingTag> updatedBookingTags =
             editPersonDescriptor.getBookingTags().orElse(personToEdit.getBookingTags());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedMemo, updatedBookingTags,
-                updatedTags, personToEdit.getStarred());
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedMemo, updatedRequestList,
+                updatedBookingTags, updatedTags, personToEdit.getStarred());
     }
 
     @Override
@@ -148,6 +153,7 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Memo memo;
+        private Set<Request> requests;
         private Set<BookingTag> bookingTags;
         private Set<Tag> tags;
 
@@ -163,6 +169,7 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setMemo(toCopy.memo);
+            setRequests(toCopy.requests);
             setBookingTags(toCopy.bookingTags);
             setTags(toCopy.tags);
         }
@@ -171,7 +178,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, memo, bookingTags, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, memo, requests, bookingTags, tags);
         }
 
         public void setName(Name name) {
@@ -212,6 +219,14 @@ public class EditCommand extends Command {
 
         public Optional<Memo> getMemo() {
             return Optional.ofNullable(memo);
+        }
+
+        public void setRequests(Set<Request> requests) {
+            this.requests = (requests != null) ? new HashSet<>(requests) : null;
+        }
+
+        public Optional<Set<Request>> getRequests() {
+            return (requests != null) ? Optional.of(Collections.unmodifiableSet(requests)) : Optional.empty();
         }
 
         public void setBookingTags(Set<BookingTag> bookingTags) {

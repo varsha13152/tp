@@ -91,6 +91,7 @@ public class TagCommand extends Command {
                 personToCopy.getEmail(),
                 personToCopy.getAddress(),
                 personToCopy.getMemo(),
+                personToCopy.getRequests(),
                 updatedBookingTags,
                 updatedTags,
                 personToCopy.getStarred());
