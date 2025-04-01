@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
 import seedu.innsync.commons.util.ToStringBuilder;
+import seedu.innsync.model.person.Person;
 
 /**
  * Represents the result of a command execution.
@@ -19,13 +20,17 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** The modified Person, (f any). */
+    private final Person person;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, Person person) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.person = person;
     }
 
     /**
@@ -33,11 +38,23 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        this(feedbackToUser, false, false, null);
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
+     * and other fields set to their default value.
+     */
+    public CommandResult(String feedbackToUser, Person person) {
+        this(feedbackToUser, false, false, person);
     }
 
     public String getFeedbackToUser() {
         return feedbackToUser;
+    }
+
+    public Person getPerson() {
+        return person;
     }
 
     public boolean isShowHelp() {
@@ -46,6 +63,10 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isPersonModified() {
+        return person != null;
     }
 
     @Override
