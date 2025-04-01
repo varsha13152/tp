@@ -20,7 +20,7 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
-    /** The modified Person, (f any). */
+    /** The new person modified by the command, (f any). */
     private final Person person;
 
     /**
@@ -65,6 +65,9 @@ public class CommandResult {
         return exit;
     }
 
+    /**
+     * Returns true if the command modified a person in the addressbook
+     */
     public boolean isPersonModified() {
         return person != null;
     }
