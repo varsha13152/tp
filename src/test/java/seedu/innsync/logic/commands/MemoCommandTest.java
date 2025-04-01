@@ -45,7 +45,7 @@ public class MemoCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
 
-        assertCommandSuccess(memoCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(memoCommand, model, expectedMessage, expectedModel, editedPerson);
     }
 
     @Test
@@ -61,7 +61,7 @@ public class MemoCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
 
-        assertCommandSuccess(memoCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(memoCommand, model, expectedMessage, expectedModel, editedPerson);
     }
 
     @Test
@@ -79,7 +79,7 @@ public class MemoCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
 
-        assertCommandSuccess(memoCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(memoCommand, model, expectedMessage, expectedModel, editedPerson);
     }
 
     @Test

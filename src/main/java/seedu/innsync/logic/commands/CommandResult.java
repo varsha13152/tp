@@ -83,7 +83,9 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && exit == otherCommandResult.exit
+                && ((person != null && person.equals(otherCommandResult.person))
+                        || (person == null && otherCommandResult.person == null));
     }
 
     @Override
@@ -97,6 +99,7 @@ public class CommandResult {
                 .add("feedbackToUser", feedbackToUser)
                 .add("showHelp", showHelp)
                 .add("exit", exit)
+                .add("person", person)
                 .toString();
     }
 

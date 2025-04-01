@@ -47,7 +47,7 @@ public class UnstarCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(personToUnstarNow, expectedPerson);
 
-        assertCommandSuccess(unstarCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(unstarCommand, model, expectedMessage, expectedModel, expectedPerson);
     }
 
     @Test
