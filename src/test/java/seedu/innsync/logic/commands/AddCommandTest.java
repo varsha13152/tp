@@ -23,6 +23,7 @@ import seedu.innsync.model.Model;
 import seedu.innsync.model.ReadOnlyAddressBook;
 import seedu.innsync.model.ReadOnlyUserPrefs;
 import seedu.innsync.model.person.Person;
+import seedu.innsync.model.tag.Tag;
 import seedu.innsync.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -160,6 +161,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addTagToPerson(Person person, Tag tag) {
             throw new AssertionError("This method should not be called.");
         }
     }
