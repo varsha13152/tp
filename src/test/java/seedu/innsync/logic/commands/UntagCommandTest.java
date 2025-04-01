@@ -39,7 +39,7 @@ public class UntagCommandTest {
         UntagCommand untagCommand = new UntagCommand(index, "", VALID_BOOKINGTAG_BEACHHOUSE);
         String expectedMessage = String.format(UntagCommand.MESSAGE_SUCCESS, Messages.format(editedPerson));
 
-        assertCommandSuccess(untagCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(untagCommand, model, expectedMessage, expectedModel, editedPerson);
     }
 
     @Test
@@ -56,7 +56,7 @@ public class UntagCommandTest {
         UntagCommand untagCommand = new UntagCommand(index, VALID_TAG_FRIEND, "");
         String expectedMessage = String.format(UntagCommand.MESSAGE_SUCCESS, Messages.format(editedPerson));
 
-        assertCommandSuccess(untagCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(untagCommand, model, expectedMessage, expectedModel, editedPerson);
     }
 
     @Test

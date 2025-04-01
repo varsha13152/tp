@@ -54,7 +54,7 @@ public class TagCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
 
-        assertCommandSuccess(tagCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(tagCommand, model, expectedMessage, expectedModel, editedPerson);
     }
 
     @Test
@@ -75,7 +75,7 @@ public class TagCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
 
-        assertCommandSuccess(tagCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(tagCommand, model, expectedMessage, expectedModel, editedPerson);
     }
 
     @Test
@@ -102,7 +102,7 @@ public class TagCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
 
-        assertCommandSuccess(tagCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(tagCommand, model, expectedMessage, expectedModel, editedPerson);
     }
 
 
