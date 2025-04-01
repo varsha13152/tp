@@ -95,6 +95,11 @@ public interface Model {
      */
     void addTagToPerson(Person person, Tag tag);
 
+    /**
+     * Removes a tag from the list of tags of the person.
+     * The tag must exist in the list of tags of the person.
+     */
+    void removeTagFromPerson(Person person, Tag tag);
 
     /** Returns an unmodifiable view of the sorted filtered person list */
     ObservableList<Person> getPersonList();

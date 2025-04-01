@@ -13,6 +13,7 @@ public class Tag {
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
     public final String tagName;
+    public int tagCount = 0;
 
     /**
      * Constructs a {@code Tag}.
@@ -34,6 +35,18 @@ public class Tag {
 
     public String getTagName() {
         return tagName;
+    }
+
+    public void addTagCount() {
+        tagCount++;
+    }
+
+    public void removeTagCount() {
+        tagCount--;
+    }
+
+    public boolean isInUse() {
+        return tagCount > 0;
     }
 
     @Override

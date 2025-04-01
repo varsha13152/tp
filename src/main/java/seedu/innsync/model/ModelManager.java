@@ -136,6 +136,13 @@ public class ModelManager implements Model {
         this.addressBook.addTagToPerson(person, tag);
     }
 
+    @Override
+    public void removeTagFromPerson(Person person, Tag tag) {
+        requireNonNull(person);
+        requireNonNull(tag);
+        this.addressBook.removeTagFromPerson(person, tag);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**

@@ -110,14 +110,24 @@ public class Person {
     /**
      * Adds a tag to the list of tags of the person.
      *
-     * * @param tagName the name of the tag to be added
+     * @param tag the tag to be added
      */
     public void addTag(Tag tag) throws DuplicateTagException {
         requireAllNonNull(tag);
-
         if (tags.contains(tag)) {
             throw new DuplicateTagException();
         }
+        tags.add(tag);
+    }
+
+    /**
+     * Removes a tag from the list of tags of the person.
+     *
+     * @param tag the tag to be removed
+     */
+    public void removeTag(Tag tag) {
+        requireAllNonNull(tag);
+        tags.remove(tag);
     }
 
     /**

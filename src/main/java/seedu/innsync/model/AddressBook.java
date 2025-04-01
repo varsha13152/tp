@@ -113,6 +113,24 @@ public class AddressBook implements ReadOnlyAddressBook {
             tags.add(uniqueTag);
         }
         person.addTag(uniqueTag);
+        tag.addTagCount();
+    }
+
+    /**
+     * Removes a tag from the list of tags of the person.
+     * The tag must exist in the list of tags of the person.
+     */
+    public void removeTagFromPerson(Person person, Tag tag) {
+        requireNonNull(person);
+        requireNonNull(tag);
+        Tag uniqueTag = tags.getTag(tag);
+        if (uniqueTag != null) {
+            person.removeTag(uniqueTag);
+            tag.removeTagCount();
+            if (!tag.isInUse()) {
+                tags.remove(tag);
+            }
+        }
     }
 
     //// util methods

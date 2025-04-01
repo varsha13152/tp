@@ -58,7 +58,8 @@ public class UntagCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = removeTagsPerson(personToEdit, tag, bookingTag);
+        model.removeTagFromPerson(personToEdit, new Tag(tag));
+        Person editedPerson = removeTagsPerson(personToEdit, bookingTag);
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -73,20 +74,11 @@ public class UntagCommand extends Command {
      * @param toRemoveTag the tag to be removed
      * @return the person with the tags or bookingTags removed
      */
-    public static Person removeTagsPerson(Person personToCopy,
-                                          String toRemoveTag, String toRemoveBookingTag)
+    public static Person removeTagsPerson(Person personToCopy, String toRemoveBookingTag)
             throws CommandException {
-        Set<Tag> tagList = new HashSet<>(personToCopy.getTags());
         Set<BookingTag> bookingTagList = new HashSet<>(personToCopy.getBookingTags());
 
-        if (!toRemoveTag.isEmpty()) {
-            Tag tagToRemove = new Tag(toRemoveTag);
-            if (!tagList.contains(tagToRemove)) {
-                throw new CommandException(String.format(MESSAGE_FAILURE_TAG, toRemoveTag));
-            } else {
-                tagList.remove(tagToRemove);
-            }
-        } else {
+        if (!toRemoveBookingTag.isBlank()) {
             BookingTag bookingTagToRemove = null;
             boolean found = false;
             for (BookingTag existingTag : bookingTagList) {
@@ -111,7 +103,7 @@ public class UntagCommand extends Command {
                 personToCopy.getMemo(),
                 personToCopy.getRequests(),
                 bookingTagList,
-                tagList,
+                personToCopy.getTags(),
                 personToCopy.getStarred());
     }
 
