@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.innsync.commons.core.GuiSettings;
 import seedu.innsync.model.person.Person;
+import seedu.innsync.model.tag.Tag;
 
 /**
  * The API of the Model component.
@@ -88,10 +89,15 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
+    /**
+     * Adds a tag to the list of tags of the person.
+     * The tag must not already exist in the list of tags of the person.
+     */
+    void addTagToPerson(Person person, Tag tag);
+
 
     /** Returns an unmodifiable view of the sorted filtered person list */
     ObservableList<Person> getPersonList();
-
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.

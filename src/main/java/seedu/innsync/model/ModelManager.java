@@ -14,6 +14,7 @@ import javafx.collections.transformation.SortedList;
 import seedu.innsync.commons.core.GuiSettings;
 import seedu.innsync.commons.core.LogsCenter;
 import seedu.innsync.model.person.Person;
+import seedu.innsync.model.tag.Tag;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -126,6 +127,13 @@ public class ModelManager implements Model {
         this.addressBook.resetData(this.backupAddressBook);
         this.backupAddressBook.resetData(prevAddressBook);
         return true;
+    }
+
+    @Override
+    public void addTagToPerson(Person person, Tag tag) {
+        requireNonNull(person);
+        requireNonNull(tag);
+        this.addressBook.addTagToPerson(person, tag);
     }
 
     //=========== Filtered Person List Accessors =============================================================

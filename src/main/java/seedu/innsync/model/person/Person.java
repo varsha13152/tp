@@ -11,6 +11,7 @@ import seedu.innsync.commons.util.ToStringBuilder;
 import seedu.innsync.model.request.Request;
 import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
+import seedu.innsync.model.tag.exceptions.DuplicateTagException;
 
 /**
  * Represents a Person in the address book.
@@ -104,6 +105,19 @@ public class Person {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Adds a tag to the list of tags of the person.
+     *
+     * * @param tagName the name of the tag to be added
+     */
+    public void addTag(Tag tag) throws DuplicateTagException {
+        requireAllNonNull(tag);
+
+        if (tags.contains(tag)) {
+            throw new DuplicateTagException();
+        }
     }
 
     /**

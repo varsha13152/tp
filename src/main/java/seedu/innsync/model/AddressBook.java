@@ -8,6 +8,8 @@ import javafx.collections.ObservableList;
 import seedu.innsync.commons.util.ToStringBuilder;
 import seedu.innsync.model.person.Person;
 import seedu.innsync.model.person.UniquePersonList;
+import seedu.innsync.model.tag.Tag;
+import seedu.innsync.model.tag.UniqueTagList;
 
 /**
  * Wraps all data at the address-book level
@@ -16,6 +18,7 @@ import seedu.innsync.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueTagList tags;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -26,6 +29,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        tags = new UniqueTagList();
     }
 
     public AddressBook() {}
@@ -94,6 +98,23 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    ///// tag-level operations
+
+    /**
+     * Adds a tag to the list of tags of the person.
+     * The tag must not already exist in the list of tags of the person.
+     */
+    public void addTagToPerson(Person person, Tag tag) {
+        requireNonNull(person);
+        requireNonNull(tag);
+        Tag uniqueTag = tags.getTag(tag);
+        if (uniqueTag == null) {
+            uniqueTag = new Tag(tag.getTagName());
+            tags.add(uniqueTag);
+        }
+        person.addTag(uniqueTag);
+    }
+
     //// util methods
 
     @Override
@@ -101,6 +122,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         return new ToStringBuilder(this)
                 .add("persons", persons)
                 .toString();
+    }
+
+    public ObservableList<Tag> getTagList() {
+        return tags.asUnmodifiableObservableList();
     }
 
     @Override
