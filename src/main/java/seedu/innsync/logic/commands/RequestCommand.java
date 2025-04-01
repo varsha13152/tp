@@ -23,7 +23,7 @@ import seedu.innsync.model.request.Request;
 
 public class RequestCommand extends Command {
 
-    public static final String COMMAND_WORD = "request";
+    public static final String COMMAND_WORD = "req";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds a request to the contact identified by the index number in the displayed person list.\n"
