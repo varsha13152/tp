@@ -9,9 +9,12 @@ import static seedu.innsync.commons.util.AppUtil.checkArgument;
  */
 public class Request {
 
-    public static final String MESSAGE_CONSTRAINTS = "Request names should not be empty, contain the '/' character, "
-            + "and must not exceed 255 characters.";
-    public static final String VALIDATION_REGEX = "^[^/]{1,255}$";
+    public static final String MESSAGE_EMPTY = "Request name should not be empty.";
+    public static final String MESSAGE_LENGTH = "Request name must not exceed 255 characters.";
+
+    public static final String REGEX_NOT_EMPTY = "^.+$"; // Ensures non-empty string
+    public static final String REGEX_MAX_LENGTH = "^.{1,255}$"; // Ensures length <= 255
+
     public final String requestName;
     private boolean isCompleted = false;
 
@@ -22,15 +25,25 @@ public class Request {
      */
     public Request(String requestName) {
         requireNonNull(requestName);
-        checkArgument(isValidRequest(requestName), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidRequest(requestName), getErrorMessage(requestName));
         this.requestName = requestName;
     }
 
     /**
-     * Returns true if a given string is a valid request format.
+     * Returns true if a given string matches all validation rules.
      */
     public static boolean isValidRequest(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(REGEX_NOT_EMPTY) && test.matches(REGEX_MAX_LENGTH);
+    }
+
+    /**
+     * Determines the specific error message based on the invalid request name.
+     */
+    public static String getErrorMessage(String test) {
+        if (!test.matches(REGEX_NOT_EMPTY)) {
+            return MESSAGE_EMPTY;
+        }
+        return MESSAGE_LENGTH;
     }
 
     @Override
