@@ -1,6 +1,7 @@
 package seedu.innsync.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_REQUEST;
 import static seedu.innsync.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.HashSet;
@@ -26,8 +27,8 @@ public class RequestCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds a request to the contact identified by the index number in the displayed person list.\n"
-            + "Parameters: INDEX (must be a positive integer) r/STUFF\n"
-            + "Example: " + COMMAND_WORD + " 1 r/Need a bottle of champagne every morning";
+            + "Parameters: INDEX (must be a positive integer) " + PREFIX_REQUEST + "REQUEST\n"
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_REQUEST + "Need a bottle of champagne every morning";
     public static final String MESSAGE_SUCCESS = "Request successfully added: %s";
 
     private final Index index;
