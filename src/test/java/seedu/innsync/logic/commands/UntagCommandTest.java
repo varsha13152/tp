@@ -12,7 +12,6 @@ import static seedu.innsync.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Set;
 
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
