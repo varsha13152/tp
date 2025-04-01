@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.innsync.logic.commands.CommandTestUtil.VALID_BOOKINGTAG_BEACHHOUSE;
 import static seedu.innsync.testutil.Assert.assertThrows;
 
 import java.time.LocalDateTime;
@@ -27,12 +28,13 @@ public class BookingTagTest {
     public void invalidBookingTagName() {
         // invalid date booking tag name
         assertFalse(() -> BookingTag.isValidBookingTagName("test to/020-10-10 to/2020-10-10"));
+        assertFalse(() -> BookingTag.isValidBookingTagName("test from/020-10-10 to/2020-10-10"));
     }
 
     @Test
     void constructor_validBookingTagName_success() {
-        BookingTag bookingTag = new BookingTag("Villa from/2025-06-01 to/2025-06-10");
-        assertEquals("Villa", bookingTag.bookingTag);
+        BookingTag bookingTag = new BookingTag(VALID_BOOKINGTAG_BEACHHOUSE);
+        assertEquals("BeachHouse", bookingTag.bookingTag);
         assertEquals(LocalDateTime.of(2025, 6, 1, 0, 0), bookingTag.startDate);
         assertEquals(LocalDateTime.of(2025, 6, 10, 0, 0), bookingTag.endDate);
     }
@@ -46,7 +48,7 @@ public class BookingTagTest {
 
     @Test
     void isValidBookingTagName_validFormat_returnsTrue() {
-        assertTrue(BookingTag.isValidBookingTagName("Cottage from/2025-07-01 to/2025-07-05"));
+        assertTrue(BookingTag.isValidBookingTagName(VALID_BOOKINGTAG_BEACHHOUSE));
     }
 
     @Test
@@ -58,10 +60,23 @@ public class BookingTagTest {
 
     @Test
     void equals_sameBookingTag_returnsTrue() {
-        BookingTag tag1 = new BookingTag("Mansion from/2025-08-01 to/2025-08-10");
-        BookingTag tag2 = new BookingTag("Mansion from/2025-08-01 to/2025-08-10");
+        final BookingTag tag1 = new BookingTag(VALID_BOOKINGTAG_BEACHHOUSE);
+        final BookingTag tag2 = new BookingTag("BeachHouse from/2025-06-01 to/2025-06-10");
         assertEquals(tag1, tag2);
     }
+
+    @Test
+    void equals_exactlyTheSameBookingTag_returnsTrue() {
+        final BookingTag tag = new BookingTag(VALID_BOOKINGTAG_BEACHHOUSE);
+        assertEquals(tag, tag);
+    }
+
+    @Test
+    void equals_null_returnsFalse() {
+        final BookingTag tag = new BookingTag(VALID_BOOKINGTAG_BEACHHOUSE);
+        assertNotEquals(tag, null);
+    }
+
 
     @Test
     void equals_differentBookingTag_returnsFalse() {

@@ -142,6 +142,9 @@ public class TagCommandTest {
                 Set.of(new BookingTag(VALID_BOOKINGTAG_BEACHHOUSE)));
         assertTrue(standardCommand.equals(commandWithSameValues));
 
+        // same values -> returns true
+        assertEquals(commandWithSameValues, standardCommand);
+
         // same object -> returns true
         assertTrue(standardCommand.equals(standardCommand));
 

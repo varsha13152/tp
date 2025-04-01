@@ -1,5 +1,6 @@
 package seedu.innsync.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_BOOKINGTAG_BEACHHOUSE;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_BOOKINGTAG_HOTEL;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
@@ -83,5 +84,33 @@ public class UntagCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getPersonList().size() + 1);
         UntagCommand untagCommand = new UntagCommand(outOfBoundIndex, VALID_TAG_HUSBAND, "");
         assertCommandFailure(untagCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void toStringMethod() {
+        Index targetIndex = Index.fromOneBased(1);
+        UntagCommand untagCommand = new UntagCommand(targetIndex, "test1", "test2");
+        String expected1 = UntagCommand.class.getCanonicalName() + "{index=" + targetIndex
+                + ", tag=test1"
+                + ", bookingTag=test2}";
+        assertEquals(expected1, untagCommand.toString());
+
+        untagCommand = new UntagCommand(targetIndex, "", "test2");
+        String expected2 = UntagCommand.class.getCanonicalName() + "{index=" + targetIndex
+                + ", tag="
+                + ", bookingTag=test2}";
+        assertEquals(expected2, untagCommand.toString());
+
+        untagCommand = new UntagCommand(targetIndex, "test1", "");
+        String expected3 = UntagCommand.class.getCanonicalName() + "{index=" + targetIndex
+                + ", tag=test1"
+                + ", bookingTag=}";
+        assertEquals(expected3, untagCommand.toString());
+
+        untagCommand = new UntagCommand(targetIndex, "", "");
+        String expected4 = UntagCommand.class.getCanonicalName() + "{index=" + targetIndex
+                + ", tag="
+                + ", bookingTag=}";
+        assertEquals(expected4, untagCommand.toString());
     }
 }
