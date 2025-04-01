@@ -12,7 +12,9 @@ public class Request {
     public static final String MESSAGE_CONSTRAINTS = "Request names should not be empty, contain the '/' character, "
             + "and must not exceed 255 characters.";
     public static final String VALIDATION_REGEX = "^[^/]{1,255}$";
+
     public final String requestName;
+    private int requestCount = 0;
     private boolean isCompleted = false;
 
     /**
@@ -31,6 +33,22 @@ public class Request {
      */
     public static boolean isValidRequest(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    public String getRequestName() {
+        return requestName;
+    }
+
+    public void addRequestCount() {
+        requestCount++;
+    }
+
+    public void removeRequestCount() {
+        requestCount--;
+    }
+
+    public boolean isInUse() {
+        return requestCount > 0;
     }
 
     @Override
@@ -66,6 +84,19 @@ public class Request {
      */
     public void markAsIncomplete() {
         this.isCompleted = false;
+    }
+
+    /**
+     * Returns true if both requests have the same request name.
+     * This defines a weaker notion of equality between two requests.
+     */
+    public boolean isSameRequest(Request otherRequest) {
+        if (otherRequest == this) {
+            return true;
+        }
+
+        return otherRequest != null
+                && otherRequest.getRequestName().equals(getRequestName());
     }
 
     @Override

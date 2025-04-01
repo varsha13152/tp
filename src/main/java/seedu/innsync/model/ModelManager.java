@@ -5,6 +5,7 @@ import static seedu.innsync.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.Comparator;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -14,6 +15,7 @@ import javafx.collections.transformation.SortedList;
 import seedu.innsync.commons.core.GuiSettings;
 import seedu.innsync.commons.core.LogsCenter;
 import seedu.innsync.model.person.Person;
+import seedu.innsync.model.request.Request;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -25,6 +27,7 @@ public class ModelManager implements Model {
     private final AddressBook backupAddressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Request> filteredRequests;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -38,6 +41,7 @@ public class ModelManager implements Model {
         this.backupAddressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredRequests = new FilteredList<>(this.addressBook.getRequestList());
     }
 
     public ModelManager() {
@@ -128,6 +132,17 @@ public class ModelManager implements Model {
         return true;
     }
 
+    @Override
+    public Request getRequestElseCreate(Request request) {
+        requireNonNull(request);
+        return this.addressBook.getRequestElseCreate(request);
+    }
+
+    public void setRequests(List<Request> requests) {
+        requireNonNull(requests);
+        this.addressBook.setRequests(requests);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -178,7 +193,8 @@ public class ModelManager implements Model {
         ModelManager otherModelManager = (ModelManager) other;
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredPersons.equals(otherModelManager.filteredPersons);
+                && filteredPersons.equals(otherModelManager.filteredPersons)
+                && filteredRequests.equals(otherModelManager.filteredRequests);
     }
 
 }

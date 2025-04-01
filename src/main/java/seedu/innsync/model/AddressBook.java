@@ -4,10 +4,14 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import java.util.logging.Logger;
 import javafx.collections.ObservableList;
+import seedu.innsync.commons.core.LogsCenter;
 import seedu.innsync.commons.util.ToStringBuilder;
 import seedu.innsync.model.person.Person;
 import seedu.innsync.model.person.UniquePersonList;
+import seedu.innsync.model.request.Request;
+import seedu.innsync.model.request.UniqueRequestList;
 
 /**
  * Wraps all data at the address-book level
@@ -15,7 +19,10 @@ import seedu.innsync.model.person.UniquePersonList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
+    private static final Logger logger = LogsCenter.getLogger(AddressBook.class);
+
     private final UniquePersonList persons;
+    private final UniqueRequestList requests;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -26,6 +33,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        requests = new UniqueRequestList();
     }
 
     public AddressBook() {}
@@ -49,12 +57,20 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the person list with {@code persons}.
+     * {@code persons} must not contain duplicate persons.
+     */
+    public void setRequests(List<Request> requests) {
+        this.requests.setRequests(requests);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
-
         setPersons(newData.getPersonList());
+        setRequests(newData.getRequestList());
     }
 
     //// person-level operations
@@ -94,18 +110,77 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    /// request-level operations
+
+    /**
+     * Returns true if the person already have the same request as {@code request} in the address book.
+     */
+    public boolean hasRequest(Request request) {
+        requireNonNull(request);
+        return requests.contains(request);
+    }
+
+    /**
+     * Gets request from unique request list or creates a new request if it does not exist.
+     *
+     * @param request
+     * @return request from unique request list or a new request if it does not exist.
+     */
+    public Request getRequestElseCreate(Request request) {
+        requireNonNull(request);
+        if (this.hasRequest(request)) {
+            return requests.getRequest(request);
+        } else {
+            Request newRequest = new Request(request.getRequestName());
+            requests.add(newRequest);
+            return newRequest;
+        }
+    }
+
+    /**
+     * Gets request from unique request list.
+     * Returns null if no such request exists.
+     */
+    public Request getRequest(Request request) {
+        requireNonNull(request);
+        return requests.getRequest(request);
+    }
+
+    /**
+     * Adds request to the unique request list.
+     * The request must not already exist in the unique request list.
+     */
+    public void addRequest(Request request) {
+        requireNonNull(request);
+        requests.add(request);
+    }
+
+    /**
+     * Removes the equivalent tag from the list.
+     * The tag must exist in the list.
+     */
+    public void removeRequest(Request request) {
+        requireNonNull(request);
+        requests.remove(request);
+    }
+
     //// util methods
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("persons", persons)
+                .add("requests", requests)
                 .toString();
     }
 
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    public ObservableList<Request> getRequestList() {
+        return requests.asUnmodifiableObservableList();
     }
 
     @Override
@@ -120,7 +195,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         AddressBook otherAddressBook = (AddressBook) other;
-        return persons.equals(otherAddressBook.persons);
+        return persons.equals(otherAddressBook.persons)
+                && requests.equals(otherAddressBook.requests);
     }
 
     @Override

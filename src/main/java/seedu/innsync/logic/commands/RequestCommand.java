@@ -15,6 +15,7 @@ import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.Model;
 import seedu.innsync.model.person.Person;
 import seedu.innsync.model.request.Request;
+import seedu.innsync.model.request.exceptions.DuplicateRequestException;
 
 /**
  * Adds a request to a specific person in the system.
@@ -30,21 +31,22 @@ public class RequestCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) " + PREFIX_REQUEST + "REQUEST\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_REQUEST + "Need a bottle of champagne every morning";
     public static final String MESSAGE_SUCCESS = "Request successfully added: %s";
+    public static final String MESSAGE_DUPLICATE_REQUEST = "This contact already has this request.";
 
     private final Index index;
-    private final Set<Request> request;
+    private final Set<Request> requests;
 
     /**
      * Creates a {@code RequestCommand} to add a request to the specified person.
      *
      * @param index The index of the person in the displayed person list.
-     * @param request The set of requests to be added to the person.
+     * @param requests The set of requests to be added to the person.
      */
-    public RequestCommand(Index index, Set<Request> request) {
+    public RequestCommand(Index index, Set<Request> requests) {
         requireNonNull(index);
-        requireNonNull(request);
+        requireNonNull(requests);
         this.index = index;
-        this.request = request;
+        this.requests = requests;
     }
 
     /**
@@ -62,7 +64,11 @@ public class RequestCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(this.index.getZeroBased());
-        Person editedPerson = addRequestToPerson(personToEdit, request);
+        Set<Request> modelRequests = new HashSet<>();
+        for (Request request : requests) {
+            modelRequests.add(model.getRequestElseCreate(request));
+        }
+        Person editedPerson = addRequestsPerson(personToEdit, modelRequests);
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -70,27 +76,26 @@ public class RequestCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(editedPerson)));
     }
 
-    /**
-     * Creates a new {@code Person} object with the updated requests.
-     *
-     * @param personToCopy The original person whose requests are being updated.
-     * @param requests The set of requests to add.
-     * @return A new {@code Person} instance with the added requests.
-     */
-    private Person addRequestToPerson(Person personToCopy, Set<Request> requests) {
-        Set<Request> updatedRequests = new HashSet<>(personToCopy.getRequests());
-        updatedRequests.addAll(requests);
+    private Person addRequestsPerson(Person personToCopy, Set<Request> modelRequests) throws CommandException {
+        for (Request request : modelRequests) {
+            try {
+                personToCopy.addRequest(request);
+            } catch (DuplicateRequestException e) {
+                throw new CommandException(MESSAGE_DUPLICATE_REQUEST);
+            }
+        }
         return new Person(
                 personToCopy.getName(),
                 personToCopy.getPhone(),
                 personToCopy.getEmail(),
                 personToCopy.getAddress(),
                 personToCopy.getMemo(),
-                updatedRequests,
+                personToCopy.getRequests(),
                 personToCopy.getBookingTags(),
                 personToCopy.getTags(),
                 personToCopy.getStarred());
     }
+
 
     @Override
     public boolean equals(Object other) {
@@ -101,14 +106,14 @@ public class RequestCommand extends Command {
             return false;
         }
         RequestCommand otherRequest = (RequestCommand) other;
-        return index.equals(otherRequest.index) && request.equals(otherRequest.request);
+        return index.equals(otherRequest.index) && requests.equals(otherRequest.requests);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("index", index)
-                .add("request", request.toString())
+                .add("request", requests.toString())
                 .toString();
     }
 }

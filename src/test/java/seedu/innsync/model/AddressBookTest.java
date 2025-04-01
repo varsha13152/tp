@@ -20,6 +20,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.innsync.model.person.Person;
 import seedu.innsync.model.person.exceptions.DuplicatePersonException;
+import seedu.innsync.model.request.Request;
 import seedu.innsync.testutil.PersonBuilder;
 
 public class AddressBookTest {
@@ -49,7 +50,8 @@ public class AddressBookTest {
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newPersons);
+        List<Request> newRequests = Arrays.asList();
+        AddressBookStub newData = new AddressBookStub(newPersons, newRequests);
 
         assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));
     }
@@ -85,7 +87,8 @@ public class AddressBookTest {
 
     @Test
     public void toStringMethod() {
-        String expected = AddressBook.class.getCanonicalName() + "{persons=" + addressBook.getPersonList() + "}";
+        String expected = AddressBook.class.getCanonicalName() + "{persons=" + addressBook.getPersonList()
+                + ", requests=" + addressBook.getRequestList() + "}";
         assertEquals(expected, addressBook.toString());
     }
 
@@ -94,14 +97,21 @@ public class AddressBookTest {
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Request> requests = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Person> persons) {
+        AddressBookStub(Collection<Person> persons, Collection<Request> requests) {
             this.persons.setAll(persons);
+            this.requests.setAll(requests);
         }
 
         @Override
         public ObservableList<Person> getPersonList() {
             return persons;
+        }
+
+        @Override
+        public ObservableList<Request> getRequestList() {
+            return requests;
         }
     }
 
