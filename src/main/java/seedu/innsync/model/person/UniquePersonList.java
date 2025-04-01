@@ -29,11 +29,12 @@ public class UniquePersonList implements Iterable<Person> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent person as the given argument regardless of casing.
      */
     public boolean contains(Person toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSamePerson);
+        return internalList.stream()
+                .anyMatch(person -> person.getName().fullName.equalsIgnoreCase(toCheck.getName().fullName));
     }
 
     /**
