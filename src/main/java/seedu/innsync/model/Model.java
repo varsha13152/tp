@@ -90,16 +90,18 @@ public interface Model {
     void setPerson(Person target, Person editedPerson);
 
     /**
-     * Adds a tag to the list of tags of the person.
-     * The tag must not already exist in the list of tags of the person.
+     * Gets tag from address book else adds it.
+     *
+     * @param tag the tag to be added
      */
-    void addTagToPerson(Person person, Tag tag);
+    Tag getTagElseCreate(Tag tag);
 
     /**
-     * Removes a tag from the list of tags of the person.
-     * The tag must exist in the list of tags of the person.
+     * Gets tag from address book.
+     *
+     * @return tag from address book or null if it does not exist.
      */
-    void removeTagFromPerson(Person person, Tag tag);
+    Tag getTag(Tag tag);
 
     /** Returns an unmodifiable view of the sorted filtered person list */
     ObservableList<Person> getPersonList();

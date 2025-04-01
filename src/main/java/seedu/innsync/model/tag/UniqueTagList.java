@@ -1,6 +1,9 @@
 package seedu.innsync.model.tag;
 
 import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
@@ -58,11 +61,33 @@ public class UniqueTagList {
         internalList.add(toAdd);
     }
 
+    /**
+     * Removes the equivalent tag from the list.
+     * The tag must exist in the list.
+     * @param toRemove
+     */
     public void remove(Tag toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new TagNotFoundException();
         }
+    }
+
+    public void setTags(UniqueTagList replacement) {
+        requireNonNull(replacement);
+        internalList.setAll(replacement.internalList);
+    }
+
+    /**
+     * Replaces the contents of this list with {@code tags}.
+     * {@code tags} must not contain duplicate tags.
+     */
+    public void setTags(List<Tag> tags) {
+        requireNonNull(tags);
+        if (!tagsAreUnique(tags)) {
+            throw new DuplicateTagException();
+        }
+        internalList.setAll(tags);
     }
 
     /**
@@ -89,5 +114,10 @@ public class UniqueTagList {
             UniqueTagList otherList = (UniqueTagList) other;
             return internalList.equals(otherList.internalList);
         }
+    }
+
+    private boolean tagsAreUnique(List<Tag> tags) {
+        Set<Tag> tagSet = tags.stream().collect(Collectors.toSet());
+        return tagSet.size() == tags.size();
     }
 }

@@ -165,7 +165,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addTagToPerson(Person person, Tag tag) {
+        public Tag getTagElseCreate(Tag tag) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Tag getTag(Tag tag) {
             throw new AssertionError("This method should not be called.");
         }
     }

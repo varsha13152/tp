@@ -61,11 +61,12 @@ public class TagCommandTest {
     public void execute_validTag_success() throws Exception {
         Index indexFirstPerson = Index.fromOneBased(INDEX_FIRST_PERSON.getOneBased());
         Person firstPerson = model.getPersonList().get(indexFirstPerson.getZeroBased());
+        firstPerson.clearTags();
 
-        Set<Tag> validTags = Set.of(new Tag(VALID_TAG_HUSBAND));
+        Set<Tag> validTags = Set.of(new Tag(VALID_TAG_FRIEND), new Tag(VALID_TAG_HUSBAND));
 
         Person editedPerson = new PersonBuilder(firstPerson)
-                .withTags("friends", VALID_TAG_HUSBAND)
+                .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
 
         TagCommand tagCommand = new TagCommand(indexFirstPerson, validTags, null);

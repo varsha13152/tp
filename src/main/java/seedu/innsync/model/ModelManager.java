@@ -5,6 +5,7 @@ import static seedu.innsync.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.Comparator;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -130,17 +131,20 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addTagToPerson(Person person, Tag tag) {
-        requireNonNull(person);
+    public Tag getTagElseCreate(Tag tag) {
         requireNonNull(tag);
-        this.addressBook.addTagToPerson(person, tag);
+        return this.addressBook.getTagElseCreate(tag);
     }
 
     @Override
-    public void removeTagFromPerson(Person person, Tag tag) {
-        requireNonNull(person);
-        requireNonNull(tag);
-        this.addressBook.removeTagFromPerson(person, tag);
+    public Tag getTag(Tag tag) {
+            requireNonNull(tag);
+            return this.addressBook.getTag(tag);
+        }
+
+    public void setTags(List<Tag> tags) {
+        requireNonNull(tags);
+        this.addressBook.setTags(tags);
     }
 
     //=========== Filtered Person List Accessors =============================================================

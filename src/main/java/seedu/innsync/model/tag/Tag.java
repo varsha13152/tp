@@ -37,6 +37,10 @@ public class Tag {
         return tagName;
     }
 
+    public int getTagCount() {
+        return tagCount;
+    }
+
     public void addTagCount() {
         tagCount++;
     }
@@ -73,7 +77,6 @@ public class Tag {
      * Format state as text for viewing.
      */
     public String toString() {
-        return '[' + tagName + ']';
+        return tagName;
     }
-
 }

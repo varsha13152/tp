@@ -6,18 +6,24 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.logging.Logger;
 
+import seedu.innsync.commons.core.LogsCenter;
 import seedu.innsync.commons.util.ToStringBuilder;
 import seedu.innsync.model.request.Request;
 import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
 import seedu.innsync.model.tag.exceptions.DuplicateTagException;
+import seedu.innsync.model.tag.exceptions.TagNotFoundException;
 
 /**
  * Represents a Person in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {
+
+    // Logger
+    private static final Logger logger = LogsCenter.getLogger(Person.class);
 
     // Identity fields
     private final Name name;
@@ -118,6 +124,7 @@ public class Person {
             throw new DuplicateTagException();
         }
         tags.add(tag);
+        logger.info("Tag added to person's tag list.");
     }
 
     /**
@@ -125,9 +132,22 @@ public class Person {
      *
      * @param tag the tag to be removed
      */
-    public void removeTag(Tag tag) {
+    public void removeTag(Tag tag) throws TagNotFoundException {
         requireAllNonNull(tag);
+        if (!tags.contains(tag)) {
+            logger.warning("Tag not found in person's tag list.");
+            throw new TagNotFoundException();
+        }
         tags.remove(tag);
+        logger.info("Tag removed from person's tag list.");
+    }
+
+    /**
+     * Clears the list of tags of the person.
+     * Used in testing.
+     */
+    public void clearTags() {
+        tags.clear();
     }
 
     /**
