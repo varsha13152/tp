@@ -138,9 +138,9 @@ public class ModelManager implements Model {
 
     @Override
     public Tag getTag(Tag tag) {
-            requireNonNull(tag);
-            return this.addressBook.getTag(tag);
-        }
+        requireNonNull(tag);
+        return this.addressBook.getTag(tag);
+    }
 
     public void setTags(List<Tag> tags) {
         requireNonNull(tags);

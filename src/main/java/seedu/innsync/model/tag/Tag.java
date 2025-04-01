@@ -13,7 +13,7 @@ public class Tag {
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
     public final String tagName;
-    public int tagCount = 0;
+    private int tagCount;
 
     /**
      * Constructs a {@code Tag}.
@@ -24,6 +24,7 @@ public class Tag {
         requireNonNull(tagName);
         checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
         this.tagName = tagName;
+        this.tagCount = 0;
     }
 
     /**

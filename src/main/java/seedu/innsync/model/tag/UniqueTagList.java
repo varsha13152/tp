@@ -11,6 +11,16 @@ import javafx.collections.ObservableList;
 import seedu.innsync.model.tag.exceptions.DuplicateTagException;
 import seedu.innsync.model.tag.exceptions.TagNotFoundException;
 
+/**
+ * A list of tags that enforces uniqueness between its elements and does not allow nulls.
+ * A tag is considered unique by comparing using {@code Tag#equals(Object)}. As such, adding and updating of
+ * persons uses Tag#isSameTag(Tag) for equality so as to ensure that the tag being added or updated is
+ * unique in terms of identity in the UniqueTagList.
+ *
+ * Supports a minimal set of list operations.
+ *
+ * @see Tag#isSameTag(Tag)
+ */
 public class UniqueTagList {
 
     private final ObservableList<Tag> internalList = FXCollections.observableArrayList();

@@ -1,7 +1,6 @@
 package seedu.innsync.model;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.innsync.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 import java.util.logging.Logger;
