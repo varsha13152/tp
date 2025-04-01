@@ -50,8 +50,7 @@ public class AddressBookTest {
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        List<Request> newRequests = Arrays.asList();
-        AddressBookStub newData = new AddressBookStub(newPersons, newRequests);
+        AddressBookStub newData = new AddressBookStub(newPersons);
 
         assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));
     }
@@ -87,8 +86,7 @@ public class AddressBookTest {
 
     @Test
     public void toStringMethod() {
-        String expected = AddressBook.class.getCanonicalName() + "{persons=" + addressBook.getPersonList()
-                + ", requests=" + addressBook.getRequestList() + "}";
+        String expected = AddressBook.class.getCanonicalName() + "{persons=" + addressBook.getPersonList() + "}";
         assertEquals(expected, addressBook.toString());
     }
 
@@ -99,9 +97,8 @@ public class AddressBookTest {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Request> requests = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Person> persons, Collection<Request> requests) {
+        AddressBookStub(Collection<Person> persons) {
             this.persons.setAll(persons);
-            this.requests.setAll(requests);
         }
 
         @Override

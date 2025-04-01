@@ -14,9 +14,6 @@ import seedu.innsync.commons.exceptions.IllegalValueException;
 import seedu.innsync.model.AddressBook;
 import seedu.innsync.model.ReadOnlyAddressBook;
 import seedu.innsync.model.person.Person;
-import seedu.innsync.model.request.Request;
-
-
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
@@ -25,6 +22,7 @@ import seedu.innsync.model.request.Request;
 class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_REQUEST = "Requests list contains duplicate request(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
     private final List<JsonAdaptedRequest> requests = new ArrayList<>();
@@ -64,13 +62,6 @@ class JsonSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
             addressBook.addPerson(person);
-        }
-        for (JsonAdaptedRequest jsonAdaptedRequest : requests) {
-            Request request = jsonAdaptedRequest.toModelType();
-            if (addressBook.hasRequest(request)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_REQUEST);
-            }
-            addressBook.addRequest(request);
         }
         return addressBook;
     }

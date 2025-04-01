@@ -14,7 +14,6 @@ public class Request {
     public static final String VALIDATION_REGEX = "^[^/]{1,255}$";
 
     public final String requestName;
-    private int requestCount = 0;
     private boolean isCompleted = false;
 
     /**
@@ -39,18 +38,6 @@ public class Request {
         return requestName;
     }
 
-    public void addRequestCount() {
-        requestCount++;
-    }
-
-    public void removeRequestCount() {
-        requestCount--;
-    }
-
-    public boolean isInUse() {
-        return requestCount > 0;
-    }
-
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -60,7 +47,7 @@ public class Request {
             return false;
         }
         Request otherRequest = (Request) other;
-        return requestName.equals(otherRequest.requestName);
+        return requestName.equals(otherRequest.requestName) && isCompleted == otherRequest.isCompleted;
     }
 
     /**

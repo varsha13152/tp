@@ -3,8 +3,8 @@ package seedu.innsync.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
-
 import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import seedu.innsync.commons.core.LogsCenter;
 import seedu.innsync.commons.util.ToStringBuilder;
@@ -12,6 +12,7 @@ import seedu.innsync.model.person.Person;
 import seedu.innsync.model.person.UniquePersonList;
 import seedu.innsync.model.request.Request;
 import seedu.innsync.model.request.UniqueRequestList;
+
 
 /**
  * Wraps all data at the address-book level
@@ -128,8 +129,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public Request getRequestElseCreate(Request request) {
         requireNonNull(request);
-        if (this.hasRequest(request)) {
-            return requests.getRequest(request);
+        Request existingRequest = requests.getRequest(request);
+        if (existingRequest != null) {
+            return existingRequest;
         } else {
             Request newRequest = new Request(request.getRequestName());
             requests.add(newRequest);
@@ -170,7 +172,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     public String toString() {
         return new ToStringBuilder(this)
                 .add("persons", persons)
-                .add("requests", requests)
                 .toString();
     }
 
@@ -179,6 +180,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.asUnmodifiableObservableList();
     }
 
+    @Override
     public ObservableList<Request> getRequestList() {
         return requests.asUnmodifiableObservableList();
     }
@@ -195,8 +197,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         AddressBook otherAddressBook = (AddressBook) other;
-        return persons.equals(otherAddressBook.persons)
-                && requests.equals(otherAddressBook.requests);
+        return persons.equals(otherAddressBook.persons);
     }
 
     @Override

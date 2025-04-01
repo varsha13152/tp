@@ -64,6 +64,7 @@ public class RequestCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(this.index.getZeroBased());
+
         Set<Request> modelRequests = new HashSet<>();
         for (Request request : requests) {
             modelRequests.add(model.getRequestElseCreate(request));

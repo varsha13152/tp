@@ -4,21 +4,21 @@ import static java.util.Objects.requireNonNull;
 import static seedu.innsync.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.innsync.model.person.Person;
-import seedu.innsync.model.person.exceptions.DuplicatePersonException;
 import seedu.innsync.model.request.exceptions.DuplicateRequestException;
 import seedu.innsync.model.request.exceptions.RequestNotFoundException;
 
 /**
  * A list of request that enforces uniqueness between its elements and does not allow nulls.
- * A request is considered unique by comparing using {@code Request#isSameRequest(Request)}. As such, adding and updating of
- * requests uses Request#isSameRequest(Request) for equality so as to ensure that the request being added or updated is
- * unique in terms of identity in the UniqueRequestList. However, the removal of a request uses Request#equals(Object) so
- * as to ensure that the request with exactly the same fields will be removed.
+ * A request is considered unique by comparing using {@code Request#isSameRequest(Request)}. As such,
+ * adding and updating of requests uses Request#isSameRequest(Request) for equality so as to ensure that the
+ * request being added or updated is unique in terms of identity in the UniqueRequestList. However, the
+ * removal of a request uses Request#equals(Object) so as to ensure that the request with exactly
+ * the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
@@ -29,7 +29,6 @@ public class UniqueRequestList {
     private final ObservableList<Request> internalList = FXCollections.observableArrayList();
     private final ObservableList<Request> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
-
     /**
      * Returns true if the list contains an equivalent person as the given argument regardless of casing.
      */
@@ -126,17 +125,8 @@ public class UniqueRequestList {
         return internalList.toString();
     }
 
-    /**
-     * Returns true if {@code persons} contains only unique persons.
-     */
     private boolean requestsAreUnique(List<Request> requests) {
-        for (int i = 0; i < requests.size() - 1; i++) {
-            for (int j = i + 1; j < requests.size(); j++) {
-                if (requests.get(i).isSameRequest(requests.get(j))) {
-                    return false;
-                }
-            }
-        }
-        return true;
+        Set<Request> requestSet = requests.stream().collect(Collectors.toSet());
+        return requestSet.size() == requests.size();
     }
 }

@@ -21,11 +21,6 @@ public interface Model {
 
     Comparator<Person> COMPARATOR_SHOW_STARRED_FIRST = Comparator.comparing(Person::getStarred,
             Comparator.reverseOrder()).thenComparing(Person::getName);
-
-    Comparator<Request> COMPARATOR_SORT_ASCENDING =
-            Comparator.comparing(Request::getRequestName, Comparator.reverseOrder())
-                    .thenComparing(Request::getRequestName, String.CASE_INSENSITIVE_ORDER);
-
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -99,6 +94,13 @@ public interface Model {
      * @param request the request to be added
      */
     Request getRequestElseCreate(Request request);
+
+    /**
+     * Gets request from address book.
+     *
+     * @return request from address book or null if it does not exist.
+     */
+    Request getRequest(Request request);
 
     /** Returns an unmodifiable view of the sorted filtered person list */
     ObservableList<Person> getPersonList();
