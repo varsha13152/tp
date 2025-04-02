@@ -2,7 +2,6 @@ package seedu.innsync.model.person;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;

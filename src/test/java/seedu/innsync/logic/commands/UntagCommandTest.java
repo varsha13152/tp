@@ -92,7 +92,7 @@ public class UntagCommandTest {
     @Test
     public void equals() {
         UntagCommand untagFirstCommand = new UntagCommand(INDEX_FIRST_PERSON, "cool", "beans");
-        UntagCommand untagSecondCommand = new UntagCommand(INDEX_SECOND_PERSON,"", "");
+        UntagCommand untagSecondCommand = new UntagCommand(INDEX_SECOND_PERSON, "lol1", "lol2");
 
         // same object -> returns true
         assertTrue(untagFirstCommand.equals(untagFirstCommand));

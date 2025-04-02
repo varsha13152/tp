@@ -8,11 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_REQUEST_AMY;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_REQUEST_BOB;
 import static seedu.innsync.testutil.Assert.assertThrows;
-import static seedu.innsync.testutil.TypicalPersons.ALICE;
 
 import org.junit.jupiter.api.Test;
-import seedu.innsync.model.person.Person;
-import seedu.innsync.testutil.PersonBuilder;
 
 public class RequestTest {
 
