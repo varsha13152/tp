@@ -100,10 +100,14 @@ public class DeleteRequestCommandTest {
         Index firstRequestIndex = Index.fromZeroBased(0);
         Index secondRequestIndex = Index.fromZeroBased(1);
 
-        DeleteRequestCommand deleteFirstRequestCommand = new DeleteRequestCommand(firstContactIndex, firstRequestIndex);
-        DeleteRequestCommand deleteFirstRequestCommandCopy = new DeleteRequestCommand(firstContactIndex, firstRequestIndex);
-        DeleteRequestCommand deleteSecondRequestCommand = new DeleteRequestCommand(firstContactIndex, secondRequestIndex);
-        DeleteRequestCommand deleteOtherContactRequestCommand = new DeleteRequestCommand(secondContactIndex, firstRequestIndex);
+        DeleteRequestCommand deleteFirstRequestCommand = new DeleteRequestCommand(
+            firstContactIndex, firstRequestIndex);
+        DeleteRequestCommand deleteFirstRequestCommandCopy = new DeleteRequestCommand(
+            firstContactIndex, firstRequestIndex);
+        DeleteRequestCommand deleteSecondRequestCommand = new DeleteRequestCommand(
+            firstContactIndex, secondRequestIndex);
+        DeleteRequestCommand deleteOtherContactRequestCommand = new DeleteRequestCommand(
+            secondContactIndex, firstRequestIndex);
 
         // same object -> returns true
         assertEquals(deleteFirstRequestCommand, deleteFirstRequestCommand);
