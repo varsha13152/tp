@@ -1,7 +1,5 @@
 package seedu.innsync.logic.parser;
 
-import static seedu.innsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import seedu.innsync.logic.commands.ClearCommand;
 import seedu.innsync.logic.parser.exceptions.ParseException;
 
@@ -17,10 +15,6 @@ public class ClearCommandParser implements Parser<ClearCommand> {
      */
     @Override
     public ClearCommand parse(String args) throws ParseException {
-        if (args.isEmpty()) {
-            return new ClearCommand();
-        } else {
-            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
-        }
+        return new ClearCommand();
     }
 }

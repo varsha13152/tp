@@ -11,6 +11,8 @@ import seedu.innsync.model.Model;
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Clears the address book.\n"
+            + "Example: " + COMMAND_WORD;
     public static final String MESSAGE_CONFIRMATION = "Are you sure you want to clear the address book? "
             + "Enter 'y' to confirm, any other input will cancel.";
     public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
@@ -34,6 +36,10 @@ public class ClearCommand extends Command {
         if (!isConfirmed) {
             isActivated = false;
         }
+    }
+
+    public static void setIsActivatedFalse() {
+        isActivated = false;
     }
 
     public static boolean getActivated() {

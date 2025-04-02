@@ -99,12 +99,17 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_clear() throws Exception {
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
+        ClearCommand clearCommand = (ClearCommand) parser.parseCommand(ClearCommand.COMMAND_WORD);
+        assertTrue(ClearCommand.getActivated());
+        ClearCommand.setIsActivatedFalse();
+        clearCommand = (ClearCommand) parser.parseCommand(ClearCommand.COMMAND_WORD + " 3");
+        assertTrue(ClearCommand.getActivated());
+        ClearCommand.setIsActivatedFalse();
     }
 
     @Test
     public void parseCommand_delete() throws Exception {
+        ClearCommand.setIsActivatedFalse();
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
