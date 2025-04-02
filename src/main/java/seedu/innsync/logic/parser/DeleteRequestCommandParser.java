@@ -22,7 +22,8 @@ public class DeleteRequestCommandParser implements Parser<DeleteRequestCommand> 
     public DeleteRequestCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_REQUEST);
         if (!argMultimap.getValue(PREFIX_REQUEST).isPresent()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteRequestCommand.MESSAGE_USAGE));
+            throw new ParseException(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteRequestCommand.MESSAGE_USAGE));
         }
 
         Index contactIndex;
