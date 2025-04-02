@@ -12,7 +12,6 @@ public class ConfirmCommand extends Command {
 
     public static final String MESSAGE_CONFIRMATION = "Are you sure you want to execute this command? "
             + "Enter 'y' to confirm, any other input will cancel.";
-    public static final String MESSAGE_CANCEL = "Command cancelled.";
 
     /**
      * Constructor for when the user confirms or cancels the operation.
