@@ -31,7 +31,8 @@ public class DeleteRequestCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Request successfully deleted from %s";
     public static final String MESSAGE_REQUEST_NOT_FOUND = "This contact does not have this request.";
-    public static final String MESSAGE_INVALID_REQUEST_INDEX = "Invalid request index! The request index is out of range.";
+    public static final String MESSAGE_INVALID_REQUEST_INDEX = "Invalid request index!\n"
+            + "The request index is out of range.";
 
     private final Index contactIndex;
     private final Index requestIndex;
