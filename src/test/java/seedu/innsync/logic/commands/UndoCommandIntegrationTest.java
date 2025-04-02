@@ -2,11 +2,14 @@ package seedu.innsync.logic.commands;
 
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_BOOKINGTAG_BEACHHOUSE;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_MEMO_AMY;
+import static seedu.innsync.logic.commands.CommandTestUtil.VALID_REQUEST_AMY;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.innsync.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.innsync.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.innsync.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +21,7 @@ import seedu.innsync.model.ModelManager;
 import seedu.innsync.model.UserPrefs;
 import seedu.innsync.model.person.Memo;
 import seedu.innsync.model.person.Person;
+import seedu.innsync.model.request.Request;
 import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
 import seedu.innsync.testutil.PersonBuilder;
@@ -108,5 +112,46 @@ public class UndoCommandIntegrationTest {
         tagCommand.execute(modifiedModel);
         UndoCommand undoCommand = new UndoCommand();
         assertCommandSuccess(undoCommand, modifiedModel, UndoCommand.MESSAGE_SUCCESS, model);
+    }
+
+    @Test
+    public void execute_requestCommands_success() throws CommandException {
+        Model modifiedModel = new ModelManager(this.model.getAddressBook(), new UserPrefs());
+        RequestCommand requestCommand = new RequestCommand(INDEX_FIRST_PERSON,
+                new ArrayList<>(Arrays.asList(new Request(VALID_REQUEST_AMY))));
+        requestCommand.execute(modifiedModel);
+        UndoCommand undoCommand = new UndoCommand();
+        assertCommandSuccess(undoCommand, modifiedModel, UndoCommand.MESSAGE_SUCCESS, model);
+    }
+
+    @Test
+    public void execute_markRequest_success() throws CommandException {
+        Model requestModel = new ModelManager(this.model.getAddressBook(), new UserPrefs());
+        RequestCommand requestCommand = new RequestCommand(INDEX_FIRST_PERSON,
+                new ArrayList<>(Arrays.asList(new Request(VALID_REQUEST_AMY))));
+        requestCommand.execute(requestModel);
+        Model modifiedModel = new ModelManager(requestModel.getAddressBook(), new UserPrefs());
+        MarkRequestCommand markCommand = new MarkRequestCommand(INDEX_FIRST_PERSON,
+                INDEX_FIRST_PERSON);
+        markCommand.execute(modifiedModel);
+        UndoCommand undoCommand = new UndoCommand();
+        assertCommandSuccess(undoCommand, modifiedModel, UndoCommand.MESSAGE_SUCCESS, requestModel);
+    }
+
+    @Test
+    public void execute_unmarkRequest_success() throws CommandException {
+        Model requestModel = new ModelManager(this.model.getAddressBook(), new UserPrefs());
+        RequestCommand requestCommand = new RequestCommand(INDEX_FIRST_PERSON,
+                new ArrayList<>(Arrays.asList(new Request(VALID_REQUEST_AMY))));
+        requestCommand.execute(requestModel);
+        MarkRequestCommand markCommand = new MarkRequestCommand(INDEX_FIRST_PERSON,
+                INDEX_FIRST_PERSON);
+        markCommand.execute(requestModel);
+        Model modifiedModel = new ModelManager(requestModel.getAddressBook(), new UserPrefs());
+        UnmarkRequestCommand unmarkCommand = new UnmarkRequestCommand(INDEX_FIRST_PERSON,
+                INDEX_FIRST_PERSON);
+        unmarkCommand.execute(modifiedModel);
+        UndoCommand undoCommand = new UndoCommand();
+        assertCommandSuccess(undoCommand, modifiedModel, UndoCommand.MESSAGE_SUCCESS, requestModel);
     }
 }
