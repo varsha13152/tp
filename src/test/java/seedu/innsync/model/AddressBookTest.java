@@ -20,6 +20,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.innsync.model.person.Person;
 import seedu.innsync.model.person.exceptions.DuplicatePersonException;
+import seedu.innsync.model.request.Request;
 import seedu.innsync.testutil.PersonBuilder;
 
 public class AddressBookTest {
@@ -94,6 +95,7 @@ public class AddressBookTest {
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Request> requests = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Person> persons) {
             this.persons.setAll(persons);
@@ -102,6 +104,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<Person> getPersonList() {
             return persons;
+        }
+
+        @Override
+        public ObservableList<Request> getRequestList() {
+            return requests;
         }
     }
 

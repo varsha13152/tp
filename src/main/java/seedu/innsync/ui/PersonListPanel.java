@@ -58,6 +58,17 @@ public class PersonListPanel extends UiPart<Region> {
     public void selectPerson(int index) {
         if (index >= 0 && index < personListView.getItems().size()) {
             personListView.getSelectionModel().select(index);
+            personListView.scrollTo(index);
+        }
+    }
+
+    /**
+     * Selects the given person.
+     */
+    public void selectPerson(Person person) {
+        if (person != null) {
+            personListView.getSelectionModel().select(person);
+            personListView.scrollTo(person);
         }
     }
 

@@ -5,6 +5,7 @@ import static seedu.innsync.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.Comparator;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -14,6 +15,7 @@ import javafx.collections.transformation.SortedList;
 import seedu.innsync.commons.core.GuiSettings;
 import seedu.innsync.commons.core.LogsCenter;
 import seedu.innsync.model.person.Person;
+import seedu.innsync.model.request.Request;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -83,6 +85,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
+        this.backupAddressBook.resetData(this.addressBook);
         this.addressBook.resetData(addressBook);
     }
 
@@ -126,6 +129,23 @@ public class ModelManager implements Model {
         this.addressBook.resetData(this.backupAddressBook);
         this.backupAddressBook.resetData(prevAddressBook);
         return true;
+    }
+
+    @Override
+    public Request getRequestElseCreate(Request request) {
+        requireNonNull(request);
+        return this.addressBook.getRequestElseCreate(request);
+    }
+
+    @Override
+    public Request getRequest(Request request) {
+        requireNonNull(request);
+        return this.addressBook.getRequest(request);
+    }
+
+    public void setRequests(List<Request> requests) {
+        requireNonNull(requests);
+        this.addressBook.setRequests(requests);
     }
 
     //=========== Filtered Person List Accessors =============================================================
