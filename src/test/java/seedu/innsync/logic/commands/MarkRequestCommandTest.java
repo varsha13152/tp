@@ -22,7 +22,7 @@ import seedu.innsync.testutil.PersonBuilder;
  * Contains integration tests (interaction with the Model) and unit tests for
  * {@code StarCommand}.
  */
-public class UnmarkRequestCommandTest {
+public class MarkRequestCommandTest {
 
     private Model model;
     private Model requestMarkedModel;
@@ -49,32 +49,33 @@ public class UnmarkRequestCommandTest {
     }
 
     @Test
-    public void execute_unmarkMarkedRequest_success() {
-        Model markedModel = new ModelManager(requestMarkedModel.getAddressBook(), new UserPrefs());
-        Person unmarkedPerson = requestUnmarkedModel.getPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+    public void execute_markRequest_success() {
+        Model unmarkedModel = new ModelManager(requestUnmarkedModel.getAddressBook(), new UserPrefs());
+        Person markedPerson = requestMarkedModel.getPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Request request = markedPerson.getRequests().get(INDEX_FIRST_PERSON.getZeroBased());
 
-        UnmarkRequestCommand unmarkCommand = new UnmarkRequestCommand(INDEX_FIRST_PERSON,
+        MarkRequestCommand markCommand = new MarkRequestCommand(INDEX_FIRST_PERSON,
                 INDEX_FIRST_PERSON);
-        assertCommandSuccess(unmarkCommand, markedModel, String.format(UnmarkRequestCommand.MESSAGE_SUCCESS,
-                VALID_REQUEST_BOB), requestUnmarkedModel, unmarkedPerson);
+        assertCommandSuccess(markCommand, unmarkedModel, String.format(MarkRequestCommand.MESSAGE_SUCCESS,
+                request.getRequestName()), requestMarkedModel, markedPerson);
     }
 
     @Test
-    public void execute_unmarkUnmarkedRequest_failure() {
-        Model unmarkedModel = new ModelManager(requestUnmarkedModel.getAddressBook(), new UserPrefs());
-
-        UnmarkRequestCommand unmarkCommand = new UnmarkRequestCommand(INDEX_FIRST_PERSON,
+    public void execute_markMarkedRequest_failure() {
+        Model markedModel = new ModelManager(requestMarkedModel.getAddressBook(), new UserPrefs());
+        Request request = requestMarkedModel.getPersonList().get(INDEX_FIRST_PERSON.getZeroBased())
+                .getRequests().get(INDEX_FIRST_PERSON.getZeroBased());
+        MarkRequestCommand markCommand = new MarkRequestCommand(INDEX_FIRST_PERSON,
                 INDEX_FIRST_PERSON);
-        assertCommandFailure(unmarkCommand, unmarkedModel,
-                String.format(UnmarkRequestCommand.MESSAGE_FAILURE_NOT_MARKED, VALID_REQUEST_BOB));
+        assertCommandFailure(markCommand, markedModel,
+                String.format(MarkRequestCommand.MESSAGE_FAILURE_ALREADY_MARKED, request.getRequestName()));
     }
 
     @Test
     public void execute_unmarkIndexOutOfRange_failure() {
         Index outOfBounds = Index.fromOneBased(model.getPersonList().size() + 1);
-        UnmarkRequestCommand unmarkCommand = new UnmarkRequestCommand(INDEX_FIRST_PERSON,
-                outOfBounds);
-        assertCommandFailure(unmarkCommand, model, UnmarkRequestCommand.MESSAGE_FAILURE_INVALID_INDEX);
+        MarkRequestCommand markCommand = new MarkRequestCommand(INDEX_FIRST_PERSON, outOfBounds);
+        assertCommandFailure(markCommand, model, MarkRequestCommand.MESSAGE_FAILURE_INVALID_INDEX);
     }
 
 }

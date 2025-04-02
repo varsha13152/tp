@@ -199,6 +199,20 @@ public class Person {
     }
 
     /**
+     * Adds a request to the list of requests of the person at the specified index.
+     *
+     * @param request the tag to be added
+     */
+    public void addRequest(Request request, int index) throws DuplicateRequestException {
+        requireAllNonNull(request);
+        if (requests.contains(request)) {
+            throw new DuplicateRequestException();
+        }
+        requests.add(index, request);
+        logger.info("Request added to person's request list.");
+    }
+
+    /**
      * Removes a request from the list of requests of the person.
      *
      * @param request the tag to be removed

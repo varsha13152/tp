@@ -74,19 +74,19 @@ public class UnmarkRequestCommand extends Command {
             throw new CommandException(String.format(MESSAGE_FAILURE_NOT_MARKED,
                     request.getRequestName()));
         }
-        Person editedPerson = createEditedPerson(model, person, request);
+        Person editedPerson = createEditedPerson(model, person, request, requestIndex);
         model.setPerson(person, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, request.getRequestName()), editedPerson);
     }
 
-    private Person createEditedPerson(Model model, Person person, Request request) {
+    private Person createEditedPerson(Model model, Person person, Request request, Index index) {
         Request unmarkedRequest = new Request(request);
         unmarkedRequest.markAsIncomplete();
         unmarkedRequest = model.getRequestElseCreate(unmarkedRequest);
         Person editedPerson = new Person(person);
         editedPerson.removeRequest(request);
-        editedPerson.addRequest(unmarkedRequest);
+        editedPerson.addRequest(unmarkedRequest, index.getZeroBased());
         return editedPerson;
     }
 
