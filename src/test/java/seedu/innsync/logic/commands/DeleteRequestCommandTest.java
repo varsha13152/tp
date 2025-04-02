@@ -33,30 +33,30 @@ public class DeleteRequestCommandTest {
     public void execute_validIndices_success() throws CommandException {
         Index contactIndex = INDEX_FIRST_PERSON;
         Person personToEdit = model.getPersonList().get(contactIndex.getZeroBased());
-        
+
         // Add a request to the person
         List<Request> requestToAdd = new ArrayList<>();
         requestToAdd.add(new Request(VALID_REQUEST_AMY));
         Person personWithRequest = new PersonBuilder(personToEdit)
                 .withRequests(VALID_REQUEST_AMY)
                 .build();
-        
+
         // Set the person with request in the model
         Model setupModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         setupModel.setPerson(personToEdit, personWithRequest);
-        
+
         // Create the delete request command to delete the first request
         Index requestIndex = Index.fromZeroBased(0);
         DeleteRequestCommand deleteRequestCommand = new DeleteRequestCommand(contactIndex, requestIndex);
-        
+
         // Expected result is the original person without the request
         Person expectedPerson = new PersonBuilder(personToEdit).build();
         String expectedMessage = String.format(DeleteRequestCommand.MESSAGE_SUCCESS, Messages.format(expectedPerson));
-        
+
         // Create expected model
         Model expectedModel = new ModelManager(new AddressBook(setupModel.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(personWithRequest, expectedPerson);
-        
+
         assertCommandSuccess(deleteRequestCommand, setupModel, expectedMessage, expectedModel, expectedPerson);
     }
 
@@ -64,32 +64,32 @@ public class DeleteRequestCommandTest {
     public void execute_invalidContactIndex_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getPersonList().size() + 1);
         Index validRequestIndex = Index.fromZeroBased(0);
-        
+
         DeleteRequestCommand deleteRequestCommand = new DeleteRequestCommand(outOfBoundIndex, validRequestIndex);
-        
+
         assertCommandFailure(deleteRequestCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
-    
+
     @Test
     public void execute_invalidRequestIndex_throwsCommandException() throws CommandException {
         Index contactIndex = INDEX_FIRST_PERSON;
         Person personToEdit = model.getPersonList().get(contactIndex.getZeroBased());
-        
+
         // Add a request to the person
         List<Request> requestToAdd = new ArrayList<>();
         requestToAdd.add(new Request(VALID_REQUEST_AMY));
         Person personWithRequest = new PersonBuilder(personToEdit)
                 .withRequests(VALID_REQUEST_AMY)
                 .build();
-        
+
         // Set the person with request in the model
         Model setupModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         setupModel.setPerson(personToEdit, personWithRequest);
-        
+
         // Create the delete request command with an invalid request index
         Index invalidRequestIndex = Index.fromZeroBased(1);
         DeleteRequestCommand deleteRequestCommand = new DeleteRequestCommand(contactIndex, invalidRequestIndex);
-        
+
         assertCommandFailure(deleteRequestCommand, setupModel, DeleteRequestCommand.MESSAGE_INVALID_REQUEST_INDEX);
     }
 
