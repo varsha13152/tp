@@ -12,8 +12,8 @@ public class Name implements Comparable<Name> {
     public static final String MESSAGE_EMPTY = "Error: Name cannot be empty.";
     public static final String MESSAGE_LENGTH = "Error: Name cannot exceed 170 characters.";
 
-    public static final String REGEX_NOT_EMPTY = "^(?!\\s)(?=.*\\S).*$"; // Ensures non-empty and doesn't start with spaces
-    public static final String REGEX_MAX_LENGTH = "^.{1,170}$"; // Ensures length <= 170
+    public static final String REGEX_NOT_EMPTY = "^(?!\\s)(?=.*\\S).*$";
+    public static final String REGEX_MAX_LENGTH = "^.{1,170}$";
 
 
     public final String fullName;
@@ -25,7 +25,7 @@ public class Name implements Comparable<Name> {
      */
     public Name(String name) {
         requireNonNull(name);
-        checkArgument(isValidName(name),  getErrorMessage(name));
+        checkArgument(isValidName(name), getErrorMessage(name));
         fullName = name;
     }
 

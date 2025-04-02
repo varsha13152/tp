@@ -49,7 +49,8 @@ public class FindCommandParserTest {
         // New prefixes
         assertParseFailure(parser, "m/", "Please enter at least one keyword after m/ when searching by memo.");
         assertParseFailure(parser, "bd/", "Please enter at least one date after bd/ when searching by booking date.");
-        assertParseFailure(parser, "bp/", "Please enter at least one keyword after bp/ when searching by booking property.");
+        assertParseFailure(parser, "bp/", "Please enter at least one keyword after bp/ "
+                + "when searching by booking property.");
     }
 
     @Test
@@ -400,8 +401,8 @@ public class FindCommandParserTest {
     @Test
     public void parse_mixedValidInvalidKeywords_throwsParseException() {
         assertParseFailure(parser, "p/12345678 9876-5432",
-                "Error: Invalid phone format. Phone numbers should contain digits, with an optional '+' at the beginning. "
-                        + "Invalid keyword(s): 9876-5432");
+                "Error: Invalid phone format. Phone numbers should contain digits, with an optional "
+                        + "'+' at the beginning. Invalid keyword(s): 9876-5432");
 
         assertParseFailure(parser, "bd/2025-06-01 06-01-2025",
                 "Invalid booking date format. Dates should be in the format yyyy-MM-dd "
@@ -436,7 +437,8 @@ public class FindCommandParserTest {
     @Test
     public void parse_allValidFieldsTogether_returnsFindCommand() {
         try {
-            FindCommand command = parser.parse("n/John p/12345678 e/john@example.com a/Clementi t/friends m/important bd/2025-06-01 bp/Beach");
+            FindCommand command = parser.parse("n/John p/12345678 e/john@example.com a/Clementi t/friends "
+                    + "m/important bd/2025-06-01 bp/Beach");
             Map<SearchType, List<String>> criteria = command.getSearchCriteria();
             assertEquals(8, criteria.size());
             assertTrue(criteria.containsKey(SearchType.NAME));

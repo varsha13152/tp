@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.innsync.commons.exceptions.IllegalValueException;
-import seedu.innsync.logic.parser.exceptions.ParseException;
 import seedu.innsync.model.person.Address;
 import seedu.innsync.model.person.Email;
 import seedu.innsync.model.person.Memo;

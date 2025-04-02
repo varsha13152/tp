@@ -395,8 +395,6 @@ public class FindCommandParser implements Parser<FindCommand> {
      */
     private boolean isValidKeyword(String keyword, FindCommand.SearchType searchType) {
         checkKeywordAndSearchTypeNotNull(keyword, searchType);
-
-        // Check for empty keyword (which would match everything)
         if (keyword.isEmpty()) {
             return false;
         }
@@ -416,7 +414,6 @@ public class FindCommandParser implements Parser<FindCommand> {
             throw new IllegalArgumentException("Search type cannot be null");
         }
 
-        // Assert parameters are valid
         assert keyword != null : "Keyword must be non-null";
         assert searchType != null : "Search type must be non-null";
     }
@@ -456,7 +453,6 @@ public class FindCommandParser implements Parser<FindCommand> {
                 throw new IllegalArgumentException("Unsupported search type: " + searchType);
             }
         } catch (Exception e) {
-            // Log the exception for debugging
             System.err.println("Error validating keyword: " + e.getMessage());
             return false;
         }
@@ -485,9 +481,9 @@ public class FindCommandParser implements Parser<FindCommand> {
      */
     private ParseException createValidationException(FindCommand.SearchType searchType, List<String> invalidKeywords) {
         String errorMessage = getErrorMessageForSearchType(searchType);
-        if (searchType == SearchType.NAME || searchType == SearchType.ADDRESS ||
-                searchType == SearchType.TAG || searchType == SearchType.BOOKING_PROPERTY ||
-                searchType == SearchType.MEMO) {
+        if (searchType == SearchType.NAME || searchType == SearchType.ADDRESS
+                || searchType == SearchType.TAG || searchType == SearchType.BOOKING_PROPERTY
+                || searchType == SearchType.MEMO) {
             return new ParseException(errorMessage);
         }
         return new ParseException(errorMessage + " Invalid keyword(s): " + String.join(", ", invalidKeywords));
