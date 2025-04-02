@@ -505,7 +505,7 @@ Format: `memo INDEX m/MEMO`
 Examples:
 * `memo 1 m/recurring customer` Adds the memo to the 1st visitor on the list.
 
-> **Tip:** You can remove memo with memo intead of edit!
+> **Tip:** You can remove a memo with memo intead of edit!
 >
 > * `Just leave the memo blank e.g memo INDEX m/`
 
@@ -513,7 +513,7 @@ Examples:
 
 ### 4.6.1 Locating visitors: `find`
 
-Allows users to search for a contact by their name, phone, address, email, tag, booking tag
+Allows users to search for a contact by their name, phone, address, email, tag, or booking tag
 
 Format: `find [n/]KEYWORD [MORE_KEYWORDS] | p/PHONE [MORE_PHONES] | e/EMAIL [MORE_EMAILS] | a/ADDRESS [MORE_ADDRESS] | t/TAG [MORE_TAGS] | b/DATE [MORE_DATES]`
 
@@ -538,7 +538,7 @@ Format: `find [n/]KEYWORD [MORE_KEYWORDS] | p/PHONE [MORE_PHONES] | e/EMAIL [MOR
 
 #### Special Notes for Booking Searches:
 
-* Dates must be in the `yyyy-MM-dd` format (e.g., `2025-01-01` for January 1, 2025)
+* Dates must be in the `yyyy-MM-dd` format (e.g., `2025-01-02` for January 2, 2025)
 * A contact is matched if the specified date falls within the booking's start and end dates
 * Multiple dates can be specified to find contacts with bookings during any of those dates
 
@@ -593,7 +593,7 @@ Format: `exit`
 ### 4.7.3 Undoing the last change : `undo`
 
 Undoes the last modification to the addressbook, reverting it to its original state before the last modification.
-Edit, add, delete, tag, untag, star, unstar, memo and undo are the moficiations which can be undone.
+Edit, add, delete, tag, untag, star, unstar, memo, and undo are the modifications which can be undone.
 
 Format: `undo`
 
@@ -616,16 +616,16 @@ AddressBook data are saved automatically as a JSON file `[JAR file location]/dat
 <box type="warning" seamless>
 
 **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+If your changes to the data file makes its format invalid, InnSync will discard all data and start with an empty data file at the next run.  Hence, it is recommended to make a backup of the file before editing it.<br>
+Furthermore, certain edits can cause the InnSync to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## 5. FAQ
 
-**Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**Q**: How do I transfer my data to another computer?<br>
+**A**: Install the app on the other computer and overwrite the empty data file it creates with the file that contains the data of your previous InnSync home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
