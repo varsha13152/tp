@@ -18,9 +18,9 @@ public class BookingTag {
             + "PROPERTY from/START_DATE to/END_DATE "
             + "where START_DATE and END_DATE are in the format yyyy-MM-dd.\n"
             + "The START_DATE must be before END_DATE.\n"
-            + "PROPERTY must have 1 to 140 characters.\n";
+            + "PROPERTY must have 1 to 170 characters.\n";
 
-    public static final String VALIDATION_REGEX = "\\S{1,140} from/\\d{4}-\\d{2}-\\d{2} to/\\d{4}-\\d{2}-\\d{2}";
+    public static final String VALIDATION_REGEX = "\\S{1,170} from/\\d{4}-\\d{2}-\\d{2} to/\\d{4}-\\d{2}-\\d{2}";
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public final String bookingTagName;
