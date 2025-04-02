@@ -210,19 +210,19 @@ Essentially, they are to be supplied by the user.
 
 **Note:** All user inputs, including parameters, will be trimmed (all leading and trailing whitespaces will be ignored).
 
-
-| Parameter       | Parameter Prefix | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-|-----------------|------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `NAME `         | `n/`             | Specifies the name of a visitor. <br/><br/>Requirements:<ul>  <li>Names with only whitespace are not allowed.</li> <li>Cannot be empty.</li> <li>Names may include special characters like ```A/P```, but cannot start with ```$``` (reserved for the parser).</li> <li>Character limit: 255.</li> </ul> **Example:** <ul> <li><code>Muthu $A/P -> Muthu A/P</code></li> </ul>                                                                                                                                                                                                                                                                                                            |
-| `PHONE`         | `p/`             | Specifies the phone number of a visitor. <br/><br/> Requirements: <ul><li>Phone numbers should be in the format <code>+[COUNTRY_CODE] [NUMBER]</code>.</li><li>The country code must be valid.</li><li>The number should be at least 7 digits long and at most 15 digits long.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                  |
-| `EMAIL`         | `e/`             | Specifies the email of a visitor. <br/><br/> Requirements: <ul><li>Emails should be of the format <code>local-part@domain</code>.</li><li>The local-part should only contain alphanumeric characters and the following special characters (excluding the parentheses): <code>[SPECIAL_CHARACTERS]</code>, and must not start or end with a special character.</li><li>This is followed by an '@' and then a domain name made up of domain labels separated by periods.</li><li>The domain name must end with a domain label that is at least 2 characters long.</li><li>Each domain label must start and end with an alphanumeric character and may contain hyphens in between.</li></ul> |                                                                                                                                                     |
-| `ADDRESS`       | `a/`             | Specifies the address of a visitor. <br/><br/>Requirements:<ul> <li>Addresses can take any values.</li> <li>Cannot be empty.</li> <li>Character limit: 500.</li> </ul>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| `MEMO`          | `m/`             | Specifies the memo of a visitor. <br/><br/>Requirements:<ul> <li>Memos can take any values even empty.</li> <li>Character limit: 500.</li>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| `REQUEST`       | `r/`             | Specifies the request of a visitor. <br/><br/>Requirements:<ul> <li>Request can take any values.</li> <li>Cannot be empty.</li> <li>Character limit: 255.</li> </ul>                                                                                                                                                                                                                                                        |                                        
-| `BOOKING_TAG`   | `b/`             | Specifies the booking tag of a visitor. <br/><br/> Requirements: <ul><li>Booking tags should be of the format <code>{property} from/{start-date} to/{end-date}</code>.</li><li>Start-date and end-date must be in the format <code>yyyy-MM-dd</code>.</li><li>The start-date should be before the end-date.</li></ul>                                                                                                                                                                                                                                                                                                                                                                     |
-| `TAG `          | `t/`             | Specifies the tag of a visitor. <br/><br/>Requirements:<ul> <li>Tag can take any values.</li> <li>Cannot be empty.</li> <li>Character limit: 255.</li> </ul>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                                                                                                                                                                                                                |
-| `INDEX`         | Not Applicable   | Refers to the index number shown in the List Panel. <br/><br/> Requirements: <ul> <ul> <li>Must be a positive integer.</li> <li>Any number greater than the valid range will not be accepted (e.g., if there are 10 visitors, the valid range is from 1 to 10, and 11 or higher is invalid).</li> <li>The value must fall within the valid range of unsigned integer max number.</li> <li>Unsigned Integer Max Number: For example, this app uses 32-bit integers, the maximum value would be <strong>2,147,483,647</strong>. Any index greater than this number would not be accepted.</li> </ul>                                                                                        |
-| `REQUEST_INDEX` | `r/`   | Refers to the index number shown in the Request panel. <br/><br/> Requirements: <ul> <ul> <li>Must be a positive integer.</li> <li>Any number greater than the valid range will not be accepted (e.g., if there are 10 requests, the valid range is from 1 to 10, and 11 or higher is invalid).</li> <li>The value must fall within the valid range of unsigned integer max number.</li> <li>Unsigned Integer Max Number: For example, this app uses 32-bit integers, the maximum value would be <strong>2,147,483,647</strong>. Any index greater than this number would not be accepted.</li> </ul>                                                                                     |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| Parameter          | Prefix | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+|--------------------|--------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `NAME`             | `n/`   | Specifies the name of a guest. <br><br> **Requirements:** <ul><li>Names can take any values but cannot exceed 170 characters.</li><li>Names with only whitespace are not allowed.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `PHONE`            | `p/`   | Specifies the phone number of a guest. <br><br> **Requirements:** <ul><li>Phone numbers should be in the format `+[COUNTRY_CODE] [NUMBER]`.</li><li>The country code must be valid.</li><li>The number should be 7-15 digits long.</li></ul>                                                                                                                                                                                                                                                                                                                                                                     |
+| `EMAIL`            | `e/`   | Specifies the email of a guest. <br><br> **Requirements:** <ul><li>Emails should be of the format `local-part@domain`.</li><li>The local-part should contain only alphanumeric characters and special characters.</li><li>Domain must follow standard domain name rules with proper labels separated by periods.</li></ul>                                                                                                                                                                                                                                                                                       |
+| `ADDRESS`          | `a/`   | Specifies the address of a guest. <br><br> **Requirements:** <ul><li>Addresses can take any values.</li><li>The address should not be blank.</li><li>The address should not exceed 170 characters.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `MEMO`             | `m/`   | Specifies the memo of a guest. <br><br> **Requirements:** <ul><li>Memos can take any values.</li><li>Memos should not be null.</li><li>Memos should not exceed 170 characters.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `REQUEST`          | `r/`   | Specifies the request of a guest. <br><br> **Requirements:** <ul><li>Request can take any values.</li><li>Request cannot be empty.</li><li>Request cannot exceed 255 characters.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `BOOKING_DATE`     | `bd/`  | Specifies the booking date for searching. <br><br> **Requirements:** <ul><li>Dates must be in the format `yyyy-MM-dd` (e.g., 2025-01-01).</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `BOOKING_PROPERTY` | `bp/`  | Specifies the booking property for searching. <br><br> **Requirements:** <ul><li>Can be any valid property name or partial name.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `TAG`              | `t/`   | Specifies the tag name of a guest. <br><br> **Requirements:** <ul><li>Tags can take any values.</li><li>Tags cannot be null.</li><li>Tags cannot exceed 170 characters.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `INDEX`            | N/A    | Refers to the index number shown in the List Panel. <br><br> **Requirements:** <ul><li>Must be a positive integer.</li><li>The value must fall within the valid range (1 to number of guests in the list).</li></ul>                                                                                                                                                                                                                                                                                                                                                                                             |
+| `REQUEST_INDEX`    | `r/`   | Refers to the index number shown in the Request panel. <br><br> **Requirements:** Requirements: <ul> <li>Must be a positive integer.</li> <li>Any number greater than the valid range will not be accepted (e.g., if there are 10 requests, the valid range is from 1 to 10, and 11 or higher is invalid).</li> <li>The value must fall within the valid range of unsigned integer max number.</li> <li>Unsigned Integer Max Number: For example, this app uses 32-bit integers, the maximum value would be <strong>2,147,483,647</strong>. Any index greater than this number would not be accepted.</li> </ul> |   
 
 #### 3.3.3 Command Format:
 
@@ -273,6 +273,7 @@ To understand how a full command is interpreted, we will utilise the following e
 
 ## 4. Features
 ## 4.1 Command Summary
+                                                                                                                                                                                                                                                                                          |                                                                                                                                                                                                                                                                                                     |
 | Action                 | Format, Examples                                                                                                                                                                                                                                                                                                 |
 |------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add Guest**          | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/+82 22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`                                                                                                                                        |
@@ -289,7 +290,7 @@ To understand how a full command is interpreted, we will utilise the following e
 | **Unmark Request**     | `unmark INDEX r/REQUEST_INDEX` <br> e.g., `unmark 1 r/1`                                                                                                                                                                                                                                                               | |
 | **Delete Request**     | `deletereq INDEX r/REQUEST_INDEX` <br> e.g. `deletereq 1 r/1`                                                                                                                                                                                                                                                            |  |
 | **Memo Guest**         | `memo INDEX m/MEMO` <br/> e.g., `memo 1 m/TEST`                                                                                                                                                                                                                                                                  | |
-| **Find**               | `find KEYWORD [MORE_KEYWORDS]` or<br>`find n/NAME [MORE_NAMES]` or<br>`find p/PHONE [MORE_PHONES]` or<br>`find e/EMAIL [MORE_EMAILS]` or<br>`find a/ADDRESS [MORE_ADDRESSES]` or<br>`find t/TAG [MORE_TAGS]` or<br>`find b/DATE [MORE_DATES]`<br>e.g., `find James Jake` or `find p/9123` or `find b/2025-01-01` |
+| **Find**               |  `find [n/]KEYWORD [MORE_KEYWORDS...] \| p/KEYWORD [MORE_KEYWORDS...] \| e/KEYWORD [MORE_KEYWORDS...] \| a/KEYWORD [MORE_KEYWORDS...] \| t/KEYWORD [MORE_KEYWORDS...] \| m/KEYWORD [MORE_KEYWORDS...] \| bd/DATE [MORE_DATES...] \| bp/KEYWORD [MORE_KEYWORDS...]` <br> e.g., `find john p/879294 `                |
 | **Clear**              | `clear`                                                                                                                                                                                                                                                                                                          |
 | **Exit**               | `exit`                                                                                                                                                                                                                                                                                                           |
 | **Undo**               | `undo`                                                                                                                                                                                                                                                                                                           |
@@ -506,40 +507,50 @@ Examples:
 
 ### 4.6.1 Locating visitors: `find`
 
-Allows users to search for a contact by their name, phone, address, email, tag, or booking tag
+Allows users to search for a contact by their name, phone, address, email, tag, memo, booking date, or booking property.
 
-Format: `find [n/]KEYWORD [MORE_KEYWORDS] | p/PHONE [MORE_PHONES] | e/EMAIL [MORE_EMAILS] | a/ADDRESS [MORE_ADDRESS] | t/TAG [MORE_TAGS] | b/DATE [MORE_DATES]`
+Format: `find [n/]KEYWORD [MORE_KEYWORDS...] | p/KEYWORD [MORE_KEYWORDS...] | e/KEYWORD [MORE_KEYWORDS...] | a/KEYWORD [MORE_KEYWORDS...] | t/KEYWORD [MORE_KEYWORDS...] | m/KEYWORD [MORE_KEYWORDS...] | bd/DATE [MORE_DATES...] | bp/KEYWORD [MORE_KEYWORDS...]`
 
 #### Search Modes:
 
-| Prefix           | Field       | Description                                                             | Example                        |
-|------------------|-------------|-------------------------------------------------------------------------|--------------------------------|
-| (none) or `n/`   | Name        | Searches through contact names                                          | `find John` or `find n/John`   |
-| `p/`             | Phone       | Searches through phone numbers                                          | `find p/9123`                  |
-| `e/`             | Email       | Searches through email addresses                                        | `find e/@example.com`          |
-| `a/`             | Address     | Searches through addresses                                              | `find a/Clementi`              |
-| `t/`             | Tag         | Searches through contact tags                                           | `find t/friend`                |
-| `b/`             | Booking     | Searches for contacts with bookings that include the specified date(s)  | `find b/2025-01-01`            |
+| Prefix | Field | Description |
+|--------|------------------|----------------------------------------------|
+| (none) or `n/` | Name | Searches through contact names |
+| `p/` | Phone | Searches through phone numbers |
+| `e/` | Email | Searches through email addresses |
+| `a/` | Address | Searches through addresses |
+| `t/` | Tag | Searches through contact tags |
+| `m/` | Memo | Searches through contact memos |
+| `bd/` | Booking Date | Searches for contacts with bookings that include the specified date(s) |
+| `bp/` | Booking Property | Searches for contacts with bookings at the specified property |
 
 #### Search Behavior:
 
 * **Case-insensitive** - Search is not affected by upper or lower case (e.g., `find john` matches `John Doe`)
 * **Order-independent** - The order of keywords doesn't matter (e.g., `find Bo Hans` matches `Hans Bo`)
 * **Partial matching** - Keywords are matched partially against fields (e.g., `find Jo` matches `John`)
-* **Field-specific** - Only one search field type can be used per command
-* **Multiple keywords** - Multiple search terms can be provided for any field type. Contacts matching any keyword will be returned (e.g., `find John Jane` returns contacts with either name)
+
+* **Multiple fields**:
+  * Different search field types can be combined (e.g., `find n/John t/friend`)
+  * When multiple field types are specified, only contacts matching ANY specified fields are returned (e.g., `find n/John t/friend` returns contacts named John as well as contacts who are tagged as friend)
+
+* **Multiple keywords**:
+  * Multiple search terms can be provided for any field type
+  * When multiple keywords are provided for the same field, contacts matching ANY of those keywords are returned (e.g., `find John Jane` returns contacts with either "John" or "Jane" in their name)
 
 #### Special Notes for Booking Searches:
 
 * Dates must be in the `yyyy-MM-dd` format (e.g., `2025-01-02` for January 2, 2025)
 * A contact is matched if the specified date falls within the booking's start and end dates
 * Multiple dates can be specified to find contacts with bookings during any of those dates
+* Booking property searches match property names partially (e.g., `find bp/Beach` matches `BeachHouse`)
 
 #### Examples:
 
 **Searching by name:**
 * `find John` - Finds contacts with "John" in their name
 * `find alex david` - Finds contacts with either "alex" or "david" in their name
+* `find bob n/tom` - Finds contacts with either "bob" or "tom" in their name
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
 **Searching by phone:**
@@ -555,12 +566,24 @@ Format: `find [n/]KEYWORD [MORE_KEYWORDS] | p/PHONE [MORE_PHONES] | e/EMAIL [MOR
 * `find a/Street Avenue` - Finds contacts with either "Street" or "Avenue" in their addresses
 
 **Searching by tag:**
-* `find t/friend` - Finds contacts tagged as "friend"
-* `find t/colleague family` - Finds contacts tagged as either "colleague" or "family"
+* `find t/fri` - Finds contacts with tags containing "fri" (e.g., "friend", "friendly")
+* `find t/work col` - Finds contacts with tags containing either "work" or "col"  (e.g., "network", "colleague", "collaboration")
+
+**Searching by memo:**
+* `find m/important` - Finds contacts with "important" in their memos
+* `find m/call meeting` - Finds contacts with either "call" or "meeting" in their memos
 
 **Searching by booking date:**
-* `find b/2024-12-25` - Finds contacts with bookings that include December 25, 2024
-* `find b/2025-01-01 2025-02-14` - Finds contacts with bookings that include either January 1, 2025 or February 14, 2025
+* `find bd/2024-12-25` - Finds contacts with bookings that include December 25, 2024
+* `find bd/2025-01-01 2025-02-14` - Finds contacts with bookings that include either January 1, 2025 or February 14, 2025
+
+**Searching by booking property:**
+* `find bp/Beach` - Finds contacts with bookings at properties containing "Beach" (e.g., "BeachHouse", "SunnyBeach")
+* `find bp/Villa Resort` - Finds contacts with bookings at properties containing either "Villa" or "Resort"
+
+**Combining search fields:**
+* `find n/Jo t/fri` - Finds contacts with names containing "Jo" (e.g., "John", "Joseph") or tags containing "fri" (e.g., "friend", "friendly")
+* `find n/Jo m/import bd/2025-01` - Finds contacts with names containing "Jo", memos containing "import" (e.g., "important"), or bookings in January 2025
 
 #### Common Errors and How to Resolve Them:
 
@@ -568,6 +591,7 @@ Format: `find [n/]KEYWORD [MORE_KEYWORDS] | p/PHONE [MORE_PHONES] | e/EMAIL [MOR
 * **Invalid date format**: Booking dates must follow the `yyyy-MM-dd` format exactly
 * **No matches found**: Try using shorter or more general keywords to widen your search
 * **Invalid characters**: Make sure your search terms contain only valid characters for the search field
+* **Duplicate fields**: Each field type can only be specified once in a command (ie: `find p/8793 p/9090` will throw an error)
 
 ## 4.7 General features
 

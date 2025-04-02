@@ -51,7 +51,7 @@ public class ParserUtil {
         requireNonNull(name);
         String normalizedName = StringUtil.normalizeWhitespace(name).replace("$", "");
         if (!Name.isValidName(normalizedName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Name.getErrorMessage(name));
         }
         return new Name(normalizedName);
     }
@@ -81,7 +81,7 @@ public class ParserUtil {
         requireNonNull(address);
         String normalizedAddress = StringUtil.normalizeWhitespace(address);
         if (!Address.isValidAddress(normalizedAddress)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Address.getErrorMessage(address));
         }
         return new Address(normalizedAddress);
     }
@@ -109,8 +109,12 @@ public class ParserUtil {
     public static Memo parseMemo(String memo) throws ParseException {
         requireNonNull(memo);
         String trimmedMemo = memo.trim();
-        return new Memo(trimmedMemo);
+        if (trimmedMemo.isEmpty() || Memo.isValidMemo(trimmedMemo)) {
+            return new Memo(trimmedMemo);
+        }
+        throw new ParseException(Memo.MESSAGE_LENGTH);
     }
+
 
     /**
      * Parses a {@code String request} into a {@code request}.
