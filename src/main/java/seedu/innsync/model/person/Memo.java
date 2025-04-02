@@ -11,7 +11,7 @@ public class Memo {
 
     public static final String MESSAGE_CONSTRAINTS = "Memo names should not contain the '/' character, "
             + "and must not exceed 255 characters.";
-    public static final String VALIDATION_REGEX = "^[^/]{0,255}$";
+    public static final String VALIDATION_REGEX = "^.{0,170}$";
     public final String value;
 
     /**
