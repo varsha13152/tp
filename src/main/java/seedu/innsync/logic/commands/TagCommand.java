@@ -18,6 +18,7 @@ import seedu.innsync.model.Model;
 import seedu.innsync.model.person.Person;
 import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
+import seedu.innsync.model.tag.exceptions.DuplicateTagException;
 
 /**
  * Adds a (booking) tag into a person to the address book.
@@ -33,7 +34,7 @@ public class TagCommand extends Command {
             + PREFIX_BOOKINGTAG + "{property} from/{start-date} to/{end-date}\n"
             + "Example: " + COMMAND_WORD + " 1 t/friend b/BeachHouse from/2025-06-01 to/2025-06-10";
     public static final String MESSAGE_SUCCESS = "Tag successfully added: %s";
-    // failure only applies to booking tag
+    public static final String MESSAGE_DUPLICATE_TAG = "This contact already has this tag.";
     public static final String MESSAGE_FAILURE = "Failed to add booking tag. "
             + "The booking tag %s overlaps with an existing tag.";
 
@@ -60,22 +61,35 @@ public class TagCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(this.index.getZeroBased());
-        Person editedPerson = addTagsPerson(personToEdit, tagList, bookingTagList);
+
+        Set<Tag> modelTags = new HashSet<>();
+        for (Tag tag : tagList) {
+            modelTags.add(model.getTagElseCreate(tag));
+        }
+
+        Person editedPerson = addTagsPerson(personToEdit, bookingTagList);
 
         model.setPerson(personToEdit, editedPerson);
+
+        for (Tag tag : modelTags) {
+            try {
+                editedPerson.addTag(tag);
+            } catch (DuplicateTagException e) {
+                throw new CommandException(MESSAGE_DUPLICATE_TAG);
+            }
+        }
+
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(editedPerson)), editedPerson);
     }
 
-    private Person addTagsPerson(Person personToCopy, Set<Tag> tags, Set<BookingTag> bookingTags)
+    private Person addTagsPerson(Person personToCopy, Set<BookingTag> bookingTags)
             throws CommandException {
-        Set<Tag> updatedTags = new HashSet<>(personToCopy.getTags());
+        requireNonNull(personToCopy);
+
         Set<BookingTag> updatedBookingTags = new HashSet<>(personToCopy.getBookingTags());
 
-        for (Tag tag : tags) {
-            updatedTags.add(tag);
-        }
         for (BookingTag bookingTag : bookingTags) {
             for (BookingTag existingTag : updatedBookingTags) {
                 if (isOverlapping(existingTag, bookingTag)) {
@@ -93,7 +107,7 @@ public class TagCommand extends Command {
                 personToCopy.getMemo(),
                 personToCopy.getRequests(),
                 updatedBookingTags,
-                updatedTags,
+                personToCopy.getTags(),
                 personToCopy.getStarred());
     }
 
@@ -102,6 +116,11 @@ public class TagCommand extends Command {
      */
     private boolean isOverlapping(BookingTag tag1, BookingTag tag2) {
         return !(tag1.endDate.isBefore(tag2.startDate) || tag2.endDate.isBefore(tag1.startDate));
+    }
+
+    @Override
+    public boolean requireConfirmation() {
+        return false;
     }
 
     @Override

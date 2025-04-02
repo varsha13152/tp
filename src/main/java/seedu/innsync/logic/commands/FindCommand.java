@@ -289,6 +289,11 @@ public class FindCommand extends Command {
      * @return true if the objects are equal, false otherwise
      */
     @Override
+    public boolean requireConfirmation() {
+        return false;
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;

@@ -8,6 +8,7 @@ import static seedu.innsync.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_MEMO;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_REQUEST;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.innsync.testutil.Assert.assertThrows;
 
@@ -41,6 +42,7 @@ public class CommandTestUtil {
     public static final String VALID_MEMO_BOB = "BOB";
     public static final String VALID_REQUEST_AMY = "Need a $5000 wine everyday for AMY";
     public static final String VALID_REQUEST_BOB = "Need a $5000 wine everyday for BOB";
+    public static final String VALID_MARK_REQUEST_AMY = "1";
     public static final String VALID_BOOKINGTAG_BEACHHOUSE = "BeachHouse from/2025-06-01 to/2025-06-10";
     public static final String VALID_BOOKINGTAG_HOTEL = "Hotel from/2025-06-11 to/2025-06-15";
     public static final String VALID_TAG_HUSBAND = "husband";
@@ -56,6 +58,9 @@ public class CommandTestUtil {
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
     public static final String MEMO_DESC_AMY = " " + PREFIX_MEMO + VALID_MEMO_AMY;
     public static final String MEMO_DESC_BOB = " " + PREFIX_MEMO + VALID_MEMO_BOB;
+    public static final String REQUEST_DESC_AMY = " " + PREFIX_REQUEST + VALID_REQUEST_AMY;
+    public static final String MARK_REQUEST_DESC_AMY = " " + PREFIX_REQUEST + VALID_MARK_REQUEST_AMY;
+    public static final String REQUEST_DESC_BOB = " " + PREFIX_REQUEST + VALID_REQUEST_BOB;
     public static final String BOOKINGTAG_DESC_AMY = " " + PREFIX_BOOKINGTAG + VALID_BOOKINGTAG_BEACHHOUSE;
     public static final String BOOKINGTAG_DESC_BOB = " " + PREFIX_BOOKINGTAG + VALID_BOOKINGTAG_HOTEL;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;

@@ -1,11 +1,14 @@
 package seedu.innsync.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_REQUEST_AMY;
 import static seedu.innsync.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.innsync.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.innsync.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.innsync.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.innsync.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.ArrayList;
@@ -31,7 +34,7 @@ public class RequestCommandTest {
 
     @Test
     public void execute_validIndex_success() throws CommandException {
-        Index indexFirstPerson = Index.fromOneBased(INDEX_FIRST_PERSON.getOneBased());
+        Index indexFirstPerson = Index.fromOneBased(INDEX_SECOND_PERSON.getOneBased());
         Person firstPerson = model.getPersonList().get(indexFirstPerson.getZeroBased());
 
         List<Request> validRequests = new ArrayList<>();
@@ -77,5 +80,23 @@ public class RequestCommandTest {
 
         // different values -> returns false
         assertNotEquals(command1, command3);
+
+        // null -> returns false
+        assertFalse(command1.equals(null));
+
+        //same value -> returns true
+        assertTrue(command1.equals(command2));
+    }
+
+    @Test
+    public void toStringMethod() {
+        List<Request> firstRequestSet = new ArrayList<>();
+        firstRequestSet.add(new Request("Need a bottle of champagne every morning"));
+        firstRequestSet.add(new Request("Test1"));
+        Index targetIndex = Index.fromOneBased(1);
+        RequestCommand requestCommand = new RequestCommand(targetIndex, firstRequestSet);
+        String expected = RequestCommand.class.getCanonicalName() + "{index=" + targetIndex
+                + ", request=" + firstRequestSet.toString() + "}";
+        assertEquals(expected, requestCommand.toString());
     }
 }

@@ -5,19 +5,27 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.innsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.innsync.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.innsync.logic.commands.CommandTestUtil.BOOKINGTAG_DESC_AMY;
+import static seedu.innsync.logic.commands.CommandTestUtil.MARK_REQUEST_DESC_AMY;
 import static seedu.innsync.logic.commands.CommandTestUtil.MEMO_DESC_AMY;
+import static seedu.innsync.logic.commands.CommandTestUtil.REQUEST_DESC_AMY;
+import static seedu.innsync.logic.commands.CommandTestUtil.REQUEST_DESC_BOB;
 import static seedu.innsync.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_BOOKINGTAG_BEACHHOUSE;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_MEMO_AMY;
+import static seedu.innsync.logic.commands.CommandTestUtil.VALID_REQUEST_AMY;
+import static seedu.innsync.logic.commands.CommandTestUtil.VALID_REQUEST_BOB;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.innsync.testutil.Assert.assertThrows;
 import static seedu.innsync.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.logic.commands.AddCommand;
+import seedu.innsync.logic.commands.CancelConfirmCommand;
 import seedu.innsync.logic.commands.ClearCommand;
 import seedu.innsync.logic.commands.ConfirmCommand;
 import seedu.innsync.logic.commands.DeleteCommand;
@@ -28,7 +36,9 @@ import seedu.innsync.logic.commands.FindCommand;
 import seedu.innsync.logic.commands.HelpCommand;
 import seedu.innsync.logic.commands.ListCommand;
 import seedu.innsync.logic.commands.ListStarCommand;
+import seedu.innsync.logic.commands.MarkRequestCommand;
 import seedu.innsync.logic.commands.MemoCommand;
+import seedu.innsync.logic.commands.RequestCommand;
 import seedu.innsync.logic.commands.StarCommand;
 import seedu.innsync.logic.commands.TagCommand;
 import seedu.innsync.logic.commands.UndoCommand;
@@ -36,6 +46,7 @@ import seedu.innsync.logic.commands.UnstarCommand;
 import seedu.innsync.logic.parser.exceptions.ParseException;
 import seedu.innsync.model.person.Memo;
 import seedu.innsync.model.person.Person;
+import seedu.innsync.model.request.Request;
 import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
 import seedu.innsync.testutil.EditPersonDescriptorBuilder;
@@ -81,6 +92,21 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_request() throws Exception {
+        RequestCommand command = (RequestCommand) parser.parseCommand(RequestCommand.COMMAND_WORD
+                + " 1 " + REQUEST_DESC_AMY + REQUEST_DESC_BOB);
+        assertEquals(new RequestCommand(INDEX_FIRST_PERSON,
+                List.of(new Request(VALID_REQUEST_AMY), new Request(VALID_REQUEST_BOB))), command);
+    }
+
+    @Test
+    public void parseCommand_markRequest() throws Exception {
+        MarkRequestCommand command = (MarkRequestCommand) parser.parseCommand(MarkRequestCommand.COMMAND_WORD
+                + " 1 " + MARK_REQUEST_DESC_AMY);
+        assertEquals(new MarkRequestCommand(INDEX_FIRST_PERSON, Index.fromZeroBased(1)), command);
+    }
+
+    @Test
     public void parseCommand_listStar() throws Exception {
         assertTrue(parser.parseCommand(ListStarCommand.COMMAND_WORD) instanceof ListStarCommand);
         assertTrue(parser.parseCommand(ListStarCommand.COMMAND_WORD + " 3") instanceof ListStarCommand);
@@ -101,7 +127,11 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ConfirmCommand);
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ConfirmCommand);
+        assertTrue(parser.parseCommand("n") instanceof CancelConfirmCommand);
+        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ConfirmCommand);
+        assertTrue(parser.parseCommand("y") instanceof ClearCommand);
+        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ConfirmCommand);
+        assertTrue(parser.parseCommand("Y") instanceof ClearCommand);
     }
 
     @Test

@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.UntagCommand;
+import seedu.innsync.model.tag.Tag;
 
 public class UntagCommandParserTest {
 
@@ -18,7 +19,7 @@ public class UntagCommandParserTest {
     @Test
     public void parse_validArgs_returnsUntagCommand() {
         assertParseSuccess(parser, "1 t/" + VALID_TAG_FRIEND,
-                new UntagCommand(INDEX_FIRST_PERSON, VALID_TAG_FRIEND, ""));
+                new UntagCommand(INDEX_FIRST_PERSON, new Tag(VALID_TAG_FRIEND), ""));
     }
 
     @Test

@@ -1,5 +1,6 @@
 package seedu.innsync.model.person;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.innsync.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
@@ -17,6 +18,8 @@ import seedu.innsync.model.request.exceptions.DuplicateRequestException;
 import seedu.innsync.model.request.exceptions.RequestNotFoundException;
 import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
+import seedu.innsync.model.tag.exceptions.DuplicateTagException;
+import seedu.innsync.model.tag.exceptions.TagNotFoundException;
 
 /**
  * Represents a Person in the address book.
@@ -75,6 +78,22 @@ public class Person {
         this.starred = starred;
     }
 
+    /**
+     * Clones a person object.
+     */
+    public Person(Person personToCopy) {
+        requireNonNull(personToCopy);
+        this.name = personToCopy.getName();
+        this.phone = personToCopy.getPhone();
+        this.email = personToCopy.getEmail();
+        this.address = personToCopy.getAddress();
+        this.memo = personToCopy.getMemo();
+        this.requests.addAll(personToCopy.getRequests());
+        this.bookingTags.addAll(personToCopy.getBookingTags());
+        this.tags.addAll(personToCopy.getTags());
+        this.starred = personToCopy.getStarred();
+    }
+
     public Name getName() {
         return name;
     }
@@ -116,6 +135,43 @@ public class Person {
     }
 
     /**
+     * Adds a tag to the list of tags of the person.
+     *
+     * @param tag the tag to be added
+     */
+    public void addTag(Tag tag) throws DuplicateTagException {
+        requireAllNonNull(tag);
+        if (tags.contains(tag)) {
+            throw new DuplicateTagException();
+        }
+        tags.add(tag);
+        logger.info("Tag added to person's tag list.");
+    }
+
+    /**
+     * Removes a tag from the list of tags of the person.
+     *
+     * @param tag the tag to be removed
+     */
+    public void removeTag(Tag tag) throws TagNotFoundException {
+        requireAllNonNull(tag);
+        if (!tags.contains(tag)) {
+            logger.warning("Tag not found in person's tag list.");
+            throw new TagNotFoundException();
+        }
+        tags.remove(tag);
+        logger.info("Tag removed from person's tag list.");
+    }
+
+    /**
+     * Clears the list of tags of the person.
+     * Used in testing.
+     */
+    public void clearTags() {
+        tags.clear();
+    }
+
+    /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
      */
@@ -139,6 +195,20 @@ public class Person {
             throw new DuplicateRequestException();
         }
         requests.add(request);
+        logger.info("Request added to person's request list.");
+    }
+
+    /**
+     * Adds a request to the list of requests of the person at the specified index.
+     *
+     * @param request the tag to be added
+     */
+    public void addRequest(Request request, int index) throws DuplicateRequestException {
+        requireAllNonNull(request);
+        if (requests.contains(request)) {
+            throw new DuplicateRequestException();
+        }
+        requests.add(index, request);
         logger.info("Request added to person's request list.");
     }
 
