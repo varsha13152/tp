@@ -52,27 +52,19 @@ In this comprehensive user guide, we will take you to experience a full journey 
   - [4.4.2 Adding a tag](#4-4-2-adding-a-tag--tag)
   - [4.4.3 Untagging a booking tag](#4-4-3-untagging-a-booking-tag--untag)
   - [4.4.4 Untagging a tag](#4-4-4-untagging-a-tag--untag)
-- [4.5 Features related to request](#4-5-features-related-to-request)
-  - [4.5.1 Adding a request](#4-5-1-adding-a-request-req)
-  - [4.5.2 Marking a request](#452-marking-a-request-mark)
-  - [4.5.3 Unmarking a request](#453-unmarking-a-request-unmark)
-  - [4.5.4 Deleting a request](#454-deleting-a-request-deletereq)
-  - [4.5.5 Listing requests](#455-listing-requests-listreq)
-- [4.6 Features related to finding](#4-5-features-related-to-finding)
-  - [4.6.1 Locating a person](#4-5-1-locating-persons-find)
-- [4.7 General features](#4-6-general-features)
-  - [4.7.1 Clearing all entries](#4-6-1-clearing-all-entries--clear)
-  - [4.7.2 Exiting the program](#4-6-2-exiting-the-program--exit)
-  - [4.7.3 Undoing the last change](#4-6-3-undoing-the-last-change--undo)
-  - [4.7.4 Viewing help](#4-6-4-viewing-help--help)
-- [4.8 Saving the data](#4-7-saving-the-data)
-- [4.9 Editing the data file](#4-8-editing-the-data-file)
+- [4.5 Features related to finding](#4-5-features-related-to-finding)
+  - [4.5.1 Locating a person](#4-5-1-locating-persons-find)
+- [4.6 General features](#4-6-general-features)
+  - [4.6.1 Clearing all entries](#4-6-1-clearing-all-entries--clear)
+  - [4.6.2 Exiting the program](#4-6-2-exiting-the-program--exit)
+  - [4.6.3 Undoing the last change](#4-6-3-undoing-the-last-change--undo)
+  - [4.6.4 Viewing help](#4-6-4-viewing-help--help)
+- [4.7 Saving the data](#4-7-saving-the-data)
+- [4.8 Editing the data file](#4-8-editing-the-data-file)
 
 [5. FAQ](#5-faq)
 
 [6. Known issues](#6-known-issues)
-
-[7. Glossary](#7-glossary)
 
 --------------------------------------------------------------------------------------------------------------------
 

@@ -113,5 +113,25 @@ public class RequestTest {
         request.markAsIncomplete(); // Now, unmark it
         assertFalse(request.isCompleted()); // Verify it's unmarked
     }
-}
 
+    // Test isSameRequest()
+    @Test
+    void isSameRequest_returnsTrue() {
+        Request request = new Request(VALID_REQUEST_AMY);
+        Request sameRequest = new Request(VALID_REQUEST_AMY);
+        assertTrue(request.isSameRequest(request));
+        assertTrue(request.isSameRequest(sameRequest));
+    }
+
+    @Test
+    public void equals() {
+        Request request = new Request(VALID_REQUEST_AMY);
+        Request sameRequest = new Request(VALID_REQUEST_AMY);
+
+        // same values -> returns true
+        assertTrue(request.equals(sameRequest));
+
+        // null -> returns false
+        assertFalse(request.equals(null));
+    }
+}

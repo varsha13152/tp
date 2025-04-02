@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import seedu.innsync.commons.core.GuiSettings;
 import seedu.innsync.model.person.Person;
 import seedu.innsync.model.request.Request;
+import seedu.innsync.model.tag.Tag;
 
 /**
  * The API of the Model component.
@@ -102,9 +103,22 @@ public interface Model {
      */
     Request getRequest(Request request);
 
+    /**
+     * Gets tag from address book else adds it.
+     *
+     * @param tag the tag to be added
+     */
+    Tag getTagElseCreate(Tag tag);
+
+    /**
+     * Gets tag from address book.
+     *
+     * @return tag from address book or null if it does not exist.
+     */
+    Tag getTag(Tag tag);
+
     /** Returns an unmodifiable view of the sorted filtered person list */
     ObservableList<Person> getPersonList();
-
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
