@@ -4,8 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_REQUEST;
 import static seedu.innsync.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.List;
+
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.commons.util.ToStringBuilder;
+import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.Model;
 import seedu.innsync.model.person.Person;
@@ -57,7 +60,11 @@ public class MarkRequestCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        Person person = model.getPersonList().get(this.index.getZeroBased());
+        List<Person> lastShownList = model.getPersonList();
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+        Person person = lastShownList.get(this.index.getZeroBased());
         Request[] requests = person.getRequests().toArray(new Request[0]);
         if (this.requestIndex.getOneBased() > requests.length) {
             throw new CommandException(MESSAGE_FAILURE_INVALID_INDEX);
