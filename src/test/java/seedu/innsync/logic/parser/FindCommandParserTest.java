@@ -13,6 +13,7 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.innsync.logic.Emoticons;
 import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.FindCommand;
 import seedu.innsync.logic.commands.FindCommand.SearchType;
@@ -43,16 +44,24 @@ public class FindCommandParserTest {
     @Test
     public void parse_emptyKeywords_throwsParseException() {
         // Empty after prefix - check for correct error message from parser
-        assertParseFailure(parser, "n/", "Please enter at least one keyword after n/ when searching by name.");
-        assertParseFailure(parser, "p/", "Please enter at least one keyword after p/ when searching by phone number.");
-        assertParseFailure(parser, "e/", "Please enter at least one keyword after e/ when searching by email.");
-        assertParseFailure(parser, "a/", "Please enter at least one keyword after a/ when searching by address.");
-        assertParseFailure(parser, "t/", "Please enter at least one keyword after t/ when searching by tag.");
+        assertParseFailure(parser, "n/",
+                "Please enter at least one keyword after n/ when searching by name. " + Emoticons.ANGRY);
+        assertParseFailure(parser, "p/",
+                "Please enter at least one keyword after p/ when searching by phone number. " + Emoticons.ANGRY);
+        assertParseFailure(parser, "e/",
+                "Please enter at least one keyword after e/ when searching by email. " + Emoticons.ANGRY);
+        assertParseFailure(parser, "a/",
+                "Please enter at least one keyword after a/ when searching by address. " + Emoticons.ANGRY);
+        assertParseFailure(parser, "t/",
+                "Please enter at least one keyword after t/ when searching by tag. " + Emoticons.ANGRY);
         // New prefixes
-        assertParseFailure(parser, "m/", "Please enter at least one keyword after m/ when searching by memo.");
-        assertParseFailure(parser, "bd/", "Please enter at least one date after bd/ when searching by booking date.");
-        assertParseFailure(parser, "bp/", "Please enter at least one keyword after bp/ "
-                + "when searching by booking property.");
+        assertParseFailure(parser, "m/",
+                "Please enter at least one keyword after m/ when searching by memo. " + Emoticons.ANGRY);
+        assertParseFailure(parser, "bd/",
+                "Please enter at least one date after bd/ when searching by booking date. " + Emoticons.ANGRY);
+        assertParseFailure(parser, "bp/",
+                "Please enter at least one keyword after bp/ "
+                + "when searching by booking property. " + Emoticons.ANGRY);
     }
 
     @Test
@@ -329,7 +338,8 @@ public class FindCommandParserTest {
     public void parse_invalidPrefix_throwsParseException() {
         assertParseFailure(parser, "x/keyword",
                 "Invalid search field: 'x/'. Valid prefixes are: \n name: n/ \n phone: p/ \n email: e/ \n"
-                        + "address: a/ \n tag: t/ \n memo: m/ \n booking date: bd/ \n booking property: bp/");
+                + "address: a/ \n tag: t/ \n memo: m/ \n booking date: bd/ \n booking property: bp/ "
+                + Emoticons.ANGRY);
     }
 
     @Test
@@ -485,7 +495,8 @@ public class FindCommandParserTest {
         // No field prefix after initial non-prefix keywords
         assertParseFailure(parser, "John Jane x/invalid",
                 "Invalid search field: 'x/'. Valid prefixes are: \n name: n/ \n phone: p/ \n email: e/ \n"
-                        + "address: a/ \n tag: t/ \n memo: m/ \n booking date: bd/ \n booking property: bp/");
+                + "address: a/ \n tag: t/ \n memo: m/ \n booking date: bd/ \n booking property: bp/ "
+                + Emoticons.ANGRY);
     }
 
     @Test

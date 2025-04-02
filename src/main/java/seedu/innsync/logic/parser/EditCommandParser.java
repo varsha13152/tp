@@ -42,14 +42,6 @@ public class EditCommandParser implements Parser<EditCommand> {
                     args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
                     PREFIX_ADDRESS, PREFIX_MEMO, PREFIX_REQUEST, PREFIX_BOOKINGTAG, PREFIX_TAG);
 
-        Index index;
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(Messages.MESSAGE_PARSE_EXCEPTION,
-                    pe.getMessage(), EditCommand.MESSAGE_USAGE), pe);
-        }
-
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_MEMO);
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
@@ -82,7 +74,13 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
-
+        Index index;
+        try {
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(Messages.MESSAGE_PARSE_EXCEPTION,
+                    pe.getMessage(), EditCommand.MESSAGE_USAGE), pe);
+        }
         return new EditCommand(index, editPersonDescriptor);
     }
 

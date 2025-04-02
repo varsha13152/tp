@@ -31,6 +31,8 @@ public class TagCommandParser implements Parser<TagCommand> {
         if (!atLeastOnePrefixPresent(argMultimap, PREFIX_BOOKINGTAG, PREFIX_TAG)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
         }
+        Set<BookingTag> bookingTagList = ParserUtil.parseBookingTags(argMultimap.getAllValues(PREFIX_BOOKINGTAG));
+        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Index index;
         try {
             index = ParserUtil.parseIndex(args);
@@ -39,8 +41,6 @@ public class TagCommandParser implements Parser<TagCommand> {
                     String.format(Messages.MESSAGE_PARSE_EXCEPTION,
                             pe.getMessage(), TagCommand.MESSAGE_USAGE), pe);
         }
-        Set<BookingTag> bookingTagList = ParserUtil.parseBookingTags(argMultimap.getAllValues(PREFIX_BOOKINGTAG));
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         return new TagCommand(index, tagList, bookingTagList);
     }

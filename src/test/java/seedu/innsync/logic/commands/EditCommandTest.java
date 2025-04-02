@@ -18,7 +18,6 @@ import static seedu.innsync.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.Test;
 
 import seedu.innsync.commons.core.index.Index;
-import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.innsync.model.AddressBook;
 import seedu.innsync.model.Model;
@@ -126,7 +125,7 @@ public class EditCommandTest {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_FAILURE_INVALID_INDEX);
     }
 
     /**

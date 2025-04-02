@@ -72,9 +72,17 @@ public class MarkRequestCommandTest {
     }
 
     @Test
-    public void execute_unmarkIndexOutOfRange_failure() {
-        Index outOfBounds = Index.fromOneBased(model.getPersonList().size() + 1);
+    public void execute_markRequestIndexOutOfRange_failure() {
+        Index outOfBounds = Index.fromOneBased(model.getPersonList().get(INDEX_FIRST_PERSON.getZeroBased())
+                .getRequests().size() + 1);
         MarkRequestCommand markCommand = new MarkRequestCommand(INDEX_FIRST_PERSON, outOfBounds);
+        assertCommandFailure(markCommand, model, MarkRequestCommand.MESSAGE_FAILURE_INVALID_REQUEST_INDEX);
+    }
+
+    @Test
+    public void execute_markIndexOutOfRange_failure() {
+        Index outOfBounds = Index.fromOneBased(model.getPersonList().size() + 1);
+        MarkRequestCommand markCommand = new MarkRequestCommand(outOfBounds, INDEX_FIRST_PERSON);
         assertCommandFailure(markCommand, model, MarkRequestCommand.MESSAGE_FAILURE_INVALID_INDEX);
     }
 
