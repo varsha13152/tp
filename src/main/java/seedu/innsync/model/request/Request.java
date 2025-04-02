@@ -30,6 +30,18 @@ public class Request {
     }
 
     /**
+     * Clones a {@code Request}.
+     *
+     * @param requestToCopy A valid request.
+     */
+    public Request(Request requestToCopy) {
+        requireNonNull(requestToCopy);
+        this.requestName = requestToCopy.getRequestName();
+        this.isCompleted = requestToCopy.isCompleted();
+    }
+
+
+    /**
      * Returns true if a given string matches all validation rules.
      */
     public static boolean isValidRequest(String test) {
