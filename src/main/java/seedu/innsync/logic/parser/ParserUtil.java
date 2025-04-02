@@ -46,7 +46,7 @@ public class ParserUtil {
      */
     public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
-        String normalizedName = StringUtil.normalizeWhitespace(name);
+        String normalizedName = StringUtil.normalizeWhitespace(name).replace("$", "");
         if (!Name.isValidName(normalizedName)) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
