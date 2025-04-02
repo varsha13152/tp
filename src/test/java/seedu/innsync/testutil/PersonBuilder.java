@@ -110,6 +110,14 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code BookingTag} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withTags(Set<Tag> tags) {
+        this.tags = tags;
+        return this;
+    }
+
+    /**
      * Sets the {@code Address} of the {@code Person} that we are building.
      */
     public PersonBuilder withAddress(String address) {

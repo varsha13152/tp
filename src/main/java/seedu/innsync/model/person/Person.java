@@ -18,6 +18,8 @@ import seedu.innsync.model.request.exceptions.DuplicateRequestException;
 import seedu.innsync.model.request.exceptions.RequestNotFoundException;
 import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
+import seedu.innsync.model.tag.exceptions.DuplicateTagException;
+import seedu.innsync.model.tag.exceptions.TagNotFoundException;
 
 /**
  * Represents a Person in the address book.
@@ -130,6 +132,43 @@ public class Person {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Adds a tag to the list of tags of the person.
+     *
+     * @param tag the tag to be added
+     */
+    public void addTag(Tag tag) throws DuplicateTagException {
+        requireAllNonNull(tag);
+        if (tags.contains(tag)) {
+            throw new DuplicateTagException();
+        }
+        tags.add(tag);
+        logger.info("Tag added to person's tag list.");
+    }
+
+    /**
+     * Removes a tag from the list of tags of the person.
+     *
+     * @param tag the tag to be removed
+     */
+    public void removeTag(Tag tag) throws TagNotFoundException {
+        requireAllNonNull(tag);
+        if (!tags.contains(tag)) {
+            logger.warning("Tag not found in person's tag list.");
+            throw new TagNotFoundException();
+        }
+        tags.remove(tag);
+        logger.info("Tag removed from person's tag list.");
+    }
+
+    /**
+     * Clears the list of tags of the person.
+     * Used in testing.
+     */
+    public void clearTags() {
+        tags.clear();
     }
 
     /**
