@@ -97,6 +97,10 @@ public class RequestCommand extends Command {
                 personToCopy.getStarred());
     }
 
+    @Override
+    public boolean requireConfirmation() {
+        return false;
+    }
 
     @Override
     public boolean equals(Object other) {
