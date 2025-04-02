@@ -137,4 +137,9 @@ public class DeleteRequestCommand extends Command {
                 .add("requestIndex", requestIndex)
                 .toString();
     }
+
+    @Override
+    public boolean requireConfirmation() {
+        return false;
+    }
 }
