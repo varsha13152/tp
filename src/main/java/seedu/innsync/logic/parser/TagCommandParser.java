@@ -30,8 +30,13 @@ public class TagCommandParser implements Parser<TagCommand> {
         if (!atLeastOnePrefixPresent(argMultimap, PREFIX_BOOKINGTAG, PREFIX_TAG)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
         }
-
-        Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
+        Index index;
+        try {
+            index = ParserUtil.parseIndex(args);
+        } catch (ParseException pe) {
+            throw new ParseException(
+                    String.format("%s\n%s", pe.getMessage(), TagCommand.MESSAGE_USAGE), pe);
+        }
         Set<BookingTag> bookingTagList = ParserUtil.parseBookingTags(argMultimap.getAllValues(PREFIX_BOOKINGTAG));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 

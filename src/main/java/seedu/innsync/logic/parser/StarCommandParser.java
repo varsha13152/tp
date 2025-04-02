@@ -1,7 +1,5 @@
 package seedu.innsync.logic.parser;
 
-import static seedu.innsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.logic.commands.StarCommand;
 import seedu.innsync.logic.parser.exceptions.ParseException;
@@ -22,8 +20,7 @@ public class StarCommandParser implements Parser<StarCommand> {
             Index index = ParserUtil.parseIndex(args);
             return new StarCommand(index);
         } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, StarCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format("%s\n%s", pe.getMessage(), StarCommand.MESSAGE_USAGE), pe);
         }
     }
 

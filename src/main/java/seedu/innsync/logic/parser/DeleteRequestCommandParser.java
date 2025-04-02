@@ -29,9 +29,8 @@ public class DeleteRequestCommandParser implements Parser<DeleteRequestCommand> 
         Index contactIndex;
         try {
             contactIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (IllegalValueException ive) {
-            throw new ParseException(String.format(
-                MESSAGE_INVALID_COMMAND_FORMAT, DeleteRequestCommand.MESSAGE_USAGE), ive);
+        } catch (ParseException pe) {
+            throw new ParseException(String.format("%s\n%s", pe.getMessage(), DeleteRequestCommand.MESSAGE_USAGE), pe);
         }
 
         Index requestIndex;

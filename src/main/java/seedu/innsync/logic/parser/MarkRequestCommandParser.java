@@ -30,9 +30,8 @@ public class MarkRequestCommandParser implements Parser<MarkRequestCommand> {
         Index index;
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (IllegalValueException ive) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    MarkRequestCommand.MESSAGE_USAGE), ive);
+        } catch (ParseException pe) {
+            throw new ParseException(String.format("%s\n%s", pe.getMessage(), MarkRequestCommand.MESSAGE_USAGE), pe);
         }
 
         Index requestIndex;

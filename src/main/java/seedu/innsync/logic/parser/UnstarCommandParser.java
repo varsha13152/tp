@@ -1,7 +1,5 @@
 package seedu.innsync.logic.parser;
 
-import static seedu.innsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.logic.commands.UnstarCommand;
 import seedu.innsync.logic.parser.exceptions.ParseException;
@@ -18,12 +16,13 @@ public class UnstarCommandParser implements Parser<UnstarCommand> {
      */
     @Override
     public UnstarCommand parse(String args) throws ParseException {
+       
         try {
             Index index = ParserUtil.parseIndex(args);
             return new UnstarCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnstarCommand.MESSAGE_USAGE), pe);
+                    String.format("%s\n%s", pe.getMessage(), UnstarCommand.MESSAGE_USAGE), pe);
         }
     }
 

@@ -1,7 +1,6 @@
 package seedu.innsync.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.innsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_BOOKINGTAG;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -43,11 +42,10 @@ public class EditCommandParser implements Parser<EditCommand> {
                     PREFIX_ADDRESS, PREFIX_MEMO, PREFIX_REQUEST, PREFIX_BOOKINGTAG, PREFIX_TAG);
 
         Index index;
-
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format("%s\n%s", pe.getMessage(), EditCommand.MESSAGE_USAGE), pe);
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_MEMO);

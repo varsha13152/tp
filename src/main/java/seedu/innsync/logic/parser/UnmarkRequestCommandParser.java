@@ -7,6 +7,7 @@ import static seedu.innsync.logic.parser.CliSyntax.PREFIX_REQUEST;
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.commons.exceptions.IllegalValueException;
 import seedu.innsync.logic.commands.UnmarkRequestCommand;
+import seedu.innsync.logic.commands.UnstarCommand;
 import seedu.innsync.logic.parser.exceptions.ParseException;
 
 /**
@@ -30,9 +31,8 @@ public class UnmarkRequestCommandParser implements Parser<UnmarkRequestCommand> 
         Index index;
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (IllegalValueException ive) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    UnmarkRequestCommand.MESSAGE_USAGE), ive);
+        } catch (ParseException pe) {
+            throw new ParseException(String.format("%s\n%s", pe.getMessage(), UnmarkRequestCommand.MESSAGE_USAGE), pe);
         }
 
         Index requestIndex;
