@@ -1,10 +1,10 @@
-D---
+---
   layout: default.md
   title: "Developer Guide"
   pageNav: 3
 ---
 
-# AB-3 Developer Guide
+# InnSync Developer Guide
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -13,7 +13,7 @@ D---
 
 ## **Acknowledgements**
 
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
+{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -288,24 +288,24 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                     | I want to …​                             | So that I can…​                                       |
-|----------|--------------------------------------------|------------------------------------------|-------------------------------------------------------|
-| `* * *`  | new user                                   | see usage instructions                   | refer to instructions when I forget how to use the App |
-| `* * *`  | Airbnb host                                | list all visitors                        | see all the visitors I have added                     |
-| `* * *`  | Airbnb host                                | add a new person                         | keep track of who is visiting my property             |
-| `* * *`  | Airbnb host                                | edit a person                            | update details of a visitor                           |
-| `* * *`  | Airbnb host                                | delete a person                          | remove entries that I no longer need                  |
-| `* * *`  | Airbnb host                                | clear all visitors                       | start over with a clean slate                         |
-| `* * *`  | Airbnb host                                | find a person by name                    | quickly find a specific visior                        |
-| `* * *`  | Airbnb host                                | add a booking tag to a person by index   | quickly assign the vistor to their property           |
-| `* *`    | Airbnb host                                | filter visitors by property booked       | quickly find visitors who visited a specific property |
-| `* *`    | Airbnb host                                | filter visitors by date of stay          | quickly find vistors using specific time periods      |
-| `* *`    | meticulous Airbnb host                     | filter visitors by tag                   | quickly find visitors using personalised categories   |
-| `* *`    | Airbnb host                                | filter visitors by next upcoming booking | prepare for future bookings efficiently               |
-| `* *`    | Airbnb host                                | save person details to a file            | backup my address book                                |
-| `* *`    | Airbnb host                                | load person details from a file          | restore my address book                               |
-| `* *`    | Airbnb host                                | undo the last command                    | recover from mistakes                                 |
-| `*`      | user with many visitors in the address book| sort visitors by name                    | find visitors efficiently                             |
+| Priority   | As a …​                                     | I want to …​                             | So that I can…​                                        |
+|------------|---------------------------------------------|------------------------------------------|--------------------------------------------------------|
+| `* * *`    | new user                                    | see usage instructions                   | refer to instructions when I forget how to use the App |
+| `* * *`    | Airbnb host                                 | list all visitors                        | see all the visitors I have added                      |
+| `* * *`    | Airbnb host                                 | add a new person                         | keep track of who is visiting my property              |
+| `* * *`    | Airbnb host                                 | edit a person                            | update details of a visitor                            |
+| `* * *`    | Airbnb host                                 | delete a person                          | remove entries that I no longer need                   |
+| `* * *`    | Airbnb host                                 | clear all visitors                       | start over with a clean slate                          |
+| `* * *`    | Airbnb host                                 | find a person by name                    | quickly find a specific visior                         |
+| `* * *`    | Airbnb host                                 | add a booking tag to a person by index   | quickly assign the vistor to their property            |
+| `* *`      | Airbnb host                                 | filter visitors by property booked       | quickly find visitors who visited a specific property  |
+| `* *`      | Airbnb host                                 | filter visitors by date of stay          | quickly find vistors using specific time periods       |
+| `* *`      | meticulous Airbnb host                      | filter visitors by tag                   | quickly find visitors using personalised categories    |
+| `* *`      | Airbnb host                                 | filter visitors by next upcoming booking | prepare for future bookings efficiently                |
+| `* *`      | Airbnb host                                 | save person details to a file            | backup my address book                                 |
+| `* *`      | Airbnb host                                 | load person details from a file          | restore my address book                                |
+| `* *`      | Airbnb host                                 | undo the last command                    | recover from mistakes                                  |
+| `*`        | user with many visitors in the address book | sort visitors by name                    | find visitors efficiently                              |
 
 *{More to be added}*
 
