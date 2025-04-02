@@ -280,7 +280,7 @@ public class FindCommand extends Command {
                     String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, resultCount));
         } catch (IllegalArgumentException e) {
             logger.severe("Error executing find command: " + e.getMessage());
-            throw new CommandException(e.getMessage());
+            throw new CommandException(e.getMessage() + Emoticons.ANGRY + "\n" + MESSAGE_USAGE);
         }
     }
 

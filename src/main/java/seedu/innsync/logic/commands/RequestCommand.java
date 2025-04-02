@@ -36,7 +36,8 @@ public class RequestCommand extends Command {
             + MESSAGE_USAGE;
     public static final String MESSAGE_DUPLICATE_REQUEST = "This contact already has this request! " + Emoticons.SAD 
             + "\n" + MESSAGE_USAGE;
-    public static final String MESSAGE_DUPLICATE_REQUEST_EDIT = "This edit contains duplicate request.";
+    public static final String MESSAGE_DUPLICATE_REQUEST_EDIT = "This edit contains duplicate requests! "
+            + Emoticons.SAD + "\n" + MESSAGE_USAGE;
 
 
     private final Index index;
