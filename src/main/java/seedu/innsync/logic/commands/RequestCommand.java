@@ -24,7 +24,7 @@ import seedu.innsync.model.request.exceptions.DuplicateRequestException;
 
 public class RequestCommand extends Command {
 
-    public static final String COMMAND_WORD = "request";
+    public static final String COMMAND_WORD = "req";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds a request to the contact identified by the index number in the displayed person list.\n"
@@ -74,7 +74,7 @@ public class RequestCommand extends Command {
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(editedPerson)));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(editedPerson)), editedPerson);
     }
 
     private Person addRequestsPerson(Person personToCopy, Set<Request> modelRequests) throws CommandException {

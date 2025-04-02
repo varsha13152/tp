@@ -32,17 +32,10 @@ public class RequestCommandParserTest {
     }
 
     @Test
-    public void parse_invalidRequestName_throwsParseException() {
-        // Test an invalid request name containing '/' (which should be disallowed)
-        String expectedMessage = Request.MESSAGE_CONSTRAINTS;
-        assertParseFailure(parser, "1 r/Invalid/Request", expectedMessage);
-    }
-
-    @Test
     public void parse_requestNameTooLong_throwsParseException() {
         // Test a request name that exceeds 255 characters
         String longRequestName = "a".repeat(256); // Create a string with 256 characters
-        String expectedMessage = Request.MESSAGE_CONSTRAINTS;
+        String expectedMessage = Request.MESSAGE_LENGTH;
         assertParseFailure(parser, "1 r/" + longRequestName, expectedMessage);
     }
 

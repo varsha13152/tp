@@ -50,7 +50,7 @@ public class UnstarCommand extends Command {
         Person unstarredPerson = getUnstarredPerson(person);
         model.setPerson(person, unstarredPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(unstarredPerson)));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(unstarredPerson)), unstarredPerson);
     }
 
     private Person getUnstarredPerson(Person personToCopy) {

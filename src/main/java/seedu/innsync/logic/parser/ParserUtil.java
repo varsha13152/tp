@@ -119,7 +119,7 @@ public class ParserUtil {
         requireNonNull(request);
         String trimmedRequest = request.trim();
         if (!Request.isValidRequest(trimmedRequest)) {
-            throw new ParseException(Request.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Request.getErrorMessage(trimmedRequest));
         }
         return new Request(trimmedRequest);
     }

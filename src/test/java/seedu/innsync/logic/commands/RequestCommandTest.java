@@ -45,7 +45,7 @@ public class RequestCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
 
-        assertCommandSuccess(requestCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(requestCommand, model, expectedMessage, expectedModel, editedPerson);
     }
 
     @Test
