@@ -8,9 +8,8 @@ import static seedu.innsync.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
 public class Tag {
-
-    public static final String MESSAGE_CONSTRAINTS = "Tags names should have be of 1 to 170 characters.";
-    public static final String VALIDATION_REGEX = "\\S{1,170}";
+    public static final String MESSAGE_CONSTRAINTS = "Error: Tags names should have 1 to 170 characters.";
+    public static final String VALIDATION_REGEX = "^.{1,170}$";
 
     public final String tagName;
     private int tagCount;

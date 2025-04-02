@@ -31,6 +31,7 @@ public class RequestCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_REQUEST + "Need a bottle of champagne every morning";
     public static final String MESSAGE_SUCCESS = "Request successfully added: %s";
     public static final String MESSAGE_DUPLICATE_REQUEST = "This contact already has this request.";
+    public static final String MESSAGE_DUPLICATE_REQUEST_EDIT = "This edit contains duplicate request.";
 
     private final Index index;
     private final List<Request> requests;
@@ -78,23 +79,15 @@ public class RequestCommand extends Command {
     }
 
     private Person addRequestsPerson(Person personToCopy, List<Request> modelRequests) throws CommandException {
+        Person editedPerson = new Person(personToCopy);
         for (Request request : modelRequests) {
             try {
-                personToCopy.addRequest(request);
+                editedPerson.addRequest(request);
             } catch (DuplicateRequestException e) {
                 throw new CommandException(MESSAGE_DUPLICATE_REQUEST);
             }
         }
-        return new Person(
-                personToCopy.getName(),
-                personToCopy.getPhone(),
-                personToCopy.getEmail(),
-                personToCopy.getAddress(),
-                personToCopy.getMemo(),
-                personToCopy.getRequests(),
-                personToCopy.getBookingTags(),
-                personToCopy.getTags(),
-                personToCopy.getStarred());
+        return editedPerson;
     }
 
     @Override

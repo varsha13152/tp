@@ -21,10 +21,12 @@ import seedu.innsync.model.person.Phone;
 import seedu.innsync.model.tag.Tag;
 
 public class ParserUtilTest {
+    public static final String LONG_STRING = "A".repeat(171);
     private static final String INVALID_NAME = " ";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
+    private static final String INVALID_TAG = LONG_STRING;
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "+65 91237456";
@@ -164,7 +166,7 @@ public class ParserUtilTest {
     @Test
     public void parseTag_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseTag(null));
-    }
+    } 
 
     @Test
     public void parseTag_validValueWithoutWhitespace_returnsTag() throws Exception {

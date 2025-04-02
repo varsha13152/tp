@@ -9,15 +9,12 @@ import static seedu.innsync.commons.util.AppUtil.checkArgument;
  */
 public class Name implements Comparable<Name> {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Names should not be empty and should not start with a space. Use '$' to escape special prefixes.";
+    public static final String MESSAGE_EMPTY = "Error: Name cannot be empty.";
+    public static final String MESSAGE_LENGTH = "Error: Name cannot exceed 170 characters.";
 
+    public static final String REGEX_NOT_EMPTY = "^(?!\\s)(?=.*\\S).*$";
+    public static final String REGEX_MAX_LENGTH = "^.{1,170}$";
 
-    /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
-    public static final String VALIDATION_REGEX = "^(?!\\s)(?=.*\\S).*$";
 
     public final String fullName;
 
@@ -28,7 +25,7 @@ public class Name implements Comparable<Name> {
      */
     public Name(String name) {
         requireNonNull(name);
-        checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidName(name), getErrorMessage(name));
         fullName = name;
     }
 
@@ -36,9 +33,18 @@ public class Name implements Comparable<Name> {
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidName(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(REGEX_NOT_EMPTY) && test.matches(REGEX_MAX_LENGTH);
     }
 
+    /**
+     * Determines the specific error message based on the invalid request name.
+     */
+    public static String getErrorMessage(String test) {
+        if (!test.matches(REGEX_NOT_EMPTY)) {
+            return MESSAGE_EMPTY;
+        }
+        return MESSAGE_LENGTH;
+    }
 
     @Override
     public String toString() {

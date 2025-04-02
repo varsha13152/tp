@@ -18,12 +18,14 @@ import seedu.innsync.model.person.Name;
 import seedu.innsync.model.person.Phone;
 
 public class JsonAdaptedPersonTest {
+    public static final String LONG_STRING = "A".repeat(171);
     private static final String INVALID_NAME = "";
     private static final String INVALID_PHONE = "+651234";
-    private static final String INVALID_ADDRESS = " ";
+    private static final String INVALID_ADDRESS = "";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_REQUESTS = "";
     private static final String INVALID_BOOKING_TAG = "house";
+    private static final String INVALID_TAG = LONG_STRING;
 
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_PHONE = BENSON.getPhone().toString();
@@ -51,7 +53,7 @@ public class JsonAdaptedPersonTest {
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(INVALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_MEMO,
                         VALID_REQUESTS, VALID_BOOKING_TAGS, VALID_TAGS, false);
-        String expectedMessage = Name.MESSAGE_CONSTRAINTS;
+        String expectedMessage = Name.getErrorMessage(INVALID_NAME);
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
@@ -102,7 +104,7 @@ public class JsonAdaptedPersonTest {
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL,
                         INVALID_ADDRESS, VALID_MEMO, VALID_REQUESTS, VALID_BOOKING_TAGS, VALID_TAGS, false);
-        String expectedMessage = Address.MESSAGE_CONSTRAINTS;
+        String expectedMessage = Address.MESSAGE_EMPTY;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 

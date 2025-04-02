@@ -31,7 +31,7 @@ public class DeleteRequestCommandTest {
 
     @Test
     public void execute_validIndices_success() throws CommandException {
-        Index contactIndex = INDEX_FIRST_PERSON;
+        Index contactIndex = INDEX_SECOND_PERSON;
         Person personToEdit = model.getPersonList().get(contactIndex.getZeroBased());
 
         // Add a request to the person

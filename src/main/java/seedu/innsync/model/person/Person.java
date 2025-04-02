@@ -1,5 +1,6 @@
 package seedu.innsync.model.person;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.innsync.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
@@ -75,6 +76,22 @@ public class Person {
         this.bookingTags.addAll(bookingTags);
         this.tags.addAll(tags);
         this.starred = starred;
+    }
+
+    /**
+     * Clones a person object.
+     */
+    public Person(Person personToCopy) {
+        requireNonNull(personToCopy);
+        this.name = personToCopy.getName();
+        this.phone = personToCopy.getPhone();
+        this.email = personToCopy.getEmail();
+        this.address = personToCopy.getAddress();
+        this.memo = personToCopy.getMemo();
+        this.requests.addAll(personToCopy.getRequests());
+        this.bookingTags.addAll(personToCopy.getBookingTags());
+        this.tags.addAll(personToCopy.getTags());
+        this.starred = personToCopy.getStarred();
     }
 
     public Name getName() {
@@ -174,10 +191,28 @@ public class Person {
      */
     public void addRequest(Request request) throws DuplicateRequestException {
         requireAllNonNull(request);
-        if (requests.contains(request)) {
-            throw new DuplicateRequestException();
+        for (Request requestInPerson : requests) {
+            if (requestInPerson.isSameRequest(request)) {
+                throw new DuplicateRequestException();
+            }
         }
         requests.add(request);
+        logger.info("Request added to person's request list.");
+    }
+
+    /**
+     * Adds a request to the list of requests of the person at the specified index.
+     *
+     * @param request the tag to be added
+     */
+    public void addRequest(Request request, int index) throws DuplicateRequestException {
+        requireAllNonNull(request);
+        for (Request requestInPerson : requests) {
+            if (requestInPerson.isSameRequest(request)) {
+                throw new DuplicateRequestException();
+            }
+        }
+        requests.add(index, request);
         logger.info("Request added to person's request list.");
     }
 

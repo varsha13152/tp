@@ -9,9 +9,10 @@ import static seedu.innsync.commons.util.AppUtil.checkArgument;
  */
 public class Memo {
 
-    public static final String MESSAGE_CONSTRAINTS = "Memo names should not contain the '/' character, "
-            + "and must not exceed 255 characters.";
-    public static final String VALIDATION_REGEX = "^[^/]{0,255}$";
+
+    public static final String MESSAGE_LENGTH = "Error: Memo value must not exceed 170 characters.";
+    public static final String REGEX_MAX_LENGTH = "^.{0,170}$"; // Ensures length <= 170
+    public static final String MESSAGE_CONSTRAINTS = "Error: Memo values must not exceed 170 characters.";
     public final String value;
 
     /**
@@ -21,7 +22,7 @@ public class Memo {
      */
     public Memo(String memo) {
         requireNonNull(memo);
-        checkArgument(isValidMemo(memo), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidMemo(memo), MESSAGE_LENGTH);
         this.value = memo;
     }
 
@@ -29,8 +30,9 @@ public class Memo {
      * Returns true if a given string is a valid memo format.
      */
     public static boolean isValidMemo(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(REGEX_MAX_LENGTH);
     }
+
 
     @Override
     public String toString() {

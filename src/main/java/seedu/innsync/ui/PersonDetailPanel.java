@@ -1,6 +1,7 @@
 package seedu.innsync.ui;
 
 import java.util.Comparator;
+import java.util.List;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -15,6 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.innsync.model.person.Person;
+import seedu.innsync.model.request.Request;
 
 /**
  * Panel for displaying detailed information about a selected {@code Person}.
@@ -102,39 +104,40 @@ public class PersonDetailPanel extends UiPart<Region> {
         }
 
         // Add requests with a checkbox beside each
-        person.getRequests().stream()
-                .sorted(Comparator.comparing(request -> request.requestName))
-                .forEach(request -> {
-                    // Create a HBox for each request
-                    HBox hbox = new HBox(10);
-                    hbox.setAlignment(Pos.CENTER_LEFT);
+        List<Request> requests = person.getRequests();
+        for (int i = 0; i < requests.size(); i++) {
+            Request request = requests.get(i);
 
-                    // Create the checkbox for each request
-                    CheckBox checkBox = new CheckBox();
-                    checkBox.setId("checkbox_" + request.requestName);
-                    checkBox.setSelected(request.isCompleted());
-                    checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
-                        @Override
-                        public void changed(ObservableValue<? extends Boolean> obs,
-                                Boolean oldValue, Boolean newValue) {
-                            if (newValue == true) {
-                                request.markAsCompleted();
-                            } else {
-                                request.markAsIncomplete();
-                            }
-                        }
-                    });
+            // Create a HBox for each request
+            HBox hbox = new HBox(10);
+            hbox.setAlignment(Pos.CENTER_LEFT);
 
-                    // Create the label for each request
-                    Label requestLabel = new Label(request.requestName);
-                    requestLabel.getStyleClass().add("detail-request");
+            // Create the checkbox for each request
+            CheckBox checkBox = new CheckBox();
+            checkBox.setId("checkbox_" + request.requestName);
+            checkBox.setSelected(request.isCompleted());
+            checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+                @Override
+                public void changed(ObservableValue<? extends Boolean> obs,
+                        Boolean oldValue, Boolean newValue) {
+                    if (newValue == true) {
+                        request.markAsCompleted();
+                    } else {
+                        request.markAsIncomplete();
+                    }
+                }
+            });
 
-                    // Add the checkbox and label to the HBox
-                    hbox.getChildren().addAll(checkBox, requestLabel);
+            // Create the label for each request
+            Label requestLabel = new Label(String.format("%d. %s", i + 1, request.requestName));
+            requestLabel.getStyleClass().add("detail-request");
 
-                    // Add the HBox to the detailRequests FlowPane
-                    detailRequests.getChildren().add(hbox);
-                });
+            // Add the checkbox and label to the HBox
+            hbox.getChildren().addAll(checkBox, requestLabel);
+
+            // Add the HBox to the detailRequests FlowPane
+            detailRequests.getChildren().add(hbox);
+        }
 
         // Add tags
         person.getTags().stream()
