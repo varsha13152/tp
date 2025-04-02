@@ -10,6 +10,7 @@ import java.util.Set;
 
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.commons.util.StringUtil;
+import seedu.innsync.logic.commands.RequestCommand;
 import seedu.innsync.logic.parser.exceptions.ParseException;
 import seedu.innsync.model.person.Address;
 import seedu.innsync.model.person.Email;
@@ -19,6 +20,7 @@ import seedu.innsync.model.person.Phone;
 import seedu.innsync.model.request.Request;
 import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
+import seedu.innsync.model.tag.exceptions.DuplicateTagException;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -133,7 +135,13 @@ public class ParserUtil {
         requireNonNull(requests);
         final List<Request> requestList = new ArrayList<>();
         for (String requestName : requests) {
-            requestList.add(parseRequest(requestName));
+            Request request = parseRequest(requestName);
+            for (Request requestInList : requestList) {
+                if (requestInList.isSameRequest(request)) {
+                    throw new ParseException(RequestCommand.MESSAGE_DUPLICATE_REQUEST_EDIT);
+                }
+            }
+            requestList.add(request);
         }
         return requestList;
     }
