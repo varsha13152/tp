@@ -4,9 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_REQUEST;
 import static seedu.innsync.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.commons.util.ToStringBuilder;
@@ -34,7 +33,7 @@ public class RequestCommand extends Command {
     public static final String MESSAGE_DUPLICATE_REQUEST = "This contact already has this request.";
 
     private final Index index;
-    private final Set<Request> requests;
+    private final List<Request> requests;
 
     /**
      * Creates a {@code RequestCommand} to add a request to the specified person.
@@ -42,7 +41,7 @@ public class RequestCommand extends Command {
      * @param index The index of the person in the displayed person list.
      * @param requests The set of requests to be added to the person.
      */
-    public RequestCommand(Index index, Set<Request> requests) {
+    public RequestCommand(Index index, List<Request> requests) {
         requireNonNull(index);
         requireNonNull(requests);
         this.index = index;
@@ -58,6 +57,7 @@ public class RequestCommand extends Command {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
         List<Person> lastShownList = model.getPersonList();
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -65,7 +65,7 @@ public class RequestCommand extends Command {
 
         Person personToEdit = lastShownList.get(this.index.getZeroBased());
 
-        Set<Request> modelRequests = new HashSet<>();
+        List<Request> modelRequests = new ArrayList<>();
         for (Request request : requests) {
             modelRequests.add(model.getRequestElseCreate(request));
         }
@@ -77,7 +77,7 @@ public class RequestCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(editedPerson)), editedPerson);
     }
 
-    private Person addRequestsPerson(Person personToCopy, Set<Request> modelRequests) throws CommandException {
+    private Person addRequestsPerson(Person personToCopy, List<Request> modelRequests) throws CommandException {
         for (Request request : modelRequests) {
             try {
                 personToCopy.addRequest(request);

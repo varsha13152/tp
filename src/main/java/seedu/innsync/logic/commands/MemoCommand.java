@@ -1,5 +1,6 @@
 package seedu.innsync.logic.commands;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.innsync.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_MEMO;
 import static seedu.innsync.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -45,6 +46,7 @@ public class MemoCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
         List<Person> lastShownList = model.getPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {

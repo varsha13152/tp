@@ -15,7 +15,8 @@ public class RequestTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Request(null));
+        assertThrows(NullPointerException.class, () -> new Request((String) null));
+        assertThrows(NullPointerException.class, () -> new Request((Request) null));
     }
 
     @Test

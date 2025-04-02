@@ -118,7 +118,7 @@ public class JsonAdaptedPersonTest {
     @Test
     public void toModelType_invalidRequests_throwsIllegalValueException() {
         List<JsonAdaptedRequest> invalidRequests = new ArrayList<>(VALID_REQUESTS);
-        invalidRequests.add(new JsonAdaptedRequest(INVALID_REQUESTS));
+        invalidRequests.add(new JsonAdaptedRequest(INVALID_REQUESTS, false));
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL,
                         VALID_MEMO, VALID_ADDRESS, invalidRequests, VALID_BOOKING_TAGS, VALID_TAGS, false);

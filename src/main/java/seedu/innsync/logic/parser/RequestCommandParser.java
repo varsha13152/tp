@@ -3,7 +3,7 @@ package seedu.innsync.logic.parser;
 import static seedu.innsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_REQUEST;
 
-import java.util.Set;
+import java.util.List;
 
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.commons.exceptions.IllegalValueException;
@@ -34,7 +34,7 @@ public class RequestCommandParser implements Parser<RequestCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RequestCommand.MESSAGE_USAGE), ive);
         }
 
-        Set<Request> requestList = ParserUtil.parseRequests(argMultimap.getAllValues(PREFIX_REQUEST));
+        List<Request> requestList = ParserUtil.parseRequests(argMultimap.getAllValues(PREFIX_REQUEST));
 
         return new RequestCommand(index, requestList);
     }

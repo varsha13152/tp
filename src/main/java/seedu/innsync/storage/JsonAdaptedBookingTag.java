@@ -8,7 +8,7 @@ import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
 
 /**
- * Jackson-friendly version of {@link Tag}.
+ * Jackson-friendly version of {@link BookingTag}.
  */
 class JsonAdaptedBookingTag {
 

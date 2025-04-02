@@ -2,8 +2,10 @@ package seedu.innsync.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.innsync.commons.core.index.Index;
@@ -127,13 +129,13 @@ public class ParserUtil {
     /**
      * Parses {@code Collection<String> requests} into a {@code RequestList}.
      */
-    public static Set<Request> parseRequests(Collection<String> requests) throws ParseException {
+    public static List<Request> parseRequests(Collection<String> requests) throws ParseException {
         requireNonNull(requests);
-        final Set<Request> requestSet = new HashSet<>();
+        final List<Request> requestList = new ArrayList<>();
         for (String requestName : requests) {
-            requestSet.add(parseRequest(requestName));
+            requestList.add(parseRequest(requestName));
         }
-        return requestSet;
+        return requestList;
     }
 
 
