@@ -75,11 +75,18 @@ public class PersonBuilder {
     }
 
     /**
-     * Parses the {@code requests} into a {@code Set<Request>}
-     * and set it to the {@code Person} that we are building.
+     * Sets the {@code Request} of the {@code Person} that we are building.
      */
     public PersonBuilder withRequests(String ... requests) {
         this.requests = SampleDataUtil.getRequestSet(requests);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Request} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withRequests(Set<Request> requests) {
+        this.requests = requests;
         return this;
     }
 

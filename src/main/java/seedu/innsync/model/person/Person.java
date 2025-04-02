@@ -6,9 +6,13 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.logging.Logger;
 
+import seedu.innsync.commons.core.LogsCenter;
 import seedu.innsync.commons.util.ToStringBuilder;
 import seedu.innsync.model.request.Request;
+import seedu.innsync.model.request.exceptions.DuplicateRequestException;
+import seedu.innsync.model.request.exceptions.RequestNotFoundException;
 import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
 
@@ -17,6 +21,9 @@ import seedu.innsync.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {
+
+    // Logger
+    private static final Logger logger = LogsCenter.getLogger(Person.class);
 
     // Identity fields
     private final Name name;
@@ -117,6 +124,43 @@ public class Person {
 
         return otherPerson != null
                 && otherPerson.getName().equals(getName());
+    }
+
+    /**
+     * Adds a request to the list of requests of the person.
+     *
+     * @param request the tag to be added
+     */
+    public void addRequest(Request request) throws DuplicateRequestException {
+        requireAllNonNull(request);
+        if (requests.contains(request)) {
+            throw new DuplicateRequestException();
+        }
+        requests.add(request);
+        logger.info("Request added to person's request list.");
+    }
+
+    /**
+     * Removes a request from the list of requests of the person.
+     *
+     * @param request the tag to be removed
+     */
+    public void removeRequest(Request request) {
+        requireAllNonNull(request);
+        if (!requests.contains(request)) {
+            logger.warning("Request not found in person's request list.");
+            throw new RequestNotFoundException();
+        }
+        requests.remove(request);
+        logger.info("Request removed from person's request list.");
+    }
+
+    /**
+     * Clears the list of requests of the person.
+     * Used in testing.
+     */
+    public void clearRequests() {
+        requests.clear();
     }
 
     /**
