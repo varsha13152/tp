@@ -1,6 +1,7 @@
 package seedu.innsync.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static java.util.Objects.requireNonNullElse;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_BOOKINGTAG;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.innsync.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -17,6 +18,7 @@ import seedu.innsync.model.Model;
 import seedu.innsync.model.person.Person;
 import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
+import seedu.innsync.model.tag.exceptions.TagNotFoundException;
 
 /**
  * Removes a tag from a contact in the addressbook
@@ -34,7 +36,7 @@ public class UntagCommand extends Command {
     public static final String MESSAGE_FAILURE_BOOKINGTAG = "Contact does not have the booking tag!: %s";
 
     private final Index index;
-    private final String tag;
+    private final Tag tag;
     private final String bookingTag;
 
     /**
@@ -43,11 +45,13 @@ public class UntagCommand extends Command {
      * @param bookingTag to be removed from the contact
      *
      */
-    public UntagCommand(Index index, String tag, String bookingTag) {
+    public UntagCommand(Index index, Tag tag, String bookingTag) {
         requireNonNull(index);
         this.index = index;
-        this.tag = requireNonNull(tag);
-        this.bookingTag = requireNonNull(bookingTag);
+        this.tag = tag;
+        this.bookingTag = bookingTag;
+
+        assert tag != null || bookingTag != null : "Either tag or bookingTag must be present";
     }
 
     @Override
@@ -58,35 +62,40 @@ public class UntagCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = removeTagsPerson(personToEdit, tag, bookingTag);
+        Tag modelTag = null;
+        if (tag != null) {
+            modelTag = model.getTag(tag);
+            if (modelTag == null) {
+                throw new CommandException(String.format(MESSAGE_FAILURE_TAG, tag));
+            }
+        }
+        Person editedPerson = removeTagsPerson(personToEdit, modelTag, bookingTag);
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(editedPerson)), editedPerson);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, requireNonNullElse(tag, bookingTag)), editedPerson);
     }
 
     /**
      * Removes the tag from the person
      * @param personToCopy the person to have its tag remove
      * @param toRemoveBookingTag the bookingTag to be removed
-     * @param toRemoveTag the tag to be removed
      * @return the person with the tags or bookingTags removed
      */
-    public static Person removeTagsPerson(Person personToCopy,
-                                          String toRemoveTag, String toRemoveBookingTag)
+    public static Person removeTagsPerson(Person personToCopy, Tag toRemoveTag, String toRemoveBookingTag)
             throws CommandException {
-        Set<Tag> tagList = new HashSet<>(personToCopy.getTags());
         Set<BookingTag> bookingTagList = new HashSet<>(personToCopy.getBookingTags());
 
-        if (!toRemoveTag.isEmpty()) {
-            Tag tagToRemove = new Tag(toRemoveTag);
-            if (!tagList.contains(tagToRemove)) {
+        if (toRemoveTag != null) {
+            try {
+                personToCopy.removeTag(toRemoveTag);
+            } catch (TagNotFoundException e) {
                 throw new CommandException(String.format(MESSAGE_FAILURE_TAG, toRemoveTag));
-            } else {
-                tagList.remove(tagToRemove);
             }
-        } else {
+        }
+
+        if (toRemoveBookingTag != null && !toRemoveBookingTag.isEmpty()) {
             BookingTag bookingTagToRemove = null;
             boolean found = false;
             for (BookingTag existingTag : bookingTagList) {
@@ -111,7 +120,7 @@ public class UntagCommand extends Command {
                 personToCopy.getMemo(),
                 personToCopy.getRequests(),
                 bookingTagList,
-                tagList,
+                personToCopy.getTags(),
                 personToCopy.getStarred());
     }
 

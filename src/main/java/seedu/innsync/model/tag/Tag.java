@@ -13,6 +13,7 @@ public class Tag {
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
     public final String tagName;
+    private int tagCount;
 
     /**
      * Constructs a {@code Tag}.
@@ -23,6 +24,7 @@ public class Tag {
         requireNonNull(tagName);
         checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
         this.tagName = tagName;
+        this.tagCount = 0;
     }
 
     /**
@@ -30,6 +32,26 @@ public class Tag {
      */
     public static boolean isValidTagName(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    public String getTagName() {
+        return tagName;
+    }
+
+    public int getTagCount() {
+        return tagCount;
+    }
+
+    public void addTagCount() {
+        tagCount++;
+    }
+
+    public void removeTagCount() {
+        tagCount--;
+    }
+
+    public boolean isInUse() {
+        return tagCount > 0;
     }
 
     @Override
@@ -56,7 +78,6 @@ public class Tag {
      * Format state as text for viewing.
      */
     public String toString() {
-        return '[' + tagName + ']';
+        return tagName;
     }
-
 }
