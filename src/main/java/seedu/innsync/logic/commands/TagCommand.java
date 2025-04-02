@@ -67,27 +67,29 @@ public class TagCommand extends Command {
             modelTags.add(model.getTagElseCreate(tag));
         }
 
-        Person editedPerson = addTagsPerson(personToEdit, modelTags, bookingTagList);
+        Person editedPerson = addTagsPerson(personToEdit, bookingTagList);
 
         model.setPerson(personToEdit, editedPerson);
+
+        for (Tag tag : modelTags) {
+            try {
+                editedPerson.addTag(tag);
+            } catch (DuplicateTagException e) {
+                throw new CommandException(MESSAGE_DUPLICATE_TAG);
+            }
+        }
+
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(editedPerson)), editedPerson);
     }
 
-    private Person addTagsPerson(Person personToCopy, Set<Tag> tags, Set<BookingTag> bookingTags)
+    private Person addTagsPerson(Person personToCopy, Set<BookingTag> bookingTags)
             throws CommandException {
         requireNonNull(personToCopy);
 
         Set<BookingTag> updatedBookingTags = new HashSet<>(personToCopy.getBookingTags());
 
-        for (Tag tag : tags) {
-            try {
-                personToCopy.addTag(tag);
-            } catch (DuplicateTagException e) {
-                throw new CommandException(MESSAGE_DUPLICATE_TAG);
-            }
-        }
         for (BookingTag bookingTag : bookingTags) {
             for (BookingTag existingTag : updatedBookingTags) {
                 if (isOverlapping(existingTag, bookingTag)) {

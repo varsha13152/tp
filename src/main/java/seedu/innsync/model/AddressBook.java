@@ -3,10 +3,10 @@ package seedu.innsync.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
-// import java.util.logging.Logger;
+import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-// import seedu.innsync.commons.core.LogsCenter;
+import seedu.innsync.commons.core.LogsCenter;
 import seedu.innsync.commons.util.ToStringBuilder;
 import seedu.innsync.model.person.Person;
 import seedu.innsync.model.person.UniquePersonList;
@@ -22,7 +22,7 @@ import seedu.innsync.model.tag.UniqueTagList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     // Logger
-    // private static final Logger logger = LogsCenter.getLogger(AddressBook.class);
+    private static final Logger logger = LogsCenter.getLogger(AddressBook.class);
 
     private final UniquePersonList persons;
     private final UniqueRequestList requests;
@@ -85,6 +85,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
         setRequests(newData.getRequestList());
         setTags(newData.getTagList());
+
+        logger.info("Address book backed up");
     }
 
     //// person-level operations
@@ -200,10 +202,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(tag);
         Tag existingTag = tags.getTag(tag);
         if (existingTag != null) {
+            logger.info("Existing tag found: " + existingTag);
             return existingTag;
         } else {
             Tag newTag = new Tag(tag.getTagName());
             tags.add(newTag);
+            logger.info("New tag created: " + newTag);
             return newTag;
         }
     }
