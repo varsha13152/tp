@@ -83,6 +83,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
+        this.backupAddressBook.resetData(this.addressBook);
         this.addressBook.resetData(addressBook);
     }
 
