@@ -38,22 +38,22 @@ In this comprehensive user guide, we will take you to experience a full journey 
 
 [4. Features](#4-features)
 - [4.1 Command Summary](#4-0-command-summary)
-- [4.2 Features related to person](#4-2-features-related-to-person)
-  - [4.2.1 Adding a person](#4-2-1-adding-a-person-add)
-  - [4.2.2 Editing a person](#4-2-2-editing-a-person--edit)
-  - [4.2.3 Listing all persons](#4-2-3-listing-all-persons--list)
-  - [4.2.4 Deleting a person](#4-2-4-deleting-a-person--delete)
-- [4.3 Features related to star a person](#4-3-features-related-to-star-a-person)
-  - [4.3.1 Star a person](#4-3-1-star-a-person--star)
-  - [4.3.2 Unstar a person](#4-3-2-unstar-a-person--unstar)
-  - [4.3.4 Listing all starred persons](#4-3-3-listing-all-starred-persons--liststar)
-- [4.4 Features related to tag a person](#4-4-features-related-to-tag-a-person)
+- [4.2 Features related to guest](#4-2-features-related-to-guest)
+  - [4.2.1 Adding a guest](#4-2-1-adding-a-guest-add)
+  - [4.2.2 Editing a guest](#4-2-2-editing-a-guest--edit)
+  - [4.2.3 Listing all guest](#4-2-3-listing-all-guests--list)
+  - [4.2.4 Deleting a guest](#4-2-4-deleting-a-guest--delete)
+- [4.3 Features related to star a guest](#4-3-features-related-to-star-a-guest)
+  - [4.3.1 Star a guest](#4-3-1-star-a-guest--star)
+  - [4.3.2 Unstar a guest](#4-3-2-unstar-a-guest--unstar)
+  - [4.3.4 Listing all starred guests](#4-3-3-listing-all-starred-guests--liststar)
+- [4.4 Features related to tag a guest](#4-4-features-related-to-tag-a-guest)
   - [4.4.1 Adding a booking tag](#4-4-1-adding-a-booking-tag--tag)
   - [4.4.2 Adding a tag](#4-4-2-adding-a-tag--tag)
   - [4.4.3 Untagging a booking tag](#4-4-3-untagging-a-booking-tag--untag)
   - [4.4.4 Untagging a tag](#4-4-4-untagging-a-tag--untag)
 - [4.5 Features related to finding](#4-5-features-related-to-finding)
-  - [4.5.1 Locating a person](#4-5-1-locating-persons-find)
+  - [4.5.1 Locating a guest](#4-5-1-locating-guests-find)
 - [4.6 General features](#4-6-general-features)
   - [4.6.1 Clearing all entries](#4-6-1-clearing-all-entries--clear)
   - [4.6.2 Exiting the program](#4-6-2-exiting-the-program--exit)
@@ -294,155 +294,155 @@ To understand how a full command is interpreted, we will utilise the following e
 | **Undo**               | `undo`                                                                                                                                                                                                                                                                                                           |
 | **Help**               | `help`                                                                                                                                                                                                                                                                                                           |
 
-## 4.2 Features related to person
+## 4.2 Features related to guest
 
-### 4.2.1 Adding a person: `add`
+### 4.2.1 Adding a guest: `add`
 
-Adds a person to the address book.
+Adds a guest to the address book.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 
 <box type="tip" seamless>
 
-**Tip:** A person can have any number of tags (including 0)
+**Tip:** A guest can have any number of tags (including 0)
 </box>
 
 Examples:
 * `add n/John Doe p/+65 98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/+65 1234567 t/criminal`
 
-### 4.2.2 Editing a person : `edit`
+### 4.2.2 Editing a guest : `edit`
 
-Edits an existing person in the address book.
+Edits an existing guest in the address book.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [b/BOOKING_TAG]…​ [t/TAG]…​`
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the guest at the specified `INDEX`. The index refers to the index number shown in the displayed guest list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
+* When editing tags, the existing tags of the guest will be removed i.e adding of tags is not cumulative.
+* You can remove all the guest’s tags by typing `t/` without
   specifying any tags after it.
-* You can remove all the person’s booking tags by typing `b/` without
+* You can remove all the guest’s booking tags by typing `b/` without
   specifying any booking tags after it.
 
 Examples:
-*  `edit 1 p/+65 91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `+65 91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-*  `edit 2 n/Betsy Crower b/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing booking tags.
+*  `edit 1 p/+65 91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st guest to be `+65 91234567` and `johndoe@example.com` respectively.
+*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd guest to be `Betsy Crower` and clears all existing tags.
+*  `edit 2 n/Betsy Crower b/` Edits the name of the 2nd guest to be `Betsy Crower` and clears all existing booking tags.
 
 
-### 4.2.3 Listing all persons : `list`
+### 4.2.3 Listing all guests : `list`
 
-Shows a list of all persons in the address book.
+Shows a list of all guests in the address book.
 
 Format: `list`
 
-### 4.2.4 Deleting a person : `delete`
+### 4.2.4 Deleting a guest : `delete`
 
-Deletes the specified person from the address book.
+Deletes the specified guest from the address book.
 
 Format: `delete INDEX`
 
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the guest at the specified `INDEX`.
+* The index refers to the index number shown in the displayed guest list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+* `list` followed by `delete 2` deletes the 2nd guest in the address book.
+* `find Betsy` followed by `delete 1` deletes the 1st guest in the results of the `find` command.
 
-## 4.3 Features related to star a person
+## 4.3 Features related to star a guest
 
-### 4.3.1 Star a person : `star`
+### 4.3.1 Star a guest : `star`
 
-Stars a person in the address book.
+Stars a guest in the address book.
 
 Format: `star INDEX`
 
-### 4.3.2 Unstar a person : `unstar`
+### 4.3.2 Unstar a guest : `unstar`
 
-Unstar a starred person in the address book.
+Unstar a starred guest in the address book.
 
 Format: `unstar INDEX`
 
-### 4.3.3 Listing all starred persons : `liststar`
+### 4.3.3 Listing all starred guests : `liststar`
 
-Shows a list of all starred persons in the address book.
+Shows a list of all starred guests in the address book.
 
 Format: `liststar`
 
-## 4.4 Features related to tag a person
+## 4.4 Features related to tag a guest
 
 ### 4.4.1 Adding a booking tag : `tag`
 
-Adds a booking tag into the person in the address book.
+Adds a booking tag into the guest in the address book.
 
 Format: `tag INDEX b/{property} {from/yyyy-MM-dd} {to/yyyy-MM-dd}`
 
-* Adds the booking tag to the person specified by 'INDEX'. The index refers to the index number shown in the displayed person LIST. The index **must be a positive integer**
+* Adds the booking tag to the guest specified by 'INDEX'. The index refers to the index number shown in the displayed guest LIST. The index **must be a positive integer**
 * All the fields must be provided.
 * The date format has to be exactly the same "yyyy-MM-dd".
 * When adding a new booking tag the new booking tag will be appended to the previous booking tags if they exist.
-* When adding a booking tag for a time interval that has already occurred for the person, it will be rejected.
+* When adding a booking tag for a time interval that has already occurred for the guest, it will be rejected.
 
 Examples:
-* `tag 1 b/Hotel from/2025-10-10 to/2025-10-11` Adds the booking tag to the 1st person on the list.
+* `tag 1 b/Hotel from/2025-10-10 to/2025-10-11` Adds the booking tag to the 1st guest on the list.
 
 ### 4.4.2 Adding a tag : `tag`
 
-Adds a tag into the person in the address book.
+Adds a tag into the guest in the address book.
 
 Format: `tag INDEX t/TAG`
 
-* Adds the tag to the person specified by 'INDEX'. The index refers to the index number shown in the displayed person LIST. The index **must be a positive integer**
+* Adds the tag to the guest specified by 'INDEX'. The index refers to the index number shown in the displayed guest LIST. The index **must be a positive integer**
 * All the fields must be provided.
 * When adding a tag the new tag will be appended to the previous tags if they exist.
 
 Examples:
-* `tag 1 t/friend` Adds the tag to the 1st person on the list.
+* `tag 1 t/friend` Adds the tag to the 1st guest on the list.
 
 ### 4.4.3 Untagging a booking tag : `untag`
 
-Removes a booking tag on the 1st person in the address book.
+Removes a booking tag on the 1st guest in the address book.
 
 Format: `untag INDEX b/{property} {from/yyyy-MM-dd} {to/yyyy-MM-dd}`
 
-* Removes a booking tag to the person specified by 'INDEX'. The index refers to the index number shown in the displayed person LIST. The index **must be a positive integer**
+* Removes a booking tag to the guest specified by 'INDEX'. The index refers to the index number shown in the displayed guest LIST. The index **must be a positive integer**
 * All the fields must be provided.
 * The date format has to be exactly the same "yyyy-MM-dd".
 * When removing a booking tag the booking tag will be removed
 
 Examples:
-* `untag 1 b/Hotel from/2025-10-10 to/2025-10-11` Removes the booking tag with matching booking tag on the 1st person in the list.
+* `untag 1 b/Hotel from/2025-10-10 to/2025-10-11` Removes the booking tag with matching booking tag on the 1st guest in the list.
 
 ### 4.4.4 Untagging a tag : `untag`
 
-Removes a tag on the 1st person in the address book.
+Removes a tag on the 1st guest in the address book.
 
 Format: `untag INDEX t/TAG`
 
-* Removes a tag to the person specified by 'INDEX'. The index refers to the index number shown in the displayed person LIST. The index **must be a positive integer**
+* Removes a tag to the guest specified by 'INDEX'. The index refers to the index number shown in the displayed guest LIST. The index **must be a positive integer**
 * All the fields must be provided.
 * When removing a tag the matching tag will be removed
 
 Examples:
-* `untag 1 t/friend` Removes the tag with matching tag on the 1st person in the list.
+* `untag 1 t/friend` Removes the tag with matching tag on the 1st guest in the list.
 
 ## 4.5 Features related to request
 
 ### 4.5.1 Adding a request: `req`
 
-Adds a request into the person in the address book.
+Adds a request into the guest in the address book.
 
 Format: `req INDEX r/REQUEST`
 
-* Adds the req to the person specified by 'INDEX'. The index refers to the index number shown in the displayed person LIST. The index **must be a positive integer**
+* Adds the req to the perguestson specified by 'INDEX'. The index refers to the index number shown in the displayed guest LIST. The index **must be a positive integer**
 * All the fields must be provided.
 * When adding a request the new request will be appended to the previous tags if they exist.
 
 Examples:
-* `req 1 r/Want banana` Adds the request to the 1st person on the list.
+* `req 1 r/Want banana` Adds the request to the 1st guest on the list.
 
 ### 4.5.2 Marking a request: `mark`
 
@@ -452,17 +452,17 @@ Examples:
 
 ### 4.5.5 Listing requests: `listreq`
 
-## 4.6 Memo a person : `memo`
+## 4.6 Memo a guest : `memo`
 
-Add a memo into the person in the address book.
+Add a memo into the guest in the address book.
 
 Format: `memo INDEX m/MEMO`
 
-* Adds the memo to the person specified by 'INDEX'. The index refers to the index number shown in the displayed person LIST. The index **must be a positive integer**
+* Adds the memo to the guest specified by 'INDEX'. The index refers to the index number shown in the displayed guest LIST. The index **must be a positive integer**
 * All the fields must be provided.
 
 Examples:
-* `memo 1 m/recurring customer` Adds the memo to the 1st person on the list.
+* `memo 1 m/recurring customer` Adds the memo to the 1st guest on the list.
 
 > **Tip:** You can remove memo with memo intead of edit!
 >
@@ -470,7 +470,7 @@ Examples:
 
 ## 4.6 Features related to finding
 
-### 4.6.1 Locating persons: `find`
+### 4.6.1 Locating guests: `find`
 
 Allows users to search for a contact by their name, phone, address, email, tag, booking tag
 
