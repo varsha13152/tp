@@ -7,6 +7,10 @@
     "address" : "123, Jurong West Ave 6, #08-111",
     "memo" : "long term stay.",
     "starred": false,
+    "requests": [ {
+      "requestName" : "Need a $5000 wine everyday for AMY",
+      "isCompleted" : false
+    } ],
     "bookingTags" : [ ],
     "tags" : [ "friends" ]
   }, {
@@ -16,6 +20,7 @@
     "address" : "311, Clementi Ave 2, #02-25",
     "memo" : "Wants extra food",
     "starred": false,
+    "requests": [ ],
     "bookingTags" : [ ],
     "tags" : [ "owesMoney", "friends" ]
   }, {
@@ -25,6 +30,7 @@
     "address" : "wall street",
     "memo" : "",
     "starred": false,
+    "requests": [ ],
     "bookingTags" : [ ],
     "tags" : [ ]
   }, {
@@ -34,6 +40,7 @@
     "address" : "10th street",
     "memo" : "",
     "starred": false,
+    "requests": [ ],
     "bookingTags" : [ ],
     "tags" : [ "friends" ]
   }, {
@@ -43,6 +50,7 @@
     "address" : "michegan ave",
     "memo" : "",
     "starred": false,
+    "requests": [ ],
     "bookingTags" : [ ],
     "tags" : [ ]
   }, {
@@ -52,6 +60,7 @@
     "address" : "little tokyo",
     "memo" : "",
     "starred": false,
+    "requests": [ ],
     "bookingTags" : [ ],
     "tags" : [ ]
   }, {
@@ -61,6 +70,7 @@
     "address" : "4th street",
     "memo" : "",
     "starred": false,
+    "requests": [ ],
     "bookingTags" : ["BeachHouse from/2025-06-01 to/2025-06-10"],
     "tags" : [ ]
   } ]

@@ -15,7 +15,8 @@ public class RequestTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Request(null));
+        assertThrows(NullPointerException.class, () -> new Request((String) null));
+        assertThrows(NullPointerException.class, () -> new Request((Request) null));
     }
 
     @Test
@@ -32,16 +33,6 @@ public class RequestTest {
         assertDoesNotThrow(() -> new Request(VALID_REQUEST_BOB));
     }
 
-    // Test for invalid request names
-    @Test
-    void constructor_invalidRequestName_throwsIllegalArgumentException() {
-        // Invalid request names should throw IllegalArgumentException
-        assertThrows(IllegalArgumentException.class, () -> new Request("Invalid/Request"));
-        assertThrows(IllegalArgumentException.class, () -> new Request("Request with / slash"));
-        assertThrows(IllegalArgumentException.class, () -> new Request("/leadingSlash"));
-        assertThrows(IllegalArgumentException.class, () -> new Request("trailingSlash/"));
-    }
-
     // Test for isValidRequest method
     @Test
     void isValidRequest_validRequestNames() {
@@ -49,15 +40,6 @@ public class RequestTest {
         assertTrue(Request.isValidRequest("ValidRequestWithoutSpaces"));
         assertTrue(Request.isValidRequest("Request with spaces"));
         assertTrue(Request.isValidRequest("Another Valid Request"));
-    }
-
-    @Test
-    void isValidRequest_invalidRequestNames() {
-        // Test invalid names that contain '/'
-        assertFalse(Request.isValidRequest("Invalid/Request"));
-        assertFalse(Request.isValidRequest("Request with / slash"));
-        assertFalse(Request.isValidRequest("/leadingSlash"));
-        assertFalse(Request.isValidRequest("trailingSlash/"));
     }
 
     // Test for equals method

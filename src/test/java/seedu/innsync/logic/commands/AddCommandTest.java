@@ -23,6 +23,7 @@ import seedu.innsync.model.Model;
 import seedu.innsync.model.ReadOnlyAddressBook;
 import seedu.innsync.model.ReadOnlyUserPrefs;
 import seedu.innsync.model.person.Person;
+import seedu.innsync.model.request.Request;
 import seedu.innsync.model.tag.Tag;
 import seedu.innsync.testutil.PersonBuilder;
 
@@ -151,6 +152,16 @@ public class AddCommandTest {
 
         @Override
         public boolean revertToLastModified() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Request getRequestElseCreate(Request request) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Request getRequest(Request request) {
             throw new AssertionError("This method should not be called.");
         }
 

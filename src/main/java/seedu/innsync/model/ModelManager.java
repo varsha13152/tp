@@ -11,10 +11,10 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import seedu.innsync.commons.core.GuiSettings;
 import seedu.innsync.commons.core.LogsCenter;
 import seedu.innsync.model.person.Person;
+import seedu.innsync.model.request.Request;
 import seedu.innsync.model.tag.Tag;
 
 /**
@@ -85,6 +85,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
+        this.backupAddressBook.resetData(this.addressBook);
         this.addressBook.resetData(addressBook);
     }
 
@@ -141,10 +142,25 @@ public class ModelManager implements Model {
         requireNonNull(tag);
         return this.addressBook.getTag(tag);
     }
+  
+    @Override
+    public Request getRequest(Request request) {
+        requireNonNull(request);
+        return this.addressBook.getRequest(request);
+    }
 
     public void setTags(List<Tag> tags) {
         requireNonNull(tags);
         this.addressBook.setTags(tags);
+  
+    public Request getRequestElseCreate(Request request) {
+        requireNonNull(request);
+        return this.addressBook.getRequestElseCreate(request);
+    }
+
+    public void setRequests(List<Request> requests) {
+        requireNonNull(requests);
+        this.addressBook.setRequests(requests);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -172,9 +188,7 @@ public class ModelManager implements Model {
      */
     private ObservableList<Person> getSortedFilteredPersonList(Comparator<Person> comparator) {
         ObservableList<Person> filteredList = getFilteredPersonList();
-        SortedList<Person> sortedList = new SortedList<>(filteredList);
-        sortedList.setComparator(comparator);
-        return sortedList;
+        return filteredList.sorted(comparator);
     }
 
     @Override

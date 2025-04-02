@@ -11,6 +11,7 @@ import static seedu.innsync.logic.parser.CliSyntax.PREFIX_REQUEST;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.innsync.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -110,7 +111,7 @@ public class EditCommand extends Command {
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Memo updatedMemo = editPersonDescriptor.getMemo().orElse(personToEdit.getMemo());
-        Set<Request> updatedRequestList =
+        List<Request> updatedRequestList =
                 editPersonDescriptor.getRequests().orElse(personToEdit.getRequests());
         Set<BookingTag> updatedBookingTags =
             editPersonDescriptor.getBookingTags().orElse(personToEdit.getBookingTags());
@@ -154,7 +155,7 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Memo memo;
-        private Set<Request> requests;
+        private List<Request> requests;
         private Set<BookingTag> bookingTags;
         private Set<Tag> tags;
 
@@ -222,12 +223,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(memo);
         }
 
-        public void setRequests(Set<Request> requests) {
-            this.requests = (requests != null) ? new HashSet<>(requests) : null;
+        public void setRequests(List<Request> requests) {
+            this.requests = (requests != null) ? new ArrayList<>(requests) : null;
         }
 
-        public Optional<Set<Request>> getRequests() {
-            return (requests != null) ? Optional.of(Collections.unmodifiableSet(requests)) : Optional.empty();
+        public Optional<List<Request>> getRequests() {
+            return (requests != null) ? Optional.of(Collections.unmodifiableList(requests)) : Optional.empty();
         }
 
         public void setBookingTags(Set<BookingTag> bookingTags) {
@@ -272,6 +273,7 @@ public class EditCommand extends Command {
                     && Objects.equals(email, otherEditPersonDescriptor.email)
                     && Objects.equals(address, otherEditPersonDescriptor.address)
                     && Objects.equals(memo, otherEditPersonDescriptor.memo)
+                    && Objects.equals(requests, otherEditPersonDescriptor.requests)
                     && Objects.equals(bookingTags, otherEditPersonDescriptor.bookingTags)
                     && Objects.equals(tags, otherEditPersonDescriptor.tags);
         }
@@ -284,6 +286,7 @@ public class EditCommand extends Command {
                     .add("email", email)
                     .add("address", address)
                     .add("memo", memo)
+                    .add("requests", requests)
                     .add("bookingTags", bookingTags)
                     .add("tags", tags)
                     .toString();

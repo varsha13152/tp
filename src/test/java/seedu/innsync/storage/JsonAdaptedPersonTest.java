@@ -18,11 +18,11 @@ import seedu.innsync.model.person.Name;
 import seedu.innsync.model.person.Phone;
 
 public class JsonAdaptedPersonTest {
-    private static final String INVALID_NAME = "R@chel";
+    private static final String INVALID_NAME = "";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
-    private static final String INVALID_REQUESTS = "/friend";
+    private static final String INVALID_REQUESTS = "";
     private static final String INVALID_BOOKING_TAG = "house";
     private static final String INVALID_TAG = "#friend";
 
@@ -118,7 +118,7 @@ public class JsonAdaptedPersonTest {
     @Test
     public void toModelType_invalidRequests_throwsIllegalValueException() {
         List<JsonAdaptedRequest> invalidRequests = new ArrayList<>(VALID_REQUESTS);
-        invalidRequests.add(new JsonAdaptedRequest(INVALID_REQUESTS));
+        invalidRequests.add(new JsonAdaptedRequest(INVALID_REQUESTS, false));
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL,
                         VALID_MEMO, VALID_ADDRESS, invalidRequests, VALID_BOOKING_TAGS, VALID_TAGS, false);

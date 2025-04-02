@@ -2,8 +2,10 @@ package seedu.innsync.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.innsync.commons.core.index.Index;
@@ -46,7 +48,7 @@ public class ParserUtil {
      */
     public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
-        String normalizedName = StringUtil.normalizeWhitespace(name);
+        String normalizedName = StringUtil.normalizeWhitespace(name).replace("$", "");
         if (!Name.isValidName(normalizedName)) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
@@ -119,7 +121,7 @@ public class ParserUtil {
         requireNonNull(request);
         String trimmedRequest = request.trim();
         if (!Request.isValidRequest(trimmedRequest)) {
-            throw new ParseException(Request.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Request.getErrorMessage(trimmedRequest));
         }
         return new Request(trimmedRequest);
     }
@@ -127,13 +129,13 @@ public class ParserUtil {
     /**
      * Parses {@code Collection<String> requests} into a {@code RequestList}.
      */
-    public static Set<Request> parseRequests(Collection<String> requests) throws ParseException {
+    public static List<Request> parseRequests(Collection<String> requests) throws ParseException {
         requireNonNull(requests);
-        final Set<Request> requestSet = new HashSet<>();
+        final List<Request> requestList = new ArrayList<>();
         for (String requestName : requests) {
-            requestSet.add(parseRequest(requestName));
+            requestList.add(parseRequest(requestName));
         }
-        return requestSet;
+        return requestList;
     }
 
 

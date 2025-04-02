@@ -1,6 +1,8 @@
 package seedu.innsync.testutil;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.innsync.model.person.Address;
@@ -32,7 +34,7 @@ public class PersonBuilder {
     private Address address;
     private Memo memo;
     private boolean starred;
-    private Set<Request> requests;
+    private List<Request> requests;
     private Set<BookingTag> bookingTags;
     private Set<Tag> tags;
 
@@ -46,7 +48,7 @@ public class PersonBuilder {
         address = new Address(DEFAULT_ADDRESS);
         memo = new Memo(DEFAULT_MEMO);
         starred = DEFAULT_STARRED;
-        requests = new HashSet<>();
+        requests = new ArrayList<>();
         bookingTags = new HashSet<>();
         tags = new HashSet<>();
     }
@@ -61,7 +63,7 @@ public class PersonBuilder {
         address = personToCopy.getAddress();
         memo = personToCopy.getMemo();
         starred = personToCopy.getStarred();
-        requests = new HashSet<>(personToCopy.getRequests());
+        requests = new ArrayList<>(personToCopy.getRequests());
         bookingTags = new HashSet<>(personToCopy.getBookingTags());
         tags = new HashSet<>(personToCopy.getTags());
     }
@@ -75,11 +77,18 @@ public class PersonBuilder {
     }
 
     /**
-     * Parses the {@code requests} into a {@code Set<Request>}
-     * and set it to the {@code Person} that we are building.
+     * Sets the {@code Request} of the {@code Person} that we are building.
      */
-    public PersonBuilder withRequests(String ... requests) {
-        this.requests = SampleDataUtil.getRequestSet(requests);
+    public PersonBuilder withRequests(String... requests) {
+        this.requests = SampleDataUtil.getRequestList(requests);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Request} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withRequests(List<Request> requests) {
+        this.requests = requests;
         return this;
     }
 

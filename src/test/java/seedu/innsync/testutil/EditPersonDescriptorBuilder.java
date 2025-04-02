@@ -1,5 +1,6 @@
 package seedu.innsync.testutil;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -11,6 +12,7 @@ import seedu.innsync.model.person.Memo;
 import seedu.innsync.model.person.Name;
 import seedu.innsync.model.person.Person;
 import seedu.innsync.model.person.Phone;
+import seedu.innsync.model.request.Request;
 import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
 
@@ -39,6 +41,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setEmail(person.getEmail());
         descriptor.setAddress(person.getAddress());
         descriptor.setMemo(person.getMemo());
+        descriptor.setRequests(person.getRequests());
         descriptor.setBookingTags(person.getBookingTags());
         descriptor.setTags(person.getTags());
     }
@@ -80,6 +83,16 @@ public class EditPersonDescriptorBuilder {
      */
     public EditPersonDescriptorBuilder withMemo(String memo) {
         descriptor.setMemo(new Memo(memo));
+        return this;
+    }
+
+    /**
+     * Parses the {@code requests} into a {@code Set<Request>} and set it to the {@code EditPersonDescriptor}
+     * that we are building.
+     */
+    public EditPersonDescriptorBuilder withRequests(String... requests) {
+        List<Request> requestSet = Stream.of(requests).map(Request::new).collect(Collectors.toList());
+        descriptor.setRequests(requestSet);
         return this;
     }
 

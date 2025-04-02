@@ -5,18 +5,19 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_REQUEST_AMY;
 import static seedu.innsync.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.innsync.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.innsync.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.innsync.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.innsync.testutil.TypicalPersons.getTypicalAddressBook;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.exceptions.CommandException;
+import seedu.innsync.model.AddressBook;
 import seedu.innsync.model.Model;
 import seedu.innsync.model.ModelManager;
 import seedu.innsync.model.UserPrefs;
@@ -29,15 +30,22 @@ public class RequestCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_validIndexUnfilteredList_success() throws CommandException {
-        Person personToEdit = model.getPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        RequestCommand requestCommand = new RequestCommand(INDEX_FIRST_PERSON, Set.of(new Request(VALID_REQUEST_AMY)));
-        Person editedPerson = new PersonBuilder(personToEdit).withRequests(VALID_REQUEST_AMY).build();
+    public void execute_validIndex_success() throws CommandException {
+        Index indexFirstPerson = Index.fromOneBased(INDEX_FIRST_PERSON.getOneBased());
+        Person firstPerson = model.getPersonList().get(indexFirstPerson.getZeroBased());
+
+        List<Request> validRequests = new ArrayList<>();
+        validRequests.add(new Request(VALID_REQUEST_AMY));
+        Person editedPerson = new PersonBuilder(firstPerson)
+                .withRequests(VALID_REQUEST_AMY)
+                .build();
+
+        RequestCommand requestCommand = new RequestCommand(indexFirstPerson, validRequests);
+
         String expectedMessage = String.format(RequestCommand.MESSAGE_SUCCESS, Messages.format(editedPerson));
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.setPerson(personToEdit, editedPerson);
-        expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setPerson(firstPerson, editedPerson);
 
         assertCommandSuccess(requestCommand, model, expectedMessage, expectedModel, editedPerson);
     }
@@ -45,15 +53,16 @@ public class RequestCommandTest {
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getPersonList().size() + 1);
-        RequestCommand requestCommand = new RequestCommand(outOfBoundIndex, Set.of(new Request(VALID_REQUEST_AMY)));
+        RequestCommand requestCommand = new RequestCommand(outOfBoundIndex,
+                new ArrayList<>(Arrays.asList(new Request(VALID_REQUEST_AMY))));
         assertCommandFailure(requestCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        Set<Request> firstRequestSet = new HashSet<>();
+        List<Request> firstRequestSet = new ArrayList<>();
         firstRequestSet.add(new Request("Need a bottle of champagne every morning"));
-        Set<Request> secondRequestSet = new HashSet<>();
+        List<Request> secondRequestSet = new ArrayList<>();
         secondRequestSet.add(new Request("I need a coffee"));
 
         RequestCommand command1 = new RequestCommand(INDEX_FIRST_PERSON, firstRequestSet);

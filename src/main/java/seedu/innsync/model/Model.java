@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.innsync.commons.core.GuiSettings;
 import seedu.innsync.model.person.Person;
+import seedu.innsync.model.request.Request;
 import seedu.innsync.model.tag.Tag;
 
 /**
@@ -21,7 +22,6 @@ public interface Model {
 
     Comparator<Person> COMPARATOR_SHOW_STARRED_FIRST = Comparator.comparing(Person::getStarred,
             Comparator.reverseOrder()).thenComparing(Person::getName);
-
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -88,6 +88,20 @@ public interface Model {
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
     void setPerson(Person target, Person editedPerson);
+  
+    /**
+     * Gets request from address book else adds it.
+     *
+     * @param request the request to be added
+     */
+    Request getRequestElseCreate(Request request);
+
+    /**
+     * Gets request from address book.
+     *
+     * @return request from address book or null if it does not exist.
+     */
+    Request getRequest(Request request);
 
     /**
      * Gets tag from address book else adds it.
