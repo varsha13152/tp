@@ -106,14 +106,14 @@ public class UntagCommandTest {
 
     @Test
     public void equals() {
-        UntagCommand untagFirstCommand = new UntagCommand(INDEX_FIRST_PERSON, "cool", "beans");
-        UntagCommand untagSecondCommand = new UntagCommand(INDEX_SECOND_PERSON, "lol1", "lol2");
+        UntagCommand untagFirstCommand = new UntagCommand(INDEX_FIRST_PERSON, new Tag("testTag1"), "testBookingTag1");
+        UntagCommand untagSecondCommand = new UntagCommand(INDEX_SECOND_PERSON, new Tag("testTag2"), "testBookingTag2");
 
         // same object -> returns true
         assertTrue(untagFirstCommand.equals(untagFirstCommand));
 
         // same values -> returns true
-        UntagCommand untagFirstCommandCopy = new UntagCommand(INDEX_FIRST_PERSON, "cool", "beans");
+        UntagCommand untagFirstCommandCopy = new UntagCommand(INDEX_FIRST_PERSON, new Tag("testTag1"), "testBookingTag1");
         assertTrue(untagFirstCommand.equals(untagFirstCommandCopy));
 
         // different types -> returns false
