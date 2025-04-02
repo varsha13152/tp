@@ -52,19 +52,27 @@ In this comprehensive user guide, we will take you to experience a full journey 
   - [4.4.2 Adding a tag](#4-4-2-adding-a-tag--tag)
   - [4.4.3 Untagging a booking tag](#4-4-3-untagging-a-booking-tag--untag)
   - [4.4.4 Untagging a tag](#4-4-4-untagging-a-tag--untag)
-- [4.5 Features related to finding](#4-5-features-related-to-finding)
-  - [4.5.1 Locating a person](#4-5-1-locating-persons-find)
-- [4.6 General features](#4-6-general-features)
-  - [4.6.1 Clearing all entries](#4-6-1-clearing-all-entries--clear)
-  - [4.6.2 Exiting the program](#4-6-2-exiting-the-program--exit)
-  - [4.6.3 Undoing the last change](#4-6-3-undoing-the-last-change--undo)
-  - [4.6.4 Viewing help](#4-6-4-viewing-help--help)
-- [4.7 Saving the data](#4-7-saving-the-data)
-- [4.8 Editing the data file](#4-8-editing-the-data-file)
+- [4.5 Features related to request](#4-5-features-related-to-request)
+  - [4.5.1 Adding a request](#4-5-1-adding-a-request-req)
+  - [4.5.2 Marking a request](#452-marking-a-request-mark)
+  - [4.5.3 Unmarking a request](#453-unmarking-a-request-unmark)
+  - [4.5.4 Deleting a request](#454-deleting-a-request-deletereq)
+  - [4.5.5 Listing requests](#455-listing-requests-listreq)
+- [4.6 Features related to finding](#4-5-features-related-to-finding)
+  - [4.6.1 Locating a person](#4-5-1-locating-persons-find)
+- [4.7 General features](#4-6-general-features)
+  - [4.7.1 Clearing all entries](#4-6-1-clearing-all-entries--clear)
+  - [4.7.2 Exiting the program](#4-6-2-exiting-the-program--exit)
+  - [4.7.3 Undoing the last change](#4-6-3-undoing-the-last-change--undo)
+  - [4.7.4 Viewing help](#4-6-4-viewing-help--help)
+- [4.8 Saving the data](#4-7-saving-the-data)
+- [4.9 Editing the data file](#4-8-editing-the-data-file)
 
 [5. FAQ](#5-faq)
 
 [6. Known issues](#6-known-issues)
+
+[7. Glossary](#7-glossary)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -131,9 +139,9 @@ First-time users are strongly encouraged to read the Quick Start section before 
 3. Copy the file to the folder you want to use as the _home folder_ for InnSync.
 
 4. Open your command terminal, depending on what OS you use follow the instruction below.
-  * Windows: Tutorial on how to open a terminal [here.](https://learn.microsoft.com/en-us/windows/terminal/faq)
-  * MacOS:Tutorial on how to open a terminal [here.](https://support.apple.com/en-sg/guide/terminal/apd5265185d-f365-44cb-8b09-71a064a42125/mac)
-  * Linux: Tutorial on how to open a terminal [here.](https://ubuntu.com/tutorials/command-line-for-beginners#1-overview)
+* Windows: Tutorial on how to open a terminal [here.](https://learn.microsoft.com/en-us/windows/terminal/faq)
+* MacOS:Tutorial on how to open a terminal [here.](https://support.apple.com/en-sg/guide/terminal/apd5265185d-f365-44cb-8b09-71a064a42125/mac)
+* Linux: Tutorial on how to open a terminal [here.](https://ubuntu.com/tutorials/command-line-for-beginners#1-overview)
 
 5.  Navigate to the folder by using `cd` into the folder you put the jar file in, and use the `java -jar innsync.jar` command to run the application.<br>
 
@@ -143,15 +151,15 @@ First-time users are strongly encouraged to read the Quick Start section before 
 7. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-  * `list` : Lists all contacts.
+* `list` : Lists all contacts.
 
-  * `add n/John Doe p/+65 98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+* `add n/John Doe p/+65 98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
 
-  * `delete 3` : Deletes the 3rd contact shown in the current list.
+* `delete 3` : Deletes the 3rd contact shown in the current list.
 
-  * `clear` : Deletes all contacts.
+* `clear` : Deletes all contacts.
 
-  * `exit` : Exits the app.
+* `exit` : Exits the app.
 
 8. Refer to the [Features](#features) below for details of each command.
 
@@ -194,16 +202,18 @@ Essentially they are to be supplied by the user.
 **Note:** All user inputs including parameters will be trimmed (all leading and trailing whitespaces will be ignored).
 
 
-| Parameter     | Parameter Prefix | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-|---------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `NAME `       | `n/`             | Specifies the name of a guest. <br/><br/> **Requirements:** <ul><li>Names must contain only alphabetic characters and whitespace.</li><li>Names with only whitespace are not allowed.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `PHONE`       | `p/`             | Specifies the phone number of a guest. <br/><br/> Requirements: <ul><li>Phone numbers should be in the format <code>+[COUNTRY_CODE] [NUMBER]</code>.</li><li>The country code must be valid.</li><li>The number should be at least 7 digits long and at most 15 digits long.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                  |
-| `EMAIL`       | `e/`             | Specifies the email of a guest. <br/><br/> Requirements: <ul><li>Emails should be of the format <code>local-part@domain</code>.</li><li>The local-part should only contain alphanumeric characters and the following special characters (excluding the parentheses): <code>[SPECIAL_CHARACTERS]</code>, and must not start or end with a special character.</li><li>This is followed by an '@' and then a domain name made up of domain labels separated by periods.</li><li>The domain name must end with a domain label that is at least 2 characters long.</li><li>Each domain label must start and end with an alphanumeric character and may contain hyphens in between.</li></ul> |                                                                                                                                                    |
-| `ADDRESS`     | `a/`             | Specifies the address of a guest. <br/><br/> Requirements: <ul><li>Addresses can take any values.</li><li>The address should not be blank.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| `MEMO`        | `m/`             | Specifies the memo of a guest. <br/><br/> Requirements: <ul><li>Memos can take any values.</li><li>Memos should not be null.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| `BOOKING_TAG` | `d/`             | Specifies the booking tag of a guest. <br/><br/> Requirements: <ul><li>Booking tags should be of the format <code>{property} from/{start-date} to/{end-date}</code>.</li><li>Start-date and end-date must be in the format <code>yyyy-MM-dd</code>.</li><li>The start-date should be before the end-date.</li></ul>                                                                                                                                                                                                                                                                                                                                                                     |
-| `TAG `        | `t/`             | Specifies the tag name of a guest. <br/><br/> Requirements: <ul><li>Tag names should be alphanumeric.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |                                                                                                                                                                                                                                                                                                |
-| `INDEX`       | Not Applicable   | Refers to the index number shown in the List Panel. <br/><br/> **Requirements:** <ul><li>Must be a positive integer.</li><li>The value must fall within the valid range.</li><li>A valid range represents the set of positive values starting from 1 to the number of guests within the list.</li><li>Example: If there are 10 guests in the list, the valid range will be from 1 to 10 (inclusive).</li></ul>                                                                                                                                                                                                                                                                          |
+| Parameter       | Parameter Prefix     | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+|-----------------|----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `NAME `         | `n/`                 | Specifies the name of a guest. <br/><br/>Requirements:<ul>  <li>Names with only whitespace are not allowed.</li> <li>Cannot be empty.</li> <li>Names may include special characters like ```A/P```, but cannot start with ```$``` (reserved for the parser).</li> <li>Character limit: 255.</li> </ul> **Example:** <ul> <li><code>Muthu $A/P -> Muthu A/P</code></li> </ul>                                                                                                                                                                                                                                                                                                            |
+| `PHONE`         | `p/`                 | Specifies the phone number of a guest. <br/><br/> Requirements: <ul><li>Phone numbers should be in the format <code>+[COUNTRY_CODE] [NUMBER]</code>.</li><li>The country code must be valid.</li><li>The number should be at least 7 digits long and at most 15 digits long.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `EMAIL`         | `e/`                 | Specifies the email of a guest. <br/><br/> Requirements: <ul><li>Emails should be of the format <code>local-part@domain</code>.</li><li>The local-part should only contain alphanumeric characters and the following special characters (excluding the parentheses): <code>[SPECIAL_CHARACTERS]</code>, and must not start or end with a special character.</li><li>This is followed by an '@' and then a domain name made up of domain labels separated by periods.</li><li>The domain name must end with a domain label that is at least 2 characters long.</li><li>Each domain label must start and end with an alphanumeric character and may contain hyphens in between.</li></ul> |                                                                                                                                                     |
+| `ADDRESS`       | `a/`                 | Specifies the address of a guest. <br/><br/>Requirements:<ul> <li>Addresses can take any values.</li> <li>Cannot be empty.</li> <li>Character limit: 500.</li> </ul>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `MEMO`          | `m/`                 | Specifies the memo of a guest. <br/><br/>Requirements:<ul> <li>Memos can take any values even empty.</li> <li>Character limit: 500.</li>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `REQUEST`       | `r/`                 | Specifies the request of a guest. <br/><br/>Requirements:<ul> <li>Request can take any values.</li> <li>Cannot be empty.</li> <li>Character limit: 255.</li> </ul>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `BOOKING_TAG`   | `d/`                 | Specifies the booking tag of a guest. <br/><br/> Requirements: <ul><li>Booking tags should be of the format <code>{property} from/{start-date} to/{end-date}</code>.</li><li>Start-date and end-date must be in the format <code>yyyy-MM-dd</code>.</li><li>The start-date should be before the end-date.</li></ul>                                                                                                                                                                                                                                                                                                                                                                     |
+| `TAG `          | `t/`                 | Specifies the tag of a guest. <br/><br/>Requirements:<ul> <li>Tag can take any values.</li> <li>Cannot be empty.</li> <li>Character limit: 255.</li> </ul>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                                                                                                                                                                                                                |
+| `INDEX`         | Not Applicable       | Refers to the index number shown in the List Panel. <br/><br/> Requirements: <ul> <ul> <li>Must be a positive integer.</li> <li>Any number greater than the valid range will not be accepted (e.g., if there are 10 guests, the valid range is from 1 to 10, and 11 or higher is invalid).</li> <li>The value must fall within the valid range of unsigned integer max number.</li> <li>Unsigned Integer Max Number: For example, this app uses 32-bit integers, the maximum value would be <strong>2,147,483,647</strong>. Any index greater than this number would not be accepted.</li> </ul>                                                                                        |
+| `REQUEST_INDEX` | Not Applicable       | Refers to the index number shown in the Request panel. <br/><br/> Requirements: <ul> <ul> <li>Must be a positive integer.</li> <li>Any number greater than the valid range will not be accepted (e.g., if there are 10 requests, the valid range is from 1 to 10, and 11 or higher is invalid).</li> <li>The value must fall within the valid range of unsigned integer max number.</li> <li>Unsigned Integer Max Number: For example, this app uses 32-bit integers, the maximum value would be <strong>2,147,483,647</strong>. Any index greater than this number would not be accepted.</li> </ul>                                                                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 
 #### 3.3.3 Command Format:
 
@@ -254,22 +264,27 @@ To understand how a full command is interpreted, we will utilise the following e
 
 ## 4. Features
 ## 4.1 Command Summary
-| Action        | Format, Examples                                                                                                                                                                                                                                                                                                 |
-|---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**       | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/+82 22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`                                                                                                                                        |
-| **Tag**       | `tag INDEX r/TAG` <br> e.g.. `tag 1 b/TAG`  or <br/> `tag INDEX b/<KEYWORD> from/YYYY-MM-DD to/YYYY-MM-DD` <br> e.g.. `tag 1 b/Hotel from/2025-10-10 to/2025-10-11`                                                                                                                                              |
-| **Untag**     | `untag INDEX t/TAG` <br> e.g., `untag 1 t/TEST` or <br/> `untag INDEX b/{property} {from/} {to/}` <br> e.g., `untag 1 b/Hotel from/2025-10-10 to/2025-10-11`                                                                                                                                                     |
-| **Memo**      | `memo INDEX m/MEMO` <br/> e.g., `memo 1 m/TEST`                                                                                                                                                                                                                                                                  |
-| **Star**      | `star INDEX` <br> e.g., `star 1`                                                                                                                                                                                                                                                                                 |                                                                                                                                                                                                                                                               |
-| **Unstar**    | `unstar INDEX` <br> e.g., `unstar 1`                                                                                                                                                                                                                                                                             |
-| **Liststar**  | `liststar`                                                                                                                                                                                                                                                                                                       |
-| **Clear**     | `clear`                                                                                                                                                                                                                                                                                                          |
-| **Delete**    | `delete INDEX`<br> e.g., `delete 3`  <br/>                                                                                                                                                                                                                                                                       |
-| **Edit**      | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                                                                                                                                      |
-| **Find**      | `find KEYWORD [MORE_KEYWORDS]` or<br>`find n/NAME [MORE_NAMES]` or<br>`find p/PHONE [MORE_PHONES]` or<br>`find e/EMAIL [MORE_EMAILS]` or<br>`find a/ADDRESS [MORE_ADDRESSES]` or<br>`find t/TAG [MORE_TAGS]` or<br>`find b/DATE [MORE_DATES]`<br>e.g., `find James Jake` or `find p/9123` or `find b/2025-01-01` |
-| **List**      | `list`                                                                                                                                                                                                                                                                                                           |
-| **Undo**      | `undo`                                                                                                                                                                                                                                                                                                           |
-| **Help**      | `help`                                                                                                                                                                                                                                                                                                           |                                                                                                                                                                                                                                                                                                     |
+| Action                 | Format, Examples                                                                                                                                                                                                                                                                                                 |
+|------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add Guest**          | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/+82 22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`                                                                                                                                        |
+| **Edit Guest**         | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                                                                                                                                      |
+| **List Guest**         | `list`                                                                                                                                                                                                                                                                                                           |
+| **Delete Guest**       | `delete INDEX`<br> e.g., `delete 3`  <br/>                                                                                                                                                                                                                                                                       | 
+| **Star Guest**         | `star INDEX` <br> e.g., `star 1`                                                                                                                                                                                                                                                                                 |
+| **Unstar Guest**       | `unstar INDEX` <br> e.g., `unstar 1`                                                                                                                                                                                                                                                                             |
+| **List Starred Guest** | `liststar`                                                                                                                                                                                                                                                                                                       |
+| **Tag Guest**          | `tag INDEX r/TAG` <br> e.g.. `tag 1 b/TAG`  or <br/> `tag INDEX b/<KEYWORD> from/YYYY-MM-DD to/YYYY-MM-DD` <br> e.g.. `tag 1 b/Hotel from/2025-10-10 to/2025-10-11`                                                                                                                                              |
+| **Untag Guest**        | `untag INDEX t/TAG` <br> e.g., `untag 1 t/TEST` or <br/> `untag INDEX b/{property} {from/} {to/}` <br> e.g., `untag 1 b/Hotel from/2025-10-10 to/2025-10-11`                                                                                                                                                     |
+| **Add Request**        | `req INDEX r/REQUEST` <br> e.g., `req 1 r/REQUEST`                                                                                                                                                                                                                                                               | |
+| **Mark Request**       |                                                                                                                                                                                                                                                                                                                  | | 
+| **Unmark Request**     |                                                                                                                                                                                                                                                                                                                  | |
+| **Delete Request**     |                                                                                                                                                                                                                                                                                                                  |  |
+| **Memo Guest**         | `memo INDEX m/MEMO` <br/> e.g., `memo 1 m/TEST`                                                                                                                                                                                                                                                                  | |
+| **Find**               | `find KEYWORD [MORE_KEYWORDS]` or<br>`find n/NAME [MORE_NAMES]` or<br>`find p/PHONE [MORE_PHONES]` or<br>`find e/EMAIL [MORE_EMAILS]` or<br>`find a/ADDRESS [MORE_ADDRESSES]` or<br>`find t/TAG [MORE_TAGS]` or<br>`find b/DATE [MORE_DATES]`<br>e.g., `find James Jake` or `find p/9123` or `find b/2025-01-01` |
+| **Clear**              | `clear`                                                                                                                                                                                                                                                                                                          |
+| **Exit**               | `exit`                                                                                                                                                                                                                                                                                                           |
+| **Undo**               | `undo`                                                                                                                                                                                                                                                                                                           |
+| **Help**               | `help`                                                                                                                                                                                                                                                                                                           |
 
 ## 4.2 Features related to person
 
@@ -406,10 +421,32 @@ Format: `untag INDEX t/TAG`
 Examples:
 * `untag 1 t/friend` Removes the tag with matching tag on the 1st person in the list.
 
+## 4.5 Features related to request
 
-## 4.5 Features related to finding
+### 4.5.1 Adding a request: `req`
 
-### 4.5.1 Locating persons: `find`
+Adds a request into the person in the address book.
+
+Format: `req INDEX r/REQUEST`
+
+* Adds the req to the person specified by 'INDEX'. The index refers to the index number shown in the displayed person LIST. The index **must be a positive integer**
+* All the fields must be provided.
+* When adding a request the new request will be appended to the previous tags if they exist.
+
+Examples:
+* `req 1 r/Want banana` Adds the request to the 1st person on the list.
+
+### 4.5.2 Marking a request: `mark`
+
+### 4.5.3 Unmarking a request: `unmark`
+
+### 4.5.4 Deleting a request: `deletereq`
+
+### 4.5.5 Listing requests: `listreq`
+
+## 4.6 Features related to finding
+
+### 4.6.1 Locating persons: `find`
 
 Allows users to search for a contact by their name, phone, address, email, tag, booking tag
 
@@ -474,28 +511,28 @@ Format: `find [n/]KEYWORD [MORE_KEYWORDS] | p/PHONE [MORE_PHONES] | e/EMAIL [MOR
 * **No matches found**: Try using shorter or more general keywords to widen your search
 * **Invalid characters**: Make sure your search terms contain only valid characters for the search field
 
-## 4.6 General features
+## 4.7 General features
 
-### 4.6.1 Clearing all entries : `clear`
+### 4.7.1 Clearing all entries : `clear`
 
 Clears all entries from the address book.
 
 Format: `clear`
 
-### 4.6.2 Exiting the program : `exit`
+### 4.7.2 Exiting the program : `exit`
 
 Exits the program.
 
 Format: `exit`
 
-### 4.6.3 Undoing the last change : `undo`
+### 4.7.3 Undoing the last change : `undo`
 
 Undoes the last modification to the addressbook, reverting it to its original state before the last modification.
 Edit, add, delete, tag, untag, star, unstar, memo and undo are the moficiations which can be undone.
 
 Format: `undo`
 
-## 4.6.4 Viewing help : `help`
+## 4.7.4 Viewing help : `help`
 
 Shows a message explaning how to access the help page.
 
@@ -503,11 +540,11 @@ Shows a message explaning how to access the help page.
 
 Format: `help`
 
-### 4.7 Saving the data
+### 4.8 Saving the data
 
 AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
-### 4.8 Editing the data file
+### 4.9 Editing the data file
 
 AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
@@ -531,3 +568,6 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
+
+
+## 7. Glossary
