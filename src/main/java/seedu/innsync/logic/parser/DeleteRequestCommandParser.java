@@ -3,13 +3,10 @@ package seedu.innsync.logic.parser;
 import static seedu.innsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_REQUEST;
 
-import java.util.Set;
-
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.commons.exceptions.IllegalValueException;
 import seedu.innsync.logic.commands.DeleteRequestCommand;
 import seedu.innsync.logic.parser.exceptions.ParseException;
-import seedu.innsync.model.request.Request;
 
 /**
  * Parses input arguments and creates a new DeleteRequestCommand object
@@ -27,16 +24,23 @@ public class DeleteRequestCommandParser implements Parser<DeleteRequestCommand> 
         if (!argMultimap.getValue(PREFIX_REQUEST).isPresent()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteRequestCommand.MESSAGE_USAGE));
         }
-        Index index;
+        
+        Index contactIndex;
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            contactIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (IllegalValueException ive) {
             throw new ParseException(String.format(
                 MESSAGE_INVALID_COMMAND_FORMAT, DeleteRequestCommand.MESSAGE_USAGE), ive);
         }
 
-        Set<Request> requestList = ParserUtil.parseRequests(argMultimap.getAllValues(PREFIX_REQUEST));
+        Index requestIndex;
+        try {
+            requestIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_REQUEST).get());
+        } catch (IllegalValueException ive) {
+            throw new ParseException(String.format(
+                MESSAGE_INVALID_COMMAND_FORMAT, DeleteRequestCommand.MESSAGE_USAGE), ive);
+        }
 
-        return new DeleteRequestCommand(index, requestList);
+        return new DeleteRequestCommand(contactIndex, requestIndex);
     }
 }

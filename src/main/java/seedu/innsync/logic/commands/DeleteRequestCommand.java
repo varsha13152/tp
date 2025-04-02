@@ -4,9 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_REQUEST;
 import static seedu.innsync.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.commons.util.ToStringBuilder;
@@ -27,26 +26,27 @@ public class DeleteRequestCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes a request from the contact identified by the index number in the displayed person list.\n"
-            + "Parameters: INDEX (must be a positive integer) " + PREFIX_REQUEST + "REQUEST\n"
-            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_REQUEST + "Need a bottle of champagne every morning";
+            + "Parameters: INDEX (must be a positive integer) " + PREFIX_REQUEST + "REQUEST_INDEX\n"
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_REQUEST + "1";
 
     public static final String MESSAGE_SUCCESS = "Request successfully deleted from %s";
     public static final String MESSAGE_REQUEST_NOT_FOUND = "This contact does not have this request.";
+    public static final String MESSAGE_INVALID_REQUEST_INDEX = "Invalid request index! The request index is out of range.";
 
-    private final Index index;
-    private final Set<Request> requests;
+    private final Index contactIndex;
+    private final Index requestIndex;
 
     /**
      * Creates a {@code DeleteRequestCommand} to delete a request from the specified person.
      *
-     * @param index The index of the person in the displayed person list.
-     * @param requests The set of requests to be deleted from the person.
+     * @param contactIndex The index of the person in the displayed person list.
+     * @param requestIndex The index of the request in the displayed request list of the person.
      */
-    public DeleteRequestCommand(Index index, Set<Request> requests) {
-        requireNonNull(index);
-        requireNonNull(requests);
-        this.index = index;
-        this.requests = requests;
+    public DeleteRequestCommand(Index contactIndex, Index requestIndex) {
+        requireNonNull(contactIndex);
+        requireNonNull(requestIndex);
+        this.contactIndex = contactIndex;
+        this.requestIndex = requestIndex;
     }
 
     /**
@@ -61,13 +61,24 @@ public class DeleteRequestCommand extends Command {
         requireNonNull(model);
         List<Person> lastShownList = model.getPersonList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
+        if (contactIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToEdit = lastShownList.get(this.index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit);
-
+        Person personToEdit = lastShownList.get(this.contactIndex.getZeroBased());
+        List<Request> requests = personToEdit.getRequests();
+        
+        // Check if requestIndex is valid
+        if (requestIndex.getZeroBased() >= requests.size()) {
+            throw new CommandException(MESSAGE_INVALID_REQUEST_INDEX);
+        }
+        
+        // Get the request to be deleted
+        Request requestToDelete = requests.get(requestIndex.getZeroBased());
+        
+        // Create edited person with the request removed
+        Person editedPerson = createEditedPerson(personToEdit, requestToDelete);
+        
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
@@ -78,27 +89,26 @@ public class DeleteRequestCommand extends Command {
      * Creates a new Person with the request removed.
      *
      * @param personToEdit The person to edit.
+     * @param requestToDelete The request to be deleted.
      * @return A new Person with the request removed.
      * @throws CommandException If the request is not found in the person's requests.
      */
-    private Person createEditedPerson(Person personToEdit) throws CommandException {
+    private Person createEditedPerson(Person personToEdit, Request requestToDelete) throws CommandException {
         Person tempPerson = new Person(
                 personToEdit.getName(),
                 personToEdit.getPhone(),
                 personToEdit.getEmail(),
                 personToEdit.getAddress(),
                 personToEdit.getMemo(),
-                new HashSet<>(personToEdit.getRequests()),
+                new ArrayList<>(personToEdit.getRequests()),
                 personToEdit.getBookingTags(),
                 personToEdit.getTags(),
                 personToEdit.getStarred());
 
-        for (Request request : requests) {
-            try {
-                tempPerson.removeRequest(request);
-            } catch (RequestNotFoundException e) {
-                throw new CommandException(MESSAGE_REQUEST_NOT_FOUND);
-            }
+        try {
+            tempPerson.removeRequest(requestToDelete);
+        } catch (RequestNotFoundException e) {
+            throw new CommandException(MESSAGE_REQUEST_NOT_FOUND);
         }
 
         return tempPerson;
@@ -113,14 +123,15 @@ public class DeleteRequestCommand extends Command {
             return false;
         }
         DeleteRequestCommand otherDeleteRequest = (DeleteRequestCommand) other;
-        return index.equals(otherDeleteRequest.index) && requests.equals(otherDeleteRequest.requests);
+        return contactIndex.equals(otherDeleteRequest.contactIndex) 
+                && requestIndex.equals(otherDeleteRequest.requestIndex);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("index", index)
-                .add("request", requests.toString())
+                .add("contactIndex", contactIndex)
+                .add("requestIndex", requestIndex)
                 .toString();
     }
 }
