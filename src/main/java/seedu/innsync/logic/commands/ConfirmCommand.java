@@ -1,9 +1,9 @@
 package seedu.innsync.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.Model;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Handles confirmation for commands that require user confirmation.
