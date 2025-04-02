@@ -15,6 +15,8 @@ public class Tag {
     public static final String REGEX_NOT_EMPTY = "^.+$"; // Ensures non-empty string
     public static final String REGEX_MAX_LENGTH = "^.{1,170}$"; // Ensures length <= 170
 
+    private static String errorMessage = "Error: Tag is invalid.";
+
     public final String tagName;
     private int tagCount;
 
@@ -25,16 +27,25 @@ public class Tag {
      */
     public Tag(String tagName) {
         requireNonNull(tagName);
-        checkArgument(isValidTagName(tagName), getErrorMessage(tagName));
+        checkArgument(isValidTagName(tagName), errorMessage);
         this.tagName = tagName;
         this.tagCount = 0;
     }
 
     /**
      * Returns true if a given string matches all validation rules.
+     * Else sets the error message to the specific error and returns false.
      */
     public static boolean isValidTagName(String test) {
-        return test.matches(REGEX_NOT_EMPTY) && test.matches(REGEX_MAX_LENGTH);
+        if (!test.matches(REGEX_NOT_EMPTY)) {
+            errorMessage = MESSAGE_EMPTY;
+            return false;
+        }
+        if (!test.matches(REGEX_MAX_LENGTH)) {
+            errorMessage = MESSAGE_LENGTH;
+            return false;
+        }
+        return true;
     }
 
     /**

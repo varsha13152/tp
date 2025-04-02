@@ -99,7 +99,7 @@ public class UntagCommand extends Command {
             BookingTag bookingTagToRemove = null;
             boolean found = false;
             for (BookingTag existingTag : bookingTagList) {
-                if (existingTag.bookingTagName.equals(toRemoveBookingTag)) {
+                if (existingTag.getFullBookingTag().equals(toRemoveBookingTag)) {
                     bookingTagToRemove = existingTag;
                     found = true;
                     break;

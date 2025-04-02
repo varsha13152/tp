@@ -2,7 +2,7 @@ package seedu.innsync.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -221,8 +221,8 @@ public class FindCommand extends Command {
 
         return person.getBookingTags().stream()
                 .filter(Objects::nonNull)
-                .anyMatch(bookingTag -> bookingTag.bookingTag != null
-                        && bookingTag.bookingTag.toLowerCase().contains(keyword));
+                .anyMatch(bookingTag -> bookingTag.bookingTagName != null
+                        && bookingTag.bookingTagName.toLowerCase().contains(keyword));
     }
 
     /**
@@ -249,7 +249,7 @@ public class FindCommand extends Command {
         }
 
         try {
-            LocalDateTime date = LocalDateTime.parse(dateString + "T00:00:00");
+            LocalDate date = LocalDate.parse(dateString);
             return !date.isBefore(bookingTag.startDate) && !date.isAfter(bookingTag.endDate);
         } catch (Exception e) {
             return false;

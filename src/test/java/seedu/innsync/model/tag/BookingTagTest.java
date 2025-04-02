@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_BOOKINGTAG_BEACHHOUSE;
 import static seedu.innsync.testutil.Assert.assertThrows;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
@@ -21,22 +21,22 @@ public class BookingTagTest {
     @Test
     public void isValidBookingTagName() {
         // null booking tag name
-        assertThrows(NullPointerException.class, () -> BookingTag.isValidBookingTagName(null));
+        assertThrows(NullPointerException.class, () -> BookingTag.isValidBookingTag(null));
     }
 
     @Test
     public void invalidBookingTagName() {
         // invalid date booking tag name
-        assertFalse(() -> BookingTag.isValidBookingTagName("test to/020-10-10 to/2020-10-10"));
-        assertFalse(() -> BookingTag.isValidBookingTagName("test from/020-10-10 to/2020-10-10"));
+        assertFalse(() -> BookingTag.isValidBookingTag("test to/020-10-10 to/2020-10-10"));
+        assertFalse(() -> BookingTag.isValidBookingTag("test from/020-10-10 to/2020-10-10"));
     }
 
     @Test
     void constructor_validBookingTagName_success() {
         BookingTag bookingTag = new BookingTag(VALID_BOOKINGTAG_BEACHHOUSE);
-        assertEquals("BeachHouse", bookingTag.bookingTag);
-        assertEquals(LocalDateTime.of(2025, 6, 1, 0, 0), bookingTag.startDate);
-        assertEquals(LocalDateTime.of(2025, 6, 10, 0, 0), bookingTag.endDate);
+        assertEquals("BeachHouse", bookingTag.bookingTagName);
+        assertEquals(LocalDate.of(2025, 6, 1), bookingTag.startDate);
+        assertEquals(LocalDate.of(2025, 6, 10), bookingTag.endDate);
     }
 
     @Test
@@ -48,14 +48,14 @@ public class BookingTagTest {
 
     @Test
     void isValidBookingTagName_validFormat_returnsTrue() {
-        assertTrue(BookingTag.isValidBookingTagName(VALID_BOOKINGTAG_BEACHHOUSE));
+        assertTrue(BookingTag.isValidBookingTag(VALID_BOOKINGTAG_BEACHHOUSE));
     }
 
     @Test
     void isValidBookingTagName_invalidFormat_returnsFalse() {
-        assertFalse(BookingTag.isValidBookingTagName("House 2025-07-01 to/2025-07-05"));
-        assertFalse(BookingTag.isValidBookingTagName("Apartment from/2025-07-05 to/2025-07-01"));
-        assertFalse(BookingTag.isValidBookingTagName("Bungalow from/2025-07-01"));
+        assertFalse(BookingTag.isValidBookingTag("House 2025-07-01 to/2025-07-05"));
+        assertFalse(BookingTag.isValidBookingTag("Apartment from/2025-07-05 to/2025-07-01"));
+        assertFalse(BookingTag.isValidBookingTag("Bungalow from/2025-07-01"));
     }
 
     @Test
