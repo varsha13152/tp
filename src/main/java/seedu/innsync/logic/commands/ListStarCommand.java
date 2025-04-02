@@ -20,4 +20,9 @@ public class ListStarCommand extends Command {
         model.updateFilteredPersonList(PREDICATE_SHOW_STARRED_PERSONS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    @Override
+    public boolean requireConfirmation() {
+        return false;
+    }
 }

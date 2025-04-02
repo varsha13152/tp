@@ -16,4 +16,8 @@ public class ExitCommand extends Command {
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true, null);
     }
 
+    @Override
+    public boolean requireConfirmation() {
+        return false;
+    }
 }

@@ -7,6 +7,7 @@ import static seedu.innsync.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.innsync.logic.commands.CommandTestUtil.VALID_REQUEST_AMY;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.innsync.testutil.Assert.assertThrows;
 import static seedu.innsync.testutil.TypicalPersons.ALICE;
@@ -14,6 +15,9 @@ import static seedu.innsync.testutil.TypicalPersons.BOB;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.innsync.model.request.Request;
+import seedu.innsync.model.request.exceptions.DuplicateRequestException;
+import seedu.innsync.model.request.exceptions.RequestNotFoundException;
 import seedu.innsync.testutil.PersonBuilder;
 
 public class PersonTest {
@@ -98,5 +102,55 @@ public class PersonTest {
                 + ", bookingTags=" + ALICE.getBookingTags() + ", tags=" + ALICE.getTags()
                 + ", starred=" + ALICE.getStarred() + "}";
         assertEquals(expected, ALICE.toString());
+    }
+
+    @Test
+    public void testClearRequests() {
+        Person aliceCopy = new PersonBuilder(ALICE).build();
+        aliceCopy.clearRequests();
+        assertTrue(aliceCopy.getRequests().isEmpty());
+    }
+
+    @Test
+    public void testAddRequest() throws DuplicateRequestException {
+        Request newRequest = new Request(VALID_REQUEST_AMY);
+        Person aliceCopy = new PersonBuilder(ALICE).build();
+        aliceCopy.clearRequests();
+        aliceCopy.addRequest(newRequest);
+        assertTrue(aliceCopy.getRequests().contains(newRequest));
+    }
+
+    @Test
+    public void testAddDuplicateRequestThrowsException() {
+        Person aliceCopy = new PersonBuilder(ALICE).build();
+        aliceCopy.clearRequests();
+        Request duplicateRequest = new Request(VALID_REQUEST_AMY);
+        aliceCopy.addRequest(new Request(VALID_REQUEST_AMY));
+        assertThrows(DuplicateRequestException.class, () -> aliceCopy.addRequest(duplicateRequest));
+    }
+
+
+    @Test
+    public void testRemoveRequest() {
+        Request request = new Request(VALID_REQUEST_AMY);
+        Person aliceCopy = new PersonBuilder(ALICE).build();
+        aliceCopy.clearRequests();
+        aliceCopy.addRequest(request);
+        aliceCopy.removeRequest(request);
+        assertFalse(aliceCopy.getRequests().contains(request));
+    }
+
+    @Test
+    public void testRemoveRequestThrowsExceptionIfNotFound() {
+        Person aliceCopy = new PersonBuilder(ALICE).build();
+        aliceCopy.clearRequests();
+        Request nonExistentRequest = new Request(VALID_REQUEST_AMY);
+        assertThrows(RequestNotFoundException.class, () -> aliceCopy.removeRequest(nonExistentRequest));
+    }
+
+    @Test
+    public void hashCodeTest() {
+        Person aliceCopy = new PersonBuilder(ALICE).build();
+        assertEquals(ALICE.hashCode(), aliceCopy.hashCode());
     }
 }

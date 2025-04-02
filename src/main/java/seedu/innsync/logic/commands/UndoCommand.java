@@ -24,4 +24,9 @@ public class UndoCommand extends Command {
         }
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    @Override
+    public boolean requireConfirmation() {
+        return false;
+    }
 }

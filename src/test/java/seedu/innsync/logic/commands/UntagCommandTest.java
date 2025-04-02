@@ -1,6 +1,7 @@
 package seedu.innsync.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_BOOKINGTAG_BEACHHOUSE;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_BOOKINGTAG_HOTEL;
@@ -8,6 +9,7 @@ import static seedu.innsync.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.innsync.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.innsync.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.innsync.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.innsync.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.innsync.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Set;
@@ -100,6 +102,28 @@ public class UntagCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getPersonList().size() + 1);
         UntagCommand untagCommand = new UntagCommand(outOfBoundIndex, new Tag(VALID_TAG_HUSBAND), null);
         assertCommandFailure(untagCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void equals() {
+        UntagCommand untagFirstCommand = new UntagCommand(INDEX_FIRST_PERSON, "cool", "beans");
+        UntagCommand untagSecondCommand = new UntagCommand(INDEX_SECOND_PERSON, "lol1", "lol2");
+
+        // same object -> returns true
+        assertTrue(untagFirstCommand.equals(untagFirstCommand));
+
+        // same values -> returns true
+        UntagCommand untagFirstCommandCopy = new UntagCommand(INDEX_FIRST_PERSON, "cool", "beans");
+        assertTrue(untagFirstCommand.equals(untagFirstCommandCopy));
+
+        // different types -> returns false
+        assertFalse(untagFirstCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(untagFirstCommand.equals(null));
+
+        // different person -> returns false
+        assertFalse(untagFirstCommand.equals(untagSecondCommand));
     }
 
     @Test
