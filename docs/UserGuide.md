@@ -447,11 +447,51 @@ Examples:
 
 ### 4.5.2 Marking a request: `mark`
 
+Marks a request as completed for a specific visitor in the address book.
+
+Format: `mark INDEX r/REQUEST_INDEX`
+
+* Marks the request specified by 'REQUEST_INDEX' for the visitor at 'INDEX' as completed. 
+* The INDEX refers to the index number shown in the displayed visitor list. The index **must be a positive integer**.
+* The REQUEST_INDEX refers to the index number of the request in the visitor's request list. The REQUEST_INDEX **must be a positive integer**.
+
+Examples:
+* `mark 1 r/1` Marks the first request of the first visitor on the list as completed.
+
 ### 4.5.3 Unmarking a request: `unmark`
+
+Unmarks a previously completed request for a specific visitor in the address book.
+
+Format: `unmark INDEX r/REQUEST_INDEX`
+
+* Unmarks the request specified by 'REQUEST_INDEX' for the visitor at 'INDEX', removing its completed status.
+* The INDEX refers to the index number shown in the displayed visitor list. The index **must be a positive integer**.
+* The REQUEST_INDEX refers to the index number of the request in the visitor's request list. The REQUEST_INDEX **must be a positive integer**.
+
+Examples:
+* `unmark 1 r/1` Unmarks the first request of the first visitor on the list, setting it as not completed.
 
 ### 4.5.4 Deleting a request: `deletereq`
 
+Deletes a request from a specific visitor in the address book.
+
+Format: `deletereq INDEX r/REQUEST_INDEX`
+
+* Deletes the request specified by 'REQUEST_INDEX' from the visitor at 'INDEX'.
+* The INDEX refers to the index number shown in the displayed visitor list. The index **must be a positive integer**.
+* The REQUEST_INDEX refers to the index number of the request in the visitor's request list. The REQUEST_INDEX **must be a positive integer**.
+
+Examples:
+* `deletereq 1 r/1` Deletes the first request of the first visitor on the list.
+
 ### 4.5.5 Listing requests: `listreq`
+
+Shows a list of all the requests from all visitors.
+
+Format: `listreq`
+
+* Lists all requests from all visitors, showing request details and completion status.
+* Requests are displayed with their associated visitor information.
 
 ## 4.6 Memo a visitor : `memo`
 
