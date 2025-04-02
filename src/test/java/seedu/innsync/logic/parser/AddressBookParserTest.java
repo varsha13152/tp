@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.innsync.logic.commands.AddCommand;
 import seedu.innsync.logic.commands.ClearCommand;
+import seedu.innsync.logic.commands.ConfirmCommand;
 import seedu.innsync.logic.commands.DeleteCommand;
 import seedu.innsync.logic.commands.EditCommand;
 import seedu.innsync.logic.commands.EditCommand.EditPersonDescriptor;
@@ -99,17 +100,12 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_clear() throws Exception {
-        ClearCommand clearCommand = (ClearCommand) parser.parseCommand(ClearCommand.COMMAND_WORD);
-        assertTrue(ClearCommand.getActivated());
-        ClearCommand.setIsActivatedFalse();
-        clearCommand = (ClearCommand) parser.parseCommand(ClearCommand.COMMAND_WORD + " 3");
-        assertTrue(ClearCommand.getActivated());
-        ClearCommand.setIsActivatedFalse();
+        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ConfirmCommand);
+        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ConfirmCommand);
     }
 
     @Test
     public void parseCommand_delete() throws Exception {
-        ClearCommand.setIsActivatedFalse();
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);

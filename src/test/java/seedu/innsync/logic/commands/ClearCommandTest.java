@@ -16,9 +16,7 @@ public class ClearCommandTest {
     public void execute_emptyAddressBook_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
-
         ClearCommand clearCommand = new ClearCommand();
-        clearCommand = new ClearCommand(true);
         assertCommandSuccess(clearCommand, model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
@@ -29,7 +27,6 @@ public class ClearCommandTest {
         expectedModel.setAddressBook(new AddressBook());
 
         ClearCommand clearCommand = new ClearCommand();
-        clearCommand = new ClearCommand(true);
         assertCommandSuccess(clearCommand, model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
