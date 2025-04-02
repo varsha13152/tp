@@ -31,6 +31,7 @@ public class RequestCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_REQUEST + "Need a bottle of champagne every morning";
     public static final String MESSAGE_SUCCESS = "Request successfully added: %s";
     public static final String MESSAGE_DUPLICATE_REQUEST = "This contact already has this request.";
+    public static final String MESSAGE_DUPLICATE_REQUEST_EDIT = "This edit contains duplicate request.";
 
     private final Index index;
     private final List<Request> requests;

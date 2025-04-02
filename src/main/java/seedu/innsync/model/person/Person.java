@@ -191,8 +191,10 @@ public class Person {
      */
     public void addRequest(Request request) throws DuplicateRequestException {
         requireAllNonNull(request);
-        if (requests.contains(request)) {
-            throw new DuplicateRequestException();
+        for (Request requestInPerson : requests) {
+            if (requestInPerson.isSameRequest(request)) {
+                throw new DuplicateRequestException();
+            }
         }
         requests.add(request);
         logger.info("Request added to person's request list.");
@@ -205,8 +207,10 @@ public class Person {
      */
     public void addRequest(Request request, int index) throws DuplicateRequestException {
         requireAllNonNull(request);
-        if (requests.contains(request)) {
-            throw new DuplicateRequestException();
+        for (Request requestInPerson : requests) {
+            if (requestInPerson.isSameRequest(request)) {
+                throw new DuplicateRequestException();
+            }
         }
         requests.add(index, request);
         logger.info("Request added to person's request list.");
