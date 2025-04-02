@@ -1,7 +1,5 @@
 package seedu.innsync.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-
 import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.Model;
 
