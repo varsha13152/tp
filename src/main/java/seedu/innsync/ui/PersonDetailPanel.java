@@ -129,7 +129,7 @@ public class PersonDetailPanel extends UiPart<Region> {
             });
 
             // Create the label for each request
-            Label requestLabel = new Label(String.format("%d. %s", i, request.requestName));
+            Label requestLabel = new Label(String.format("%d. %s", i + 1, request.requestName));
             requestLabel.getStyleClass().add("detail-request");
 
             // Add the checkbox and label to the HBox
