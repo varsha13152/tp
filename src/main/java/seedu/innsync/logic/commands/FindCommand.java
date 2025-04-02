@@ -285,7 +285,6 @@ public class FindCommand extends Command {
 
     /**
      * Checks if this FindCommand is equal to the specified object.
-     * @param other the object to compare with this FindCommand
      * @return true if the objects are equal, false otherwise
      */
     @Override
