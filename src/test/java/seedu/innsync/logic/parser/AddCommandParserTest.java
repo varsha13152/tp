@@ -9,6 +9,7 @@ import static seedu.innsync.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.innsync.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.innsync.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.innsync.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.innsync.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.innsync.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.innsync.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.innsync.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
@@ -41,6 +42,7 @@ import seedu.innsync.model.person.Email;
 import seedu.innsync.model.person.Name;
 import seedu.innsync.model.person.Person;
 import seedu.innsync.model.person.Phone;
+import seedu.innsync.model.tag.Tag;
 import seedu.innsync.testutil.PersonBuilder;
 
 public class AddCommandParserTest {
@@ -164,7 +166,7 @@ public class AddCommandParserTest {
     public void parse_invalidValue_failure() {
         // invalid name
         assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Name.getErrorMessage(INVALID_NAME_DESC));
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Name.MESSAGE_EMPTY);
 
         // invalid phone
         assertParseFailure(parser, NAME_DESC_BOB + INVALID_PHONE_DESC + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
@@ -174,13 +176,17 @@ public class AddCommandParserTest {
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC + ADDRESS_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Email.MESSAGE_CONSTRAINTS);
 
-        // invalid address
+        // invalid address (empty)
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Address.MESSAGE_EMPTY);
 
+        // invalid tag (length)
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + INVALID_TAG_DESC + VALID_TAG_FRIEND, Tag.MESSAGE_CONSTRAINTS);
+
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC,
-                Name.getErrorMessage(INVALID_NAME_DESC));
+                Name.MESSAGE_EMPTY);
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB

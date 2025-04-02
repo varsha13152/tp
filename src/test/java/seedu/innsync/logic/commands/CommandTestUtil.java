@@ -66,12 +66,18 @@ public class CommandTestUtil {
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + ""; //empty string not allowed in names
-    public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
-    public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
-    public static final String INVALID_BOOKINGTAG_DESC = " " + PREFIX_TAG + "hotel from/"; // '*' not allowed in booking tags
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + LONG_STRING; // invalid tag length
+    //empty string not allowed in names
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "";
+    // 'a' not allowed in phones
+    public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a";
+    // missing '@' symbol
+    public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo";
+    // empty string not allowed for addresses
+    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS;
+    // '*' not allowed in booking tags
+    public static final String INVALID_BOOKINGTAG_DESC = " " + PREFIX_TAG + "hotel from/";
+    // invalid tag length
+    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + LONG_STRING;
 
     public static final String OVERLAPPING_BOOKINGTAG_INN = "Inn from/2025-06-08 to/2025-06-12";
 
