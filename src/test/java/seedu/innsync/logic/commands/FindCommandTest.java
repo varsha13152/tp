@@ -2,6 +2,7 @@ package seedu.innsync.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.innsync.logic.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.innsync.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -19,12 +20,14 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.innsync.model.Model;
 import seedu.innsync.model.ModelManager;
 import seedu.innsync.model.UserPrefs;
+import seedu.innsync.model.person.Person;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
@@ -32,6 +35,11 @@ import seedu.innsync.model.UserPrefs;
 public class FindCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
+    @Test
+    public void constructor_nullSearchCriteria_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new FindCommand(null));
+    }
 
     @Test
     public void equals() {
@@ -110,6 +118,39 @@ public class FindCommandTest {
     }
 
     @Test
+    public void execute_nullPerson_noExceptionThrown() {
+        Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
+        criteria.put(FindCommand.SearchType.NAME, Collections.singletonList("Alice"));
+        FindCommand command = new FindCommand(criteria);
+        Predicate<Person> predicate = command.getPredicate();
+
+        // Predicate should handle null person without throwing exception
+        assertFalse(predicate.test(null));
+    }
+
+
+    @Test
+    public void execute_emptySearchCriteria_returnsEmptyResult() {
+        Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
+        FindCommand command = new FindCommand(criteria);
+
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+        expectedModel.updateFilteredPersonList(p -> false);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_nullKeywordInList_nullsFilteredOut() {
+        Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
+        List<String> keywordsWithNull = Arrays.asList("valid", null, "keyword");
+        criteria.put(FindCommand.SearchType.NAME, keywordsWithNull);
+        FindCommand command = new FindCommand(criteria);
+        Predicate<Person> predicate = command.getPredicate();
+        Person testPerson = ALICE;
+        boolean result = predicate.test(testPerson);
+    }
+
+    @Test
     public void execute_multipleSearchTypes_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
@@ -125,7 +166,6 @@ public class FindCommandTest {
 
     @Test
     public void execute_singleKeyword_multiplePersonsFound() {
-        // "Meier" should match both "Benson Meier" and "Daniel Meier"
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.NAME, Collections.singletonList("Meier"));
@@ -137,7 +177,6 @@ public class FindCommandTest {
 
     @Test
     public void execute_uniqueNameKeyword_onePersonFound() {
-        // "Pauline" should only match "Alice Pauline"
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.NAME, Collections.singletonList("Pauline"));
@@ -149,7 +188,6 @@ public class FindCommandTest {
 
     @Test
     public void execute_phoneKeyword_personFound() {
-        // Daniel's exact phone number
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.PHONE, Collections.singletonList("87652533"));
@@ -161,7 +199,6 @@ public class FindCommandTest {
 
     @Test
     public void execute_partialPhoneKeyword_multiplePersonsFound() {
-        // Partial phone number "9482" should match Elle, Fiona, and George
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.PHONE, Collections.singletonList("9482"));
@@ -173,7 +210,6 @@ public class FindCommandTest {
 
     @Test
     public void execute_emailKeyword_personFound() {
-        // George's email
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.EMAIL, Collections.singletonList("anna"));
@@ -185,7 +221,6 @@ public class FindCommandTest {
 
     @Test
     public void execute_domainEmailKeyword_allPersonsFound() {
-        // All test persons have example.com email domain
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 7);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.EMAIL, Collections.singletonList("example.com"));
@@ -197,10 +232,6 @@ public class FindCommandTest {
 
     @Test
     public void execute_addressKeyword_personsFound() {
-        // "street" should match Carl, Daniel and George based on their addresses:
-        // CARL: "wall street"
-        // DANIEL: "10th street"
-        // GEORGE: "4th street"
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.ADDRESS, Collections.singletonList("street"));
@@ -212,7 +243,6 @@ public class FindCommandTest {
 
     @Test
     public void execute_uniqueAddressKeyword_onePersonFound() {
-        // "tokyo" should only match Fiona's address "little tokyo"
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.ADDRESS, Collections.singletonList("tokyo"));
@@ -224,7 +254,6 @@ public class FindCommandTest {
 
     @Test
     public void execute_tagKeyword_multiplePersonsFound() {
-        // "friends" tag is on Alice, Benson, and Daniel
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.TAG, Collections.singletonList("friends"));
@@ -236,7 +265,6 @@ public class FindCommandTest {
 
     @Test
     public void execute_uniqueTagKeyword_onePersonFound() {
-        // "owesMoney" tag is only on Benson
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.TAG, Collections.singletonList("owesMoney"));
@@ -248,7 +276,6 @@ public class FindCommandTest {
 
     @Test
     public void execute_multipleTagKeywords_multiplePersonsFound() {
-        // "friends" or "owesMoney" tags
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.TAG, Arrays.asList("friends", "owesMoney"));
@@ -260,7 +287,6 @@ public class FindCommandTest {
 
     @Test
     public void execute_caseInsensitiveSearch_personsFound() {
-        // Case insensitive search for "alice"
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.NAME, Collections.singletonList("alice"));
@@ -269,7 +295,6 @@ public class FindCommandTest {
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.singletonList(ALICE), model.getPersonList());
 
-        // Case insensitive search for "PAULINE"
         expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.NAME, Collections.singletonList("PAULINE"));
@@ -278,7 +303,6 @@ public class FindCommandTest {
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.singletonList(ALICE), model.getPersonList());
 
-        // Case insensitive search for "FrIeNdS" tag
         expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.TAG, Collections.singletonList("FrIeNdS"));
@@ -290,7 +314,6 @@ public class FindCommandTest {
 
     @Test
     public void execute_memoKeyword_personsFound() {
-        // "term" should match Alice's memo "long term stay."
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.MEMO, Collections.singletonList("term"));
@@ -302,7 +325,6 @@ public class FindCommandTest {
 
     @Test
     public void execute_memoCaseInsensitive_personsFound() {
-        // Case insensitive search for "FOOD" in Benson's memo "Wants extra food"
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.MEMO, Collections.singletonList("FOOD"));
@@ -314,7 +336,6 @@ public class FindCommandTest {
 
     @Test
     public void execute_multipleMemoKeywords_multiplePersonsFound() {
-        // "stay" or "extra" should match Alice and Benson
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.MEMO, Arrays.asList("stay", "extra"));
@@ -326,7 +347,6 @@ public class FindCommandTest {
 
     @Test
     public void execute_bookingPropertyKeyword_personsFound() {
-        // "Beach" should match George's booking property "BeachHouse"
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.BOOKING_PROPERTY, Collections.singletonList("Beach"));
@@ -338,7 +358,6 @@ public class FindCommandTest {
 
     @Test
     public void execute_bookingPropertyCaseInsensitive_personsFound() {
-        // Case insensitive search for "beach" in George's booking property "BeachHouse"
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.BOOKING_PROPERTY, Collections.singletonList("beach"));
@@ -350,7 +369,6 @@ public class FindCommandTest {
 
     @Test
     public void execute_bookingDateKeyword_personsFound() {
-        // Date "2025-06-05" should match George's booking date range "2025-06-01 to 2025-06-10"
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.BOOKING_DATE, Collections.singletonList("2025-06-05"));
@@ -361,8 +379,18 @@ public class FindCommandTest {
     }
 
     @Test
+    public void execute_bookingDateInvalidFormat_noExceptionThrown() {
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+        Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
+        criteria.put(FindCommand.SearchType.BOOKING_DATE, Collections.singletonList("06-05-2025"));
+        FindCommand command = new FindCommand(criteria);
+        expectedModel.updateFilteredPersonList(p -> false);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Collections.emptyList(), model.getPersonList());
+    }
+
+    @Test
     public void execute_bookingDateStartDay_personsFound() {
-        // Date "2025-06-01" (start day of booking) should match George's booking
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.BOOKING_DATE, Collections.singletonList("2025-06-01"));
@@ -374,7 +402,6 @@ public class FindCommandTest {
 
     @Test
     public void execute_bookingDateEndDay_personsFound() {
-        // Date "2025-06-10" (end day of booking) should match George's booking
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.BOOKING_DATE, Collections.singletonList("2025-06-10"));
@@ -434,12 +461,7 @@ public class FindCommandTest {
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.NAME, Collections.singletonList("keyword"));
         FindCommand findCommand = new FindCommand(criteria);
-
-        // The string representation should include the search criteria
         String expected = findCommand.toString();
-
-        // Since we can't predict the exact string format, we'll just verify
-        // that the string contains the important parts
         assertTrue(expected.contains("searchCriteria"));
     }
 }

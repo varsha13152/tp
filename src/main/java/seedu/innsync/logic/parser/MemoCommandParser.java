@@ -3,6 +3,8 @@ package seedu.innsync.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_MEMO;
 
+import java.util.stream.Stream;
+
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.logic.commands.MemoCommand;
 import seedu.innsync.logic.parser.exceptions.ParseException;
@@ -23,6 +25,9 @@ public class MemoCommandParser implements Parser<MemoCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_MEMO);
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_MEMO);
+        if (!atLeastOnePrefixPresent(argMultimap, PREFIX_MEMO)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MemoCommand.MESSAGE_USAGE));
+        }
         Index index;
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
@@ -30,8 +35,11 @@ public class MemoCommandParser implements Parser<MemoCommand> {
             throw new ParseException(String.format("%s\n%s", pe.getMessage(), MemoCommand.MESSAGE_USAGE), pe);
         }
 
-        String memo = argMultimap.getValue(PREFIX_MEMO).orElse("");
+        Memo memo = ParserUtil.parseMemo(argMultimap.getValue(PREFIX_MEMO).orElse(""));
+        return new MemoCommand(index, memo);
+    }
 
-        return new MemoCommand(index, new Memo(memo));
+    private static boolean atLeastOnePrefixPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }

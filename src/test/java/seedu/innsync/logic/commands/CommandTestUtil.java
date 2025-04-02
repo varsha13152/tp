@@ -29,6 +29,7 @@ import seedu.innsync.testutil.EditPersonDescriptorBuilder;
  */
 public class CommandTestUtil {
 
+    public static final String LONG_STRING = "A".repeat(171);
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "+65 11111111";
@@ -70,7 +71,7 @@ public class CommandTestUtil {
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_BOOKINGTAG_DESC = " " + PREFIX_TAG + "hotel from/"; // '*' not allowed in tags
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + LONG_STRING;
 
     public static final String OVERLAPPING_BOOKINGTAG_INN = "Inn from/2025-06-08 to/2025-06-12";
 

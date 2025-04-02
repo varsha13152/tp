@@ -10,6 +10,6 @@ public class DuplicateRequestException extends RuntimeException {
      * Constructs a {@code DuplicateRequestException} with a default error message.
      */
     public DuplicateRequestException() {
-        super("Operation would result in duplicate tags");
+        super("Operation would result in duplicate requests");
     }
 }

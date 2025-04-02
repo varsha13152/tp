@@ -9,8 +9,8 @@ import static seedu.innsync.commons.util.AppUtil.checkArgument;
  */
 public class Tag {
 
-    public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final String MESSAGE_CONSTRAINTS = "Error: Tags values should not exceed 170 characters";
+    public static final String VALIDATION_REGEX = "^.{1,170}$";
 
     public final String tagName;
     private int tagCount;
