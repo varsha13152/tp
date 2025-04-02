@@ -20,7 +20,6 @@ import seedu.innsync.model.person.Phone;
 import seedu.innsync.model.request.Request;
 import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
-import seedu.innsync.model.tag.exceptions.DuplicateTagException;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
