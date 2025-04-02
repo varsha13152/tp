@@ -13,7 +13,6 @@ import static seedu.innsync.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.Test;
 
 import seedu.innsync.commons.core.index.Index;
-import seedu.innsync.logic.Messages;
 import seedu.innsync.model.AddressBook;
 import seedu.innsync.model.Model;
 import seedu.innsync.model.ModelManager;
@@ -36,7 +35,7 @@ public class StarCommandTest {
         StarCommand starCommand = new StarCommand(INDEX_FIRST_PERSON);
 
         String expectedMessage = String.format(StarCommand.MESSAGE_SUCCESS,
-                Messages.format(expectedPerson));
+                expectedPerson.getName());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(personToStar, expectedPerson);
@@ -61,7 +60,7 @@ public class StarCommandTest {
         StarCommand starCommand = new StarCommand(INDEX_FIRST_PERSON);
 
         String expectedMessage = String.format(StarCommand.MESSAGE_FAILURE,
-                Messages.format(expectedPerson));
+                expectedPerson.getName());
         assertCommandFailure(starCommand, testModel, expectedMessage);
     }
 

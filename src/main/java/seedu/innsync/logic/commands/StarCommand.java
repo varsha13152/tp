@@ -48,12 +48,12 @@ public class StarCommand extends Command {
 
         Person person = lastShownList.get(this.index.getZeroBased());
         if (person.getStarred()) {
-            throw new CommandException(String.format(MESSAGE_FAILURE, Messages.format(person)));
+            throw new CommandException(String.format(MESSAGE_FAILURE, person.getName()));
         }
         Person starredPerson = getStarredPerson(person);
         model.setPerson(person, starredPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(starredPerson)), starredPerson);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, starredPerson.getName()), starredPerson);
     }
 
     private Person getStarredPerson(Person personToCopy) {
