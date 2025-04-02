@@ -67,18 +67,18 @@ public class DeleteRequestCommand extends Command {
 
         Person personToEdit = lastShownList.get(this.contactIndex.getZeroBased());
         List<Request> requests = personToEdit.getRequests();
-        
+
         // Check if requestIndex is valid
         if (requestIndex.getZeroBased() >= requests.size()) {
             throw new CommandException(MESSAGE_INVALID_REQUEST_INDEX);
         }
-        
+
         // Get the request to be deleted
         Request requestToDelete = requests.get(requestIndex.getZeroBased());
-        
+
         // Create edited person with the request removed
         Person editedPerson = createEditedPerson(personToEdit, requestToDelete);
-        
+
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
@@ -123,7 +123,7 @@ public class DeleteRequestCommand extends Command {
             return false;
         }
         DeleteRequestCommand otherDeleteRequest = (DeleteRequestCommand) other;
-        return contactIndex.equals(otherDeleteRequest.contactIndex) 
+        return contactIndex.equals(otherDeleteRequest.contactIndex)
                 && requestIndex.equals(otherDeleteRequest.requestIndex);
     }
 
