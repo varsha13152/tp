@@ -12,6 +12,7 @@ import seedu.innsync.logic.commands.AddCommand;
 import seedu.innsync.logic.commands.ClearCommand;
 import seedu.innsync.logic.commands.Command;
 import seedu.innsync.logic.commands.DeleteCommand;
+import seedu.innsync.logic.commands.DeleteRequestCommand;
 import seedu.innsync.logic.commands.EditCommand;
 import seedu.innsync.logic.commands.ExitCommand;
 import seedu.innsync.logic.commands.FindCommand;
@@ -102,6 +103,9 @@ public class AddressBookParser {
 
         case RequestCommand.COMMAND_WORD:
             return new RequestCommandParser().parse(arguments);
+
+        case DeleteRequestCommand.COMMAND_WORD:
+            return new DeleteRequestCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
