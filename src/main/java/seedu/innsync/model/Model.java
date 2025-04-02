@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.innsync.commons.core.GuiSettings;
 import seedu.innsync.model.person.Person;
+import seedu.innsync.model.request.Request;
 
 /**
  * The API of the Model component.
@@ -20,7 +21,6 @@ public interface Model {
 
     Comparator<Person> COMPARATOR_SHOW_STARRED_FIRST = Comparator.comparing(Person::getStarred,
             Comparator.reverseOrder()).thenComparing(Person::getName);
-
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -88,6 +88,19 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
+    /**
+     * Gets request from address book else adds it.
+     *
+     * @param request the request to be added
+     */
+    Request getRequestElseCreate(Request request);
+
+    /**
+     * Gets request from address book.
+     *
+     * @return request from address book or null if it does not exist.
+     */
+    Request getRequest(Request request);
 
     /** Returns an unmodifiable view of the sorted filtered person list */
     ObservableList<Person> getPersonList();

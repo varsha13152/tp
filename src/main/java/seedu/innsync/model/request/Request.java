@@ -46,6 +46,10 @@ public class Request {
         return MESSAGE_LENGTH;
     }
 
+    public String getRequestName() {
+        return requestName;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -55,7 +59,7 @@ public class Request {
             return false;
         }
         Request otherRequest = (Request) other;
-        return requestName.equals(otherRequest.requestName);
+        return requestName.equals(otherRequest.requestName) && isCompleted == otherRequest.isCompleted;
     }
 
     /**
@@ -79,6 +83,19 @@ public class Request {
      */
     public void markAsIncomplete() {
         this.isCompleted = false;
+    }
+
+    /**
+     * Returns true if both requests have the same request name.
+     * This defines a weaker notion of equality between two requests.
+     */
+    public boolean isSameRequest(Request otherRequest) {
+        if (otherRequest == this) {
+            return true;
+        }
+
+        return otherRequest != null
+                && otherRequest.getRequestName().equals(getRequestName());
     }
 
     @Override
