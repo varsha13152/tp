@@ -486,13 +486,6 @@ Examples:
 
 ### 4.5.5 Listing requests: `listreq`
 
-Shows a list of all the requests from all visitors.
-
-Format: `listreq`
-
-* Lists all requests from all visitors, showing request details and completion status.
-* Requests are displayed with their associated visitor information.
-
 ## 4.6 Memo a visitor : `memo`
 
 Add a memo into the visitor in the address book.
