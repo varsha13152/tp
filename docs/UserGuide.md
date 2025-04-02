@@ -436,6 +436,22 @@ Examples:
 
 ### 4.5.5 Listing requests: `listreq`
 
+## 4.6 Memo a person : `memo`
+
+Add a memo into the person in the address book.
+
+Format: `memo INDEX m/MEMO`
+
+* Adds the memo to the person specified by 'INDEX'. The index refers to the index number shown in the displayed person LIST. The index **must be a positive integer**
+* All the fields must be provided.
+
+Examples:
+* `memo 1 m/recurring customer` Adds the memo to the 1st person on the list.
+
+> **Tip:** You can remove memo with memo intead of edit!
+>
+> * `Just leave the memo blank e.g memo INDEX m/`
+
 ## 4.6 Features related to finding
 
 ### 4.6.1 Locating persons: `find`
