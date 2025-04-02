@@ -31,48 +31,48 @@ public class DeleteRequestCommandParserTest {
     @Test
     public void parse_invalidContactIndex_throwsParseException() {
         // Non-numeric contact index
-        assertParseFailure(parser, "a r/1", String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+        assertParseFailure(parser, "a r/1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteRequestCommand.MESSAGE_USAGE));
 
         // Negative contact index
-        assertParseFailure(parser, "-1 r/1", String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+        assertParseFailure(parser, "-1 r/1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteRequestCommand.MESSAGE_USAGE));
 
         // Zero contact index
-        assertParseFailure(parser, "0 r/1", String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+        assertParseFailure(parser, "0 r/1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteRequestCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_invalidRequestIndex_throwsParseException() {
         // Non-numeric request index
-        assertParseFailure(parser, "1 r/a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+        assertParseFailure(parser, "1 r/a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteRequestCommand.MESSAGE_USAGE));
 
         // Negative request index
-        assertParseFailure(parser, "1 r/-1", String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+        assertParseFailure(parser, "1 r/-1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteRequestCommand.MESSAGE_USAGE));
 
         // Zero request index
-        assertParseFailure(parser, "1 r/0", String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+        assertParseFailure(parser, "1 r/0", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteRequestCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_missingRequestIndex_throwsParseException() {
         // No request index provided (missing r/ prefix)
-        assertParseFailure(parser, "1", String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+        assertParseFailure(parser, "1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteRequestCommand.MESSAGE_USAGE));
 
         // Empty request index
-        assertParseFailure(parser, "1 r/", String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+        assertParseFailure(parser, "1 r/", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteRequestCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_missingAllArgs_throwsParseException() {
         // Empty input
-        assertParseFailure(parser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+        assertParseFailure(parser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteRequestCommand.MESSAGE_USAGE));
     }
 }
