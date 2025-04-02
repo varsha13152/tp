@@ -65,11 +65,11 @@ public class MarkRequestCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
         Person person = lastShownList.get(this.index.getZeroBased());
-        Request[] requests = person.getRequests().toArray(new Request[0]);
-        if (this.requestIndex.getOneBased() > requests.length) {
+        List<Request> requests = person.getRequests();
+        if (this.requestIndex.getOneBased() > requests.size()) {
             throw new CommandException(MESSAGE_FAILURE_INVALID_INDEX);
         }
-        Request request = requests[this.requestIndex.getZeroBased()];
+        Request request = requests.get(this.requestIndex.getZeroBased());
         if (request.isCompleted()) {
             throw new CommandException(String.format(MESSAGE_FAILURE_ALREADY_MARKED,
                     request.getRequestName()));
