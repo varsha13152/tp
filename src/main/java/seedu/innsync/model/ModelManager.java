@@ -152,6 +152,7 @@ public class ModelManager implements Model {
     public void setTags(List<Tag> tags) {
         requireNonNull(tags);
         this.addressBook.setTags(tags);
+    }
   
     public Request getRequestElseCreate(Request request) {
         requireNonNull(request);

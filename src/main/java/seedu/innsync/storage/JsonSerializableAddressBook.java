@@ -39,6 +39,7 @@ class JsonSerializableAddressBook {
         this.persons.addAll(persons);
         if (requests != null) {
             this.requests.addAll(requests);
+        }
         if (tags != null) {
           this.tags.addAll(tags);
         }
