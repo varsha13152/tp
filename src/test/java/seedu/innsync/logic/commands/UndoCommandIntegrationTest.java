@@ -3,22 +3,26 @@ package seedu.innsync.logic.commands;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_BOOKINGTAG_BEACHHOUSE;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_MEMO_AMY;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.innsync.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.innsync.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.innsync.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.innsync.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.util.Set;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.innsync.model.AddressBook;
+import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.Model;
 import seedu.innsync.model.ModelManager;
 import seedu.innsync.model.UserPrefs;
+import seedu.innsync.model.person.Memo;
 import seedu.innsync.model.person.Person;
+import seedu.innsync.model.tag.BookingTag;
+import seedu.innsync.model.tag.Tag;
 import seedu.innsync.testutil.PersonBuilder;
 
-public class UndoCommandTest {
+public class UndoCommandIntegrationTest {
     private Model model;
 
     @BeforeEach
@@ -27,69 +31,81 @@ public class UndoCommandTest {
     }
 
     @Test
-    public void execute_noModificationsToAddressBook_failure() {
-        UndoCommand undoCommand = new UndoCommand();
-        assertCommandFailure(undoCommand, model, UndoCommand.MESSAGE_FAILURE);
-    }
-
-    @Test
-    public void execute_undoSetAddressBook_success() {
+    public void execute_undoClear_success() {
         Model modifiedModel = new ModelManager(this.model.getAddressBook(), new UserPrefs());
-        modifiedModel.setAddressBook(new AddressBook());
+        ClearCommand clearCommand = new ClearCommand();
+        clearCommand.execute(modifiedModel);
         UndoCommand undoCommand = new UndoCommand();
         assertCommandSuccess(undoCommand, modifiedModel, UndoCommand.MESSAGE_SUCCESS, model);
     }
 
     @Test
-    public void execute_undoDelete_success() {
+    public void execute_undoDelete_success() throws CommandException {
         Model modifiedModel = new ModelManager(this.model.getAddressBook(), new UserPrefs());
-        Person person = modifiedModel.getPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        modifiedModel.deletePerson(person);
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        deleteCommand.execute(modifiedModel);
         UndoCommand undoCommand = new UndoCommand();
         assertCommandSuccess(undoCommand, modifiedModel, UndoCommand.MESSAGE_SUCCESS, model);
     }
 
     @Test
-    public void execute_undoAdd_success() {
+    public void execute_undoAdd_success() throws CommandException {
         Model modifiedModel = new ModelManager(this.model.getAddressBook(), new UserPrefs());
-        modifiedModel.addPerson(new PersonBuilder().build());
+        AddCommand addCommand = new AddCommand(new PersonBuilder().build());
+        addCommand.execute(modifiedModel);
         UndoCommand undoCommand = new UndoCommand();
         assertCommandSuccess(undoCommand, modifiedModel, UndoCommand.MESSAGE_SUCCESS, model);
     }
 
     @Test
-    public void execute_undoSetPersonStarred_success() {
+    public void execute_undoStarred_success() throws CommandException {
         Model modifiedModel = new ModelManager(this.model.getAddressBook(), new UserPrefs());
-        Person person = modifiedModel.getPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        boolean wasStarred = person.getStarred();
-        modifiedModel.setPerson(person, new PersonBuilder(person).withStarred(!wasStarred).build());
+        StarCommand starCommand = new StarCommand(INDEX_FIRST_PERSON);
+        starCommand.execute(modifiedModel);
         UndoCommand undoCommand = new UndoCommand();
         assertCommandSuccess(undoCommand, modifiedModel, UndoCommand.MESSAGE_SUCCESS, model);
     }
 
     @Test
-    public void execute_undoSetPersonMemo_success() {
+    public void execute_undoUnstarred_success() throws CommandException {
+        Model starredModel = new ModelManager(this.model.getAddressBook(), new UserPrefs());
+        Person person = starredModel.getPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        starredModel.setPerson(person, new PersonBuilder(person).withStarred(true).build());
+
+        Model modifiedModel = new ModelManager(starredModel.getAddressBook(), new UserPrefs());
+        UnstarCommand unstarCommand = new UnstarCommand(INDEX_FIRST_PERSON);
+        unstarCommand.execute(modifiedModel);
+        UndoCommand undoCommand = new UndoCommand();
+        assertCommandSuccess(undoCommand, modifiedModel, UndoCommand.MESSAGE_SUCCESS, starredModel);
+    }
+
+    @Test
+    public void execute_undoMemo_success() throws CommandException {
         Model modifiedModel = new ModelManager(this.model.getAddressBook(), new UserPrefs());
-        Person person = modifiedModel.getPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        modifiedModel.setPerson(person, new PersonBuilder(person).withMemo(VALID_MEMO_AMY).build());
+        MemoCommand memoCommand = new MemoCommand(INDEX_FIRST_PERSON, new Memo(VALID_MEMO_AMY));
+        memoCommand.execute(modifiedModel);
         UndoCommand undoCommand = new UndoCommand();
         assertCommandSuccess(undoCommand, modifiedModel, UndoCommand.MESSAGE_SUCCESS, model);
     }
 
     @Test
-    public void execute_undoSetPersonTags_success() {
+    public void execute_undoTags_success() throws CommandException {
         Model modifiedModel = new ModelManager(this.model.getAddressBook(), new UserPrefs());
-        Person person = modifiedModel.getPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        modifiedModel.setPerson(person, new PersonBuilder(person).withTags(VALID_TAG_FRIEND).build());
+        TagCommand tagCommand = new TagCommand(INDEX_FIRST_PERSON,
+                Set.of(new Tag(VALID_TAG_FRIEND)),
+                null);
+        tagCommand.execute(modifiedModel);
         UndoCommand undoCommand = new UndoCommand();
         assertCommandSuccess(undoCommand, modifiedModel, UndoCommand.MESSAGE_SUCCESS, model);
     }
 
     @Test
-    public void execute_undoSetPersonBookingTags_success() {
+    public void execute_undoBookingTags_success() throws CommandException {
         Model modifiedModel = new ModelManager(this.model.getAddressBook(), new UserPrefs());
-        Person person = modifiedModel.getPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        modifiedModel.setPerson(person, new PersonBuilder(person).withBookingTags(VALID_BOOKINGTAG_BEACHHOUSE).build());
+        TagCommand tagCommand = new TagCommand(INDEX_FIRST_PERSON,
+                null,
+                Set.of(new BookingTag(VALID_BOOKINGTAG_BEACHHOUSE)));
+        tagCommand.execute(modifiedModel);
         UndoCommand undoCommand = new UndoCommand();
         assertCommandSuccess(undoCommand, modifiedModel, UndoCommand.MESSAGE_SUCCESS, model);
     }
