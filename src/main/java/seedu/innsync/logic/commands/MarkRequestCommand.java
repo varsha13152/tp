@@ -27,7 +27,7 @@ public class MarkRequestCommand extends Command {
             + ": Marks a request of the contact identified by the index number"
             + "in the displayed person list as completed.\n"
             + "Parameters: INDEX (must be a positive integer) " + PREFIX_REQUEST + "REQUEST_INDEX\n"
-            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_REQUEST + "Need a bottle of champagne every morning";
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_REQUEST + "1";
     public static final String MESSAGE_SUCCESS = "Request successfully marked: %s";
     public static final String MESSAGE_FAILURE_INVALID_INDEX = "Invalid Request Index!"
             + "CAUSE: Request Index is out of range. There is no request indexed by this number."
