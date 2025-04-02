@@ -18,11 +18,11 @@ import seedu.innsync.model.person.Name;
 import seedu.innsync.model.person.Phone;
 
 public class JsonAdaptedPersonTest {
-    private static final String INVALID_NAME = "R@chel";
+    private static final String INVALID_NAME = "";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
-    private static final String INVALID_REQUESTS = "/friend";
+    private static final String INVALID_REQUESTS = "";
     private static final String INVALID_BOOKING_TAG = "house";
     private static final String INVALID_TAG = "#friend";
 

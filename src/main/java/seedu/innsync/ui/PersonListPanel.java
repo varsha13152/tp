@@ -62,6 +62,15 @@ public class PersonListPanel extends UiPart<Region> {
     }
 
     /**
+     * Selects the given person.
+     */
+    public void selectPerson(Person person) {
+        if (person != null) {
+            personListView.getSelectionModel().select(person);
+        }
+    }
+
+    /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
     class PersonListViewCell extends ListCell<Person> {

@@ -41,7 +41,7 @@ public class StarCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(personToStar, expectedPerson);
 
-        assertCommandSuccess(starCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(starCommand, model, expectedMessage, expectedModel, expectedPerson);
     }
 
     @Test

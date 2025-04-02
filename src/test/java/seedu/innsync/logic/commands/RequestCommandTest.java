@@ -39,7 +39,7 @@ public class RequestCommandTest {
         expectedModel.setPerson(personToEdit, editedPerson);
         expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        assertCommandSuccess(requestCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(requestCommand, model, expectedMessage, expectedModel, editedPerson);
     }
 
     @Test
