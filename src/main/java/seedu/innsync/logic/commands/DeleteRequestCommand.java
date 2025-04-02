@@ -82,7 +82,8 @@ public class DeleteRequestCommand extends Command {
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(editedPerson)), editedPerson);
+        return new CommandResult(
+            String.format(MESSAGE_SUCCESS, Messages.format(editedPerson)), editedPerson);
     }
 
     /**
@@ -93,7 +94,9 @@ public class DeleteRequestCommand extends Command {
      * @return A new Person with the request removed.
      * @throws CommandException If the request is not found in the person's requests.
      */
-    private Person createEditedPerson(Person personToEdit, Request requestToDelete) throws CommandException {
+    private Person createEditedPerson(
+            Person personToEdit, 
+            Request requestToDelete) throws CommandException {
         Person tempPerson = new Person(
                 personToEdit.getName(),
                 personToEdit.getPhone(),
