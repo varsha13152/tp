@@ -35,7 +35,7 @@ public class TagCommandParser implements Parser<TagCommand> {
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Index index;
         try {
-            index = ParserUtil.parseIndex(args);
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(Messages.MESSAGE_PARSE_EXCEPTION,

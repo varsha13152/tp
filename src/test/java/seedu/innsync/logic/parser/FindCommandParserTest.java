@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.innsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.innsync.logic.Messages.MESSAGE_PARSE_EXCEPTION;
 import static seedu.innsync.logic.parser.CommandParserTestUtil.assertParseFailure;
 
 import java.util.List;
@@ -45,23 +46,31 @@ public class FindCommandParserTest {
     public void parse_emptyKeywords_throwsParseException() {
         // Empty after prefix - check for correct error message from parser
         assertParseFailure(parser, "n/",
-                "Please enter at least one keyword after n/ when searching by name. " + Emoticons.ANGRY);
+                "Please enter at least one keyword after n/ when searching by name. "
+                + Emoticons.ANGRY + "\n" + FindCommand.MESSAGE_USAGE);
         assertParseFailure(parser, "p/",
-                "Please enter at least one keyword after p/ when searching by phone number. " + Emoticons.ANGRY);
+                "Please enter at least one keyword after p/ when searching by phone number. "
+                + Emoticons.ANGRY + "\n" + FindCommand.MESSAGE_USAGE);
         assertParseFailure(parser, "e/",
-                "Please enter at least one keyword after e/ when searching by email. " + Emoticons.ANGRY);
+                "Please enter at least one keyword after e/ when searching by email. "
+                + Emoticons.ANGRY + "\n" + FindCommand.MESSAGE_USAGE);
         assertParseFailure(parser, "a/",
-                "Please enter at least one keyword after a/ when searching by address. " + Emoticons.ANGRY);
+                "Please enter at least one keyword after a/ when searching by address. "
+                + Emoticons.ANGRY + "\n" + FindCommand.MESSAGE_USAGE);
         assertParseFailure(parser, "t/",
-                "Please enter at least one keyword after t/ when searching by tag. " + Emoticons.ANGRY);
+                "Please enter at least one keyword after t/ when searching by tag. "
+                + Emoticons.ANGRY + "\n" + FindCommand.MESSAGE_USAGE);
         // New prefixes
         assertParseFailure(parser, "m/",
-                "Please enter at least one keyword after m/ when searching by memo. " + Emoticons.ANGRY);
+                "Please enter at least one keyword after m/ when searching by memo. "
+                + Emoticons.ANGRY + "\n" + FindCommand.MESSAGE_USAGE);
         assertParseFailure(parser, "bd/",
-                "Please enter at least one date after bd/ when searching by booking date. " + Emoticons.ANGRY);
+                "Please enter at least one date after bd/ when searching by booking date. "
+                + Emoticons.ANGRY + "\n" + FindCommand.MESSAGE_USAGE);
         assertParseFailure(parser, "bp/",
                 "Please enter at least one keyword after bp/ "
-                + "when searching by booking property. " + Emoticons.ANGRY);
+                + "when searching by booking property. "
+                + Emoticons.ANGRY + "\n" + FindCommand.MESSAGE_USAGE);
     }
 
     @Test
@@ -339,24 +348,24 @@ public class FindCommandParserTest {
         assertParseFailure(parser, "x/keyword",
                 "Invalid search field: 'x/'. Valid prefixes are: \n name: n/ \n phone: p/ \n email: e/ \n"
                 + "address: a/ \n tag: t/ \n memo: m/ \n booking date: bd/ \n booking property: bp/ "
-                + Emoticons.ANGRY);
+                + Emoticons.ANGRY + "\n" + FindCommand.MESSAGE_USAGE);
     }
 
     @Test
     public void parse_invalidNameFormat_throwsParseException() {
         String longName = "A".repeat(256); // Create a 256-character name
-        assertParseFailure(parser, "n/" + longName,
-                "Error: Name values should not exceed 170 characters.");
+        assertParseFailure(parser, "n/" + longName, String.format(MESSAGE_PARSE_EXCEPTION,
+                "Error: Name values should not exceed 170 characters.", FindCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_invalidPhoneFormat_throwsParseException() {
-        assertParseFailure(parser, "p/123abc",
+        assertParseFailure(parser, "p/123abc", String.format(MESSAGE_PARSE_EXCEPTION,
                 "Error: Invalid phone format. Phone numbers should contain digits, with an optional '+' "
-                        + "at the beginning. Invalid keyword(s): 123abc");
-        assertParseFailure(parser, "p/abc+123456",
+                + "at the beginning. Invalid keyword(s): 123abc", FindCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "p/abc+123456", String.format(MESSAGE_PARSE_EXCEPTION,
                 "Error: Invalid phone format. Phone numbers should contain digits, with an optional '+'"
-                       + " at the beginning. Invalid keyword(s): abc+123456");
+                + " at the beginning. Invalid keyword(s): abc+123456", FindCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -389,7 +398,7 @@ public class FindCommandParserTest {
 
     @Test
     public void parse_invalidMemoFormat_throwsParseException() {
-        String longMemo = "A".repeat(171); // Create a 501-character memo
+        String longMemo = "A".repeat(171); // Create a 171-character memo
         assertParseFailure(parser, "m/" + longMemo, String.format(Messages.MESSAGE_PARSE_EXCEPTION,
                 "Error! Memo values should not exceed 170 characters.", FindCommand.MESSAGE_USAGE));
     }
@@ -496,7 +505,7 @@ public class FindCommandParserTest {
         assertParseFailure(parser, "John Jane x/invalid",
                 "Invalid search field: 'x/'. Valid prefixes are: \n name: n/ \n phone: p/ \n email: e/ \n"
                 + "address: a/ \n tag: t/ \n memo: m/ \n booking date: bd/ \n booking property: bp/ "
-                + Emoticons.ANGRY);
+                + Emoticons.ANGRY + "\n" + FindCommand.MESSAGE_USAGE);
     }
 
     @Test
@@ -539,7 +548,9 @@ public class FindCommandParserTest {
     public void parse_noValidKeywords_throwsParseException() {
         // This tests the empty map scenario
         assertParseFailure(parser, "n/InvalidVeryLongName" + "A".repeat(200),
-                "Error: Name values should not exceed 170 characters.");
+                String.format(MESSAGE_PARSE_EXCEPTION,
+                "Error: Name values should not exceed 170 characters.",
+                FindCommand.MESSAGE_USAGE));
     }
 }
 

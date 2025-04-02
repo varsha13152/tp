@@ -34,7 +34,7 @@ public class UntagCommandParser implements Parser<UntagCommand> {
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_BOOKINGTAG, PREFIX_TAG);
         Index index;
         try {
-            index = ParserUtil.parseIndex(args);
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format(Messages.MESSAGE_PARSE_EXCEPTION,
                     pe.getMessage(), UntagCommand.MESSAGE_USAGE), pe);

@@ -53,15 +53,13 @@ public class EditCommandParserTest {
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-        assertParseFailure(parser, VALID_NAME_AMY, String.format(Messages.MESSAGE_PARSE_EXCEPTION,
-                ParserUtil.MESSAGE_INVALID_INDEX, EditCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, VALID_NAME_AMY, EditCommand.MESSAGE_NOT_EDITED);
 
         // no field specified
         assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);
 
         // no index and no field specified
-        assertParseFailure(parser, "", String.format(Messages.MESSAGE_PARSE_EXCEPTION,
-                ParserUtil.MESSAGE_INVALID_INDEX, EditCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "", EditCommand.MESSAGE_NOT_EDITED);
     }
 
     @Test
@@ -75,11 +73,11 @@ public class EditCommandParserTest {
                 ParserUtil.MESSAGE_INVALID_INDEX, EditCommand.MESSAGE_USAGE));
 
         // invalid arguments being parsed as preamble
-        assertParseFailure(parser, "1 some random string", String.format(Messages.MESSAGE_PARSE_EXCEPTION,
+        assertParseFailure(parser, "1 some random string r/hi", String.format(Messages.MESSAGE_PARSE_EXCEPTION,
                 ParserUtil.MESSAGE_INVALID_INDEX, EditCommand.MESSAGE_USAGE));
 
         // invalid prefix being parsed as preamble
-        assertParseFailure(parser, "1 i/ string", String.format(Messages.MESSAGE_PARSE_EXCEPTION,
+        assertParseFailure(parser, "1 i/ r/string", String.format(Messages.MESSAGE_PARSE_EXCEPTION,
                 ParserUtil.MESSAGE_INVALID_INDEX, EditCommand.MESSAGE_USAGE));
     }
 

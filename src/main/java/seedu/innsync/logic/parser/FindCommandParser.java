@@ -347,7 +347,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         List<String> invalidKeywords = findInvalidKeywords(keywords, searchType);
 
         if (!invalidKeywords.isEmpty()) {
-            createValidationException(searchType, invalidKeywords);
+            throw createValidationException(searchType, invalidKeywords);
         }
     }
 
