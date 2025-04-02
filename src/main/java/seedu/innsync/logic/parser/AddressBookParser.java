@@ -11,6 +11,7 @@ import seedu.innsync.commons.core.LogsCenter;
 import seedu.innsync.logic.commands.AddCommand;
 import seedu.innsync.logic.commands.ClearCommand;
 import seedu.innsync.logic.commands.Command;
+import seedu.innsync.logic.commands.ConfirmCommand;
 import seedu.innsync.logic.commands.DeleteCommand;
 import seedu.innsync.logic.commands.EditCommand;
 import seedu.innsync.logic.commands.ExitCommand;
@@ -46,6 +47,9 @@ public class AddressBookParser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public Command parseCommand(String userInput) throws ParseException {
+        if (ConfirmCommand.isAwaitingConfirmation()) {
+            return new ConfirmCommandParser().parse(userInput);
+        }
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -53,6 +57,7 @@ public class AddressBookParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
 
         // Note to developers: Change the log level in config.json to enable lower level (i.e., FINE, FINER and lower)
         // log messages such as the one below.
@@ -71,7 +76,7 @@ public class AddressBookParser {
             return new DeleteCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+            return new ConfirmCommand(new ClearCommand());
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
