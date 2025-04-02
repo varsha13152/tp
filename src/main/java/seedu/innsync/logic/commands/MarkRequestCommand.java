@@ -78,7 +78,7 @@ public class MarkRequestCommand extends Command {
         model.setPerson(person, editedPerson);
 
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, request.getRequestName()), person);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, request.getRequestName()), editedPerson);
     }
 
     private Person createEditedPerson(Model model, Person person, Request request) {
