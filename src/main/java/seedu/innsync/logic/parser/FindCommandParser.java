@@ -21,32 +21,17 @@ import seedu.innsync.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a new FindCommand object
  */
 public class FindCommandParser implements Parser<FindCommand> {
-    private static final Pattern NAME_VALIDATION_REGEX =
-            Pattern.compile("^[a-zA-Z\\s'\\-]+$");
-    private static final Pattern PHONE_VALIDATION_REGEX =
-            Pattern.compile("^[0-9]+$");
-    private static final Pattern EMAIL_VALIDATION_REGEX =
-            Pattern.compile("^[a-zA-Z0-9.@_\\-]+$");
-    private static final Pattern ADDRESS_VALIDATION_REGEX =
-            Pattern.compile("^[a-zA-Z0-9\\s\\-#]+$");
-    private static final Pattern TAG_VALIDATION_REGEX =
-            Pattern.compile("^[a-zA-Z0-9]+$");
-    private static final Pattern BOOKING_VALIDATION_REGEX =
-            Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
-    private static final Pattern BOOKING_DATE_VALIDATION_REGEX =
-            Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
-    private static final Pattern BOOKING_PROPERTY_VALIDATION_REGEX =
-            Pattern.compile("^[a-zA-Z0-9\\s\\-]+$");
-    private static final Pattern MEMO_VALIDATION_REGEX =
-            Pattern.compile("^[a-zA-Z0-9\\s.;:,!?\\-'\"]+$");
+    private static final Pattern NAME_VALIDATION_REGEX = Pattern.compile("^.{1,170}$");
+    private static final Pattern PHONE_VALIDATION_REGEX = Pattern.compile("^\\+?[0-9]+$");
+    private static final Pattern EMAIL_VALIDATION_REGEX = Pattern.compile("^[a-zA-Z0-9~!$%^&*_=+}{'?.\\-@]+$");
+    private static final Pattern ADDRESS_VALIDATION_REGEX = Pattern.compile("^.{1,170}$");
+    private static final Pattern TAG_VALIDATION_REGEX = Pattern.compile("^.{1,170}$");
+    private static final Pattern BOOKING_DATE_VALIDATION_REGEX = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
+    private static final Pattern BOOKING_PROPERTY_VALIDATION_REGEX = Pattern.compile("^.{1,170}$");
+    private static final Pattern MEMO_VALIDATION_REGEX = Pattern.compile("^.{1,170}$");
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-    // Pattern to identify prefix and its keywords
     private static final Pattern FIELD_PATTERN = Pattern.compile("([a-z]{1,2}/)((?:(?!\\s[a-z]{1,2}/).)*)");
-
-    // Pattern to extract content before the first prefix
     private static final Pattern PREFIX_PATTERN = Pattern.compile("^(.*?)\\s*([a-z]{1,2}/.*)$");
-
     private static final String VALID_FLAGS = "Valid prefixes are: \n name: n/ \n phone: p/ \n email: e/ \n"
             + "address: a/ \n tag: t/ \n memo: m/ \n booking date: bd/ \n booking property: bp/";
 
@@ -117,15 +102,18 @@ public class FindCommandParser implements Parser<FindCommand> {
      * Handles mixed format where unprefixed keywords appear before prefixed ones.
      */
     private FindCommand handleMixedFormat(String beforePrefix, String afterPrefix) throws ParseException {
-        // Process the name keywords
-        List<String> nameKeywords = Arrays.asList(beforePrefix.split("\\s+"));
+        List<String> nameKeywords = new ArrayList<>(Arrays.asList(beforePrefix.split("\\s+")));
         validateKeywords(nameKeywords, FindCommand.SearchType.NAME);
 
-        // Process the rest with prefixes
         Map<SearchType, List<String>> searchCriteria = parseFieldsWithPrefixes(afterPrefix);
 
-        // Add name keywords to criteria
-        searchCriteria.put(SearchType.NAME, nameKeywords);
+        if (searchCriteria.containsKey(SearchType.NAME)) {
+            List<String> combinedList = new ArrayList<>(searchCriteria.get(SearchType.NAME));
+            combinedList.addAll(nameKeywords);
+            searchCriteria.put(SearchType.NAME, combinedList);
+        } else {
+            searchCriteria.put(SearchType.NAME, nameKeywords);
+        }
 
         return new FindCommand(searchCriteria);
     }
@@ -491,11 +479,17 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
     }
 
+
     /**
      * Creates a specific ParseException based on the search type
      */
     private ParseException createValidationException(FindCommand.SearchType searchType, List<String> invalidKeywords) {
         String errorMessage = getErrorMessageForSearchType(searchType);
+        if (searchType == SearchType.NAME || searchType == SearchType.ADDRESS ||
+                searchType == SearchType.TAG || searchType == SearchType.BOOKING_PROPERTY ||
+                searchType == SearchType.MEMO) {
+            return new ParseException(errorMessage);
+        }
         return new ParseException(errorMessage + " Invalid keyword(s): " + String.join(", ", invalidKeywords));
     }
 
@@ -505,27 +499,23 @@ public class FindCommandParser implements Parser<FindCommand> {
     private String getErrorMessageForSearchType(SearchType searchType) {
         switch (searchType) {
         case NAME:
-            return "Invalid name format. Names should only contain alphabets, spaces, apostrophes,"
-                    + " and/or hyphens.";
+            return "Error: Name values should not exceed 170 characters.";
         case PHONE:
-            return "Invalid phone format. Phone numbers should only contain digits.";
+            return "Error: Invalid phone format. Phone numbers should contain digits, with an optional "
+                   + "'+' at the beginning.";
         case EMAIL:
-            return "Invalid email format. Emails should only contain alphanumeric characters, dots, '@',"
-                    + " underscores, and hyphens.";
+            return "Error: Invalid email format. Emails should only contain alphanumeric characters, dots, '@',"
+                    + " underscores, hyphens, and the special characters: ~!$%^&*_=+}{'?\\.-.";
         case ADDRESS:
-            return "Invalid address format. Addresses should only contain alphanumeric characters, spaces,"
-                    + " hyphens, and hashes.";
+            return "Error: Address values should not exceed 170 characters.";
         case TAG:
-            return "Invalid tag format. Tags should only contain alphanumeric characters.";
+            return "Error: Tag values should not exceed 170 characters.";
         case BOOKING_DATE:
-            return "Invalid booking date format. Dates should be in the format yyyy-MM-dd "
-                    + "(e.g., 2024-10-15).";
+            return "Invalid booking date format. Dates should be in the format yyyy-MM-dd (e.g., 2024-10-15).";
         case BOOKING_PROPERTY:
-            return "Invalid booking property format. Property names should only contain alphanumeric characters,"
-                    + " spaces, and hyphens.";
+            return "Error! Booking Property values should not exceed 170 characters.";
         case MEMO:
-            return "Invalid memo format. Memos should only contain alphanumeric characters, spaces, punctuation,"
-                    + " and basic symbols.";
+            return "Error! Memo values should not exceed 170 characters.";
         default:
             return String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
         }

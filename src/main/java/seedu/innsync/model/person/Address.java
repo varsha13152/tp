@@ -9,13 +9,11 @@ import static seedu.innsync.commons.util.AppUtil.checkArgument;
  */
 public class Address {
 
-    public static final String MESSAGE_CONSTRAINTS = "Addresses can take any values, and it should not be blank";
+    public static final String MESSAGE_EMPTY = "Error: Address can take any value and it should not be empty.";
+    public static final String MESSAGE_LENGTH = "Error: Address can take any value and should not exceed 170 characters.";
 
-    /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String REGEX_NOT_EMPTY = "^.+$"; // Ensures non-empty string
+    public static final String REGEX_MAX_LENGTH = "^.{1,170}$"; // Ensures length <= 170
 
     public final String value;
 
@@ -26,7 +24,7 @@ public class Address {
      */
     public Address(String address) {
         requireNonNull(address);
-        checkArgument(isValidAddress(address), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidAddress(address), getErrorMessage(address));
         value = address;
     }
 
@@ -34,7 +32,17 @@ public class Address {
      * Returns true if a given string is a valid email.
      */
     public static boolean isValidAddress(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(REGEX_NOT_EMPTY) && test.matches(REGEX_MAX_LENGTH);
+    }
+
+    /**
+     * Determines the specific error message based on the invalid request name.
+     */
+    public static String getErrorMessage(String test) {
+        if (!test.matches(REGEX_NOT_EMPTY)) {
+            return MESSAGE_EMPTY;
+        }
+        return MESSAGE_LENGTH;
     }
 
     @Override

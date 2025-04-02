@@ -9,11 +9,11 @@ import static seedu.innsync.commons.util.AppUtil.checkArgument;
  */
 public class Request {
 
-    public static final String MESSAGE_EMPTY = "Request name should not be empty.";
-    public static final String MESSAGE_LENGTH = "Request name must not exceed 255 characters.";
+    public static final String MESSAGE_EMPTY = "Error: Request value should not be empty.";
+    public static final String MESSAGE_LENGTH = "Error: Request value must not exceed 170 characters.";
 
     public static final String REGEX_NOT_EMPTY = "^.+$"; // Ensures non-empty string
-    public static final String REGEX_MAX_LENGTH = "^.{1,255}$"; // Ensures length <= 255
+    public static final String REGEX_MAX_LENGTH = "^.{1,170}$"; // Ensures length <= 170
 
     public final String requestName;
     private boolean isCompleted = false;
