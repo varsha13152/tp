@@ -73,8 +73,8 @@ In this comprehensive user guide, we will take you to experience a full journey 
 ### 1.1 What is InnSync
 
 InnSync is a desktop application designed specifically for managing contacts for AirBnB owners,
-optimized for use via a Command Line Interface** (CLI) while still having the benefits of a
-Graphical User Interface (GUI). If you can type fast, InnSync can get your contact management
+optimized for use via a **Command Line Interface** (CLI) while still having the benefits of a
+**Graphical User Interface** (GUI). If you can type fast, InnSync can get your contact management
 tasks done faster than traditional GUI apps.
 
 Key Features:
@@ -90,7 +90,7 @@ Key Features:
   contact information.
 
 * User-Friendly: Whether you're new to command line tools or an experienced user, InnSync’s design caters
-  to a broad range of technical proficiency.
+  to a broad range of technical proficiencies.
 
 ### 1.3 Why This Guide Matters
 This guide is crafted to help you fully leverage InnSync’s features. As an Airbnb owner, managing visitor details
@@ -137,8 +137,9 @@ First-time users are strongly encouraged to read the Quick Start section before 
 
 5.  Navigate to the folder by using `cd` into the folder you put the jar file in, and use the `java -jar innsync.jar` command to run the application.<br>
 
-6. A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+6. A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br><br>
    ![Ui](images/Ui.png)
+
 
 7. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
@@ -169,7 +170,7 @@ First-time users are strongly encouraged to read the Quick Start section before 
 ![Ui](images/Ui.png)
 * __Index:__ This component displays the position of each visitor in the Guest List Panel.
 * __Guest Name:__ The Name is displayed in both the Guest Detail and Guest List Panel, which represent the name of the visitor.
-* __Guest ID:__ Every visitor will be assigned to a visitor ID after added to the system. The visitor ID is unique and is the primary way to identify a visitor.
+* __Guest ID:__ Every visitor will be assigned to a visitor ID after being added to the system. The visitor ID is unique and is the primary way to identify a visitor.
 * __Guest Phone Number:__ The contact number associated with the visitor.
 * __Guest Address:__ The physical location or residence of the visitor, which may be used for record-keeping.
 * __Guest Email:__ The email address of the visitor.
@@ -205,9 +206,9 @@ Here's a reference table for common parameter prefixes and their corresponding p
 
 In InnSync, a parameter represents a placeholder where users input data.
 Parameters typically follow immediately after their corresponding Parameter Prefixes.
-Essentially they are to be supplied by the user.
+Essentially, they are to be supplied by the user.
 
-**Note:** All user inputs including parameters will be trimmed (all leading and trailing whitespaces will be ignored).
+**Note:** All user inputs, including parameters, will be trimmed (all leading and trailing whitespaces will be ignored).
 
 
 | Parameter       | Parameter Prefix | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
@@ -257,10 +258,10 @@ To understand how a full command is interpreted, we will utilise the following e
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+  e.g. `[t/TAG]…​` can be used as ` `&nbsp;(i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, then `p/PHONE_NUMBER n/NAME` is also acceptable.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
