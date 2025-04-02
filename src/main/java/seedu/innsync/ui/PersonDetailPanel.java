@@ -3,8 +3,6 @@ package seedu.innsync.ui;
 import java.util.Comparator;
 import java.util.List;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
@@ -116,17 +114,7 @@ public class PersonDetailPanel extends UiPart<Region> {
             CheckBox checkBox = new CheckBox();
             checkBox.setId("checkbox_" + request.requestName);
             checkBox.setSelected(request.isCompleted());
-            checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
-                @Override
-                public void changed(ObservableValue<? extends Boolean> obs,
-                        Boolean oldValue, Boolean newValue) {
-                    if (newValue == true) {
-                        request.markAsCompleted();
-                    } else {
-                        request.markAsIncomplete();
-                    }
-                }
-            });
+            checkBox.setMouseTransparent(true);
 
             // Create the label for each request
             Label requestLabel = new Label(String.format("%d. %s", i + 1, request.requestName));
