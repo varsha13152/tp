@@ -61,7 +61,7 @@ public class UntagCommandTest {
         // get tag from person
         Set<Tag> tags = personToEdit.getTags();
         Tag tagToRemove = tags.iterator().next();
-        assert(tagToRemove != null);
+        assert (tagToRemove != null);
 
         model.getTagElseCreate(tagToRemove);
 
@@ -113,7 +113,8 @@ public class UntagCommandTest {
         assertTrue(untagFirstCommand.equals(untagFirstCommand));
 
         // same values -> returns true
-        UntagCommand untagFirstCommandCopy = new UntagCommand(INDEX_FIRST_PERSON, new Tag("testTag1"), "testBookingTag1");
+        UntagCommand untagFirstCommandCopy = new UntagCommand(INDEX_FIRST_PERSON, new Tag("testTag1"),
+                "testBookingTag1");
         assertTrue(untagFirstCommand.equals(untagFirstCommandCopy));
 
         // different types -> returns false
