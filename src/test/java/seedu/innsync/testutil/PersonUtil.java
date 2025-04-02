@@ -1,5 +1,6 @@
 package seedu.innsync.testutil;
 
+
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_BOOKINGTAG;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -9,6 +10,7 @@ import static seedu.innsync.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_REQUEST;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.List;
 import java.util.Set;
 
 import seedu.innsync.logic.commands.AddCommand;
@@ -63,7 +65,7 @@ public class PersonUtil {
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
         descriptor.getMemo().ifPresent(memo -> sb.append(PREFIX_MEMO).append(memo.value).append(" "));
         if (descriptor.getRequests().isPresent()) {
-            Set<Request> requests = descriptor.getRequests().get();
+            List<Request> requests = descriptor.getRequests().get();
             if (requests.isEmpty()) {
                 sb.append(PREFIX_REQUEST).append(" ");
             } else {

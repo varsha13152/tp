@@ -11,7 +11,6 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import seedu.innsync.commons.core.GuiSettings;
 import seedu.innsync.commons.core.LogsCenter;
 import seedu.innsync.model.person.Person;
@@ -172,9 +171,7 @@ public class ModelManager implements Model {
      */
     private ObservableList<Person> getSortedFilteredPersonList(Comparator<Person> comparator) {
         ObservableList<Person> filteredList = getFilteredPersonList();
-        SortedList<Person> sortedList = new SortedList<>(filteredList);
-        sortedList.setComparator(comparator);
-        return sortedList;
+        return filteredList.sorted(comparator);
     }
 
     @Override

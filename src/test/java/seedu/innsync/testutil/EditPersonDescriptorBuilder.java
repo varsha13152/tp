@@ -1,5 +1,6 @@
 package seedu.innsync.testutil;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -90,7 +91,7 @@ public class EditPersonDescriptorBuilder {
      * that we are building.
      */
     public EditPersonDescriptorBuilder withRequests(String... requests) {
-        Set<Request> requestSet = Stream.of(requests).map(Request::new).collect(Collectors.toSet());
+        List<Request> requestSet = Stream.of(requests).map(Request::new).collect(Collectors.toList());
         descriptor.setRequests(requestSet);
         return this;
     }

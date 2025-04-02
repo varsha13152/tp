@@ -142,7 +142,7 @@ class JsonAdaptedPerson {
         }
         final Memo modelMemo = new Memo(memo);
 
-        final Set<Request> modelRequests = new HashSet<>(personRequests);
+        final List<Request> modelRequests = personRequests;
 
         final Set<BookingTag> modelBookingTags = new HashSet<>(personBookingTags);
 

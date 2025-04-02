@@ -115,7 +115,8 @@ public class PersonDetailPanel extends UiPart<Region> {
                     checkBox.setSelected(request.isCompleted());
                     checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
                         @Override
-                        public void changed(ObservableValue<? extends Boolean> obs, Boolean oldValue, Boolean newValue) {
+                        public void changed(ObservableValue<? extends Boolean> obs,
+                                Boolean oldValue, Boolean newValue) {
                             if (newValue == true) {
                                 request.markAsCompleted();
                             } else {

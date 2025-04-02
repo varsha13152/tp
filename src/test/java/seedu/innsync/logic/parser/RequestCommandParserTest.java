@@ -6,7 +6,8 @@ import static seedu.innsync.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.innsync.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.innsync.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
@@ -21,8 +22,8 @@ public class RequestCommandParserTest {
     @Test
     public void parse_validArgs_returnsRequestCommand() {
         // Test valid request name, assuming the parser expects a "requestName"
-        assertParseSuccess(parser, "1 r/" + VALID_REQUEST_AMY,
-                new RequestCommand(INDEX_FIRST_PERSON, Set.of(new Request(VALID_REQUEST_AMY))));
+        assertParseSuccess(parser, "1 r/" + VALID_REQUEST_AMY, new RequestCommand(INDEX_FIRST_PERSON,
+                new ArrayList<>(Arrays.asList(new Request(VALID_REQUEST_AMY)))));
     }
 
     @Test
@@ -44,6 +45,6 @@ public class RequestCommandParserTest {
         // Test multiple request names or invalid input
         assertParseSuccess(parser, "1 r/requestName1 r/requestName2",
                 new RequestCommand(INDEX_FIRST_PERSON,
-                        Set.of(new Request("requestName1"), new Request("requestName2"))));
+                        new ArrayList<>(Arrays.asList(new Request("requestName1"), new Request("requestName2")))));
     }
 }

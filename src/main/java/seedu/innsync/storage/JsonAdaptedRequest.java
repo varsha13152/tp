@@ -2,7 +2,6 @@ package seedu.innsync.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.innsync.commons.exceptions.IllegalValueException;
 import seedu.innsync.model.request.Request;

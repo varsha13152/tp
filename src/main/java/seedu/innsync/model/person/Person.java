@@ -2,8 +2,10 @@ package seedu.innsync.model.person;
 
 import static seedu.innsync.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -34,7 +36,7 @@ public class Person {
     private final Address address;
     private final Memo memo;
 
-    private final Set<Request> requests = new HashSet<>();
+    private final List<Request> requests = new ArrayList<>();
     private final Set<BookingTag> bookingTags = new HashSet<>();
     private final Set<Tag> tags = new HashSet<>();
     private final boolean starred;
@@ -42,7 +44,7 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Memo memo, Set<Request> requests,
+    public Person(Name name, Phone phone, Email email, Address address, Memo memo, List<Request> requests,
                   Set<BookingTag> bookingTags, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, memo, requests, bookingTags, tags);
         this.name = name;
@@ -59,7 +61,7 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Memo memo, Set<Request> requests,
+    public Person(Name name, Phone phone, Email email, Address address, Memo memo, List<Request> requests,
                   Set<BookingTag> bookingTags, Set<Tag> tags, boolean starred) {
         requireAllNonNull(name, phone, email, address, bookingTags, tags);
         this.name = name;
@@ -97,8 +99,8 @@ public class Person {
         return memo;
     }
 
-    public Set<Request> getRequests() {
-        return Collections.unmodifiableSet(requests);
+    public List<Request> getRequests() {
+        return Collections.unmodifiableList(requests);
     }
 
     public Set<BookingTag> getBookingTags() {
