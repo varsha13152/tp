@@ -40,7 +40,7 @@ class JsonAdaptedRequest {
      */
     public Request toModelType() throws IllegalValueException {
         if (!Request.isValidRequest(requestName)) {
-            throw new IllegalValueException(Request.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Request.getErrorMessage(requestName));
         }
         return new Request(requestName);
     }
