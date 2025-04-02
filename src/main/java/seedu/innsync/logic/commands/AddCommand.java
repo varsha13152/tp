@@ -1,6 +1,7 @@
 package seedu.innsync.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_BOOKINGTAG;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -9,6 +10,7 @@ import static seedu.innsync.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.innsync.commons.util.ToStringBuilder;
+import seedu.innsync.logic.Emoticons;
 import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.Model;
@@ -37,8 +39,9 @@ public class AddCommand extends Command {
             + PREFIX_BOOKINGTAG + "BeachHouse from/2025-06-01 to/2025-06-10 "
             + PREFIX_TAG + "owesMoney";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New person added! " + Emoticons.PROUD + "\n%1$s";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book! "
+            + Emoticons.SAD + "\n" + MESSAGE_USAGE;
 
     private final Person toAdd;
 

@@ -9,6 +9,7 @@ import java.util.List;
 
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.commons.util.ToStringBuilder;
+import seedu.innsync.logic.Emoticons;
 import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.Model;
@@ -29,10 +30,11 @@ public class RequestCommand extends Command {
             + ": Adds a request to the contact identified by the index number in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer) " + PREFIX_REQUEST + "REQUEST\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_REQUEST + "Need a bottle of champagne every morning";
-    public static final String MESSAGE_SUCCESS = "Request successfully added: %s";
+    public static final String MESSAGE_SUCCESS = "Request successfully added to `%s`! " + Emoticons.PROUD;
     public static final String MESSAGE_FAILURE_INVALID_INDEX = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX + "\n"
             + MESSAGE_USAGE;
-    public static final String MESSAGE_DUPLICATE_REQUEST = "This contact already has this request.\n" + MESSAGE_USAGE;
+    public static final String MESSAGE_DUPLICATE_REQUEST = "This contact already has this request! " + Emoticons.SAD 
+            + "\n" + MESSAGE_USAGE;
 
     private final Index index;
     private final List<Request> requests;
@@ -76,7 +78,7 @@ public class RequestCommand extends Command {
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(editedPerson)), editedPerson);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, editedPerson.getName()), editedPerson);
     }
 
     private Person addRequestsPerson(Person personToCopy, List<Request> modelRequests) throws CommandException {

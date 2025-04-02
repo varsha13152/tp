@@ -6,6 +6,7 @@ import static seedu.innsync.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import javafx.collections.ObservableList;
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.commons.util.ToStringBuilder;
+import seedu.innsync.logic.Emoticons;
 import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.Model;
@@ -21,10 +22,10 @@ public class StarCommand extends Command {
             + ": Stars the contact identified by the index number used in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
-    public static final String MESSAGE_SUCCESS = "'%s' has been successfully starred!";
+    public static final String MESSAGE_SUCCESS = "'%s' has been successfully starred! " + Emoticons.PROUD;
     public static final String MESSAGE_FAILURE_INVALID_INDEX = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX + "\n"
             + MESSAGE_USAGE;
-    public static final String MESSAGE_FAILURE = "'%s' was already starred!\n" + MESSAGE_USAGE;
+    public static final String MESSAGE_FAILURE = "'%s' was already starred! " + Emoticons.SAD + "\n" + MESSAGE_USAGE;
 
     private final Index index;
 

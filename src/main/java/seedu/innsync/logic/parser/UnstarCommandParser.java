@@ -16,7 +16,6 @@ public class UnstarCommandParser implements Parser<UnstarCommand> {
      */
     @Override
     public UnstarCommand parse(String args) throws ParseException {
-       
         try {
             Index index = ParserUtil.parseIndex(args);
             return new UnstarCommand(index);

@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import seedu.innsync.commons.util.ToStringBuilder;
+import seedu.innsync.logic.Emoticons;
 import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.Model;
@@ -423,10 +424,10 @@ public class FindCommand extends Command {
                     String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, resultCount));
         } catch (IllegalStateException | IllegalArgumentException e) {
             logger.warning("FindCommand execution failed with validation error: " + e.getMessage());
-            throw new CommandException(e.getMessage());
+            throw new CommandException(e.getMessage() + Emoticons.ANGRY + "\n" + MESSAGE_USAGE);
         } catch (Exception e) {
             logger.severe("Unexpected error in FindCommand execution: " + e.getMessage());
-            throw new CommandException(e.getMessage());
+            throw new CommandException(e.getMessage() + Emoticons.ANGRY + "\n" + MESSAGE_USAGE);
         }
     }
 

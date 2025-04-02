@@ -35,7 +35,7 @@ public class UntagCommandParser implements Parser<UntagCommand> {
         try {
             index = ParserUtil.parseIndex(args);
         } catch (ParseException pe) {
-            throw new ParseException(String.format("%s\n%s", 
+            throw new ParseException(String.format("%s\n%s",
                     pe.getMessage(), UntagCommand.MESSAGE_USAGE), pe);
         }
         Tag tag = null;

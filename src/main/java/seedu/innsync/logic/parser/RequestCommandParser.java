@@ -30,8 +30,7 @@ public class RequestCommandParser implements Parser<RequestCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-                throw new ParseException(String.format("%s\n%s", pe.getMessage(), RequestCommand.MESSAGE_USAGE), pe);
-
+            throw new ParseException(String.format("%s\n%s", pe.getMessage(), RequestCommand.MESSAGE_USAGE), pe);
         }
 
         List<Request> requestList = ParserUtil.parseRequests(argMultimap.getAllValues(PREFIX_REQUEST));

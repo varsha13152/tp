@@ -1,5 +1,6 @@
 package seedu.innsync.logic.commands;
 
+import seedu.innsync.logic.Emoticons;
 import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.Model;
 
@@ -9,7 +10,7 @@ import seedu.innsync.model.Model;
 public class ConfirmCommand extends Command {
 
     public static final String MESSAGE_CONFIRMATION = "Are you sure you want to execute this command? "
-            + "Enter 'y' to confirm, any other input will cancel.";
+            + Emoticons.WORRIED + "\nEnter 'y' to confirm, any other input will cancel.";
 
     /**
      * Constructor for when the user confirms or cancels the operation.

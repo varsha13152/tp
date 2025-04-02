@@ -9,6 +9,7 @@ import java.util.List;
 
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.commons.util.ToStringBuilder;
+import seedu.innsync.logic.Emoticons;
 import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.Model;
@@ -30,8 +31,8 @@ public class MemoCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_MEMO + "Likes to swim.";
 
-    public static final String MESSAGE_ADD_MEMO_SUCCESS = "Added memo to Person: %1$s";
-    public static final String MESSAGE_DELETE_MEMO_SUCCESS = "Removed memo from Person: %1$s";
+    public static final String MESSAGE_ADD_MEMO_SUCCESS = "Added memo `%1$s` to `%2$s`! " + Emoticons.PROUD;
+    public static final String MESSAGE_DELETE_MEMO_SUCCESS = "Removed memo from `%1$s`! " + Emoticons.PROUD;
     public static final String MESSAGE_FAILURE_INVALID_INDEX = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX + "\n"
             + MESSAGE_USAGE;
 
@@ -71,8 +72,10 @@ public class MemoCommand extends Command {
      * {@code personToEdit}.
      */
     private String generateSuccessMessage(Person personToEdit) {
-        String message = !memo.value.isEmpty() ? MESSAGE_ADD_MEMO_SUCCESS : MESSAGE_DELETE_MEMO_SUCCESS;
-        return String.format(message, Messages.format(personToEdit));
+        if (memo.value.isEmpty()) {
+            return String.format(MESSAGE_DELETE_MEMO_SUCCESS, personToEdit.getName());
+        }
+        return String.format(MESSAGE_ADD_MEMO_SUCCESS, memo, personToEdit.getName());
     }
 
     @Override

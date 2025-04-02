@@ -8,6 +8,7 @@ import java.util.List;
 
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.commons.util.ToStringBuilder;
+import seedu.innsync.logic.Emoticons;
 import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.Model;
@@ -26,15 +27,15 @@ public class UnmarkRequestCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Unmarks a request of the contact identified by the index number"
             + "in the displayed person list from its completion status.\n"
-            + "Parameters: INDEX (must be a positive integer) " + PREFIX_REQUEST + "REQUEST_INDEX\n"
+            + "Parameters: INDEX (must be a positive integer) " + PREFIX_REQUEST + "REQUEST_INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_REQUEST + "1";
-    public static final String MESSAGE_SUCCESS = "Request successfully unmarked: %s";
+    public static final String MESSAGE_SUCCESS = "Request `%s` successfully unmarked! " + Emoticons.PROUD;
     public static final String MESSAGE_FAILURE_INVALID_INDEX = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX + "\n"
             + MESSAGE_USAGE;
     public static final String MESSAGE_FAILURE_INVALID_REQUEST_INDEX = "Invalid Request Index!"
-            + " There is no request indexed by this number.\n"
+            + " There is no request indexed by this number! " + Emoticons.ANGRY + "\n"
             + MESSAGE_USAGE;
-    public static final String MESSAGE_FAILURE_NOT_MARKED = "The request '%s' has not been marked!";
+    public static final String MESSAGE_FAILURE_NOT_MARKED = "The request '%s' has not been marked! " + Emoticons.SAD;
     private final Index index;
     private final Index requestIndex;
 

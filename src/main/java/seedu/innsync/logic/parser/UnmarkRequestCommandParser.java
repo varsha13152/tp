@@ -7,7 +7,6 @@ import static seedu.innsync.logic.parser.CliSyntax.PREFIX_REQUEST;
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.commons.exceptions.IllegalValueException;
 import seedu.innsync.logic.commands.UnmarkRequestCommand;
-import seedu.innsync.logic.commands.UnstarCommand;
 import seedu.innsync.logic.parser.exceptions.ParseException;
 
 /**

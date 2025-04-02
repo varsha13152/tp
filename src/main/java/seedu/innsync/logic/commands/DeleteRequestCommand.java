@@ -8,6 +8,7 @@ import java.util.List;
 
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.commons.util.ToStringBuilder;
+import seedu.innsync.logic.Emoticons;
 import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.Model;
@@ -24,14 +25,14 @@ public class DeleteRequestCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes a request from the contact identified by the index number in the displayed person list.\n"
-            + "Parameters: INDEX (must be a positive integer) " + PREFIX_REQUEST + "REQUEST_INDEX\n"
+            + "Parameters: INDEX (must be a positive integer) " + PREFIX_REQUEST + "REQUEST_INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_REQUEST + "1";
 
-    public static final String MESSAGE_SUCCESS = "Request successfully deleted from %s";
-    public static final String MESSAGE_FAILURE_INVALID_INDEX = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX 
+    public static final String MESSAGE_SUCCESS = "Request `%s` successfully deleted from `%s`! " + Emoticons.PROUD;
+    public static final String MESSAGE_FAILURE_INVALID_INDEX = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX
             + "\n" + MESSAGE_USAGE;
-    public static final String MESSAGE_INVALID_REQUEST_INDEX = "Invalid request index!\n"
-            + "The request index is out of range. This contact does not have a request of this index.";
+    public static final String MESSAGE_INVALID_REQUEST_INDEX = "Invalid request index! The request index is out of range. " 
+            + "This contact does not have a request of this index. " + Emoticons.SAD + "\n";
 
     private final Index contactIndex;
     private final Index requestIndex;
@@ -83,7 +84,8 @@ public class DeleteRequestCommand extends Command {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         return new CommandResult(
-            String.format(MESSAGE_SUCCESS, Messages.format(editedPerson)), editedPerson);
+            String.format(MESSAGE_SUCCESS, requestToDelete.getRequestName(),
+                    editedPerson.getName()), editedPerson);
     }
 
     /**
