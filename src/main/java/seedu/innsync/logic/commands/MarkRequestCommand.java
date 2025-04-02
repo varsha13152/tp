@@ -74,19 +74,21 @@ public class MarkRequestCommand extends Command {
             throw new CommandException(String.format(MESSAGE_FAILURE_ALREADY_MARKED,
                     request.getRequestName()));
         }
-        markRequestOfPerson(model, person, request);
+        Person editedPerson = createEditedPerson(model, person, request);
+        model.setPerson(person, editedPerson);
+
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, request.getRequestName()), person);
     }
 
-    private void markRequestOfPerson(Model model, Person person, Request request) {
+    private Person createEditedPerson(Model model, Person person, Request request) {
         Request markedRequest = new Request(request);
         markedRequest.markAsCompleted();
         markedRequest = model.getRequestElseCreate(markedRequest);
         Person editedPerson = new Person(person);
         editedPerson.removeRequest(request);
         editedPerson.addRequest(markedRequest);
-        model.setPerson(person, editedPerson);
+        return editedPerson;
     }
 
     @Override

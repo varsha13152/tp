@@ -2,20 +2,25 @@ package seedu.innsync.logic.commands;
 
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_BOOKINGTAG_BEACHHOUSE;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_MEMO_AMY;
-import static seedu.innsync.logic.commands.CommandTestUtil.VALID_REQUEST_AMY;
+import static seedu.innsync.logic.commands.CommandTestUtil.VALID_REQUEST_BOB;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.innsync.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.innsync.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.innsync.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.innsync.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.innsync.testutil.TypicalPersons.AMY;
+import static seedu.innsync.testutil.TypicalPersons.BOB;
+import static seedu.innsync.testutil.TypicalPersons.HOON;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.innsync.logic.commands.exceptions.CommandException;
+import seedu.innsync.model.AddressBook;
 import seedu.innsync.model.Model;
 import seedu.innsync.model.ModelManager;
 import seedu.innsync.model.UserPrefs;
@@ -31,7 +36,7 @@ public class UndoCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = getNoRequestsNoTagsTwoPersonModel();
     }
 
     @Test
@@ -55,7 +60,7 @@ public class UndoCommandIntegrationTest {
     @Test
     public void execute_undoAdd_success() throws CommandException {
         Model modifiedModel = new ModelManager(this.model.getAddressBook(), new UserPrefs());
-        AddCommand addCommand = new AddCommand(new PersonBuilder().build());
+        AddCommand addCommand = new AddCommand(HOON);
         addCommand.execute(modifiedModel);
         UndoCommand undoCommand = new UndoCommand();
         assertCommandSuccess(undoCommand, modifiedModel, UndoCommand.MESSAGE_SUCCESS, model);
@@ -115,23 +120,23 @@ public class UndoCommandIntegrationTest {
     }
 
     @Test
-    public void execute_requestCommands_success() throws CommandException {
-        Model modifiedModel = new ModelManager(this.model.getAddressBook(), new UserPrefs());
+    public void execute_undoAddRequest_success() throws CommandException {
+        Model modifiedModel = getNoRequestsNoTagsTwoPersonModel();
         RequestCommand requestCommand = new RequestCommand(INDEX_FIRST_PERSON,
-                new ArrayList<>(Arrays.asList(new Request(VALID_REQUEST_AMY))));
+                new ArrayList<>(Arrays.asList(new Request(VALID_REQUEST_BOB))));
         requestCommand.execute(modifiedModel);
         UndoCommand undoCommand = new UndoCommand();
         assertCommandSuccess(undoCommand, modifiedModel, UndoCommand.MESSAGE_SUCCESS, model);
     }
 
     @Test
-    public void execute_markRequest_success() throws CommandException {
-        Model requestModel = new ModelManager(this.model.getAddressBook(), new UserPrefs());
-        RequestCommand requestCommand = new RequestCommand(INDEX_FIRST_PERSON,
-                new ArrayList<>(Arrays.asList(new Request(VALID_REQUEST_AMY))));
+    public void execute_undoMarkRequest_success() throws CommandException {
+        Model requestModel = getNoRequestsNoTagsTwoPersonModel();
+        RequestCommand requestCommand = new RequestCommand(INDEX_SECOND_PERSON,
+                new ArrayList<>(Arrays.asList(new Request(VALID_REQUEST_BOB))));
         requestCommand.execute(requestModel);
         Model modifiedModel = new ModelManager(requestModel.getAddressBook(), new UserPrefs());
-        MarkRequestCommand markCommand = new MarkRequestCommand(INDEX_FIRST_PERSON,
+        MarkRequestCommand markCommand = new MarkRequestCommand(INDEX_SECOND_PERSON,
                 INDEX_FIRST_PERSON);
         markCommand.execute(modifiedModel);
         UndoCommand undoCommand = new UndoCommand();
@@ -139,19 +144,26 @@ public class UndoCommandIntegrationTest {
     }
 
     @Test
-    public void execute_unmarkRequest_success() throws CommandException {
-        Model requestModel = new ModelManager(this.model.getAddressBook(), new UserPrefs());
-        RequestCommand requestCommand = new RequestCommand(INDEX_FIRST_PERSON,
-                new ArrayList<>(Arrays.asList(new Request(VALID_REQUEST_AMY))));
+    public void execute_undoUnmarkRequest_success() throws CommandException {
+        Model requestModel = getNoRequestsNoTagsTwoPersonModel();
+        RequestCommand requestCommand = new RequestCommand(INDEX_SECOND_PERSON,
+                new ArrayList<>(Arrays.asList(new Request(VALID_REQUEST_BOB))));
         requestCommand.execute(requestModel);
-        MarkRequestCommand markCommand = new MarkRequestCommand(INDEX_FIRST_PERSON,
+        MarkRequestCommand markCommand = new MarkRequestCommand(INDEX_SECOND_PERSON,
                 INDEX_FIRST_PERSON);
         markCommand.execute(requestModel);
         Model modifiedModel = new ModelManager(requestModel.getAddressBook(), new UserPrefs());
-        UnmarkRequestCommand unmarkCommand = new UnmarkRequestCommand(INDEX_FIRST_PERSON,
+        UnmarkRequestCommand unmarkCommand = new UnmarkRequestCommand(INDEX_SECOND_PERSON,
                 INDEX_FIRST_PERSON);
         unmarkCommand.execute(modifiedModel);
         UndoCommand undoCommand = new UndoCommand();
         assertCommandSuccess(undoCommand, modifiedModel, UndoCommand.MESSAGE_SUCCESS, requestModel);
+    }
+
+    private Model getNoRequestsNoTagsTwoPersonModel() {
+        Model model = new ModelManager(new AddressBook(), new UserPrefs());
+        model.addPerson(new PersonBuilder(AMY).withRequests(new String[0]).withTags(new HashSet<>()).build());
+        model.addPerson(new PersonBuilder(BOB).withRequests(new String[0]).withTags(new HashSet<>()).build());
+        return model;
     }
 }
