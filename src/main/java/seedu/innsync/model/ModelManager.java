@@ -142,7 +142,7 @@ public class ModelManager implements Model {
         requireNonNull(tag);
         return this.addressBook.getTag(tag);
     }
-  
+
     @Override
     public Request getRequest(Request request) {
         requireNonNull(request);
@@ -153,7 +153,7 @@ public class ModelManager implements Model {
         requireNonNull(tags);
         this.addressBook.setTags(tags);
     }
-  
+
     public Request getRequestElseCreate(Request request) {
         requireNonNull(request);
         return this.addressBook.getRequestElseCreate(request);

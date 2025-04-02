@@ -15,13 +15,13 @@ public interface ReadOnlyAddressBook {
      * This list will not contain any duplicate persons.
      */
     ObservableList<Person> getPersonList();
-  
+
     /**
      * Returns an unmodifiable view of the requests list.
      * This list will not contain any duplicate requests.
      */
     ObservableList<Request> getRequestList();
-  
+
     /**
      * Returns an unmodifiable view of the tags list.
      * This list will not contain any duplicate tags.

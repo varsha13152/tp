@@ -3,10 +3,10 @@ package seedu.innsync.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
-import java.util.logging.Logger;
+// import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-import seedu.innsync.commons.core.LogsCenter;
+// import seedu.innsync.commons.core.LogsCenter;
 import seedu.innsync.commons.util.ToStringBuilder;
 import seedu.innsync.model.person.Person;
 import seedu.innsync.model.person.UniquePersonList;
@@ -22,12 +22,12 @@ import seedu.innsync.model.tag.UniqueTagList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     // Logger
-    private static final Logger logger = LogsCenter.getLogger(AddressBook.class);
+    // private static final Logger logger = LogsCenter.getLogger(AddressBook.class);
 
     private final UniquePersonList persons;
     private final UniqueRequestList requests;
     private final UniqueTagList tags;
- 
+
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -68,7 +68,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setRequests(List<Request> requests) {
         this.requests.setRequests(requests);
     }
-  
+
     /**
      * Replaces the contents of the tag list with {@code tags}.
      * {@code tags} must not contain duplicate tags.
@@ -123,7 +123,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removePerson(Person key) {
         persons.remove(key);
     }
-  
+
     /// request-level operations
 
     /**
@@ -169,14 +169,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(request);
         requests.add(request);
     }
-  
+
     /**
      * Removes the equivalent request from the list.
      * The request must exist in the list.
      */
     public void removeRequest(Request request) {
-      requireNonNull(request);
-      requests.remove(request);
+        requireNonNull(request);
+        requests.remove(request);
     }
 
     ///// tag-level operations

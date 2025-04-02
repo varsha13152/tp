@@ -41,7 +41,7 @@ class JsonSerializableAddressBook {
             this.requests.addAll(requests);
         }
         if (tags != null) {
-          this.tags.addAll(tags);
+            this.tags.addAll(tags);
         }
     }
 
