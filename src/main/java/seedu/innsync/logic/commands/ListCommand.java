@@ -26,4 +26,9 @@ public class ListCommand extends Command {
         }
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    @Override
+    public boolean requireConfirmation() {
+        return false;
+    }
 }

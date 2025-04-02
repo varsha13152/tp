@@ -66,6 +66,11 @@ public class UnstarCommand extends Command {
     }
 
     @Override
+    public boolean requireConfirmation() {
+        return false;
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;

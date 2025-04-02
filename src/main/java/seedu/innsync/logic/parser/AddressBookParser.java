@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 import seedu.innsync.commons.core.LogsCenter;
 import seedu.innsync.logic.commands.AddCommand;
+import seedu.innsync.logic.commands.CancelConfirmCommand;
 import seedu.innsync.logic.commands.ClearCommand;
 import seedu.innsync.logic.commands.Command;
 import seedu.innsync.logic.commands.ConfirmCommand;
@@ -40,7 +41,10 @@ public class AddressBookParser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     private static final Logger logger = LogsCenter.getLogger(AddressBookParser.class);
-
+    /**
+     * Current Command awaiting confirmation (if any)
+     */
+    private Command pendingCommand = null;
     /**
      * Parses user input into command for execution.
      *
@@ -49,9 +53,43 @@ public class AddressBookParser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public Command parseCommand(String userInput) throws ParseException {
-        if (ConfirmCommand.isAwaitingConfirmation()) {
-            return new ConfirmCommandParser().parse(userInput);
+        if (pendingCommand != null) {
+            return parseConfirmationCommand(userInput);
         }
+        Command command = parseCommandFromInput(userInput);
+        if (command.requireConfirmation()) {
+            pendingCommand = command;
+            return new ConfirmCommand();
+        }
+        return command;
+    }
+
+    /**
+     * Parses user confirmation input into intended command result.
+     *
+     * @param userInput full user input string
+     * @return the command based on the user input
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    private Command parseConfirmationCommand(String userInput) throws ParseException {
+        boolean confirm = new ConfirmCommandParser().parse(userInput);
+        if (!confirm) {
+            pendingCommand = null;
+            return new CancelConfirmCommand();
+        }
+        Command command = pendingCommand;
+        pendingCommand = null;
+        return command;
+    }
+
+    /**
+     * Parses user input into command for execution.
+     *
+     * @param userInput full user input string
+     * @return the command based on the user input
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    private Command parseCommandFromInput(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -78,7 +116,7 @@ public class AddressBookParser {
             return new DeleteCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
-            return new ConfirmCommand(new ClearCommand());
+            return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
