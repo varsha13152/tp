@@ -58,8 +58,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the requests list with {@code requests}.
+     * {@code requests} must not contain duplicate requests.
      */
     public void setRequests(List<Request> requests) {
         this.requests.setRequests(requests);
@@ -133,7 +133,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         if (existingRequest != null) {
             return existingRequest;
         } else {
-            Request newRequest = new Request(request.getRequestName());
+            Request newRequest = new Request(request);
             requests.add(newRequest);
             return newRequest;
         }

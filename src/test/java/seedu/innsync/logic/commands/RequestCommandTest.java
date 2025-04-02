@@ -8,8 +8,9 @@ import static seedu.innsync.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.innsync.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.innsync.testutil.TypicalPersons.getTypicalAddressBook;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -33,7 +34,8 @@ public class RequestCommandTest {
         Index indexFirstPerson = Index.fromOneBased(INDEX_FIRST_PERSON.getOneBased());
         Person firstPerson = model.getPersonList().get(indexFirstPerson.getZeroBased());
 
-        Set<Request> validRequests = Set.of(new Request(VALID_REQUEST_AMY));
+        List<Request> validRequests = new ArrayList<>();
+        validRequests.add(new Request(VALID_REQUEST_AMY));
         Person editedPerson = new PersonBuilder(firstPerson)
                 .withRequests(VALID_REQUEST_AMY)
                 .build();
@@ -51,15 +53,16 @@ public class RequestCommandTest {
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getPersonList().size() + 1);
-        RequestCommand requestCommand = new RequestCommand(outOfBoundIndex, Set.of(new Request(VALID_REQUEST_AMY)));
+        RequestCommand requestCommand = new RequestCommand(outOfBoundIndex,
+                new ArrayList<>(Arrays.asList(new Request(VALID_REQUEST_AMY))));
         assertCommandFailure(requestCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        Set<Request> firstRequestSet = new HashSet<>();
+        List<Request> firstRequestSet = new ArrayList<>();
         firstRequestSet.add(new Request("Need a bottle of champagne every morning"));
-        Set<Request> secondRequestSet = new HashSet<>();
+        List<Request> secondRequestSet = new ArrayList<>();
         secondRequestSet.add(new Request("I need a coffee"));
 
         RequestCommand command1 = new RequestCommand(INDEX_FIRST_PERSON, firstRequestSet);
