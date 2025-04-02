@@ -19,20 +19,20 @@ import seedu.innsync.model.request.Request;
  * The person is identified using their displayed index in the person list.
  */
 
-public class MarkRequestCommand extends Command {
+public class UnmarkRequestCommand extends Command {
 
-    public static final String COMMAND_WORD = "mark";
+    public static final String COMMAND_WORD = "unmark";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Marks a request of the contact identified by the index number"
-            + "in the displayed person list as completed.\n"
+            + ": Unmarks a request of the contact identified by the index number"
+            + "in the displayed person list from its completion status.\n"
             + "Parameters: INDEX (must be a positive integer) " + PREFIX_REQUEST + "REQUEST_INDEX\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_REQUEST + "1";
-    public static final String MESSAGE_SUCCESS = "Request successfully marked: %s";
+    public static final String MESSAGE_SUCCESS = "Request successfully unmarked: %s";
     public static final String MESSAGE_FAILURE_INVALID_INDEX = "Invalid Request Index!\n"
             + "CAUSE: Request Index is out of range. There is no request indexed by this number.\n"
             + "COMMAND INFO: " + MESSAGE_USAGE;
-    public static final String MESSAGE_FAILURE_ALREADY_MARKED = "The request '%s' is already marked!";
+    public static final String MESSAGE_FAILURE_NOT_MARKED = "The request '%s' has not been marked!";
     private final Index index;
     private final Index requestIndex;
 
@@ -43,7 +43,7 @@ public class MarkRequestCommand extends Command {
      * @param requestIndex The index of the request in the displayed request list of the person.
      * @param request The set of requests to be added to the person.
      */
-    public MarkRequestCommand(Index index, Index requestIndex) {
+    public UnmarkRequestCommand(Index index, Index requestIndex) {
         requireNonNull(index);
         this.index = index;
         this.requestIndex = requestIndex;
@@ -70,24 +70,23 @@ public class MarkRequestCommand extends Command {
             throw new CommandException(MESSAGE_FAILURE_INVALID_INDEX);
         }
         Request request = requests.get(this.requestIndex.getZeroBased());
-        if (request.isCompleted()) {
-            throw new CommandException(String.format(MESSAGE_FAILURE_ALREADY_MARKED,
+        if (!request.isCompleted()) {
+            throw new CommandException(String.format(MESSAGE_FAILURE_NOT_MARKED,
                     request.getRequestName()));
         }
         Person editedPerson = createEditedPerson(model, person, request, requestIndex);
         model.setPerson(person, editedPerson);
-
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, request.getRequestName()), editedPerson);
     }
 
     private Person createEditedPerson(Model model, Person person, Request request, Index index) {
-        Request markedRequest = new Request(request);
-        markedRequest.markAsCompleted();
-        markedRequest = model.getRequestElseCreate(markedRequest);
+        Request unmarkedRequest = new Request(request);
+        unmarkedRequest.markAsIncomplete();
+        unmarkedRequest = model.getRequestElseCreate(unmarkedRequest);
         Person editedPerson = new Person(person);
         editedPerson.removeRequest(request);
-        editedPerson.addRequest(markedRequest, index.getZeroBased());
+        editedPerson.addRequest(unmarkedRequest, index.getZeroBased());
         return editedPerson;
     }
 
@@ -101,10 +100,10 @@ public class MarkRequestCommand extends Command {
         if (other == this) {
             return true;
         }
-        if (!(other instanceof MarkRequestCommand)) {
+        if (!(other instanceof UnmarkRequestCommand)) {
             return false;
         }
-        MarkRequestCommand otherRequest = (MarkRequestCommand) other;
+        UnmarkRequestCommand otherRequest = (UnmarkRequestCommand) other;
         return index.equals(otherRequest.index);
     }
 

@@ -27,6 +27,7 @@ import seedu.innsync.logic.commands.RequestCommand;
 import seedu.innsync.logic.commands.StarCommand;
 import seedu.innsync.logic.commands.TagCommand;
 import seedu.innsync.logic.commands.UndoCommand;
+import seedu.innsync.logic.commands.UnmarkRequestCommand;
 import seedu.innsync.logic.commands.UnstarCommand;
 import seedu.innsync.logic.commands.UntagCommand;
 import seedu.innsync.logic.parser.exceptions.ParseException;
@@ -153,6 +154,9 @@ public class AddressBookParser {
 
         case MarkRequestCommand.COMMAND_WORD:
             return new MarkRequestCommandParser().parse(arguments);
+
+        case UnmarkRequestCommand.COMMAND_WORD:
+            return new UnmarkRequestCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

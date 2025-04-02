@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_REQUEST;
 import static seedu.innsync.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import seedu.innsync.commons.core.index.Index;
@@ -14,7 +13,6 @@ import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.Model;
 import seedu.innsync.model.person.Person;
 import seedu.innsync.model.request.Request;
-import seedu.innsync.model.request.exceptions.RequestNotFoundException;
 
 /**
  * Deletes a request from a specific person in the system.
@@ -30,9 +28,8 @@ public class DeleteRequestCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_REQUEST + "1";
 
     public static final String MESSAGE_SUCCESS = "Request successfully deleted from %s";
-    public static final String MESSAGE_REQUEST_NOT_FOUND = "This contact does not have this request.";
     public static final String MESSAGE_INVALID_REQUEST_INDEX = "Invalid request index!\n"
-            + "The request index is out of range.";
+            + "The request index is out of range. This contact does not have a request of this index.";
 
     private final Index contactIndex;
     private final Index requestIndex;
@@ -98,22 +95,8 @@ public class DeleteRequestCommand extends Command {
     private Person createEditedPerson(
             Person personToEdit,
             Request requestToDelete) throws CommandException {
-        Person tempPerson = new Person(
-                personToEdit.getName(),
-                personToEdit.getPhone(),
-                personToEdit.getEmail(),
-                personToEdit.getAddress(),
-                personToEdit.getMemo(),
-                new ArrayList<>(personToEdit.getRequests()),
-                personToEdit.getBookingTags(),
-                personToEdit.getTags(),
-                personToEdit.getStarred());
-
-        try {
-            tempPerson.removeRequest(requestToDelete);
-        } catch (RequestNotFoundException e) {
-            throw new CommandException(MESSAGE_REQUEST_NOT_FOUND);
-        }
+        Person tempPerson = new Person(personToEdit);
+        tempPerson.removeRequest(requestToDelete);
 
         return tempPerson;
     }

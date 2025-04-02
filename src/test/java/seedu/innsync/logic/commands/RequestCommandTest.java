@@ -8,6 +8,7 @@ import static seedu.innsync.logic.commands.CommandTestUtil.VALID_REQUEST_AMY;
 import static seedu.innsync.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.innsync.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.innsync.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.innsync.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.innsync.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class RequestCommandTest {
 
     @Test
     public void execute_validIndex_success() throws CommandException {
-        Index indexFirstPerson = Index.fromOneBased(INDEX_FIRST_PERSON.getOneBased());
+        Index indexFirstPerson = Index.fromOneBased(INDEX_SECOND_PERSON.getOneBased());
         Person firstPerson = model.getPersonList().get(indexFirstPerson.getZeroBased());
 
         List<Request> validRequests = new ArrayList<>();
