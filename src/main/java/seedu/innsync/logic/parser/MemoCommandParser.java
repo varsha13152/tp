@@ -1,11 +1,13 @@
 package seedu.innsync.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.innsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_MEMO;
 
 import java.util.stream.Stream;
 
 import seedu.innsync.commons.core.index.Index;
+import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.MemoCommand;
 import seedu.innsync.logic.parser.exceptions.ParseException;
 import seedu.innsync.model.person.Memo;
@@ -32,7 +34,8 @@ public class MemoCommandParser implements Parser<MemoCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format("%s\n%s", pe.getMessage(), MemoCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(Messages.MESSAGE_PARSE_EXCEPTION,
+                    pe.getMessage(), MemoCommand.MESSAGE_USAGE), pe);
         }
 
         Memo memo = ParserUtil.parseMemo(argMultimap.getValue(PREFIX_MEMO).orElse(""));

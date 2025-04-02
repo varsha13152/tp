@@ -35,9 +35,10 @@ public class UntagCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Tag(s) `%s` has been successfully removed! " + Emoticons.PROUD;
     public static final String MESSAGE_FAILURE_INVALID_INDEX = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX + "\n"
             + MESSAGE_USAGE;
-    public static final String MESSAGE_FAILURE_TAG = "Contact does not have the tag `%s`! " + Emoticons.SAD + "\n" + MESSAGE_USAGE;
-    public static final String MESSAGE_FAILURE_BOOKINGTAG = "Contact does not have the booking tag `%s`!" + Emoticons.SAD + "\n"
-            + MESSAGE_USAGE;
+    public static final String MESSAGE_FAILURE_TAG = "Contact does not have the tag `%s`! "
+            + Emoticons.SAD + "\n" + MESSAGE_USAGE;
+    public static final String MESSAGE_FAILURE_BOOKINGTAG = "Contact does not have the booking tag `%s`!"
+            + Emoticons.SAD + "\n" + MESSAGE_USAGE;
 
     private final Index index;
     private final Tag tag;

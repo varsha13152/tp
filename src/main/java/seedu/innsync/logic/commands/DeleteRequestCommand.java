@@ -25,13 +25,15 @@ public class DeleteRequestCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes a request from the contact identified by the index number in the displayed person list.\n"
-            + "Parameters: INDEX (must be a positive integer) " + PREFIX_REQUEST + "REQUEST_INDEX (must be a positive integer)\n"
+            + "Parameters: INDEX (must be a positive integer) "
+            + PREFIX_REQUEST + "REQUEST_INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_REQUEST + "1";
 
     public static final String MESSAGE_SUCCESS = "Request `%s` successfully deleted from `%s`! " + Emoticons.PROUD;
     public static final String MESSAGE_FAILURE_INVALID_INDEX = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX
             + "\n" + MESSAGE_USAGE;
-    public static final String MESSAGE_INVALID_REQUEST_INDEX = "Invalid request index! The request index is out of range. " 
+    public static final String MESSAGE_INVALID_REQUEST_INDEX = "Invalid request index!"
+            + " The requested index is out of range. "
             + "This contact does not have a request of this index. " + Emoticons.SAD + "\n";
 
     private final Index contactIndex;

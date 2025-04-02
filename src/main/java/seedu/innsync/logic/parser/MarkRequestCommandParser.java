@@ -6,6 +6,7 @@ import static seedu.innsync.logic.parser.CliSyntax.PREFIX_REQUEST;
 
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.commons.exceptions.IllegalValueException;
+import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.MarkRequestCommand;
 import seedu.innsync.logic.parser.exceptions.ParseException;
 
@@ -31,7 +32,8 @@ public class MarkRequestCommandParser implements Parser<MarkRequestCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format("%s\n%s", pe.getMessage(), MarkRequestCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(Messages.MESSAGE_PARSE_EXCEPTION,
+                    pe.getMessage(), MarkRequestCommand.MESSAGE_USAGE), pe);
         }
 
         Index requestIndex;

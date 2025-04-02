@@ -62,10 +62,10 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited `%1$s`! " + Emoticons.PROUD;
     public static final String MESSAGE_FAILURE_INVALID_INDEX = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX + "\n"
             + MESSAGE_USAGE;
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided! " + Emoticons.SAD 
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided! " + Emoticons.SAD
             + "\n" + MESSAGE_USAGE;
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book! "
-            + Emoticons.SAD +  "\n" + MESSAGE_USAGE;
+            + Emoticons.SAD + "\n" + MESSAGE_USAGE;
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;

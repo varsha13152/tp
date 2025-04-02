@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.innsync.commons.core.index.Index;
+import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.TagCommand;
 import seedu.innsync.logic.parser.exceptions.ParseException;
 import seedu.innsync.model.tag.BookingTag;
@@ -35,7 +36,8 @@ public class TagCommandParser implements Parser<TagCommand> {
             index = ParserUtil.parseIndex(args);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format("%s\n%s", pe.getMessage(), TagCommand.MESSAGE_USAGE), pe);
+                    String.format(Messages.MESSAGE_PARSE_EXCEPTION,
+                            pe.getMessage(), TagCommand.MESSAGE_USAGE), pe);
         }
         Set<BookingTag> bookingTagList = ParserUtil.parseBookingTags(argMultimap.getAllValues(PREFIX_BOOKINGTAG));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));

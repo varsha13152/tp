@@ -48,12 +48,12 @@ public class UnstarCommand extends Command {
 
         Person person = lastShownList.get(this.index.getZeroBased());
         if (!person.getStarred()) {
-            throw new CommandException(String.format(MESSAGE_FAILURE, Messages.format(person)));
+            throw new CommandException(String.format(MESSAGE_FAILURE, person.getName()));
         }
         Person unstarredPerson = getUnstarredPerson(person);
         model.setPerson(person, unstarredPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(unstarredPerson)), unstarredPerson);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, unstarredPerson.getName()), unstarredPerson);
     }
 
     private Person getUnstarredPerson(Person personToCopy) {

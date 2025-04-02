@@ -16,7 +16,8 @@ public class UndoCommand extends Command {
             + "reverting it to its state before the last modification made to it.\n"
             + "Example: " + COMMAND_WORD;
     public static final String MESSAGE_SUCCESS = "Successfully reverted last modification! " + Emoticons.PROUD;
-    public static final String MESSAGE_FAILURE = "Failed to undo changes as no modifications to the current addressbook were found. "
+    public static final String MESSAGE_FAILURE = "Failed to undo changes as no modifications"
+            + " to the current addressbook were found. "
             + Emoticons.SAD + "\n" + MESSAGE_USAGE;
 
 

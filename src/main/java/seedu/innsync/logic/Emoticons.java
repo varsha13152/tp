@@ -1,5 +1,8 @@
 package seedu.innsync.logic;
 
+/**
+ * Container for user visible emoticons
+ */
 public class Emoticons {
     public static final String ANGRY = "ヾ( ･`⌓´･)ﾉﾞ";
     public static final String SAD = "(｡•́︿•̀｡)";

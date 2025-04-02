@@ -1,6 +1,7 @@
 package seedu.innsync.logic.parser;
 
 import seedu.innsync.commons.core.index.Index;
+import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.UnstarCommand;
 import seedu.innsync.logic.parser.exceptions.ParseException;
 
@@ -21,7 +22,8 @@ public class UnstarCommandParser implements Parser<UnstarCommand> {
             return new UnstarCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format("%s\n%s", pe.getMessage(), UnstarCommand.MESSAGE_USAGE), pe);
+                    String.format(Messages.MESSAGE_PARSE_EXCEPTION,
+                            pe.getMessage(), UnstarCommand.MESSAGE_USAGE), pe);
         }
     }
 

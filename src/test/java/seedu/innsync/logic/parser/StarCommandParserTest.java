@@ -1,12 +1,12 @@
 package seedu.innsync.logic.parser;
 
-import static seedu.innsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.innsync.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.innsync.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.innsync.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.StarCommand;
 
 /**
@@ -27,6 +27,7 @@ public class StarCommandParserTest {
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, StarCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "a", String.format(Messages.MESSAGE_PARSE_EXCEPTION,
+                    ParserUtil.MESSAGE_INVALID_INDEX, StarCommand.MESSAGE_USAGE));
     }
 }

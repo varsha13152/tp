@@ -6,6 +6,7 @@ import static seedu.innsync.logic.parser.CliSyntax.PREFIX_REQUEST;
 import java.util.List;
 
 import seedu.innsync.commons.core.index.Index;
+import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.RequestCommand;
 import seedu.innsync.logic.parser.exceptions.ParseException;
 import seedu.innsync.model.request.Request;
@@ -30,7 +31,8 @@ public class RequestCommandParser implements Parser<RequestCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format("%s\n%s", pe.getMessage(), RequestCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(Messages.MESSAGE_PARSE_EXCEPTION,
+                    pe.getMessage(), RequestCommand.MESSAGE_USAGE), pe);
         }
 
         List<Request> requestList = ParserUtil.parseRequests(argMultimap.getAllValues(PREFIX_REQUEST));

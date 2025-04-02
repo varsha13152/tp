@@ -17,6 +17,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.innsync.commons.core.index.Index;
+import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.EditCommand;
 import seedu.innsync.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.innsync.logic.parser.exceptions.ParseException;
@@ -45,7 +46,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format("%s\n%s", pe.getMessage(), EditCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(Messages.MESSAGE_PARSE_EXCEPTION,
+                    pe.getMessage(), EditCommand.MESSAGE_USAGE), pe);
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_MEMO);

@@ -1,6 +1,7 @@
 package seedu.innsync.logic.parser;
 
 import seedu.innsync.commons.core.index.Index;
+import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.StarCommand;
 import seedu.innsync.logic.parser.exceptions.ParseException;
 
@@ -20,7 +21,8 @@ public class StarCommandParser implements Parser<StarCommand> {
             Index index = ParserUtil.parseIndex(args);
             return new StarCommand(index);
         } catch (ParseException pe) {
-            throw new ParseException(String.format("%s\n%s", pe.getMessage(), StarCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(Messages.MESSAGE_PARSE_EXCEPTION,
+                    pe.getMessage(), StarCommand.MESSAGE_USAGE), pe);
         }
     }
 

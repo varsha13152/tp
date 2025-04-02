@@ -27,7 +27,8 @@ public class MarkRequestCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Marks a request of the contact identified by the index number"
             + "in the displayed person list as completed.\n"
-            + "Parameters: INDEX (must be a positive integer) " + PREFIX_REQUEST + "REQUEST_INDEX (must be a positive integer)\n"
+            + "Parameters: INDEX (must be a positive integer) "
+            + PREFIX_REQUEST + "REQUEST_INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_REQUEST + "1";
     public static final String MESSAGE_SUCCESS = "Request `%s` successfully marked! " + Emoticons.PROUD;
     public static final String MESSAGE_FAILURE_INVALID_INDEX = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX

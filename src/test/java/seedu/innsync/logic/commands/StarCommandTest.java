@@ -49,7 +49,7 @@ public class StarCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getPersonList().size() + 1);
         StarCommand starCommand = new StarCommand(outOfBoundIndex);
 
-        assertCommandFailure(starCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(starCommand, model, StarCommand.MESSAGE_FAILURE_INVALID_INDEX);
     }
 
     @Test
@@ -74,8 +74,7 @@ public class StarCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
 
         StarCommand starCommand = new StarCommand(outOfBoundIndex);
-
-        assertCommandFailure(starCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(starCommand, model, StarCommand.MESSAGE_FAILURE_INVALID_INDEX);
     }
 
     @Test

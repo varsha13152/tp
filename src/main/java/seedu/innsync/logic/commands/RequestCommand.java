@@ -34,7 +34,7 @@ public class RequestCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Request successfully added to `%s`! " + Emoticons.PROUD;
     public static final String MESSAGE_FAILURE_INVALID_INDEX = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX + "\n"
             + MESSAGE_USAGE;
-    public static final String MESSAGE_DUPLICATE_REQUEST = "This contact already has this request! " + Emoticons.SAD 
+    public static final String MESSAGE_DUPLICATE_REQUEST = "This contact already has this request! " + Emoticons.SAD
             + "\n" + MESSAGE_USAGE;
     public static final String MESSAGE_DUPLICATE_REQUEST_EDIT = "This edit contains duplicate requests! "
             + Emoticons.SAD + "\n" + MESSAGE_USAGE;
