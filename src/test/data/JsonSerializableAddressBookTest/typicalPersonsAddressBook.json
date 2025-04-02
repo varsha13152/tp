@@ -7,7 +7,10 @@
     "address" : "123, Jurong West Ave 6, #08-111",
     "memo" : "long term stay.",
     "starred": false,
-    "requests": [ "Need a $5000 wine everyday for AMY" ],
+    "requests": [ {
+      "requestName" : "Need a $5000 wine everyday for AMY",
+      "isCompleted" : false
+    } ],
     "bookingTags" : [ ],
     "tags" : [ "friends" ]
   }, {

@@ -82,7 +82,6 @@
       <FlowPane fx:id="detailRequests" orientation="VERTICAL" hgap="5" vgap="5">
         <!-- A single request with a checkbox beside it -->
         <HBox spacing="10.0" alignment="CENTER_LEFT">
-          <CheckBox fx:id="singleRequestCheckBox" />
         </HBox>
       </FlowPane>
     </VBox>
