@@ -22,8 +22,9 @@ public class DeleteCommand extends Command {
             + ": Deletes the person identified by the index number used in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
-
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_FAILURE_INVALID_INDEX = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX 
+            + "\n" + MESSAGE_USAGE;
 
     private final Index targetIndex;
 
@@ -37,7 +38,7 @@ public class DeleteCommand extends Command {
         List<Person> lastShownList = model.getPersonList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(MESSAGE_FAILURE_INVALID_INDEX);
         }
 
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());

@@ -32,6 +32,8 @@ public class MemoCommand extends Command {
 
     public static final String MESSAGE_ADD_MEMO_SUCCESS = "Added memo to Person: %1$s";
     public static final String MESSAGE_DELETE_MEMO_SUCCESS = "Removed memo from Person: %1$s";
+    public static final String MESSAGE_FAILURE_INVALID_INDEX = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX + "\n"
+            + MESSAGE_USAGE;
 
     private final Index index;
     private final Memo memo;
@@ -50,7 +52,7 @@ public class MemoCommand extends Command {
         List<Person> lastShownList = model.getPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(MESSAGE_FAILURE_INVALID_INDEX);
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());

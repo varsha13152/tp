@@ -29,10 +29,13 @@ public class MarkRequestCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) " + PREFIX_REQUEST + "REQUEST_INDEX\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_REQUEST + "1";
     public static final String MESSAGE_SUCCESS = "Request successfully marked: %s";
-    public static final String MESSAGE_FAILURE_INVALID_INDEX = "Invalid Request Index!\n"
-            + "CAUSE: Request Index is out of range. There is no request indexed by this number.\n"
-            + "COMMAND INFO: " + MESSAGE_USAGE;
-    public static final String MESSAGE_FAILURE_ALREADY_MARKED = "The request '%s' is already marked!";
+    public static final String MESSAGE_FAILURE_INVALID_INDEX = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX
+            + MESSAGE_USAGE;
+    public static final String MESSAGE_FAILURE_INVALID_REQUEST_INDEX = "Invalid Request Index!"
+            + " There is no request indexed by this number.\n"
+            + MESSAGE_USAGE;
+    public static final String MESSAGE_FAILURE_ALREADY_MARKED = "The request '%s' is already marked!\n"
+            + MESSAGE_USAGE;
     private final Index index;
     private final Index requestIndex;
 
@@ -62,12 +65,12 @@ public class MarkRequestCommand extends Command {
         requireNonNull(model);
         List<Person> lastShownList = model.getPersonList();
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(MESSAGE_FAILURE_INVALID_INDEX);
         }
         Person person = lastShownList.get(this.index.getZeroBased());
         List<Request> requests = person.getRequests();
         if (this.requestIndex.getOneBased() > requests.size()) {
-            throw new CommandException(MESSAGE_FAILURE_INVALID_INDEX);
+            throw new CommandException(MESSAGE_FAILURE_INVALID_REQUEST_INDEX);
         }
         Request request = requests.get(this.requestIndex.getZeroBased());
         if (request.isCompleted()) {

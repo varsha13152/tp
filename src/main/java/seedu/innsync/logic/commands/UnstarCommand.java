@@ -21,8 +21,10 @@ public class UnstarCommand extends Command {
             + ": Unstars the contact identified by the index number used in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
-    public static final String MESSAGE_SUCCESS = "Contact has been successfully unstarred!: %s";
-    public static final String MESSAGE_FAILURE = "Contact was not starred!: %s";
+    public static final String MESSAGE_SUCCESS = "'%s' has been successfully unstarred!";
+    public static final String MESSAGE_FAILURE_INVALID_INDEX = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX + "\n"
+            + MESSAGE_USAGE;
+    public static final String MESSAGE_FAILURE = "'%s' was not starred!\n" + MESSAGE_USAGE;
 
     private final Index index;
 
@@ -40,7 +42,7 @@ public class UnstarCommand extends Command {
 
         ObservableList<Person> lastShownList = model.getPersonList();
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(MESSAGE_FAILURE_INVALID_INDEX);
         }
 
         Person person = lastShownList.get(this.index.getZeroBased());

@@ -30,7 +30,9 @@ public class RequestCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) " + PREFIX_REQUEST + "REQUEST\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_REQUEST + "Need a bottle of champagne every morning";
     public static final String MESSAGE_SUCCESS = "Request successfully added: %s";
-    public static final String MESSAGE_DUPLICATE_REQUEST = "This contact already has this request.";
+    public static final String MESSAGE_FAILURE_INVALID_INDEX = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX + "\n"
+            + MESSAGE_USAGE;
+    public static final String MESSAGE_DUPLICATE_REQUEST = "This contact already has this request.\n" + MESSAGE_USAGE;
 
     private final Index index;
     private final List<Request> requests;
@@ -60,7 +62,7 @@ public class RequestCommand extends Command {
         requireNonNull(model);
         List<Person> lastShownList = model.getPersonList();
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(MESSAGE_FAILURE_INVALID_INDEX);
         }
 
         Person personToEdit = lastShownList.get(this.index.getZeroBased());

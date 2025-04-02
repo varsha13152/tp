@@ -10,6 +10,9 @@ import seedu.innsync.model.Model;
  */
 public class UndoCommand extends Command {
     public static final String COMMAND_WORD = "undo";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Undoes the last change made to the addressbook, reverting it to its state before the last modification made to it.\n"
+            + "Example: " + COMMAND_WORD;
     public static final String MESSAGE_SUCCESS = "Successfully reverted last modification!";
     public static final String MESSAGE_FAILURE = """
             Failed to undo changes as no modifications to the current addressbook were found.

@@ -34,9 +34,13 @@ public class TagCommand extends Command {
             + PREFIX_BOOKINGTAG + "{property} from/{start-date} to/{end-date}\n"
             + "Example: " + COMMAND_WORD + " 1 t/friend b/BeachHouse from/2025-06-01 to/2025-06-10";
     public static final String MESSAGE_SUCCESS = "Tag successfully added: %s";
-    public static final String MESSAGE_DUPLICATE_TAG = "This contact already has this tag.";
+    public static final String MESSAGE_FAILURE_INVALID_INDEX = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX + "\n"
+            + MESSAGE_USAGE;
+    public static final String MESSAGE_DUPLICATE_TAG = "This contact already has this tag.\n"
+            + MESSAGE_USAGE;
     public static final String MESSAGE_FAILURE = "Failed to add booking tag. "
-            + "The booking tag %s overlaps with an existing tag.";
+            + "The booking tag %s overlaps with an existing tag.\n"
+            + MESSAGE_USAGE;
 
     private final Index index;
     private final Set<Tag> tagList;
@@ -57,7 +61,7 @@ public class TagCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         List<Person> lastShownList = model.getPersonList();
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(MESSAGE_FAILURE_INVALID_INDEX);
         }
 
         Person personToEdit = lastShownList.get(this.index.getZeroBased());

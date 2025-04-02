@@ -59,8 +59,12 @@ public class EditCommand extends Command {
             + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_FAILURE_INVALID_INDEX = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX + "\n"
+            + MESSAGE_USAGE;
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.\n"
+            + MESSAGE_USAGE;
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.\n"
+            + MESSAGE_USAGE;
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -83,7 +87,7 @@ public class EditCommand extends Command {
         List<Person> lastShownList = model.getPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(MESSAGE_FAILURE_INVALID_INDEX);
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());

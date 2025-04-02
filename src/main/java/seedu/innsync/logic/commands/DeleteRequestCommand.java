@@ -28,6 +28,8 @@ public class DeleteRequestCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_REQUEST + "1";
 
     public static final String MESSAGE_SUCCESS = "Request successfully deleted from %s";
+    public static final String MESSAGE_FAILURE_INVALID_INDEX = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX 
+            + "\n" + MESSAGE_USAGE;
     public static final String MESSAGE_INVALID_REQUEST_INDEX = "Invalid request index!\n"
             + "The request index is out of range. This contact does not have a request of this index.";
 
@@ -60,7 +62,7 @@ public class DeleteRequestCommand extends Command {
         List<Person> lastShownList = model.getPersonList();
 
         if (contactIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(MESSAGE_FAILURE_INVALID_INDEX);
         }
 
         Person personToEdit = lastShownList.get(this.contactIndex.getZeroBased());
