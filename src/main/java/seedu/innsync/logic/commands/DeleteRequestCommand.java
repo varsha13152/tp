@@ -95,7 +95,7 @@ public class DeleteRequestCommand extends Command {
      * @throws CommandException If the request is not found in the person's requests.
      */
     private Person createEditedPerson(
-            Person personToEdit, 
+            Person personToEdit,
             Request requestToDelete) throws CommandException {
         Person tempPerson = new Person(
                 personToEdit.getName(),
