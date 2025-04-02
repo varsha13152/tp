@@ -15,6 +15,7 @@ import seedu.innsync.commons.core.GuiSettings;
 import seedu.innsync.commons.core.LogsCenter;
 import seedu.innsync.model.person.Person;
 import seedu.innsync.model.request.Request;
+import seedu.innsync.model.tag.Tag;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -131,15 +132,31 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Request getRequestElseCreate(Request request) {
-        requireNonNull(request);
-        return this.addressBook.getRequestElseCreate(request);
+    public Tag getTagElseCreate(Tag tag) {
+        requireNonNull(tag);
+        return this.addressBook.getTagElseCreate(tag);
+    }
+
+    @Override
+    public Tag getTag(Tag tag) {
+        requireNonNull(tag);
+        return this.addressBook.getTag(tag);
     }
 
     @Override
     public Request getRequest(Request request) {
         requireNonNull(request);
         return this.addressBook.getRequest(request);
+    }
+
+    public void setTags(List<Tag> tags) {
+        requireNonNull(tags);
+        this.addressBook.setTags(tags);
+    }
+
+    public Request getRequestElseCreate(Request request) {
+        requireNonNull(request);
+        return this.addressBook.getRequestElseCreate(request);
     }
 
     public void setRequests(List<Request> requests) {

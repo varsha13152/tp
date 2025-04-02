@@ -61,11 +61,12 @@ public class TagCommandTest {
     public void execute_validTag_success() throws Exception {
         Index indexFirstPerson = Index.fromOneBased(INDEX_FIRST_PERSON.getOneBased());
         Person firstPerson = model.getPersonList().get(indexFirstPerson.getZeroBased());
+        firstPerson.clearTags();
 
-        Set<Tag> validTags = Set.of(new Tag(VALID_TAG_HUSBAND));
+        Set<Tag> validTags = Set.of(new Tag(VALID_TAG_FRIEND), new Tag(VALID_TAG_HUSBAND));
 
         Person editedPerson = new PersonBuilder(firstPerson)
-                .withTags("friends", VALID_TAG_HUSBAND)
+                .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
 
         TagCommand tagCommand = new TagCommand(indexFirstPerson, validTags, null);
@@ -76,6 +77,9 @@ public class TagCommandTest {
         expectedModel.setPerson(firstPerson, editedPerson);
 
         assertCommandSuccess(tagCommand, model, expectedMessage, expectedModel, editedPerson);
+
+        firstPerson.clearTags();
+        firstPerson.addTag(new Tag("friends"));
     }
 
     @Test
@@ -83,7 +87,9 @@ public class TagCommandTest {
         Index indexFirstPerson = Index.fromOneBased(INDEX_FIRST_PERSON.getOneBased());
         Person firstPerson = model.getPersonList().get(indexFirstPerson.getZeroBased());
 
-        Set<Tag> validTags = Set.of(new Tag(VALID_TAG_HUSBAND));
+        firstPerson.clearTags();
+
+        Set<Tag> validTags = Set.of(new Tag(VALID_TAG_FRIEND), new Tag(VALID_TAG_HUSBAND));
         Set<BookingTag> validBookingTags = Set.of(
                 new BookingTag(VALID_BOOKINGTAG_HOTEL),
                 new BookingTag(VALID_BOOKINGTAG_BEACHHOUSE)
@@ -91,7 +97,7 @@ public class TagCommandTest {
 
         // since tag command is now additive, old tags need to be added manually
         Person editedPerson = new PersonBuilder(firstPerson)
-                .withTags("friends", VALID_TAG_HUSBAND)
+                .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .withBookingTags(VALID_BOOKINGTAG_HOTEL, VALID_BOOKINGTAG_BEACHHOUSE)
                 .build();
 
@@ -103,6 +109,9 @@ public class TagCommandTest {
         expectedModel.setPerson(firstPerson, editedPerson);
 
         assertCommandSuccess(tagCommand, model, expectedMessage, expectedModel, editedPerson);
+
+        firstPerson.clearTags();
+        firstPerson.addTag(new Tag("friends"));
     }
 
 

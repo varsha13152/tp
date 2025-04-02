@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.logic.commands.UntagCommand;
 import seedu.innsync.logic.parser.exceptions.ParseException;
+import seedu.innsync.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new UntagCommand object
@@ -31,8 +32,17 @@ public class UntagCommandParser implements Parser<UntagCommand> {
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_BOOKINGTAG, PREFIX_TAG);
         Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        String tag = argMultimap.getValue(PREFIX_TAG).orElse("");
+
+        Tag tag = null;
+        if (argMultimap.getValue(PREFIX_TAG).isPresent()) {
+            tag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get());
+        }
+
         String bookingTag = argMultimap.getValue(PREFIX_BOOKINGTAG).orElse("");
+
+        if (tag == null && bookingTag.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UntagCommand.MESSAGE_USAGE));
+        }
 
         return new UntagCommand(index, tag, bookingTag);
     }

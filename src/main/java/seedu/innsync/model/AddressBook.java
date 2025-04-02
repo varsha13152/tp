@@ -12,7 +12,8 @@ import seedu.innsync.model.person.Person;
 import seedu.innsync.model.person.UniquePersonList;
 import seedu.innsync.model.request.Request;
 import seedu.innsync.model.request.UniqueRequestList;
-
+import seedu.innsync.model.tag.Tag;
+import seedu.innsync.model.tag.UniqueTagList;
 
 /**
  * Wraps all data at the address-book level
@@ -20,10 +21,12 @@ import seedu.innsync.model.request.UniqueRequestList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
+    // Logger
     private static final Logger logger = LogsCenter.getLogger(AddressBook.class);
 
     private final UniquePersonList persons;
     private final UniqueRequestList requests;
+    private final UniqueTagList tags;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -35,6 +38,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         requests = new UniqueRequestList();
+        tags = new UniqueTagList();
     }
 
     public AddressBook() {}
@@ -66,12 +70,23 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the tag list with {@code tags}.
+     * {@code tags} must not contain duplicate tags.
+     */
+    public void setTags(List<Tag> tags) {
+        this.tags.setTags(tags);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
         setPersons(newData.getPersonList());
         setRequests(newData.getRequestList());
+        setTags(newData.getTagList());
+
+        logger.info("Address book backed up");
     }
 
     //// person-level operations
@@ -158,12 +173,70 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes the equivalent tag from the list.
-     * The tag must exist in the list.
+     * Removes the equivalent request from the list.
+     * The request must exist in the list.
      */
     public void removeRequest(Request request) {
         requireNonNull(request);
         requests.remove(request);
+    }
+
+    ///// tag-level operations
+
+    /**
+     * Replaces the contents of the tag list with {@code tags}.
+     * {@code tags} must not contain duplicate tags.
+     */
+    public boolean hasTag(Tag tag) {
+        requireNonNull(tag);
+        return tags.contains(tag);
+    }
+
+    /**
+     * Gets tag from unique tag list or creates a new tag if it does not exist.
+     *
+     * @param tag
+     * @return tag from unique tag list or a new tag if it does not exist.
+     */
+    public Tag getTagElseCreate(Tag tag) {
+        requireNonNull(tag);
+        Tag existingTag = tags.getTag(tag);
+        if (existingTag != null) {
+            logger.info("Existing tag found: " + existingTag);
+            return existingTag;
+        } else {
+            Tag newTag = new Tag(tag.getTagName());
+            tags.add(newTag);
+            logger.info("New tag created: " + newTag);
+            return newTag;
+        }
+    }
+
+    /**
+     * Gets tag from unique tag list.
+     * Returns null if no such tag exists.
+     */
+    public Tag getTag(Tag tag) {
+        requireNonNull(tag);
+        return tags.getTag(tag);
+    }
+
+    /**
+     * Adds tag to the unique tag list.
+     * The tag must not already exist in the unique tag list.
+     */
+    public void addTag(Tag tag) {
+        requireNonNull(tag);
+        tags.add(tag);
+    }
+
+    /**
+     * Removes the equivalent tag from the list.
+     * The tag must exist in the list.
+     */
+    public void removeTag(Tag tag) {
+        requireNonNull(tag);
+        tags.remove(tag);
     }
 
     //// util methods
@@ -173,6 +246,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         return new ToStringBuilder(this)
                 .add("persons", persons)
                 .toString();
+    }
+
+    @Override
+    public ObservableList<Tag> getTagList() {
+        return tags.asUnmodifiableObservableList();
     }
 
     @Override
