@@ -33,7 +33,6 @@ public class BookingTag {
     public static final String REGEX_STARTDATE = "^\\d{4}-\\d{2}-\\d{2}$"; // Ensures valid date format
     public static final String REGEX_ENDDATE = "^\\d{4}-\\d{2}-\\d{2}$"; // Ensures valid date format
     public static final String REGEX_TOKENS = " from/| to/"; // Ensures valid tokens
-
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     private static String errorMessage = "Error: Booking tag is invalid.";
@@ -45,7 +44,7 @@ public class BookingTag {
     /**
      * Constructs a {@code BookingTag}.
      *
-     * @param bookingTag Valid booking tag parts.
+     * @param bookingTagName Valid booking tag parts.
      */
     public BookingTag(String bookingTagName) {
         requireNonNull(bookingTagName);
@@ -122,6 +121,10 @@ public class BookingTag {
 
     public String getFullBookingTag() {
         return bookingTagName + " from/" + startDate.format(DATE_FORMATTER) + " to/" + endDate.format(DATE_FORMATTER);
+    }
+
+    public static String getErrorMessage() {
+        return BookingTag.errorMessage;
     }
 
     @Override
