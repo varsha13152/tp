@@ -189,7 +189,7 @@ public class FindCommandParserTest {
     @Test
     public void parse_validBookingPropertyArgs_returnsFindCommand() {
         try {
-            FindCommand command = parser.parse("find bp/BeachHouse");
+            FindCommand command = parser.parse("find bp/Beach House");
             Map<SearchType, List<String>> criteria = command.getSearchCriteria();
             assertTrue(criteria.containsKey(SearchType.BOOKING_PROPERTY));
         } catch (ParseException pe) {

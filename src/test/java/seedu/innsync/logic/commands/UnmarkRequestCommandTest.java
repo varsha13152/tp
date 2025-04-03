@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.innsync.commons.core.index.Index;
+import seedu.innsync.logic.Messages;
 import seedu.innsync.model.AddressBook;
 import seedu.innsync.model.Model;
 import seedu.innsync.model.ModelManager;
@@ -69,7 +70,7 @@ public class UnmarkRequestCommandTest {
         UnmarkRequestCommand unmarkCommand = new UnmarkRequestCommand(INDEX_FIRST_PERSON,
                 INDEX_FIRST_PERSON);
         assertCommandFailure(unmarkCommand, unmarkedModel,
-                String.format(UnmarkRequestCommand.MESSAGE_FAILURE_NOT_MARKED, VALID_REQUEST_BOB));
+                String.format(UnmarkRequestCommand.MESSAGE_FAILURE, VALID_REQUEST_BOB));
     }
 
     @Test
@@ -77,7 +78,7 @@ public class UnmarkRequestCommandTest {
         Index outOfBounds = Index.fromOneBased(model.getPersonList().size() + 1);
         UnmarkRequestCommand unmarkCommand = new UnmarkRequestCommand(outOfBounds,
                 INDEX_FIRST_PERSON);
-        assertCommandFailure(unmarkCommand, model, UnmarkRequestCommand.MESSAGE_FAILURE_INVALID_INDEX);
+        assertCommandFailure(unmarkCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
@@ -85,7 +86,7 @@ public class UnmarkRequestCommandTest {
         Index outOfBounds = Index.fromOneBased(model.getPersonList().get(INDEX_FIRST_PERSON.getZeroBased())
                 .getRequests().size() + 1);
         UnmarkRequestCommand unmarkCommand = new UnmarkRequestCommand(INDEX_FIRST_PERSON, outOfBounds);
-        assertCommandFailure(unmarkCommand, model, UnmarkRequestCommand.MESSAGE_FAILURE_INVALID_REQUEST_INDEX);
+        assertCommandFailure(unmarkCommand, model, UnmarkRequestCommand.MESSAGE_INVALID_REQUEST_INDEX);
     }
 
     @Test

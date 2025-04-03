@@ -2,7 +2,7 @@ package seedu.innsync.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.innsync.logic.Emoticons;
+import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.Model;
 
@@ -15,10 +15,10 @@ public class UndoCommand extends Command {
             + ": Undoes the last change made to the addressbook, "
             + "reverting it to its state before the last modification made to it.\n"
             + "Example: " + COMMAND_WORD;
-    public static final String MESSAGE_SUCCESS = "Successfully reverted last modification! " + Emoticons.PROUD;
-    public static final String MESSAGE_FAILURE = "Failed to undo changes as no modifications"
-            + " to the current addressbook were found. "
-            + Emoticons.SAD + "\n" + MESSAGE_USAGE;
+    public static final String MESSAGE_SUCCESS = String.format(
+            Messages.MESSAGE_COMMAND_SUCCESS, "Undo", "Reverted to last modification!!");
+    public static final String MESSAGE_FAILURE = String.format(
+            Messages.MESSAGE_COMMAND_FAILURE, "Undo", "No changes to undo!");
 
 
     @Override

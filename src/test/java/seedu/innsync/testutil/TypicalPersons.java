@@ -30,7 +30,7 @@ public class TypicalPersons {
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25").withMemo("Wants extra food")
             .withEmail("johnd@example.com").withPhone("+65 98765432")
-            .withTags("owesMoney", "friends").build();
+            .withTags("owes money", "friends").build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz")
             .withPhone("+65 95352563")
             .withEmail("heinz@example.com").withAddress("wall street").build();
@@ -44,7 +44,7 @@ public class TypicalPersons {
             .withPhone("+65 9482427").withEmail("lydia@example.com").withAddress("little tokyo").build();
     public static final Person GEORGE = new PersonBuilder().withName("George Best")
             .withPhone("+65 9482442").withEmail("anna@example.com").withAddress("4th street")
-            .withBookingTags("BeachHouse from/2025-06-01 to/2025-06-10").build();
+            .withBookingTags("Beach House from/2025-06-01 to/2025-06-10").build();
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier")

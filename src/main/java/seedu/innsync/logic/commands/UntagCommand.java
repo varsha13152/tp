@@ -12,7 +12,6 @@ import java.util.Set;
 
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.commons.util.ToStringBuilder;
-import seedu.innsync.logic.Emoticons;
 import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.Model;
@@ -32,13 +31,12 @@ public class UntagCommand extends Command {
             + PREFIX_TAG + "TAG\n" + "OR "
             + PREFIX_BOOKINGTAG + "{property} from/{start-date} to/{end-date}\n"
             + "Example: " + COMMAND_WORD + " 1 t/friends";
-    public static final String MESSAGE_SUCCESS = "Tag(s) `%s` has been successfully removed! " + Emoticons.PROUD;
-    public static final String MESSAGE_FAILURE_INVALID_INDEX = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX + "\n"
-            + MESSAGE_USAGE;
-    public static final String MESSAGE_FAILURE_TAG = "Contact does not have the tag `%s`! "
-            + Emoticons.SAD + "\n" + MESSAGE_USAGE;
-    public static final String MESSAGE_FAILURE_BOOKINGTAG = "Contact does not have the booking tag `%s`!"
-            + Emoticons.SAD + "\n" + MESSAGE_USAGE;
+    public static final String MESSAGE_SUCCESS = String.format(
+            Messages.MESSAGE_COMMAND_SUCCESS, "Tag", "%s has been removed from the contact's tag list!");
+    public static final String MESSAGE_FAILURE_TAG = String.format(
+            Messages.MESSAGE_COMMAND_FAILURE, "Tag", "Contact does not have the tag %s!");
+    public static final String MESSAGE_FAILURE_BOOKINGTAG = String.format(
+            Messages.MESSAGE_COMMAND_FAILURE, "BookingTag", "Contact does not have the booking tag %s!");
 
     private final Index index;
     private final Tag tag;
@@ -63,7 +61,7 @@ public class UntagCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         List<Person> lastShownList = model.getPersonList();
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(MESSAGE_FAILURE_INVALID_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
@@ -155,7 +153,7 @@ public class UntagCommand extends Command {
         return new ToStringBuilder(this)
                 .add("index", index)
                 .add("tag", tag)
-                .add("bookingTag", bookingTag)
+                .add("bookingTag", "[" + bookingTag + "]")
                 .toString();
     }
 }

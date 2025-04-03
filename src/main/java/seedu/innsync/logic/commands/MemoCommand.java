@@ -9,7 +9,6 @@ import java.util.List;
 
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.commons.util.ToStringBuilder;
-import seedu.innsync.logic.Emoticons;
 import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.Model;
@@ -31,10 +30,10 @@ public class MemoCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_MEMO + "Likes to swim.";
 
-    public static final String MESSAGE_ADD_MEMO_SUCCESS = "Added memo `%1$s` to `%2$s`! " + Emoticons.PROUD;
-    public static final String MESSAGE_DELETE_MEMO_SUCCESS = "Removed memo from `%1$s`! " + Emoticons.PROUD;
-    public static final String MESSAGE_FAILURE_INVALID_INDEX = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX + "\n"
-            + MESSAGE_USAGE;
+    public static final String MESSAGE_ADD_MEMO_SUCCESS = String.format(Messages.MESSAGE_COMMAND_SUCCESS,
+            "Add memo", "Added memo to %s!");
+    public static final String MESSAGE_DELETE_MEMO_SUCCESS = String.format(Messages.MESSAGE_COMMAND_SUCCESS,
+            "Delete memo", "Deleted memo from %s!");
 
     private final Index index;
     private final Memo memo;
@@ -53,7 +52,7 @@ public class MemoCommand extends Command {
         List<Person> lastShownList = model.getPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(MESSAGE_FAILURE_INVALID_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
@@ -75,7 +74,7 @@ public class MemoCommand extends Command {
         if (memo.value.isEmpty()) {
             return String.format(MESSAGE_DELETE_MEMO_SUCCESS, personToEdit.getName());
         }
-        return String.format(MESSAGE_ADD_MEMO_SUCCESS, memo, personToEdit.getName());
+        return String.format(MESSAGE_ADD_MEMO_SUCCESS, personToEdit.getName());
     }
 
     @Override

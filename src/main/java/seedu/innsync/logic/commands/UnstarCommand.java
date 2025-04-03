@@ -6,7 +6,6 @@ import static seedu.innsync.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import javafx.collections.ObservableList;
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.commons.util.ToStringBuilder;
-import seedu.innsync.logic.Emoticons;
 import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.Model;
@@ -22,10 +21,10 @@ public class UnstarCommand extends Command {
             + ": Unstars the contact identified by the index number used in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
-    public static final String MESSAGE_SUCCESS = "'%s' has been successfully unstarred! " + Emoticons.PROUD;
-    public static final String MESSAGE_FAILURE_INVALID_INDEX = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX + "\n"
-            + MESSAGE_USAGE;
-    public static final String MESSAGE_FAILURE = "'%s' was not starred! " + Emoticons.SAD + "\n" + MESSAGE_USAGE;
+    public static final String MESSAGE_SUCCESS = String.format(Messages.MESSAGE_COMMAND_SUCCESS,
+            "Unstar", "The contact %s was unstarred!");
+    public static final String MESSAGE_FAILURE = String.format(Messages.MESSAGE_COMMAND_FAILURE,
+            "Unstar", "The contact %s was not starred!");
 
     private final Index index;
 
@@ -43,7 +42,7 @@ public class UnstarCommand extends Command {
 
         ObservableList<Person> lastShownList = model.getPersonList();
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(MESSAGE_FAILURE_INVALID_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
         Person person = lastShownList.get(this.index.getZeroBased());

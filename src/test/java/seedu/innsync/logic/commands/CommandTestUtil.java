@@ -43,7 +43,7 @@ public class CommandTestUtil {
     public static final String VALID_REQUEST_AMY = "Need a $5000 wine everyday for AMY";
     public static final String VALID_REQUEST_BOB = "Need a $5000 wine everyday for BOB";
     public static final String VALID_MARK_REQUEST_AMY = "1";
-    public static final String VALID_BOOKINGTAG_BEACHHOUSE = "BeachHouse from/2025-06-01 to/2025-06-10";
+    public static final String VALID_BOOKINGTAG_BEACHHOUSE = "Beach House from/2025-06-01 to/2025-06-10";
     public static final String VALID_BOOKINGTAG_HOTEL = "Hotel from/2025-06-11 to/2025-06-15";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";

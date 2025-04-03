@@ -590,7 +590,7 @@ Format: `find [n/KEYWORD]... [p/KEYWORD]... [e/KEYWORD]... [a/KEYWORD]... [t/KEY
 * `find bd/2025-01-01 bd/2025-02-14` - Finds contacts with bookings that include either January 1, 2025 or February 14, 2025
 
 **Searching by booking property:**
-* `find bp/BeachHouse` - Finds contacts with bookings at properties containing "BeachHouse"
+* `find bp/Beach House` - Finds contacts with bookings at properties containing "Beach House"
 * `find bp/Villa bp/Resort` - Finds contacts with bookings at properties containing either "Villa" or "Resort"
 
 **Combining search fields:**

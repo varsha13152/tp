@@ -8,7 +8,6 @@ import java.util.List;
 
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.commons.util.ToStringBuilder;
-import seedu.innsync.logic.Emoticons;
 import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.Model;
@@ -30,13 +29,13 @@ public class UnmarkRequestCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) " + PREFIX_REQUEST
             + "REQUEST_INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_REQUEST + "1";
-    public static final String MESSAGE_SUCCESS = "Request `%s` successfully unmarked! " + Emoticons.PROUD;
-    public static final String MESSAGE_FAILURE_INVALID_INDEX = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX + "\n"
-            + MESSAGE_USAGE;
-    public static final String MESSAGE_FAILURE_INVALID_REQUEST_INDEX = "Invalid Request Index!"
-            + " There is no request indexed by this number! " + Emoticons.ANGRY + "\n"
-            + MESSAGE_USAGE;
-    public static final String MESSAGE_FAILURE_NOT_MARKED = "The request '%s' has not been marked! " + Emoticons.SAD;
+    public static final String MESSAGE_SUCCESS = String.format(
+            Messages.MESSAGE_COMMAND_SUCCESS, "Unmark request", "%s has been unmarked!");
+    public static final String MESSAGE_INVALID_REQUEST_INDEX = String.format(
+            Messages.MESSAGE_INVALID_ITEM_INDEX, "request");
+    public static final String MESSAGE_FAILURE = String.format(
+            Messages.MESSAGE_COMMAND_FAILURE, "Unmark request", "The request %s is not marked!");
+
     private final Index index;
     private final Index requestIndex;
 
@@ -66,17 +65,16 @@ public class UnmarkRequestCommand extends Command {
         requireNonNull(model);
         List<Person> lastShownList = model.getPersonList();
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(MESSAGE_FAILURE_INVALID_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
         Person person = lastShownList.get(this.index.getZeroBased());
         List<Request> requests = person.getRequests();
         if (this.requestIndex.getOneBased() > requests.size()) {
-            throw new CommandException(MESSAGE_FAILURE_INVALID_REQUEST_INDEX);
+            throw new CommandException(MESSAGE_INVALID_REQUEST_INDEX);
         }
         Request request = requests.get(this.requestIndex.getZeroBased());
         if (!request.isCompleted()) {
-            throw new CommandException(String.format(MESSAGE_FAILURE_NOT_MARKED,
-                    request.getRequestName()));
+            throw new CommandException(String.format(MESSAGE_FAILURE, request.getRequestName()));
         }
         Person editedPerson = createEditedPerson(model, person, request, requestIndex);
         model.setPerson(person, editedPerson);
