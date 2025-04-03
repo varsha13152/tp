@@ -60,6 +60,10 @@ public class BookingTagTest {
         assertThrows(IllegalArgumentException.class, () -> new BookingTag("Resort from/2025-06-01"));
         assertThrows(IllegalArgumentException.class, () -> new BookingTag("Resort to/2025-06-10"));
 
+        // months without 31 days
+        assertThrows(IllegalArgumentException.class, () -> new BookingTag("Hotel from/2025-06-31 to/2025-07-01"));
+        assertThrows(IllegalArgumentException.class, () -> new BookingTag("Hotel from/2025-03-10 to/2025-04-31"));
+
         // start date after end date
         assertThrows(IllegalArgumentException.class, () -> new BookingTag("Hotel from/2025-06-10 to/2025-06-01"));
     }
