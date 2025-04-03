@@ -63,7 +63,6 @@ public class RequestCommandTest {
     @Test
     public void execute_validIndex_unsuccessful() throws CommandException {
         Index indexFirstPerson = Index.fromOneBased(INDEX_SECOND_PERSON.getOneBased());
-        Person firstPerson = model.getPersonList().get(indexFirstPerson.getZeroBased());
         Request validRequest = new Request(VALID_REQUEST_AMY);
         List<Request> validRequests = List.of(validRequest, validRequest);
         RequestCommand requestCommand = new RequestCommand(indexFirstPerson, validRequests);

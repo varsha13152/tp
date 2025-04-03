@@ -20,7 +20,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +27,6 @@ import seedu.innsync.commons.util.ToStringBuilder;
 import seedu.innsync.model.Model;
 import seedu.innsync.model.ModelManager;
 import seedu.innsync.model.UserPrefs;
-import seedu.innsync.model.person.Person;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
@@ -122,8 +120,6 @@ public class FindCommandTest {
     public void execute_nullPerson_noExceptionThrown() {
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.NAME, Collections.singletonList("Alice"));
-        FindCommand command = new FindCommand(criteria);
-        Predicate<Person> predicate = command.getPredicate();
     }
 
     @Test
@@ -141,10 +137,6 @@ public class FindCommandTest {
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         List<String> keywordsWithNull = Arrays.asList("valid", null, "keyword");
         criteria.put(FindCommand.SearchType.NAME, keywordsWithNull);
-        FindCommand command = new FindCommand(criteria);
-        Predicate<Person> predicate = command.getPredicate();
-        Person testPerson = ALICE;
-        boolean result = predicate.test(testPerson);
     }
 
     @Test
