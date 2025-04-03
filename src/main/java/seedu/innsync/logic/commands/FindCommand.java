@@ -116,25 +116,25 @@ public class FindCommand extends Command {
         }
 
         switch (searchType) {
-            case NAME:
-                return matchNameField(person, keyword);
-            case PHONE:
-                return matchPhoneField(person, keyword);
-            case EMAIL:
-                return matchEmailField(person, keyword);
-            case ADDRESS:
-                return matchAddressField(person, keyword);
-            case TAG:
-                return matchTagField(person, keyword);
-            case BOOKING_DATE:
-                return matchBookingDateField(person, keyword);
-            case BOOKING_PROPERTY:
-                return matchBookingPropertyField(person, keyword);
-            case MEMO:
-                return matchMemoField(person, keyword);
-            default:
-                logger.warning("Unknown SearchType encountered: " + searchType);
-                return false;
+        case NAME:
+            return matchNameField(person, keyword);
+        case PHONE:
+            return matchPhoneField(person, keyword);
+        case EMAIL:
+            return matchEmailField(person, keyword);
+        case ADDRESS:
+            return matchAddressField(person, keyword);
+        case TAG:
+            return matchTagField(person, keyword);
+        case BOOKING_DATE:
+            return matchBookingDateField(person, keyword);
+        case BOOKING_PROPERTY:
+            return matchBookingPropertyField(person, keyword);
+        case MEMO:
+            return matchMemoField(person, keyword);
+        default:
+            logger.warning("Unknown SearchType encountered: " + searchType);
+            return false;
         }
     }
 

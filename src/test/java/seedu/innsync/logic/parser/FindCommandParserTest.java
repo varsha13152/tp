@@ -51,7 +51,7 @@ public class FindCommandParserTest {
                         + Emoticons.ANGRY);
         assertParseFailure(parser, "find bp/",
                 "Error: Please enter a keyword after bp/ "
-                        + "when searching by booking property. " + Emoticons.ANGRY );
+                        + "when searching by booking property. " + Emoticons.ANGRY);
     }
 
     @Test
@@ -286,7 +286,8 @@ public class FindCommandParserTest {
     public void parse_invalidNameFormat_throwsParseException() {
         String longName = "A".repeat(256);
         assertParseFailure(parser, "find n/" + longName,
-                "Error: Name values should not exceed 170 characters. Invalid keyword(s): " + longName + " " + Emoticons.ANGRY);
+                "Error: Name values should not exceed 170 characters. Invalid keyword(s): " + longName
+                        + " " + Emoticons.ANGRY);
     }
 
     @Test
@@ -372,15 +373,18 @@ public class FindCommandParserTest {
         // Test with excessive character length keywords mixed with valid ones
         String longName = "A".repeat(256);
         assertParseFailure(parser, "find n/John n/" + longName,
-                "Error: Name values should not exceed 170 characters. Invalid keyword(s): " + longName + " " + Emoticons.ANGRY);
+                "Error: Name values should not exceed 170 characters. Invalid keyword(s): "
+                        + longName + " " + Emoticons.ANGRY);
 
         String longTag = "T".repeat(256);
         assertParseFailure(parser, "find t/friends t/" + longTag,
-                "Error: Tag values should not exceed 170 characters. Invalid keyword(s): " + longTag + " " + Emoticons.ANGRY);
+                "Error: Tag values should not exceed 170 characters. Invalid keyword(s): "
+                        + longTag + " " + Emoticons.ANGRY);
 
         String longMemo = "M".repeat(501);
         assertParseFailure(parser, "find m/important m/" + longMemo,
-                "Error: Memo values should not exceed 500 characters. Invalid keyword(s): " + longMemo + " " + Emoticons.ANGRY);
+                "Error: Memo values should not exceed 500 characters. Invalid keyword(s): "
+                        + longMemo + " " + Emoticons.ANGRY);
     }
 
 

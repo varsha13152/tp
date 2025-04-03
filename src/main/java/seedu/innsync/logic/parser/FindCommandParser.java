@@ -2,13 +2,13 @@ package seedu.innsync.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_BOOKING_DATE;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_BOOKING_PROPERTY;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_MEMO;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.innsync.logic.parser.CliSyntax.PREFIX_MEMO;
-import static seedu.innsync.logic.parser.CliSyntax.PREFIX_BOOKING_DATE;
-import static seedu.innsync.logic.parser.CliSyntax.PREFIX_BOOKING_PROPERTY;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -250,7 +250,8 @@ public class FindCommandParser implements Parser<FindCommand> {
         if (prefix.equals(PREFIX_NAME)) {
             errorMessage = "Error: Name values should not exceed 170 characters.";
         } else if (prefix.equals(PREFIX_PHONE)) {
-            errorMessage = "Error: Invalid phone format. Phone numbers should contain digits, with an optional '+' at the beginning.";
+            errorMessage = "Error: Invalid phone format. Phone numbers should contain digits, with an optional "
+                    + "'+' at the beginning.";
         } else if (prefix.equals(PREFIX_EMAIL)) {
             errorMessage = "Error: Invalid email format. Email values may only contain alphanumeric characters, '@', "
                     + "and these special characters: + _ . -";
@@ -261,7 +262,8 @@ public class FindCommandParser implements Parser<FindCommand> {
         } else if (prefix.equals(PREFIX_MEMO)) {
             errorMessage = "Error: Memo values should not exceed 500 characters.";
         } else if (prefix.equals(PREFIX_BOOKING_DATE)) {
-            errorMessage = "Error: Invalid booking date format. Dates should be in the format yyyy-MM-dd (e.g., 2024-10-15).";
+            errorMessage = "Error: Invalid booking date format. "
+                    + "Dates should be in the format yyyy-MM-dd (e.g., 2024-10-15).";
         } else if (prefix.equals(PREFIX_BOOKING_PROPERTY)) {
             errorMessage = "Error: Booking property values should not exceed 170 characters.";
         } else {
