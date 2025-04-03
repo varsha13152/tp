@@ -31,9 +31,10 @@ public class TagCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds tag to the contact identified by the index number in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_TAG + "TAG\n"
+            + PREFIX_TAG + "TAG or\n"
             + PREFIX_BOOKINGTAG + "{property} from/{start-date} to/{end-date}\n"
-            + "Example: " + COMMAND_WORD + " 1 t/friend b/BeachHouse from/2025-06-01 to/2025-06-10";
+            + "Example: " + COMMAND_WORD + " 1 t/friends t/handsome\n"
+            + "Example: " + COMMAND_WORD + " 1 b/BeachHouse from/2025-06-01 to/2025-06-10";
     public static final String MESSAGE_SUCCESS = "Tag(s) successfully added to `%s`!" + Emoticons.PROUD;
     public static final String MESSAGE_FAILURE_INVALID_INDEX = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX + "\n"
             + MESSAGE_USAGE;

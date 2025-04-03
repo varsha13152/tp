@@ -34,7 +34,6 @@ public class RequestCommandParser implements Parser<RequestCommand> {
             throw new ParseException(String.format(Messages.MESSAGE_PARSE_EXCEPTION,
                     pe.getMessage(), RequestCommand.MESSAGE_USAGE), pe);
         }
-
         List<Request> requestList = ParserUtil.parseRequests(argMultimap.getAllValues(PREFIX_REQUEST));
 
         return new RequestCommand(index, requestList);

@@ -86,9 +86,9 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_tag2() throws Exception {
         TagCommand command = (TagCommand) parser.parseCommand(TagCommand.COMMAND_WORD + " 1 "
-            + TAG_DESC_FRIEND + BOOKINGTAG_DESC_AMY);
+            + TAG_DESC_FRIEND);
         assertEquals(new TagCommand(INDEX_FIRST_PERSON,
-                Set.of(new Tag(VALID_TAG_FRIEND)), Set.of(new BookingTag(VALID_BOOKINGTAG_BEACHHOUSE))), command);
+                Set.of(new Tag(VALID_TAG_FRIEND)), Set.of()), command);
     }
 
     @Test

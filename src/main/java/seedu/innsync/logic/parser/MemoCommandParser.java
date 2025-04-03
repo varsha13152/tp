@@ -37,7 +37,6 @@ public class MemoCommandParser implements Parser<MemoCommand> {
             throw new ParseException(String.format(Messages.MESSAGE_PARSE_EXCEPTION,
                     pe.getMessage(), MemoCommand.MESSAGE_USAGE), pe);
         }
-
         Memo memo = ParserUtil.parseMemo(argMultimap.getValue(PREFIX_MEMO).orElse(""));
         return new MemoCommand(index, memo);
     }
