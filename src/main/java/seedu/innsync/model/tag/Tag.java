@@ -9,8 +9,8 @@ import static seedu.innsync.commons.util.AppUtil.checkArgument;
  */
 public class Tag {
 
-    public static final String MESSAGE_EMPTY = "Error: Request value should not be empty.";
-    public static final String MESSAGE_LENGTH = "Error: Request value must not exceed 170 characters.";
+    public static final String MESSAGE_EMPTY = "Error: Tag value should not be empty.";
+    public static final String MESSAGE_LENGTH = "Error: Tag value must not exceed 170 characters.";
 
     public static final String REGEX_NOT_EMPTY = "^.+$"; // Ensures non-empty string
     public static final String REGEX_MAX_LENGTH = "^.{1,170}$"; // Ensures length <= 170
@@ -18,8 +18,6 @@ public class Tag {
     private static String errorMessage = "Error: Tag is invalid.";
 
     public final String tagName;
-    private int tagCount;
-
     /**
      * Constructs a {@code Tag}.
      *
@@ -29,7 +27,6 @@ public class Tag {
         requireNonNull(tagName);
         checkArgument(isValidTagName(tagName), errorMessage);
         this.tagName = tagName;
-        this.tagCount = 0;
     }
 
     /**
@@ -60,22 +57,6 @@ public class Tag {
 
     public String getTagName() {
         return tagName;
-    }
-
-    public int getTagCount() {
-        return tagCount;
-    }
-
-    public void addTagCount() {
-        tagCount++;
-    }
-
-    public void removeTagCount() {
-        tagCount--;
-    }
-
-    public boolean isInUse() {
-        return tagCount > 0;
     }
 
     @Override

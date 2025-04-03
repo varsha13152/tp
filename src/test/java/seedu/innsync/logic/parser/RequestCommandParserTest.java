@@ -34,8 +34,8 @@ public class RequestCommandParserTest {
 
     @Test
     public void parse_requestNameTooLong_throwsParseException() {
-        // Test a request name that exceeds 255 characters
-        String longRequestName = "a".repeat(256); // Create a string with 256 characters
+        // Test a request name that exceeds 170 characters
+        String longRequestName = "a".repeat(171); // Create a string with 171 characters
         String expectedMessage = Request.MESSAGE_LENGTH;
         assertParseFailure(parser, "1 r/" + longRequestName, expectedMessage);
     }

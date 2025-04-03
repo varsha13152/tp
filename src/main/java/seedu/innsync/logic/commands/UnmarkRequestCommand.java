@@ -41,7 +41,7 @@ public class UnmarkRequestCommand extends Command {
      *
      * @param index The index of the person in the displayed person list.
      * @param requestIndex The index of the request in the displayed request list of the person.
-     * @param request The set of requests to be added to the person.
+     *
      */
     public UnmarkRequestCommand(Index index, Index requestIndex) {
         requireNonNull(index);
