@@ -127,8 +127,10 @@ public class ParserUtil {
     public static Request parseRequest(String request) throws ParseException {
         requireNonNull(request);
         String trimmedRequest = request.trim();
-        if (!Request.isValidRequest(trimmedRequest)) {
-            throw new ParseException(Request.getErrorMessage(trimmedRequest));
+        try {
+            Request.checkValidRequest(trimmedRequest);
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(e.getMessage());
         }
         return new Request(trimmedRequest);
     }

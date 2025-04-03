@@ -1,7 +1,6 @@
 package seedu.innsync.model.request;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.innsync.commons.util.AppUtil.checkArgument;
 
 import seedu.innsync.logic.Messages;
 
@@ -28,7 +27,7 @@ public class Request {
      */
     public Request(String requestName) {
         requireNonNull(requestName);
-        checkArgument(isValidRequest(requestName), getErrorMessage(requestName));
+        checkValidRequest(requestName);
         this.requestName = requestName;
     }
 
@@ -39,27 +38,44 @@ public class Request {
      */
     public Request(Request requestToCopy) {
         requireNonNull(requestToCopy);
-        this.requestName = requestToCopy.getRequestName();
-        this.isCompleted = requestToCopy.isCompleted();
+        checkValidRequest(requestToCopy.requestName);
+        this.requestName = requestToCopy.requestName;
+        this.isCompleted = requestToCopy.isCompleted;
     }
 
+    /**
+     * Checks if a given string is a valid request.
+     *
+     * @param test The string to be validated.
+     * @throws IllegalArgumentException if the string is not a valid request.
+     */
+    public static void checkValidRequest(String test) {
+        requireNonNull(test);
+
+        if (!test.matches(REGEX_NOT_EMPTY)) {
+            throw new IllegalArgumentException(MESSAGE_EMPTY);
+        }
+        if (!test.matches(REGEX_MAX_LENGTH)) {
+            throw new IllegalArgumentException(MESSAGE_LENGTH);
+        }
+    }
 
     /**
-     * Returns true if a given string matches all validation rules.
+     * Returns true if a given string is a valid request.
+     *
+     * @param test The string to be validated.
+     * @return true if the string is a valid request.
      */
     public static boolean isValidRequest(String test) {
-        return test.matches(REGEX_NOT_EMPTY) && test.matches(REGEX_MAX_LENGTH);
+        requireNonNull(test);
+        try {
+            checkValidRequest(test);
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+        return true;
     }
 
-    /**
-     * Determines the specific error message based on the invalid request name.
-     */
-    public static String getErrorMessage(String test) {
-        if (!test.matches(REGEX_NOT_EMPTY)) {
-            return MESSAGE_EMPTY;
-        }
-        return MESSAGE_LENGTH;
-    }
 
     public String getRequestName() {
         return requestName;

@@ -30,9 +30,10 @@ public class Tag {
     }
 
     /**
-     * Returns true if a given string is a valid tag name.
+     * Checks if a given string is a valid tag name.
      *
      * @param test The string to be validated.
+     * @throws IllegalArgumentException if the string is not a valid tag name.
      */
     public static void checkValidTag(String test) {
         requireNonNull(test);
