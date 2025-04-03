@@ -23,7 +23,7 @@ public class Messages {
             + Emoticons.SAD;
     public static final String MESSAGE_COMMAND_SUCCESS = "%s successful! " + Emoticons.PROUD + "\n%s";
     public static final String MESSAGE_COMMAND_FAILURE = "%s failed! " + Emoticons.SAD + "\n%s";
-public static final String MESSAGE_COMMAND_CANCEL = "Command cancelled! " + Emoticons.PROUD;
+    public static final String MESSAGE_COMMAND_CANCEL = "Command cancelled! " + Emoticons.PROUD;
     public static final String MESSAGE_PARSE_EXCEPTION = "%s " + Emoticons.ANGRY + "\n%s";
 
     // Object messages
