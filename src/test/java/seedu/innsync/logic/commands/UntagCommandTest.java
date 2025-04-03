@@ -18,7 +18,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.innsync.commons.core.index.Index;
-import seedu.innsync.logic.Messages;
 import seedu.innsync.model.AddressBook;
 import seedu.innsync.model.Model;
 import seedu.innsync.model.ModelManager;
@@ -101,7 +100,7 @@ public class UntagCommandTest {
     public void execute_invalidIndex_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getPersonList().size() + 1);
         UntagCommand untagCommand = new UntagCommand(outOfBoundIndex, new Tag(VALID_TAG_HUSBAND), null);
-        assertCommandFailure(untagCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(untagCommand, model, UntagCommand.MESSAGE_FAILURE_INVALID_INDEX);
     }
 
     @Test

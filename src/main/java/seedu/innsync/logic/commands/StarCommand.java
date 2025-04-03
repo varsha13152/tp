@@ -6,6 +6,7 @@ import static seedu.innsync.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import javafx.collections.ObservableList;
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.commons.util.ToStringBuilder;
+import seedu.innsync.logic.Emoticons;
 import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.Model;
@@ -21,8 +22,10 @@ public class StarCommand extends Command {
             + ": Stars the contact identified by the index number used in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
-    public static final String MESSAGE_SUCCESS = "Contact has been successfully starred!: %s";
-    public static final String MESSAGE_FAILURE = "Contact was already starred!: %s";
+    public static final String MESSAGE_SUCCESS = "'%s' has been successfully starred! " + Emoticons.PROUD;
+    public static final String MESSAGE_FAILURE_INVALID_INDEX = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX + "\n"
+            + MESSAGE_USAGE;
+    public static final String MESSAGE_FAILURE = "'%s' was already starred! " + Emoticons.SAD + "\n" + MESSAGE_USAGE;
 
     private final Index index;
 
@@ -40,17 +43,17 @@ public class StarCommand extends Command {
 
         ObservableList<Person> lastShownList = model.getPersonList();
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(MESSAGE_FAILURE_INVALID_INDEX);
         }
 
         Person person = lastShownList.get(this.index.getZeroBased());
         if (person.getStarred()) {
-            throw new CommandException(String.format(MESSAGE_FAILURE, Messages.format(person)));
+            throw new CommandException(String.format(MESSAGE_FAILURE, person.getName()));
         }
         Person starredPerson = getStarredPerson(person);
         model.setPerson(person, starredPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(starredPerson)), starredPerson);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, starredPerson.getName()), starredPerson);
     }
 
     private Person getStarredPerson(Person personToCopy) {

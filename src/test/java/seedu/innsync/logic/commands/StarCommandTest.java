@@ -13,7 +13,6 @@ import static seedu.innsync.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.Test;
 
 import seedu.innsync.commons.core.index.Index;
-import seedu.innsync.logic.Messages;
 import seedu.innsync.model.AddressBook;
 import seedu.innsync.model.Model;
 import seedu.innsync.model.ModelManager;
@@ -36,7 +35,7 @@ public class StarCommandTest {
         StarCommand starCommand = new StarCommand(INDEX_FIRST_PERSON);
 
         String expectedMessage = String.format(StarCommand.MESSAGE_SUCCESS,
-                Messages.format(expectedPerson));
+                expectedPerson.getName());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(personToStar, expectedPerson);
@@ -49,7 +48,7 @@ public class StarCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getPersonList().size() + 1);
         StarCommand starCommand = new StarCommand(outOfBoundIndex);
 
-        assertCommandFailure(starCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(starCommand, model, StarCommand.MESSAGE_FAILURE_INVALID_INDEX);
     }
 
     @Test
@@ -61,7 +60,7 @@ public class StarCommandTest {
         StarCommand starCommand = new StarCommand(INDEX_FIRST_PERSON);
 
         String expectedMessage = String.format(StarCommand.MESSAGE_FAILURE,
-                Messages.format(expectedPerson));
+                expectedPerson.getName());
         assertCommandFailure(starCommand, testModel, expectedMessage);
     }
 
@@ -74,8 +73,7 @@ public class StarCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
 
         StarCommand starCommand = new StarCommand(outOfBoundIndex);
-
-        assertCommandFailure(starCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(starCommand, model, StarCommand.MESSAGE_FAILURE_INVALID_INDEX);
     }
 
     @Test

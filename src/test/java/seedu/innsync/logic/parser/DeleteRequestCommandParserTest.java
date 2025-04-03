@@ -1,6 +1,7 @@
 package seedu.innsync.logic.parser;
 
 import static seedu.innsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.innsync.logic.Messages.MESSAGE_PARSE_EXCEPTION;
 import static seedu.innsync.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.innsync.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.innsync.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -31,31 +32,31 @@ public class DeleteRequestCommandParserTest {
     @Test
     public void parse_invalidContactIndex_throwsParseException() {
         // Non-numeric contact index
-        assertParseFailure(parser, "a r/1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                DeleteRequestCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "a r/1", String.format(MESSAGE_PARSE_EXCEPTION,
+                ParserUtil.MESSAGE_INVALID_INDEX, DeleteRequestCommand.MESSAGE_USAGE));
 
         // Negative contact index
-        assertParseFailure(parser, "-1 r/1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                DeleteRequestCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "-1 r/1", String.format(MESSAGE_PARSE_EXCEPTION,
+                ParserUtil.MESSAGE_INVALID_INDEX, DeleteRequestCommand.MESSAGE_USAGE));
 
         // Zero contact index
-        assertParseFailure(parser, "0 r/1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                DeleteRequestCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "0 r/1", String.format(MESSAGE_PARSE_EXCEPTION,
+                ParserUtil.MESSAGE_INVALID_INDEX, DeleteRequestCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_invalidRequestIndex_throwsParseException() {
         // Non-numeric request index
-        assertParseFailure(parser, "1 r/a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                DeleteRequestCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "1 r/a", String.format(MESSAGE_PARSE_EXCEPTION,
+                ParserUtil.MESSAGE_INVALID_INDEX, DeleteRequestCommand.MESSAGE_USAGE));
 
         // Negative request index
-        assertParseFailure(parser, "1 r/-1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                DeleteRequestCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "1 r/-1", String.format(MESSAGE_PARSE_EXCEPTION,
+                ParserUtil.MESSAGE_INVALID_INDEX, DeleteRequestCommand.MESSAGE_USAGE));
 
         // Zero request index
-        assertParseFailure(parser, "1 r/0", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                DeleteRequestCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "1 r/0", String.format(MESSAGE_PARSE_EXCEPTION,
+                ParserUtil.MESSAGE_INVALID_INDEX, DeleteRequestCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -65,8 +66,8 @@ public class DeleteRequestCommandParserTest {
                 DeleteRequestCommand.MESSAGE_USAGE));
 
         // Empty request index
-        assertParseFailure(parser, "1 r/", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                DeleteRequestCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "1 r/", String.format(MESSAGE_PARSE_EXCEPTION,
+                ParserUtil.MESSAGE_INVALID_INDEX, DeleteRequestCommand.MESSAGE_USAGE));
     }
 
     @Test

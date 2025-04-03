@@ -1,12 +1,13 @@
 package seedu.innsync.logic.parser;
 
-import static seedu.innsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.innsync.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.innsync.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.innsync.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.innsync.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.DeleteCommand;
 
 /**
@@ -27,6 +28,7 @@ public class DeleteCommandParserTest {
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "a", String.format(Messages.MESSAGE_PARSE_EXCEPTION,
+                    MESSAGE_INVALID_INDEX, DeleteCommand.MESSAGE_USAGE));
     }
 }

@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.FindCommand;
 import seedu.innsync.logic.commands.FindCommand.SearchType;
 import seedu.innsync.logic.parser.exceptions.ParseException;
@@ -50,13 +51,18 @@ public class FindCommandParser implements Parser<FindCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        // Legacy support for the old format: find KEYWORD [MORE_KEYWORDS]...
-        if (!trimmedArgs.contains("/")) {
-            return handleLegacyFormat(trimmedArgs);
-        }
+        try {
+            // Legacy support for the old format: find KEYWORD [MORE_KEYWORDS]...
+            if (!trimmedArgs.contains("/")) {
+                return handleLegacyFormat(trimmedArgs);
+            }
 
-        // Check for keywords before first prefix (e.g., "bob a/clementi")
-        return handleModernFormat(trimmedArgs);
+            // Check for keywords before first prefix (e.g., "bob a/clementi")
+            return handleModernFormat(trimmedArgs);
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(Messages.MESSAGE_PARSE_EXCEPTION,
+                    pe.getMessage(), FindCommand.MESSAGE_USAGE), pe);
+        }
     }
 
     /**

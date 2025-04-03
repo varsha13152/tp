@@ -22,6 +22,7 @@ import java.util.Set;
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.commons.util.CollectionUtil;
 import seedu.innsync.commons.util.ToStringBuilder;
+import seedu.innsync.logic.Emoticons;
 import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.Model;
@@ -58,9 +59,13 @@ public class EditCommand extends Command {
             + PREFIX_PHONE + "+65 91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited `%1$s`! " + Emoticons.PROUD;
+    public static final String MESSAGE_FAILURE_INVALID_INDEX = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX + "\n"
+            + MESSAGE_USAGE;
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided! " + Emoticons.SAD
+            + "\n" + MESSAGE_USAGE;
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book! "
+            + Emoticons.SAD + "\n" + MESSAGE_USAGE;
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -83,7 +88,7 @@ public class EditCommand extends Command {
         List<Person> lastShownList = model.getPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(MESSAGE_FAILURE_INVALID_INDEX);
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
@@ -95,7 +100,7 @@ public class EditCommand extends Command {
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)),
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson.getName()),
                 editedPerson);
     }
 

@@ -3,6 +3,7 @@ package seedu.innsync.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.innsync.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import seedu.innsync.logic.Emoticons;
 import seedu.innsync.model.Model;
 
 /**
@@ -12,7 +13,7 @@ public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
 
-    public static final String MESSAGE_SUCCESS = "Listed all persons";
+    public static final String MESSAGE_SUCCESS = "Listed all persons! " + Emoticons.PROUD;
 
     public static final String MESSAGE_EMPTY = "Listed no people, try adding someone with " + AddCommand.COMMAND_WORD
             + " feature!";

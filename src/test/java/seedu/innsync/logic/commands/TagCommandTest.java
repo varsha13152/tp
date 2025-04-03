@@ -19,7 +19,6 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.innsync.commons.core.index.Index;
-import seedu.innsync.logic.Messages;
 import seedu.innsync.model.AddressBook;
 import seedu.innsync.model.Model;
 import seedu.innsync.model.ModelManager;
@@ -49,7 +48,7 @@ public class TagCommandTest {
 
         TagCommand tagCommand = new TagCommand(indexFirstPerson, null, validBookingTags);
 
-        String expectedMessage = String.format(TagCommand.MESSAGE_SUCCESS, Messages.format(editedPerson));
+        String expectedMessage = String.format(TagCommand.MESSAGE_SUCCESS, editedPerson.getName());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
@@ -71,7 +70,7 @@ public class TagCommandTest {
 
         TagCommand tagCommand = new TagCommand(indexFirstPerson, validTags, null);
 
-        String expectedMessage = String.format(TagCommand.MESSAGE_SUCCESS, Messages.format(editedPerson));
+        String expectedMessage = String.format(TagCommand.MESSAGE_SUCCESS, editedPerson.getName());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
@@ -103,7 +102,7 @@ public class TagCommandTest {
 
         TagCommand tagCommand = new TagCommand(indexFirstPerson, validTags, validBookingTags);
 
-        String expectedMessage = String.format(TagCommand.MESSAGE_SUCCESS, Messages.format(editedPerson));
+        String expectedMessage = String.format(TagCommand.MESSAGE_SUCCESS, editedPerson.getName());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
@@ -120,7 +119,7 @@ public class TagCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getPersonList().size() + 1);
         TagCommand command = new TagCommand(outOfBoundIndex, null, null);
 
-        assertCommandFailure(command, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(command, model, TagCommand.MESSAGE_FAILURE_INVALID_INDEX);
     }
 
     @Test
