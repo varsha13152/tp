@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.innsync.commons.exceptions.IllegalValueException;
 import seedu.innsync.model.tag.BookingTag;
-import seedu.innsync.model.tag.Tag;
 
 /**
  * Jackson-friendly version of {@link BookingTag}.
