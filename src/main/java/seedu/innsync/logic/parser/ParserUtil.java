@@ -159,7 +159,7 @@ public class ParserUtil {
     public static BookingTag parseBookingTag(String bookingTag) throws ParseException {
         requireNonNull(bookingTag);
         String trimmedBookingTag = bookingTag.trim();
-        if (!BookingTag.isValidBookingTagName(trimmedBookingTag)) {
+        if (!BookingTag.isValidBookingTag(trimmedBookingTag)) {
             throw new ParseException(BookingTag.MESSAGE_CONSTRAINTS);
         }
         return new BookingTag(trimmedBookingTag);
@@ -187,7 +187,7 @@ public class ParserUtil {
         requireNonNull(tag);
         String trimmedTag = tag.trim();
         if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Tag.MESSAGE_LENGTH);
         }
         return new Tag(trimmedTag);
     }
