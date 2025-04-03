@@ -13,6 +13,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.TagCommand;
 import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
@@ -37,26 +38,37 @@ public class TagCommandParserTest {
     public void parse_multipleValidTags_returnsTagCommand() {
         assertParseSuccess(parser, "1 t/" + VALID_TAG_FRIEND + " t/" + VALID_TAG_HUSBAND,
                 new TagCommand(INDEX_FIRST_PERSON, Set.of(new Tag(VALID_TAG_FRIEND), new Tag(VALID_TAG_HUSBAND)),
-                        null));
+                        Set.of()));
+    }
+
+    @Test
+    public void parse_bookingTagAndTag_returnsTagCommand() {
+        assertParseFailure(parser, "1 t/" + VALID_TAG_FRIEND + " b/" + VALID_BOOKINGTAG_HOTEL,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_multipleValidBookingTags_returnsTagCommand() {
         assertParseSuccess(parser, "1 b/" + VALID_BOOKINGTAG_BEACHHOUSE + " b/" + VALID_BOOKINGTAG_HOTEL,
-                new TagCommand(INDEX_FIRST_PERSON, null,
+                new TagCommand(INDEX_FIRST_PERSON, Set.of(),
                         Set.of(new BookingTag(VALID_BOOKINGTAG_BEACHHOUSE), new BookingTag(VALID_BOOKINGTAG_HOTEL))));
     }
 
     @Test
     public void parse_validTagAndBookingTagArgs_returnsTagCommand() {
-        assertParseSuccess(parser, "1 t/" + VALID_TAG_FRIEND + " b/" + VALID_BOOKINGTAG_BEACHHOUSE,
-                new TagCommand(INDEX_FIRST_PERSON, Set.of(new Tag(VALID_TAG_FRIEND)),
-                        Set.of(new BookingTag(VALID_BOOKINGTAG_BEACHHOUSE))));
+        assertParseSuccess(parser, "1 t/" + VALID_TAG_FRIEND + " t/" + VALID_TAG_HUSBAND,
+                new TagCommand(INDEX_FIRST_PERSON, Set.of(new Tag(VALID_TAG_FRIEND), new Tag(VALID_TAG_HUSBAND)),
+                        Set.of()));
     }
 
     @Test
     public void parse_invalidIndex_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "1", String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_validIndexWrongArgs_throwsParseException() {
+        assertParseFailure(parser, "1", String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
     }
 
     @Test
