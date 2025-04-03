@@ -1,6 +1,7 @@
 package seedu.innsync.logic.parser;
 
 import static seedu.innsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.innsync.logic.Messages.MESSAGE_PARSE_EXCEPTION;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_BOOKINGTAG_BEACHHOUSE;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_BOOKINGTAG_HOTEL;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
@@ -13,6 +14,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.innsync.logic.commands.MarkRequestCommand;
 import seedu.innsync.logic.commands.TagCommand;
 import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
@@ -55,8 +57,15 @@ public class TagCommandParserTest {
     }
 
     @Test
-    public void parse_invalidIndex_throwsParseException() {
+    public void parse_invalidCommand_throwsParseException() {
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_invalidIndex_throwsParseException() {
+        assertParseFailure(parser, "a t/1", String.format(MESSAGE_PARSE_EXCEPTION,
+                ParserUtil.MESSAGE_INVALID_INDEX,
+                TagCommand.MESSAGE_USAGE));
     }
 
     @Test

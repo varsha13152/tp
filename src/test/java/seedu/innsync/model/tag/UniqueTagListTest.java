@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.innsync.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.innsync.testutil.Assert.assertThrows;
 
 import java.util.Arrays;
@@ -65,6 +66,17 @@ public class UniqueTagListTest {
     }
 
     @Test
+    public void getTag_nullString_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniqueTagList.getTag((String) null));
+    }
+
+    @Test
+    public void getTag_noTags_throwsTagNotFoundException() {
+        assertTrue(() -> uniqueTagList.getTag(VALID_TAG_HUSBAND) == null);
+    }
+
+
+    @Test
     public void remove_existingTag_removesTag() {
         uniqueTagList.add(VALID_TAG_STUB);
         uniqueTagList.remove(VALID_TAG_STUB);
@@ -83,13 +95,14 @@ public class UniqueTagListTest {
 
     @Test
     public void setTags_nullList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueTagList.setTags((List<Tag>) null));
+        assertThrows(NullPointerException.class, () -> uniqueTagList.setTags((UniqueTagList) null));
     }
 
     @Test
     public void setTags_list_replacesOwnListWithProvidedList() {
         uniqueTagList.add(VALID_TAG_STUB);
-        List<Tag> tagList = Collections.singletonList(new Tag(VALID_TAG_FRIEND));
+        UniqueTagList tagList = new UniqueTagList();
+        tagList.add(VALID_TAG_STUB);
         uniqueTagList.setTags(tagList);
         UniqueTagList expectedTagList = new UniqueTagList();
         expectedTagList.add(VALID_TAG_STUB);
@@ -106,6 +119,15 @@ public class UniqueTagListTest {
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
             -> uniqueTagList.asUnmodifiableObservableList().remove(0));
+    }
+
+    @Test
+    public void equals() {
+        // null uniqueTagList returns false
+        assertFalse(uniqueTagList.equals(null));
+
+        // uniqueTagList itself returns true
+        assertTrue(uniqueTagList.equals(uniqueTagList));
     }
 
     @Test

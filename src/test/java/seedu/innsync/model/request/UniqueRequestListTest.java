@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_REQUEST_AMY;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_REQUEST_BOB;
+import static seedu.innsync.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.innsync.testutil.Assert.assertThrows;
 
 import java.util.Arrays;
@@ -15,6 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.innsync.model.request.exceptions.DuplicateRequestException;
 import seedu.innsync.model.request.exceptions.RequestNotFoundException;
+import seedu.innsync.model.tag.exceptions.TagNotFoundException;
 
 
 public class UniqueRequestListTest {
@@ -66,6 +68,16 @@ public class UniqueRequestListTest {
     }
 
     @Test
+    public void getRequest_nullRequest_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniqueRequestList.getRequest((String) null));
+    }
+
+    @Test
+    public void getRequest_noRequests_throwsRequestNotFoundException() {
+        assertTrue(() -> uniqueRequestList.getRequest(VALID_REQUEST_BOB) == null);
+    }
+
+    @Test
     public void remove_existingRequest_removesRequest() {
         uniqueRequestList.add(VALID_REQUEST_STUB);
         uniqueRequestList.remove(VALID_REQUEST_STUB);
@@ -107,6 +119,15 @@ public class UniqueRequestListTest {
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
             -> uniqueRequestList.asUnmodifiableObservableList().remove(0));
+    }
+
+    @Test
+    public void equals() {
+        // null uniqueRequestList returns false
+        assertFalse(uniqueRequestList.equals(null));
+
+        // uniqueRequestList itself returns true
+        assertTrue(uniqueRequestList.equals(uniqueRequestList));
     }
 
     @Test

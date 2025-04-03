@@ -1,5 +1,8 @@
 package seedu.innsync.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_REQUEST_BOB;
 import static seedu.innsync.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.innsync.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -84,6 +87,32 @@ public class MarkRequestCommandTest {
         Index outOfBounds = Index.fromOneBased(model.getPersonList().size() + 1);
         MarkRequestCommand markCommand = new MarkRequestCommand(outOfBounds, INDEX_FIRST_PERSON);
         assertCommandFailure(markCommand, model, MarkRequestCommand.MESSAGE_FAILURE_INVALID_INDEX);
+    }
+
+    @Test
+    public void equals() {
+        Index targetIndex = Index.fromOneBased(1);
+        MarkRequestCommand markRequestCommand = new MarkRequestCommand(targetIndex, targetIndex);
+        // null markRequestCommand returns false
+        assertFalse(markRequestCommand.equals(null));
+
+        // markRequestCommand itself returns true
+        assertTrue(markRequestCommand.equals(markRequestCommand));
+    }
+
+    @Test
+    public void hasConfirmationTest_returnsFalse() {
+        Index targetIndex = Index.fromOneBased(1);
+        MarkRequestCommand markRequestCommand = new MarkRequestCommand(targetIndex, targetIndex);
+        assertFalse(markRequestCommand.requireConfirmation());
+    }
+
+    @Test
+    public void toStringMethod() {
+        Index targetIndex = Index.fromOneBased(1);
+        MarkRequestCommand markRequestCommand = new MarkRequestCommand(targetIndex, targetIndex);
+        String expected = MarkRequestCommand.class.getCanonicalName() + "{index=" + targetIndex + "}";
+        assertEquals(expected, markRequestCommand.toString());
     }
 
 }
