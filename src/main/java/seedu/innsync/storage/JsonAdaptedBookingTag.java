@@ -40,9 +40,9 @@ class JsonAdaptedBookingTag {
      */
     public BookingTag toModelType() throws IllegalValueException {
         try {
-            BookingTag.isValidBookingTag(bookingTagName);
+            BookingTag.isValidBookingTag(bookingTag);
         } catch (IllegalArgumentException e) {
-            throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(BookingTag.MESSAGE_CONSTRAINTS);
         }
         return new BookingTag(bookingTag);
     }
