@@ -3,6 +3,7 @@ package seedu.innsync.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.innsync.logic.commands.CommandTestUtil.VALID_REQUEST_AMY;
 import static seedu.innsync.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.innsync.testutil.Assert.assertThrows;
 import static seedu.innsync.testutil.TypicalPersons.ALICE;
@@ -11,11 +12,13 @@ import static seedu.innsync.testutil.TypicalPersons.BENSON;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.innsync.commons.core.GuiSettings;
 import seedu.innsync.model.person.NameContainsKeywordsPredicate;
+import seedu.innsync.model.request.Request;
 import seedu.innsync.testutil.AddressBookBuilder;
 
 public class ModelManagerTest {
@@ -87,6 +90,20 @@ public class ModelManagerTest {
         modelManager.addPerson(ALICE);
         assertTrue(modelManager.hasPerson(ALICE));
     }
+
+    @Test
+    public void getRequest_nullRequest_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.getRequest(null));
+    }
+
+    @Test
+    public void getRequest_requestNotInAddressBook_returnsFalse() {
+        Request validRequest = new Request(VALID_REQUEST_AMY);
+        modelManager.setRequests(List.of(validRequest));
+        assertTrue(modelManager.getRequest(validRequest).equals(validRequest));
+    }
+
+
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {

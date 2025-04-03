@@ -23,7 +23,7 @@ public class UniqueRequestListTest {
     private final UniqueRequestList uniqueRequestList = new UniqueRequestList();
 
     @Test
-    public void contains_nullPerson_throwsNullPointerException() {
+    public void contains_nullRequest_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueRequestList.contains(null));
     }
 
@@ -56,7 +56,7 @@ public class UniqueRequestListTest {
     }
 
     @Test
-    public void remove_nullPerson_throwsNullPointerException() {
+    public void remove_nullRequest_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueRequestList.remove(null));
     }
 
@@ -98,7 +98,7 @@ public class UniqueRequestListTest {
     }
 
     @Test
-    public void setRequests_listWithDuplicateRequests_throwsDuplicatePersonException() {
+    public void setRequests_listWithDuplicateRequests_throwsDuplicateRequestException() {
         List<Request> listWithDuplicateRequest = Arrays.asList(VALID_REQUEST_STUB, VALID_REQUEST_STUB);
         assertThrows(DuplicateRequestException.class, () -> uniqueRequestList.setRequests(listWithDuplicateRequest));
     }
