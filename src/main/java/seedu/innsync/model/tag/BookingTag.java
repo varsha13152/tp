@@ -36,7 +36,7 @@ public class BookingTag {
 
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    private static String errorMessage = "Error: Booking tag is invalid.";
+    public static String errorMessage = "Error: Booking tag is invalid.";
 
     public final String bookingTagName;
     public final LocalDate startDate;
