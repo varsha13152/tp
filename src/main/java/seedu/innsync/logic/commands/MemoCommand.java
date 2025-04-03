@@ -31,7 +31,7 @@ public class MemoCommand extends Command {
             + PREFIX_MEMO + "Likes to swim.";
 
     public static final String MESSAGE_ADD_MEMO_SUCCESS = String.format(Messages.MESSAGE_COMMAND_SUCCESS,
-            "Add memo", "Added memo to %s: %s");
+            "Add memo", "Added memo to %s!");
     public static final String MESSAGE_DELETE_MEMO_SUCCESS = String.format(Messages.MESSAGE_COMMAND_SUCCESS,
             "Delete memo", "Deleted memo from %s!");
 
@@ -74,7 +74,7 @@ public class MemoCommand extends Command {
         if (memo.value.isEmpty()) {
             return String.format(MESSAGE_DELETE_MEMO_SUCCESS, personToEdit.getName());
         }
-        return String.format(MESSAGE_ADD_MEMO_SUCCESS, memo, personToEdit.getName());
+        return String.format(MESSAGE_ADD_MEMO_SUCCESS, personToEdit.getName());
     }
 
     @Override

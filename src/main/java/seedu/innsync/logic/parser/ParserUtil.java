@@ -145,7 +145,7 @@ public class ParserUtil {
             Request request = parseRequest(requestName);
             for (Request requestInList : requestList) {
                 if (requestInList.isSameRequest(request)) {
-                    throw new ParseException(RequestCommand.MESSAGE_DUPLICATE_REQUEST_EDIT);
+                    throw new ParseException(RequestCommand.MESSAGE_DUPLICATE_REQUEST);
                 }
             }
             requestList.add(request);

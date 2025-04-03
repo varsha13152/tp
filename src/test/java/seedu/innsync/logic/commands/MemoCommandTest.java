@@ -40,7 +40,7 @@ public class MemoCommandTest {
 
         MemoCommand memoCommand = new MemoCommand(INDEX_FIRST_PERSON, new Memo(editedPerson.getMemo().value));
 
-        String expectedMessage = String.format(MemoCommand.MESSAGE_ADD_MEMO_SUCCESS, MEMO_STUB, editedPerson.getName());
+        String expectedMessage = String.format(MemoCommand.MESSAGE_ADD_MEMO_SUCCESS, editedPerson.getName());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
@@ -74,7 +74,7 @@ public class MemoCommandTest {
 
         MemoCommand memoCommand = new MemoCommand(INDEX_FIRST_PERSON, new Memo(editedPerson.getMemo().value));
 
-        String expectedMessage = String.format(MemoCommand.MESSAGE_ADD_MEMO_SUCCESS, MEMO_STUB, editedPerson.getName());
+        String expectedMessage = String.format(MemoCommand.MESSAGE_ADD_MEMO_SUCCESS, editedPerson.getName());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
