@@ -50,9 +50,8 @@ public class TagCommandParserTest {
 
     @Test
     public void parse_validTagAndBookingTagArgs_returnsTagCommand() {
-        assertParseSuccess(parser, "1 t/" + VALID_TAG_FRIEND + " b/" + VALID_BOOKINGTAG_BEACHHOUSE,
-                new TagCommand(INDEX_FIRST_PERSON, Set.of(new Tag(VALID_TAG_FRIEND)),
-                        Set.of(new BookingTag(VALID_BOOKINGTAG_BEACHHOUSE))));
+        assertParseFailure(parser, "1 t/" + VALID_TAG_FRIEND + " b/" + VALID_BOOKINGTAG_BEACHHOUSE,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
     }
 
     @Test
