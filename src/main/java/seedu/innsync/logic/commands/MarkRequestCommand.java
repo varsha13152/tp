@@ -30,13 +30,13 @@ public class MarkRequestCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_REQUEST + "REQUEST_INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_REQUEST + "1";
-    public static final String MESSAGE_SUCCESS = "Request `%s` successfully marked! " + Emoticons.PROUD;
-    public static final String MESSAGE_FAILURE_INVALID_INDEX = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX
-            + MESSAGE_USAGE;
-    public static final String MESSAGE_FAILURE_INVALID_REQUEST_INDEX = "Invalid Request Index!"
-            + " There is no request indexed by this number. " + Emoticons.SAD + "\n" + MESSAGE_USAGE;
-    public static final String MESSAGE_FAILURE_ALREADY_MARKED = "The request '%s' is already marked!"
-            + Emoticons.SAD + "\n" + MESSAGE_USAGE;
+    public static final String MESSAGE_SUCCESS = String.format(Messages.MESSAGE_COMMAND_SUCCESS,
+            "Mark request", "Marked request as completed!");
+    public static final String MESSAGE_INVALID_REQUEST_INDEX = String.format(
+            Messages.MESSAGE_INVALID_ITEM_INDEX, "request");
+    public static final String MESSAGE_FAILURE = "The request %s is already marked!"
+            + Emoticons.SAD;
+
     private final Index index;
     private final Index requestIndex;
 
@@ -66,16 +66,16 @@ public class MarkRequestCommand extends Command {
         requireNonNull(model);
         List<Person> lastShownList = model.getPersonList();
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(MESSAGE_FAILURE_INVALID_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
         Person person = lastShownList.get(this.index.getZeroBased());
         List<Request> requests = person.getRequests();
         if (this.requestIndex.getOneBased() > requests.size()) {
-            throw new CommandException(MESSAGE_FAILURE_INVALID_REQUEST_INDEX);
+            throw new CommandException(MESSAGE_INVALID_REQUEST_INDEX);
         }
         Request request = requests.get(this.requestIndex.getZeroBased());
         if (request.isCompleted()) {
-            throw new CommandException(String.format(MESSAGE_FAILURE_ALREADY_MARKED,
+            throw new CommandException(String.format(MESSAGE_FAILURE,
                     request.getRequestName()));
         }
         Person editedPerson = createEditedPerson(model, person, request, requestIndex);

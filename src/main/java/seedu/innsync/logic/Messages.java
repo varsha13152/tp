@@ -14,16 +14,22 @@ public class Messages {
     // Command messages
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command! " + Emoticons.SAD;
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! " + Emoticons.ANGRY + "\n%s";
+
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid! "
             + Emoticons.ANGRY;
+    public static final String MESSAGE_INVALID_ITEM_INDEX = "This contact does not have a %s of this index! "
+            + Emoticons.SAD;
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed! " + Emoticons.PROUD;
+
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s)! " + Emoticons.ANGRY;
     public static final String MESSAGE_DUPLICATE_PERSONS = "This person already exists in the address book! "
             + Emoticons.SAD;
+
     public static final String MESSAGE_COMMAND_SUCCESS = "%s successful! " + Emoticons.PROUD + "\n%s";
     public static final String MESSAGE_COMMAND_FAILURE = "%s failed! " + Emoticons.SAD + "\n%s";
     public static final String MESSAGE_COMMAND_CANCEL = "Command cancelled! " + Emoticons.PROUD;
+
     public static final String MESSAGE_PARSE_EXCEPTION = "%s " + Emoticons.ANGRY + "\n%s";
 
     // Object messages
