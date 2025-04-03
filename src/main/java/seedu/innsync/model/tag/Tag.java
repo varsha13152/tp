@@ -1,21 +1,31 @@
 package seedu.innsync.model.tag;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.innsync.commons.util.AppUtil.checkArgument;
+import static seedu.innsync.commons.util.AppUtil.checkAllValidationRules;
+
+import java.util.List;
+import java.util.function.Function;
+
+import javafx.util.Pair;
+import seedu.innsync.logic.Messages;
 
 /**
  * Represents a Tag in the address book.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
 public class Tag {
-
-    public static final String MESSAGE_EMPTY = "Error: Request value should not be empty.";
-    public static final String MESSAGE_LENGTH = "Error: Request value must not exceed 170 characters.";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Tag names should not be blank and should not exceed 170 characters.";
+    public static final String MESSAGE_EMPTY = String.format(Messages.MESSAGE_EMPTY_FIELD, "Tag");
+    public static final String MESSAGE_LENGTH = String.format(Messages.MESSAGE_MAX_LENGTH_EXCEEDED, "Tag", 170);
 
     public static final String REGEX_NOT_EMPTY = "^.+$"; // Ensures non-empty string
     public static final String REGEX_MAX_LENGTH = "^.{1,170}$"; // Ensures length <= 170
 
-    private static String errorMessage = "Error: Tag is invalid.";
+    public static final List<Pair<Function<String, Boolean>, String>> VALIDATION_RULES = List.of(
+            new Pair<>(Tag::notEmptyTagName, MESSAGE_EMPTY),
+            new Pair<>(Tag::notMaxLengthTagName, MESSAGE_LENGTH)
+    );
 
     public final String tagName;
     private int tagCount;
@@ -27,35 +37,30 @@ public class Tag {
      */
     public Tag(String tagName) {
         requireNonNull(tagName);
-        checkArgument(isValidTagName(tagName), errorMessage);
+        checkAllValidationRules(tagName, VALIDATION_RULES);
         this.tagName = tagName;
         this.tagCount = 0;
     }
 
     /**
-     * Returns true if a given string matches all validation rules.
-     * Else sets the error message to the specific error and returns false.
+     * Returns true if a given string is a valid tag name.
      */
     public static boolean isValidTagName(String test) {
-        if (!test.matches(REGEX_NOT_EMPTY)) {
-            errorMessage = MESSAGE_EMPTY;
-            return false;
-        }
-        if (!test.matches(REGEX_MAX_LENGTH)) {
-            errorMessage = MESSAGE_LENGTH;
+        requireNonNull(test);
+        try {
+            checkAllValidationRules(test, VALIDATION_RULES);
+        } catch (IllegalArgumentException e) {
             return false;
         }
         return true;
     }
 
-    /**
-     * Determines the specific error message based on the invalid tag name.
-     */
-    public static String getErrorMessage(String test) {
-        if (!test.matches(REGEX_NOT_EMPTY)) {
-            return MESSAGE_EMPTY;
-        }
-        return MESSAGE_LENGTH;
+    private static boolean notEmptyTagName(String test) {
+        return test.matches(REGEX_NOT_EMPTY);
+    }
+
+    private static boolean notMaxLengthTagName(String test) {
+        return test.matches(REGEX_MAX_LENGTH);
     }
 
     public String getTagName() {

@@ -34,7 +34,6 @@ public class TagCommand extends Command {
             + PREFIX_BOOKINGTAG + "{property} from/{start-date} to/{end-date}\n"
             + "Example: " + COMMAND_WORD + " 1 t/friend b/BeachHouse from/2025-06-01 to/2025-06-10";
     public static final String MESSAGE_SUCCESS = "Tag successfully added: %s";
-    public static final String MESSAGE_DUPLICATE_TAG = "This contact already has this tag.";
     public static final String MESSAGE_FAILURE = "Failed to add booking tag. "
             + "The booking tag %s overlaps with an existing tag.";
 
@@ -75,7 +74,7 @@ public class TagCommand extends Command {
             try {
                 editedPerson.addTag(tag);
             } catch (DuplicateTagException e) {
-                throw new CommandException(MESSAGE_DUPLICATE_TAG);
+                throw new CommandException(String.format(Messages.MESSAGE_DUPLICATE_FIELD, tag));
             }
         }
 

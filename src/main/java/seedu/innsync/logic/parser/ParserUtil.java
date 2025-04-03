@@ -7,7 +7,9 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
 
+import javafx.util.Pair;
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.commons.util.StringUtil;
 import seedu.innsync.logic.commands.RequestCommand;
@@ -186,9 +188,13 @@ public class ParserUtil {
     public static Tag parseTag(String tag) throws ParseException {
         requireNonNull(tag);
         String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_LENGTH);
+
+        for (Pair<Function<String, Boolean>, String> rule : Tag.VALIDATION_RULES) {
+            if (!rule.getKey().apply(trimmedTag)) {
+                throw new ParseException(rule.getValue());
+            }
         }
+
         return new Tag(trimmedTag);
     }
 

@@ -2,7 +2,11 @@ package seedu.innsync.commons.util;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+import java.util.function.Function;
+
 import javafx.scene.image.Image;
+import javafx.util.Pair;
 import seedu.innsync.MainApp;
 
 /**
@@ -37,6 +41,23 @@ public class AppUtil {
     public static void checkArgument(Boolean condition, String errorMessage) {
         if (!condition) {
             throw new IllegalArgumentException(errorMessage);
+        }
+    }
+
+    /**
+     * Checks that {@code test} passes all validation rules in {@code validationRules}.
+     *
+     * @param test
+     * @param validationRules
+     * @throws IllegalArgumentException if any of the validation rules fail.
+     */
+    public static void checkAllValidationRules(String test,
+            List<Pair<Function<String, Boolean>, String>> validationRules) {
+        requireNonNull(test);
+        for (Pair<Function<String, Boolean>, String> rule : validationRules) {
+            if (!rule.getKey().apply(test)) {
+                throw new IllegalArgumentException(rule.getValue());
+            }
         }
     }
 }

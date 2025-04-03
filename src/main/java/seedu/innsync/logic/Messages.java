@@ -18,6 +18,9 @@ public class Messages {
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
+    public static final String MESSAGE_EMPTY_FIELD = "%s cannot be empty!";
+    public static final String MESSAGE_MAX_LENGTH_EXCEEDED = "%s exceeds maximum length of %d characters!";
+    public static final String MESSAGE_DUPLICATE_FIELD = "Contact already has this %s!";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
