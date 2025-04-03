@@ -303,18 +303,17 @@ public class FindCommandParserTest {
 
     @Test
     public void parse_invalidEmailFormat_throwsParseException() {
-        String errorMessage1 = "Error: Invalid email format. "
-                + "Email values may only contain alphanumeric characters, '@', and these special characters: + _ . -. "
+        String expectedMessage1 = "Error: Invalid email format. "
+                + "Email values may only contain alphanumeric characters, '@', and these special characters: + _ . - "
                 + "Invalid keyword(s): invalid,email " + Emoticons.ANGRY;
 
-        String errorMessage2 = "Error: Invalid email format. "
-                + "Email values may only contain alphanumeric characters, '@', and these special characters: + _ . -. "
+        String expectedMessage2 = "Error: Invalid email format. "
+                + "Email values may only contain alphanumeric characters, '@', and these special characters: + _ . - "
                 + "Invalid keyword(s): test)com " + Emoticons.ANGRY;
 
-        assertParseFailure(parser, "find e/invalid,email", errorMessage1);
-        assertParseFailure(parser, "find e/test)com", errorMessage2);
+        assertParseFailure(parser, "find e/invalid,email", expectedMessage1);
+        assertParseFailure(parser, "find e/test)com", expectedMessage2);
     }
-
 
     @Test
     public void parse_invalidAddressFormat_throwsParseException() {
