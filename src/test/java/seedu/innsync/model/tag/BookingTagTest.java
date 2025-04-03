@@ -34,7 +34,7 @@ public class BookingTagTest {
     @Test
     void constructor_validBookingTag_success() {
         BookingTag bookingTag = new BookingTag(VALID_BOOKINGTAG_BEACHHOUSE);
-        assertEquals("BeachHouse", bookingTag.bookingTagName);
+        assertEquals("Beach House", bookingTag.bookingTagName);
         assertEquals(LocalDate.of(2025, 6, 1), bookingTag.startDate);
         assertEquals(LocalDate.of(2025, 6, 10), bookingTag.endDate);
     }
@@ -83,7 +83,7 @@ public class BookingTagTest {
     @Test
     void equals_sameBookingTag_returnsTrue() {
         final BookingTag tag1 = new BookingTag(VALID_BOOKINGTAG_BEACHHOUSE);
-        final BookingTag tag2 = new BookingTag("BeachHouse from/2025-06-01 to/2025-06-10");
+        final BookingTag tag2 = new BookingTag("Beach House from/2025-06-01 to/2025-06-10");
         assertEquals(tag1, tag2);
     }
 

@@ -153,7 +153,7 @@ public class FindCommandTest {
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.NAME, Collections.singletonList("Kurz"));
         criteria.put(FindCommand.SearchType.ADDRESS, Collections.singletonList("tokyo"));
-        criteria.put(FindCommand.SearchType.TAG, Collections.singletonList("owesMoney"));
+        criteria.put(FindCommand.SearchType.TAG, Collections.singletonList("owes money"));
 
         FindCommand command = new FindCommand(criteria);
         expectedModel.updateFilteredPersonList(command.getPredicate());
@@ -264,7 +264,7 @@ public class FindCommandTest {
     public void execute_uniqueTagKeyword_onePersonFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
-        criteria.put(FindCommand.SearchType.TAG, Collections.singletonList("owesMoney"));
+        criteria.put(FindCommand.SearchType.TAG, Collections.singletonList("owes money"));
         FindCommand command = new FindCommand(criteria);
         expectedModel.updateFilteredPersonList(command.getPredicate());
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -275,7 +275,7 @@ public class FindCommandTest {
     public void execute_multipleTagKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
-        criteria.put(FindCommand.SearchType.TAG, Arrays.asList("friends", "owesMoney"));
+        criteria.put(FindCommand.SearchType.TAG, Arrays.asList("friends", "owes money"));
         FindCommand command = new FindCommand(criteria);
         expectedModel.updateFilteredPersonList(command.getPredicate());
         assertCommandSuccess(command, model, expectedMessage, expectedModel);

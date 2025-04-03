@@ -32,7 +32,7 @@ public class TagCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_TAG + "TAG or\n"
             + PREFIX_BOOKINGTAG + "{property} from/{start-date} to/{end-date}\n"
-            + "Example: " + COMMAND_WORD + " 1 t/friend b/BeachHouse from/2025-06-01 to/2025-06-10";
+            + "Example: " + COMMAND_WORD + " 1 t/friend b/Beach House from/2025-06-01 to/2025-06-10";
     public static final String MESSAGE_SUCCESS = String.format(
             Messages.MESSAGE_COMMAND_SUCCESS, "Tag", "%s has been added to the contact's tag list!");
     public static final String MESSAGE_FAILURE = String.format(

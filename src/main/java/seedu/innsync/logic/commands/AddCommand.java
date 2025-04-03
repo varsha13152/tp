@@ -4,12 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_BOOKINGTAG;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_MEMO;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.innsync.commons.util.ToStringBuilder;
-import seedu.innsync.logic.Emoticons;
 import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.Model;
@@ -29,18 +29,19 @@ public class AddCommand extends Command {
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_ADDRESS + "ADDRESS "
             + "[" + PREFIX_BOOKINGTAG + "BOOKING_TAG]... "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_TAG + "TAG]... "
+            + "[" + PREFIX_MEMO + "MEMO]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "+65 98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_BOOKINGTAG + "BeachHouse from/2025-06-01 to/2025-06-10 "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_BOOKINGTAG + "Beach House from/2025-06-01 to/2025-06-10 "
+            + PREFIX_TAG + "owes money "
+            + PREFIX_MEMO + "Wants extra food";
 
-    public static final String MESSAGE_SUCCESS = "New person added! " + Emoticons.PROUD + "\n%1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book! "
-            + Emoticons.SAD + "\n" + MESSAGE_USAGE;
+    public static final String MESSAGE_SUCCESS = String.format(Messages.MESSAGE_COMMAND_SUCCESS,
+            "Add", "%s has been added to the address book!");
 
     private final Person toAdd;
 
@@ -57,7 +58,7 @@ public class AddCommand extends Command {
         requireNonNull(model);
 
         if (model.hasPerson(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(Messages.MESSAGE_DUPLICATE_PERSONS);
         }
 
         model.addPerson(toAdd);
