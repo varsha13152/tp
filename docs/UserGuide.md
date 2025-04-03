@@ -485,8 +485,6 @@ Format: `deletereq INDEX r/REQUEST_INDEX`
 Examples:
 * `deletereq 1 r/1` Deletes the first request of the first visitor on the list.
 
-### 4.5.5 Listing requests: `listreq`
-
 ## 4.6 Memo a visitor : `memo`
 
 Add a memo into the visitor in the address book.
