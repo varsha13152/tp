@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
+
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -20,7 +22,7 @@
 
   <!-- Header -->
   <HBox spacing="5.0" alignment="CENTER_LEFT">
-    <Label fx:id="nameLabel" styleClass="detail-name" wrapText="true" />
+    <Label fx:id="nameLabel" styleClass="detail-name" alignment="CENTER_LEFT" wrapText="true" />
     <ImageView fx:id="detailStarIcon" fitWidth="24" fitHeight="24" visible="false">
       <image>
         <Image url="@/images/star-icon.png" />
@@ -28,11 +30,11 @@
     </ImageView>
   </HBox>
 
-  <Region prefHeight="20.0" />
+  <Region minHeight="20.0" prefHeight="20.0"/>
 
   <!-- Contact information -->
-  <ScrollPane fx:id="scrollPane" fitToWidth="true" vbarPolicy="NEVER" hbarPolicy="NEVER">
-    <VBox fx:id="contentBox" style="-fx-padding: 10;">
+  <ScrollPane fx:id="scrollPane" fitToWidth="true" vbarPolicy="NEVER" hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+    <VBox fx:id="contentBox" style="-fx-padding: 0;">
       <!-- Placeholder when no contact is selected -->
       <VBox fx:id="placeholderBox" alignment="CENTER" visible="false" managed="false" VBox.vgrow="ALWAYS">
         <Label text="Select a contact to view details" styleClass="placeholder-text" />
@@ -60,25 +62,25 @@
       <Region prefHeight="20.0" />
 
       <!-- Memo -->
-      <Label text="Memo:" styleClass="detail-section" />
-      <FlowPane fx:id="detailMemo" hgap="5" vgap="5" />
+      <Label text="Memo" styleClass="detail-section" />
+      <Label fx:id="memoLabel" styleClass="detail-memo" prefWidth="480.0" prefHeight="100.0"/>
 
       <Region prefHeight="10.0" />
 
       <!-- Tags -->
-      <Label text="Tags:" styleClass="detail-section" />
+      <Label text="Tags" styleClass="detail-section" />
       <FlowPane fx:id="detailTags" hgap="5" vgap="5" />
 
       <Region prefHeight="10.0" />
 
       <!-- Booking Tags -->
-      <Label text="Booking Tags:" styleClass="detail-section" />
+      <Label text="Booking Tags" styleClass="detail-section" />
       <FlowPane fx:id="detailBookingTags" hgap="5" vgap="5" />
 
       <Region prefHeight="10.0" />
 
       <!-- Requests -->
-      <Label text="Requests:" styleClass="detail-section" />
+      <Label text="Requests" styleClass="detail-section" />
       <FlowPane fx:id="detailRequests" orientation="VERTICAL" hgap="5" vgap="5">
         <!-- A single request with a checkbox beside it -->
         <HBox spacing="10.0" alignment="CENTER_LEFT">

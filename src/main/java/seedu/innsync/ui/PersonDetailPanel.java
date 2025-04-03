@@ -1,5 +1,7 @@
 package seedu.innsync.ui;
 
+import static java.util.Objects.requireNonNullElse;
+
 import java.util.Comparator;
 import java.util.List;
 
@@ -36,7 +38,7 @@ public class PersonDetailPanel extends UiPart<Region> {
     private Label addressLabel;
 
     @FXML
-    private FlowPane detailMemo;
+    private Label memoLabel;
 
     @FXML
     private FlowPane detailTags;
@@ -84,8 +86,8 @@ public class PersonDetailPanel extends UiPart<Region> {
         addressLabel.setText(person.getAddress().value);
         detailStarIcon.setVisible(person.getStarred());
 
-        // Clear previous memo
-        detailMemo.getChildren().clear();
+        // Clear memo
+        memoLabel.setText("");
 
         // Clear previous requests
         detailRequests.getChildren().clear();
@@ -95,10 +97,8 @@ public class PersonDetailPanel extends UiPart<Region> {
         detailBookingTags.getChildren().clear();
 
         // Add memo
-        if (person.getMemo() != null && person.getMemo().value != null && !person.getMemo().value.isEmpty()) {
-            Label memoLabel = new Label(person.getMemo().value);
-            memoLabel.getStyleClass().add("detail-memo");
-            detailMemo.getChildren().add(memoLabel);
+        if (person.getMemo() != null) {
+            memoLabel.setText(requireNonNullElse(person.getMemo().value, ""));
         }
 
         // Add requests with a checkbox beside each
@@ -154,8 +154,8 @@ public class PersonDetailPanel extends UiPart<Region> {
         phoneLabel.setText("");
         emailLabel.setText("");
         addressLabel.setText("");
+        memoLabel.setText("");
         detailStarIcon.setVisible(false);
-        detailMemo.getChildren().clear();
         detailTags.getChildren().clear();
         detailBookingTags.getChildren().clear();
         detailRequests.getChildren().clear();
