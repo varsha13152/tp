@@ -13,6 +13,7 @@ import static seedu.innsync.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.Test;
 
 import seedu.innsync.commons.core.index.Index;
+import seedu.innsync.logic.Messages;
 import seedu.innsync.model.AddressBook;
 import seedu.innsync.model.Model;
 import seedu.innsync.model.ModelManager;
@@ -54,7 +55,7 @@ public class UnstarCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getPersonList().size() + 1);
         UnstarCommand unstarCommand = new UnstarCommand(outOfBoundIndex);
 
-        assertCommandFailure(unstarCommand, model, UnstarCommand.MESSAGE_FAILURE_INVALID_INDEX);
+        assertCommandFailure(unstarCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
@@ -83,7 +84,7 @@ public class UnstarCommandTest {
 
         UnstarCommand unstarCommand = new UnstarCommand(outOfBoundIndex);
 
-        assertCommandFailure(unstarCommand, model, UnstarCommand.MESSAGE_FAILURE_INVALID_INDEX);
+        assertCommandFailure(unstarCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
