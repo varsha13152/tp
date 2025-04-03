@@ -116,7 +116,7 @@ public class TagCommandTest {
 
     @Test
     public void execute_validIndex_unsuccessful() throws CommandException {
-        //Index has needs to have friends tag (Index 1 has it)
+        // Index has needs to have friends tag (Index 1 has it)
         Index indexFirstPerson = INDEX_FIRST_PERSON;
         Tag validTag = new Tag("friends");
         Set<Tag> validTags = Set.of(validTag);
