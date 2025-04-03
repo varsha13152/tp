@@ -19,20 +19,20 @@ public class BookingTagTest {
     }
 
     @Test
-    public void isValidBookingTagName() {
-        // null booking tag name
+    public void isValidBookingTag() {
+        // null booking tag
         assertThrows(NullPointerException.class, () -> BookingTag.isValidBookingTag(null));
     }
 
     @Test
-    public void invalidBookingTagName() {
-        // invalid date booking tag name
+    public void invalidBookingTag() {
+        // invalid date booking tag
         assertFalse(() -> BookingTag.isValidBookingTag("test to/020-10-10 to/2020-10-10"));
         assertFalse(() -> BookingTag.isValidBookingTag("test from/020-10-10 to/2020-10-10"));
     }
 
     @Test
-    void constructor_validBookingTagName_success() {
+    void constructor_validBookingTag_success() {
         BookingTag bookingTag = new BookingTag(VALID_BOOKINGTAG_BEACHHOUSE);
         assertEquals("BeachHouse", bookingTag.bookingTagName);
         assertEquals(LocalDate.of(2025, 6, 1), bookingTag.startDate);
@@ -40,10 +40,32 @@ public class BookingTagTest {
     }
 
     @Test
-    void constructor_invalidBookingTagName_throwsIllegalArgumentException() {
+    void constructor_validLeapYearBookingTag_success() {
+        BookingTag bookingTag = new BookingTag("LeapYear from/2024-02-29 to/2024-03-01");
+        assertEquals("LeapYear", bookingTag.bookingTagName);
+        assertEquals(LocalDate.of(2024, 2, 29), bookingTag.startDate);
+        assertEquals(LocalDate.of(2024, 3, 1), bookingTag.endDate);
+    }
+
+    @Test
+    void constructor_invalidLeapYearBookingTag_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> new BookingTag("LeapYear from/2024-02-30 to/2024-03-01"));
+        assertThrows(IllegalArgumentException.class, () -> new BookingTag("LeapYear from/2024-01-29 to/2024-02-30"));
+    }
+
+    @Test
+    void constructor_invalidBookingTag_throwsIllegalArgumentException() {
+        // missing tokens
         assertThrows(IllegalArgumentException.class, () -> new BookingTag("InvalidTag"));
-        assertThrows(IllegalArgumentException.class, () -> new BookingTag("Hotel from/2025-06-10 to/2025-06-01"));
         assertThrows(IllegalArgumentException.class, () -> new BookingTag("Resort from/2025-06-01"));
+        assertThrows(IllegalArgumentException.class, () -> new BookingTag("Resort to/2025-06-10"));
+
+        // months without 31 days
+        assertThrows(IllegalArgumentException.class, () -> new BookingTag("Hotel from/2025-06-31 to/2025-07-01"));
+        assertThrows(IllegalArgumentException.class, () -> new BookingTag("Hotel from/2025-03-10 to/2025-04-31"));
+
+        // start date after end date
+        assertThrows(IllegalArgumentException.class, () -> new BookingTag("Hotel from/2025-06-10 to/2025-06-01"));
     }
 
     @Test
