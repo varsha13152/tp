@@ -159,7 +159,6 @@ Classes used by multiple components are in the `seedu.innsync.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 > Please note that certain aspects, such as UML classes, may have been simplified to fit within the diagram's constraints and maintain readability.
-
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
@@ -256,7 +255,6 @@ _{more aspects and alternatives to be added}_
 ### \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -289,35 +287,35 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                     | I want to …​                                        | So that I can…​                                                           |
-|----------|---------------------------------------------|-----------------------------------------------------|---------------------------------------------------------------------------|
-| `* * *`  | new user                                    | see usage instructions                              | refer to instructions when I forget how to use the App                    |
-| `* * *`  | Airbnb host                                 | add a new visitor                                   | keep track of who is visiting my property                                 | 
-| `* * *`  | Airbnb host                                 | edit a visitor                                      | update details of a visitor                                               | 
-| `* * *`  | Airbnb host                                 | list all visitors                                   | see all the visitors I have added                                         | 
-| `* * *`  | Airbnb host                                 | delete a visitor                                    | remove entries that I no longer need                                      |
-| `* * *`  | Airbnb host                                 | add a tag to visitor                                | categorize and identify them easily                                       |
-| `* * *`  | Airbnb host                                 | add a booking tag to visitor                        | quickly assign the visitor to their property                              |
-| `* * *`  | Airbnb host                                 | remove a tag from the visitor                       |                                                                           |
-| `* * *`  | Airbnb host                                 | remove a booking tag from the visitor               |                                                                           |
-| `* * *`  | Airbnb host                                 | find a visitor by name                              | quickly find a specific visitor                                           |
-| `* *`    | Airbnb host                                 | filter visitors by property booked                  | quickly find visitors who visited a specific property                     |
-| `* *`    | Airbnb host                                 | filter visitors by date of stay                     | quickly find visitors using specific time periods                         |
-| `* *`    | Airbnb host                                 | filter visitors by tag                              | quickly find visitors using personalised categories                       |
-| `* *`    | Airbnb host                                 | filter visitors by next upcoming booking            | prepare for future bookings efficiently                                   |
-| `* *`    | Airbnb host                                 | add a request to visitor                            | fulfill the visitor request                                               | 
-| `* *`    | Airbnb host                                 | mark the request as completed in the visitor        |                                                                           | 
-| `* * `   | Airbnb host                                 | unmark the request as incomplete in the visitor     |                                                                           | 
-| `* * `   | Airbnb host                                 | delete the request from the visitor                 |                                                                           |
-| `* *`    | Airbnb host                                 | star a visitor                                      | favorite the visitor so that they appear at the top                       | 
-| `* *`    | Airbnb host                                 | unstar a visitor                                    | remove favorite from the visitor so that they no longer appear at the top | 
-| `* *`    | Airbnb host                                 | list all the starred visitor                        | see all the favorite visitors I have starred                              |
-| `* * `   | Airbnb host                                 | add a memo to visitor                               | give a short note to describe the visitor                                 |
-| `* *`    | Airbnb host                                 | undo the last command                               | recover from mistakes                                                     |
-| `* *`    | Airbnb host                                 | clear all visitors                                  | start over with a clean slate                                             |
-| `* *`    | Airbnb host                                 | save visitor details to a file                      | backup my address book                                                    |
-| `* *`    | Airbnb host                                 | load visitor details from a file                    | restore my address book                                                   |
-| `*`      | user with many visitors in the address book | sort visitors by name                               | find visitors efficiently                                                 |
+| Priority | As a …​                                     | I want to …​                                    | So that I can…​                                                           |
+|----------|---------------------------------------------|-------------------------------------------------|---------------------------------------------------------------------------|
+| `* * *`  | new user                                    | see usage instructions                          | refer to instructions when I forget how to use the App                    |
+| `* * *`  | Airbnb host                                 | add a new visitor                               | keep track of who is visiting my property                                 | 
+| `* * *`  | Airbnb host                                 | edit a visitor                                  | update details of a visitor                                               | 
+| `* * *`  | Airbnb host                                 | list all visitors                               | see all the visitors I have added                                         | 
+| `* * *`  | Airbnb host                                 | delete a visitor                                | remove entries that I no longer need                                      |
+| `* * *`  | Airbnb host                                 | add a tag to visitor                            | categorize and identify them easily                                       |
+| `* * *`  | Airbnb host                                 | add a booking tag to visitor                    | quickly assign the visitor to their property                              |
+| `* * *`  | Airbnb host                                 | remove a tag from the visitor                   | to unassign the visitor tag                                               |
+| `* * *`  | Airbnb host                                 | remove a booking tag from the visitor           | to unassign the visitor booking tag                                       |
+| `* * *`  | Airbnb host                                 | find a visitor by name                          | quickly find a specific visitor                                           |
+| `* *`    | Airbnb host                                 | filter visitors by property booked              | quickly find visitors who visited a specific property                     |
+| `* *`    | Airbnb host                                 | filter visitors by date of stay                 | quickly find visitors using specific time periods                         |
+| `* *`    | Airbnb host                                 | filter visitors by tag                          | quickly find visitors using personalised categories                       |
+| `* *`    | Airbnb host                                 | filter visitors by next upcoming booking        | prepare for future bookings efficiently                                   |
+| `* *`    | Airbnb host                                 | add a request to visitor                        | fulfill the visitor request                                               | 
+| `* *`    | Airbnb host                                 | mark the request as completed in the visitor    | to mark visitor request as fulfilled                                      | 
+| `* * `   | Airbnb host                                 | unmark the request as incomplete in the visitor | to unmark visitor request as unfulfilled                                  | 
+| `* * `   | Airbnb host                                 | delete the request from the visitor             | to remove visitor request                                                 |
+| `* *`    | Airbnb host                                 | star a visitor                                  | favorite the visitor so that they appear at the top                       | 
+| `* *`    | Airbnb host                                 | unstar a visitor                                | remove favorite from the visitor so that they no longer appear at the top | 
+| `* *`    | Airbnb host                                 | list all the starred visitor                    | see all the favorite visitors I have starred                              |
+| `* * `   | Airbnb host                                 | add a memo to visitor                           | give a short note to describe the visitor                                 |
+| `* *`    | Airbnb host                                 | undo the last command                           | recover from mistakes                                                     |
+| `* *`    | Airbnb host                                 | clear all visitors                              | start over with a clean slate                                             |
+| `* *`    | Airbnb host                                 | save visitor details to a file                  | backup my address book                                                    |
+| `* *`    | Airbnb host                                 | load visitor details from a file                | restore my address book                                                   |
+| `*`      | user with many visitors in the address book | sort visitors by name                           | find visitors efficiently                                                 |
 
 ### Use cases
 
