@@ -163,7 +163,7 @@ public class ParserUtil {
         String trimmedBookingTag = bookingTag.trim();
 
         try {
-            BookingTag.isValidBookingTag(trimmedBookingTag);
+            BookingTag.checkValidBookingTag(trimmedBookingTag);
         } catch (IllegalArgumentException e) {
             throw new ParseException(e.getMessage());
         }
@@ -194,7 +194,7 @@ public class ParserUtil {
         String trimmedTag = tag.trim();
 
         try {
-            Tag.isValidTagName(trimmedTag);
+            Tag.checkValidTag(trimmedTag);
         } catch (IllegalArgumentException e) {
             throw new ParseException(e.getMessage());
         }

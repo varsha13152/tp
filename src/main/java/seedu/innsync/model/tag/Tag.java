@@ -1,12 +1,7 @@
 package seedu.innsync.model.tag;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.innsync.commons.util.AppUtil.checkAllRules;
 
-import java.util.List;
-
-import seedu.innsync.commons.core.rule.Rule;
-import seedu.innsync.commons.core.rule.RuleList;
 import seedu.innsync.logic.Messages;
 
 /**
@@ -22,11 +17,6 @@ public class Tag {
     public static final String REGEX_NOT_EMPTY = "^.+$"; // Ensures non-empty string
     public static final String REGEX_MAX_LENGTH = "^.{1,170}$"; // Ensures length <= 170
 
-    public static final RuleList VALIDATION_RULES = new RuleList(List.of(
-            Rule.ofRegex(REGEX_NOT_EMPTY, MESSAGE_EMPTY),
-            Rule.ofRegex(REGEX_MAX_LENGTH, MESSAGE_LENGTH)
-    ));
-
     public final String tagName;
     /**
      * Constructs a {@code Tag}.
@@ -35,7 +25,7 @@ public class Tag {
      */
     public Tag(String tagName) {
         requireNonNull(tagName);
-        checkAllRules(tagName, VALIDATION_RULES);
+        checkValidTag(tagName);
         this.tagName = tagName;
     }
 
@@ -43,12 +33,31 @@ public class Tag {
      * Returns true if a given string is a valid tag name.
      *
      * @param test The string to be validated.
-     * @throws IllegalArgumentException if the string does not pass any of the validation rules.
+     */
+    public static void checkValidTag(String test) {
+        requireNonNull(test);
+
+        if (!test.matches(REGEX_NOT_EMPTY)) {
+            throw new IllegalArgumentException(MESSAGE_EMPTY);
+        }
+        if (!test.matches(REGEX_MAX_LENGTH)) {
+            throw new IllegalArgumentException(MESSAGE_LENGTH);
+        }
+    }
+
+    /**
+     * Returns true if a given string is a valid tag name.
+     *
+     * @param test The string to be validated.
      * @return true if the string is a valid tag name.
      */
-    public static boolean isValidTagName(String test) throws IllegalArgumentException {
+    public static boolean isValidTag(String test) {
         requireNonNull(test);
-        checkAllRules(test, VALIDATION_RULES);
+        try {
+            checkValidTag(test);
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
         return true;
     }
 
@@ -77,9 +86,9 @@ public class Tag {
     }
 
     /**
-     * Format state as text for viewing.
+     * Format state as text for storage.
      */
     public String toString() {
-        return tagName;
+        return "[" + tagName + "]";
     }
 }

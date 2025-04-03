@@ -4,13 +4,11 @@ import static java.util.Objects.requireNonNull;
 
 import javafx.scene.image.Image;
 import seedu.innsync.MainApp;
-import seedu.innsync.commons.core.rule.RuleList;
 
 /**
  * A container for App specific utility functions
  */
 public class AppUtil {
-
     /**
      * Gets an {@code Image} from the specified path.
      */
@@ -39,31 +37,5 @@ public class AppUtil {
         if (!condition) {
             throw new IllegalArgumentException(errorMessage);
         }
-    }
-
-    /**
-     * Checks that {@code test} passes all validation rules in {@code validationRules}.
-     *
-     * @param test
-     * @param validationRules
-     * @throws IllegalArgumentException if any of the validation rules fail.
-     */
-    public static void checkAllRules(String test, RuleList validationRules) {
-        requireNonNull(test);
-        requireNonNull(validationRules);
-        validationRules.checkAllRules(test);
-    }
-
-    /**
-     * Checks that {@code test} passes all validation rules in {@code validationRules}.
-     *
-     * @param test
-     * @param validationRules
-     * @throws IllegalArgumentException if any of the validation rules fail.
-     */
-    public static void checkAllRules(Object test, RuleList validationRules) {
-        requireNonNull(test);
-        requireNonNull(validationRules);
-        validationRules.checkAllRules(test);
     }
 }

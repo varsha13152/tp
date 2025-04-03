@@ -1,6 +1,7 @@
 package seedu.innsync.model.tag;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_BOOKINGTAG_BEACHHOUSE;
@@ -21,6 +22,13 @@ public class BookingTagTest {
     public void isValidBookingTag() {
         // null booking tag
         assertThrows(NullPointerException.class, () -> BookingTag.isValidBookingTag(null));
+    }
+
+    @Test
+    public void invalidBookingTag() {
+        // invalid date booking tag
+        assertFalse(() -> BookingTag.isValidBookingTag("test to/020-10-10 to/2020-10-10"));
+        assertFalse(() -> BookingTag.isValidBookingTag("test from/020-10-10 to/2020-10-10"));
     }
 
     @Test
@@ -66,11 +74,10 @@ public class BookingTagTest {
     }
 
     @Test
-    void isValidBookingTagName_invalidFormat_throwsIllegalArgumentException() {
-        assertThrows(IllegalArgumentException.class,
-                () -> BookingTag.isValidBookingTag("Apartment from/2025-07-05 to/2025-07-01"));
-        assertThrows(IllegalArgumentException.class,
-                () -> BookingTag.isValidBookingTag("Bungalow from/2025-07-01"));
+    void isValidBookingTagName_invalidFormat_returnsFalse() {
+        assertFalse(BookingTag.isValidBookingTag("House 2025-07-01 to/2025-07-05"));
+        assertFalse(BookingTag.isValidBookingTag("Apartment from/2025-07-05 to/2025-07-01"));
+        assertFalse(BookingTag.isValidBookingTag("Bungalow from/2025-07-01"));
     }
 
     @Test
@@ -91,7 +98,6 @@ public class BookingTagTest {
         final BookingTag tag = new BookingTag(VALID_BOOKINGTAG_BEACHHOUSE);
         assertNotEquals(tag, null);
     }
-
 
     @Test
     void equals_differentBookingTag_returnsFalse() {

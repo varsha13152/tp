@@ -19,6 +19,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.innsync.commons.core.index.Index;
+import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.AddressBook;
 import seedu.innsync.model.Model;
@@ -121,7 +122,7 @@ public class TagCommandTest {
         Tag validTag = new Tag("friends");
         Set<Tag> validTags = Set.of(validTag);
         TagCommand tagCommand = new TagCommand(indexFirstPerson, validTags, null);
-        assertCommandFailure(tagCommand, model, TagCommand.MESSAGE_DUPLICATE_TAG);
+        assertCommandFailure(tagCommand, model, String.format(Messages.MESSAGE_DUPLICATE_FIELD, validTag));
     }
 
 
@@ -129,8 +130,7 @@ public class TagCommandTest {
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getPersonList().size() + 1);
         TagCommand command = new TagCommand(outOfBoundIndex, null, null);
-
-        assertCommandFailure(command, model, TagCommand.MESSAGE_FAILURE_INVALID_INDEX);
+        assertCommandFailure(command, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
