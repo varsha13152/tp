@@ -104,6 +104,13 @@ public class UntagCommandTest {
     }
 
     @Test
+    public void removeTagsPerson() {
+        Index targetIndex = Index.fromOneBased(1);
+        UntagCommand untagCommand = new UntagCommand(targetIndex, new Tag(VALID_TAG_HUSBAND), "");
+        assertCommandFailure(untagCommand, model, String.format(UntagCommand.MESSAGE_FAILURE_TAG, VALID_TAG_HUSBAND));
+    }
+
+    @Test
     public void equals() {
         UntagCommand untagFirstCommand = new UntagCommand(INDEX_FIRST_PERSON, new Tag("testTag1"), "testBookingTag1");
         UntagCommand untagSecondCommand = new UntagCommand(INDEX_SECOND_PERSON, new Tag("testTag2"), "testBookingTag2");
@@ -124,6 +131,13 @@ public class UntagCommandTest {
 
         // different person -> returns false
         assertFalse(untagFirstCommand.equals(untagSecondCommand));
+    }
+
+    @Test
+    public void hasConfirmationTest_returnsFalse() {
+        Index targetIndex = Index.fromOneBased(1);
+        UntagCommand untagCommand = new UntagCommand(targetIndex, new Tag(VALID_TAG_HUSBAND), "");
+        assertFalse(untagCommand.requireConfirmation());
     }
 
     @Test
