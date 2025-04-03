@@ -33,7 +33,6 @@ public class RequestCommandParserTest {
                 ParserUtil.MESSAGE_INVALID_INDEX, RequestCommand.MESSAGE_USAGE));
     }
 
-
     @Test
     public void parse_invalidArgs_throwsParseException() {
         // Test invalid arguments that don't follow the expected format for the request name
