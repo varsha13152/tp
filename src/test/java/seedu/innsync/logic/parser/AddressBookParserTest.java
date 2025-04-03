@@ -158,9 +158,8 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_find() throws Exception {
-        // Test original format (backward compatibility for name search)
         FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " foo bar baz");
+                FindCommand.COMMAND_WORD + " n/foo n/bar n/baz");
         assertTrue(command instanceof FindCommand);
     }
 

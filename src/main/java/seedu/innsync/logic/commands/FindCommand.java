@@ -10,7 +10,6 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import seedu.innsync.commons.util.ToStringBuilder;
-import seedu.innsync.logic.Emoticons;
 import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.Model;
@@ -27,26 +26,12 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
     private static final Logger logger = Logger.getLogger(FindCommand.class.getName());
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds persons by one or more fields simultaneously. \n"
-            + "Parameters: \n"
-            + "  By Name: n/KEYWORD [MORE_KEYWORDS]...\n"
-            + "  By Phone: p/KEYWORD [MORE_KEYWORDS]...\n"
-            + "  By Email: e/KEYWORD [MORE_KEYWORDS]...\n"
-            + "  By Address: a/KEYWORD [MORE_KEYWORDS]...\n"
-            + "  By Tag: t/KEYWORD [MORE_KEYWORDS]...\n"
-            + "  By Memo: m/KEYWORD [MORE_KEYWORDS]...\n"
-            + "  By BookingTag (Date): bd/DATE [MORE_DATES]...\n"
-            + "  By BookingTag (Property): bp/PROPERTY [MORE_KEYWORDS]...\n"
-            + "Examples: \n"
-            + "  " + COMMAND_WORD + " John\n"
-            + "  " + COMMAND_WORD + " n/John\n"
-            + "  " + COMMAND_WORD + " p/91234567\n"
-            + "  " + COMMAND_WORD + " t/friend\n"
-            + "  " + COMMAND_WORD + " m/breakfast \n"
-            + "  " + COMMAND_WORD + " bd/2024-10-15\n"
-            + "  " + COMMAND_WORD + " bp/BeachHouse\n"
-            + "  " + COMMAND_WORD + " n/John a/Clementi\n"
-            + "  " + COMMAND_WORD + " n/John p/91234567 t/friend m/breakfast";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds persons whose fields contain any of "
+            + "the specified keywords (case-insensitive) and displays them as a list.\n"
+            + "Parameters: [n/KEYWORD]... [p/KEYWORD]... [e/KEYWORD]... [a/KEYWORD]... [t/KEYWORD]... "
+            + "[m/KEYWORD]... [bd/DATE]... [bp/KEYWORD]...\n"
+            + "Example: " + COMMAND_WORD + " n/John n/Doe p/91234567 e/example.com t/friend";
 
     private final Map<SearchType, List<String>> searchCriteria;
 
@@ -75,84 +60,90 @@ public class FindCommand extends Command {
      * @return a predicate that can be used to filter persons based on the search criteria
      */
     public Predicate<Person> getPredicate() {
-        return createCombinedPredicate();
-    }
-
-    /**
-     * Creates a combined predicate based on all search criteria
-     * Uses OR logic between different search types - a person matches if they match ANY of the search criteria
-     */
-    private Predicate<Person> createCombinedPredicate() {
-        return person -> matchesAnySearchCriteria(person);
+        return this::matchesAnySearchCriteria;
     }
 
     /**
      * Checks if a person matches any of the search criteria (OR logic between different search types)
+     *
+     * @param person The person to check against search criteria
+     * @return true if the person matches any search criteria, false otherwise
      */
     private boolean matchesAnySearchCriteria(Person person) {
-        if (person == null) {
-            return false;
-        }
+        requireNonNull(person);
 
         return searchCriteria.entrySet().stream()
-                .filter(entry -> entry.getKey() != null && entry.getValue() != null)
                 .anyMatch(entry -> matchesAnyKeyword(person, entry.getKey(), entry.getValue()));
     }
 
     /**
      * Checks if a person matches any of the keywords for a specific field type
-     * @throws IllegalArgumentException if keywords or type is null
+     *
+     * @param person The person to check
+     * @param type The search type (NAME, PHONE, etc.)
+     * @param keywords The list of keywords to check against
+     * @return true if the person matches any of the keywords for the given field, false otherwise
      */
     private boolean matchesAnyKeyword(Person person, SearchType type, List<String> keywords) {
-        if (person == null || type == null || keywords == null) {
+        requireNonNull(person);
+        requireNonNull(type);
+        requireNonNull(keywords);
+
+        if (keywords.isEmpty()) {
             return false;
         }
 
         return keywords.stream()
                 .filter(Objects::nonNull)
-                .map(String::toLowerCase)
-                .anyMatch(keyword -> matchField(person, keyword, type));
+                .anyMatch(keyword -> matchField(person, keyword.toLowerCase(), type));
     }
 
     /**
      * Matches a person against a keyword for a specific search type
-     * @throws IllegalArgumentException if person or keyword is null or searchType is invalid
+     *
+     * @param person The person to check
+     * @param keyword The (lowercase) keyword to match against
+     * @param searchType The type of field to check (NAME, PHONE, etc.)
+     * @return true if the person's field contains the keyword, false otherwise
      */
     private boolean matchField(Person person, String keyword, SearchType searchType) {
-        if (person == null || keyword == null) {
-            return false;
-        }
+        requireNonNull(person);
+        requireNonNull(keyword);
+        requireNonNull(searchType);
 
-        if (searchType == null) {
-            logger.severe("SearchType cannot be null - possible programming error in FindCommand");
-            throw new IllegalArgumentException("SearchType cannot be null");
+        if (keyword.isEmpty()) {
+            return false;
         }
 
         switch (searchType) {
-        case NAME:
-            return matchNameField(person, keyword);
-        case PHONE:
-            return matchPhoneField(person, keyword);
-        case EMAIL:
-            return matchEmailField(person, keyword);
-        case ADDRESS:
-            return matchAddressField(person, keyword);
-        case TAG:
-            return matchTagField(person, keyword);
-        case BOOKING_DATE:
-            return matchBookingDateField(person, keyword);
-        case BOOKING_PROPERTY:
-            return matchBookingPropertyField(person, keyword);
-        case MEMO:
-            return matchMemoField(person, keyword);
-        default:
-            logger.warning("Unknown SearchType encountered: " + searchType);
-            return false;
+            case NAME:
+                return matchNameField(person, keyword);
+            case PHONE:
+                return matchPhoneField(person, keyword);
+            case EMAIL:
+                return matchEmailField(person, keyword);
+            case ADDRESS:
+                return matchAddressField(person, keyword);
+            case TAG:
+                return matchTagField(person, keyword);
+            case BOOKING_DATE:
+                return matchBookingDateField(person, keyword);
+            case BOOKING_PROPERTY:
+                return matchBookingPropertyField(person, keyword);
+            case MEMO:
+                return matchMemoField(person, keyword);
+            default:
+                logger.warning("Unknown SearchType encountered: " + searchType);
+                return false;
         }
     }
 
     /**
      * Matches a person's name against a keyword
+     *
+     * @param person The person to check
+     * @param keyword The (lowercase) keyword to match against
+     * @return true if the person's name contains the keyword, false otherwise
      */
     private boolean matchNameField(Person person, String keyword) {
         return person.getName() != null && person.getName().fullName != null
@@ -161,6 +152,10 @@ public class FindCommand extends Command {
 
     /**
      * Matches a person's phone against a keyword
+     *
+     * @param person The person to check
+     * @param keyword The (lowercase) keyword to match against
+     * @return true if the person's phone contains the keyword, false otherwise
      */
     private boolean matchPhoneField(Person person, String keyword) {
         return person.getPhone() != null
@@ -170,6 +165,10 @@ public class FindCommand extends Command {
 
     /**
      * Matches a person's email against a keyword
+     *
+     * @param person The person to check
+     * @param keyword The (lowercase) keyword to match against
+     * @return true if the person's email contains the keyword, false otherwise
      */
     private boolean matchEmailField(Person person, String keyword) {
         return person.getEmail() != null
@@ -179,6 +178,10 @@ public class FindCommand extends Command {
 
     /**
      * Matches a person's address against a keyword
+     *
+     * @param person The person to check
+     * @param keyword The (lowercase) keyword to match against
+     * @return true if the person's address contains the keyword, false otherwise
      */
     private boolean matchAddressField(Person person, String keyword) {
         return person.getAddress() != null && person.getAddress().value != null
@@ -187,6 +190,10 @@ public class FindCommand extends Command {
 
     /**
      * Matches a person's tags against a keyword
+     *
+     * @param person The person to check
+     * @param keyword The (lowercase) keyword to match against
+     * @return true if any of the person's tags contain the keyword, false otherwise
      */
     private boolean matchTagField(Person person, String keyword) {
         if (person.getTags() == null) {
@@ -201,9 +208,16 @@ public class FindCommand extends Command {
 
     /**
      * Matches a person's booking tags based on date against a keyword
+     *
+     * @param person The person to check
+     * @param keyword The (lowercase) keyword to match against (date string)
+     * @return true if any of the person's booking tags include the date, false otherwise
      */
     private boolean matchBookingDateField(Person person, String keyword) {
-        if (person == null || keyword == null || keyword.isEmpty() || person.getBookingTags() == null) {
+        requireNonNull(person);
+        requireNonNull(keyword);
+
+        if (keyword.isEmpty() || person.getBookingTags() == null || person.getBookingTags().isEmpty()) {
             return false;
         }
 
@@ -214,23 +228,37 @@ public class FindCommand extends Command {
 
     /**
      * Matches a person's booking tags based on property name against a keyword
+     *
+     * @param person The person to check
+     * @param keyword The (lowercase) keyword to match against
+     * @return true if any of the person's booking property names contain the keyword, false otherwise
      */
     private boolean matchBookingPropertyField(Person person, String keyword) {
-        if (person == null || keyword == null || keyword.isEmpty() || person.getBookingTags() == null) {
+        requireNonNull(person);
+        requireNonNull(keyword);
+
+        if (keyword.isEmpty() || person.getBookingTags() == null || person.getBookingTags().isEmpty()) {
             return false;
         }
 
         return person.getBookingTags().stream()
                 .filter(Objects::nonNull)
                 .anyMatch(bookingTag -> bookingTag.bookingTagName != null
-                        && bookingTag.bookingTagName.toLowerCase().contains(keyword));
+                        && bookingTag.bookingTagName.toLowerCase().contains(keyword.toLowerCase()));
     }
 
     /**
      * Matches a person's memo against a keyword
+     *
+     * @param person The person to check
+     * @param keyword The (lowercase) keyword to match against
+     * @return true if the person's memo contains the keyword, false otherwise
      */
     private boolean matchMemoField(Person person, String keyword) {
-        if (person == null || keyword == null || keyword.isEmpty() || person.getMemo() == null
+        requireNonNull(person);
+        requireNonNull(keyword);
+
+        if (keyword.isEmpty() || person.getMemo() == null
                 || person.getMemo().value == null || person.getMemo().value.isEmpty()) {
             return false;
         }
@@ -240,17 +268,20 @@ public class FindCommand extends Command {
 
     /**
      * Checks if a date is within a booking period
-     * @param dateString the date string to check in yyyy-MM-dd format
-     * @param bookingTag the booking tag to check against
+     *
+     * @param dateString The date string to check in yyyy-MM-dd format
+     * @param bookingTag The booking tag to check against
      * @return true if the date is within the booking period, false otherwise
      */
     private boolean isDateInBookingPeriod(String dateString, BookingTag bookingTag) {
-        if (dateString == null || bookingTag == null || bookingTag.startDate == null || bookingTag.endDate == null) {
-            return false;
-        }
+        requireNonNull(dateString);
+        requireNonNull(bookingTag);
+        requireNonNull(bookingTag.startDate);
+        requireNonNull(bookingTag.endDate);
 
         try {
             LocalDate date = LocalDate.parse(dateString);
+            // Check if the date is on or after the start date and on or before the end date
             return !date.isBefore(bookingTag.startDate) && !date.isAfter(bookingTag.endDate);
         } catch (Exception e) {
             return false;
@@ -264,35 +295,28 @@ public class FindCommand extends Command {
      *
      * @param model the model to update with the filtered person list
      * @return a CommandResult containing a message with the number of persons found
-     * @throws CommandException if an error occurs during command execution or if search criteria is invalid
-     * @throws NullPointerException if model is null
+     * @throws CommandException if an error occurs during command execution
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        try {
-            Predicate<Person> combinedPredicate = createCombinedPredicate();
-            model.updateFilteredPersonList(combinedPredicate);
-            int resultCount = model.getPersonList().size();
+        Predicate<Person> predicate = getPredicate();
+        model.updateFilteredPersonList(predicate);
 
-            return new CommandResult(
-                    String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, resultCount));
-        } catch (IllegalArgumentException e) {
-            logger.severe("Error executing find command: " + e.getMessage());
-            throw new CommandException(e.getMessage() + Emoticons.ANGRY + "\n" + MESSAGE_USAGE);
-        }
+        return new CommandResult(
+                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getPersonList().size()));
     }
 
-    /**
-     * Checks if this FindCommand is equal to the specified object.
-     * @return true if the objects are equal, false otherwise
-     */
+
     @Override
     public boolean requireConfirmation() {
         return false;
     }
 
+    /**
+     * Checks if this FindCommand is equal to the specified object.
+     */
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -309,7 +333,6 @@ public class FindCommand extends Command {
 
     /**
      * Returns a string representation of this FindCommand.
-     * @return a string representation of this FindCommand
      */
     @Override
     public String toString() {

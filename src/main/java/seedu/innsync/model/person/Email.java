@@ -30,7 +30,8 @@ public class Email {
     private static final String DOMAIN_LAST_PART_REGEX = "(" + DOMAIN_PART_REGEX + "){2,}$"; // At least two chars
     private static final String DOMAIN_REGEX = "(" + DOMAIN_PART_REGEX + "\\.)*" + DOMAIN_LAST_PART_REGEX;
     public static final String VALIDATION_REGEX = LOCAL_PART_REGEX + "@" + DOMAIN_REGEX;
-
+    public static final String REGEX_NOT_EMPTY = "^(?!\\s)(?=.*\\S).*$";
+    public static final String MESSAGE_EMPTY = "Error: Email cannot be empty.";
     public final String value;
 
     /**
@@ -40,7 +41,7 @@ public class Email {
      */
     public Email(String email) {
         requireNonNull(email);
-        checkArgument(isValidEmail(email), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidEmail(email), getErrorMessage(email));
         value = email;
     }
 
@@ -48,8 +49,19 @@ public class Email {
      * Returns if a given string is a valid email.
      */
     public static boolean isValidEmail(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && test.matches(REGEX_NOT_EMPTY);
     }
+
+    /**
+     * Determines the specific error message based on the invalid request name.
+     */
+    public static String getErrorMessage(String test) {
+        if (!test.matches(REGEX_NOT_EMPTY)) {
+            return MESSAGE_EMPTY;
+        }
+        return MESSAGE_CONSTRAINTS;
+    }
+
 
     @Override
     public String toString() {
