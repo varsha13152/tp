@@ -76,10 +76,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         if (searchCriteria.isEmpty()) {
-
-
-            throw new ParseException(Messages.MESSAGE_INVALID_COMMAND_FORMAT + " " + Emoticons.ANGRY + "\n"
-                    + FindCommand.MESSAGE_USAGE);
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
         return new FindCommand(searchCriteria);

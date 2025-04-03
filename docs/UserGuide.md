@@ -1,9 +1,3 @@
----
-  layout: default.md
-    title: "User Guide"
-    pageNav: 3
----
-
 # InnSync User Guide
 
 ## Welcome to the InnSync User Guide
@@ -222,7 +216,7 @@ Essentially, they are to be supplied by the user.
 | `BOOKING_PROPERTY` | `bp/`  | Specifies the booking property for searching. <br><br> **Requirements:** <ul><li>Can be any valid property name or partial name.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | `TAG`              | `t/`   | Specifies the tag name of a guest. <br><br> **Requirements:** <ul><li>Tags can take any values.</li><li>Tags cannot be null.</li><li>Tags cannot exceed 170 characters.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | `INDEX`            | N/A    | Refers to the index number shown in the List Panel. <br><br> **Requirements:** <ul><li>Must be a positive integer.</li><li>The value must fall within the valid range (1 to number of guests in the list).</li></ul>                                                                                                                                                                                                                                                                                                                                                                                             |
-| `REQUEST_INDEX`    | `r/`   | Refers to the index number shown in the Request panel. <br><br> **Requirements:** Requirements: <ul> <li>Must be a positive integer.</li> <li>Any number greater than the valid range will not be accepted (e.g., if there are 10 requests, the valid range is from 1 to 10, and 11 or higher is invalid).</li> <li>The value must fall within the valid range of unsigned integer max number.</li> <li>Unsigned Integer Max Number: For example, this app uses 32-bit integers, the maximum value would be <strong>2,147,483,647</strong>. Any index greater than this number would not be accepted.</li> </ul> |   
+| `REQUEST_INDEX`    | `r/`   | Refers to the index number shown in the Request panel. <br><br> **Requirements:** Requirements: <ul> <li>Must be a positive integer.</li> <li>Any number greater than the valid range will not be accepted (e.g., if there are 10 requests, the valid range is from 1 to 10, and 11 or higher is invalid).</li> <li>The value must fall within the valid range of unsigned integer max number.</li> <li>Unsigned Integer Max Number: For example, this app uses 32-bit integers, the maximum value would be <strong>2,147,483,647</strong>. Any index greater than this number would not be accepted.</li> </ul> |
 
 #### 3.3.3 Command Format:
 
@@ -273,7 +267,7 @@ e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 ## 4. Features
 ## 4.1 Command Summary
-                                                                                                                                                                                                                                                                                          |                                                                                                                                                                                                                                                                                                     |
+
 | Action                 | Format, Examples                                                                                                                                                                                                                                                                                   |
 |------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add Guest**          | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/+82 22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`                                                                                                                          |
@@ -514,7 +508,7 @@ Format: `find [n/KEYWORD]... [p/KEYWORD]... [e/KEYWORD]... [a/KEYWORD]... [t/KEY
 * Searches match by containment (e.g., `n/han` will match `Hans`).
 * When multiple keywords are provided for a single field type (e.g., `n/john n/doe`), visitors matching ANY of those keywords will be returned.
 * When multiple field types are specified (e.g., `n/john p/9123`), visitors matching ANY of the specified fields will be returned.
-* Each search term is treated as a complete phrase. 
+* Each search term is treated as a complete phrase.
 
 #### Search Modes:
 
