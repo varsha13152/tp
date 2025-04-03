@@ -1,9 +1,3 @@
----
-  layout: default.md
-    title: "User Guide"
-    pageNav: 3
----
-
 # InnSync User Guide
 
 ## Welcome to the InnSync User Guide
@@ -222,7 +216,7 @@ Essentially, they are to be supplied by the user.
 | `BOOKING_PROPERTY` | `bp/`  | Specifies the booking property for searching. <br><br> **Requirements:** <ul><li>Can be any valid property name or partial name.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | `TAG`              | `t/`   | Specifies the tag name of a guest. <br><br> **Requirements:** <ul><li>Tags can take any values.</li><li>Tags cannot be null.</li><li>Tags cannot exceed 170 characters.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | `INDEX`            | N/A    | Refers to the index number shown in the List Panel. <br><br> **Requirements:** <ul><li>Must be a positive integer.</li><li>The value must fall within the valid range (1 to number of guests in the list).</li></ul>                                                                                                                                                                                                                                                                                                                                                                                             |
-| `REQUEST_INDEX`    | `r/`   | Refers to the index number shown in the Request panel. <br><br> **Requirements:** Requirements: <ul> <li>Must be a positive integer.</li> <li>Any number greater than the valid range will not be accepted (e.g., if there are 10 requests, the valid range is from 1 to 10, and 11 or higher is invalid).</li> <li>The value must fall within the valid range of unsigned integer max number.</li> <li>Unsigned Integer Max Number: For example, this app uses 32-bit integers, the maximum value would be <strong>2,147,483,647</strong>. Any index greater than this number would not be accepted.</li> </ul> |   
+| `REQUEST_INDEX`    | `r/`   | Refers to the index number shown in the Request panel. <br><br> **Requirements:** Requirements: <ul> <li>Must be a positive integer.</li> <li>Any number greater than the valid range will not be accepted (e.g., if there are 10 requests, the valid range is from 1 to 10, and 11 or higher is invalid).</li> <li>The value must fall within the valid range of unsigned integer max number.</li> <li>Unsigned Integer Max Number: For example, this app uses 32-bit integers, the maximum value would be <strong>2,147,483,647</strong>. Any index greater than this number would not be accepted.</li> </ul> |
 
 #### 3.3.3 Command Format:
 
@@ -279,14 +273,14 @@ To understand how a full command is interpreted, we will utilise the following e
 | **Add Guest**          | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/+82 22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`                                                                                                                                        |
 | **Edit Guest**         | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                                                                                                                                      |
 | **List Guest**         | `list`                                                                                                                                                                                                                                                                                                           |
-| **Delete Guest**       | `delete INDEX`<br> e.g., `delete 3`  <br/>                                                                                                                                                                                                                                                                       | 
+| **Delete Guest**       | `delete INDEX`<br> e.g., `delete 3`  <br/>                                                                                                                                                                                                                                                                       |
 | **Star Guest**         | `star INDEX` <br> e.g., `star 1`                                                                                                                                                                                                                                                                                 |
 | **Unstar Guest**       | `unstar INDEX` <br> e.g., `unstar 1`                                                                                                                                                                                                                                                                             |
 | **List Starred Guest** | `liststar`                                                                                                                                                                                                                                                                                                       |
 | **Tag Guest**          | `tag INDEX t/TAG` <br> e.g., `tag 1 t/friend` or <br/> `tag INDEX b/PROPERTY from/yyyy-MM-dd to/yyyy-MM-dd` <br> e.g., `tag 1 b/Hotel from/2025-10-10 to/2025-10-11`                                                                                                                                  |
 | **Untag Guest**        | `untag INDEX t/TAG` <br> e.g., `untag 1 t/TEST` or <br/> `untag INDEX b/PROPERTY from/START_DATE to/END_DATE` <br> e.g., `untag 1 b/Hotel from/2025-10-10 to/2025-10-11`                                                                                                                                              |
 | **Add Request**        | `req INDEX r/REQUEST` <br> e.g., `req 1 r/REQUEST`                                                                                                                                                                                                                                                               | |
-| **Mark Request**       | `mark INDEX r/REQUEST_INDEX` <br> e.g., `mark 1 r/1`                                                                                                                                                                                                                                                                 | | 
+| **Mark Request**       | `mark INDEX r/REQUEST_INDEX` <br> e.g., `mark 1 r/1`                                                                                                                                                                                                                                                                 | |
 | **Unmark Request**     | `unmark INDEX r/REQUEST_INDEX` <br> e.g., `unmark 1 r/1`                                                                                                                                                                                                                                                               | |
 | **Delete Request**     | `deletereq INDEX r/REQUEST_INDEX` <br> e.g. `deletereq 1 r/1`                                                                                                                                                                                                                                                            |  |
 | **Memo Guest**         | `memo INDEX m/MEMO` <br/> e.g., `memo 1 m/TEST`                                                                                                                                                                                                                                                                  | |
@@ -452,7 +446,7 @@ Marks a request as completed for a specific visitor in the address book.
 
 Format: `mark INDEX r/REQUEST_INDEX`
 
-* Marks the request specified by 'REQUEST_INDEX' for the visitor at 'INDEX' as completed. 
+* Marks the request specified by 'REQUEST_INDEX' for the visitor at 'INDEX' as completed.
 * The INDEX refers to the index number shown in the displayed visitor list. The index **must be a positive integer**.
 * The REQUEST_INDEX refers to the index number of the request in the visitor's request list. The REQUEST_INDEX **must be a positive integer**.
 
@@ -514,7 +508,7 @@ Format: `find [n/KEYWORD]... [p/KEYWORD]... [e/KEYWORD]... [a/KEYWORD]... [t/KEY
 * Searches match by containment (e.g., `n/han` will match `Hans`).
 * When multiple keywords are provided for a single field type (e.g., `n/john n/doe`), visitors matching ANY of those keywords will be returned.
 * When multiple field types are specified (e.g., `n/john p/9123`), visitors matching ANY of the specified fields will be returned.
-* Each search term is treated as a complete phrase. 
+* Each search term is treated as a complete phrase.
 
 #### Search Modes:
 
