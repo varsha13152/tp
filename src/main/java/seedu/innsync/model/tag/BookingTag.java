@@ -101,13 +101,13 @@ public class BookingTag {
         LocalDate startDate;
         LocalDate endDate;
         try {
-            startDate = LocalDate.parse(parts[1], DATE_FORMATTER);
+            startDate = parseDate(parts[1]);
         } catch (DateTimeParseException e) {
             errorMessage = MESSAGE_STARTDATE_INVALID;
             return false;
         }
         try {
-            endDate = LocalDate.parse(parts[2], DATE_FORMATTER);
+            endDate = parseDate(parts[2]);
         } catch (DateTimeParseException e) {
             errorMessage = MESSAGE_STARTDATE_INVALID;
             return false;
@@ -118,6 +118,19 @@ public class BookingTag {
         }
 
         return true;
+    }
+
+    private static LocalDate parseDate(String date) throws DateTimeParseException {
+        LocalDate parsedDate;
+
+        parsedDate = LocalDate.parse(date, DATE_FORMATTER);
+
+        // leap year check
+        if (parsedDate.getDayOfMonth() != Integer.parseInt(date.substring(8, 10))) {
+            throw new DateTimeParseException("Invalid date", date, 0);
+        }
+
+        return parsedDate;
     }
 
     public String getFullBookingTag() {
