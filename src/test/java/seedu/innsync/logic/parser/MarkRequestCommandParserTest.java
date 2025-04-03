@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.MarkRequestCommand;
-import seedu.innsync.logic.commands.UnmarkRequestCommand;
 
 public class MarkRequestCommandParserTest {
 

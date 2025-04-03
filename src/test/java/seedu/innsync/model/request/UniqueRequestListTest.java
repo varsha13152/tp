@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_REQUEST_AMY;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_REQUEST_BOB;
-import static seedu.innsync.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.innsync.testutil.Assert.assertThrows;
 
 import java.util.Arrays;
@@ -16,8 +15,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.innsync.model.request.exceptions.DuplicateRequestException;
 import seedu.innsync.model.request.exceptions.RequestNotFoundException;
-import seedu.innsync.model.tag.exceptions.TagNotFoundException;
-
 
 public class UniqueRequestListTest {
 

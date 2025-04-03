@@ -9,7 +9,6 @@ import static seedu.innsync.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import org.junit.jupiter.api.Test;
 
 import seedu.innsync.logic.Messages;
-import seedu.innsync.logic.commands.TagCommand;
 import seedu.innsync.logic.commands.UntagCommand;
 import seedu.innsync.model.tag.Tag;
 
