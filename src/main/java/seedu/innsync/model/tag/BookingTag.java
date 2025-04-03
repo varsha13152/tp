@@ -135,10 +135,6 @@ public class BookingTag {
         return bookingTagName + " from/" + startDate.format(DATE_FORMATTER) + " to/" + endDate.format(DATE_FORMATTER);
     }
 
-    public static String getErrorMessage() {
-        return BookingTag.errorMessage;
-    }
-
     @Override
     public boolean equals(Object other) {
         if (other == this) {
