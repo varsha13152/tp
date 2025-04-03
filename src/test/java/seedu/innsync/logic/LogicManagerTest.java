@@ -19,7 +19,6 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.innsync.logic.commands.AddCommand;
 import seedu.innsync.logic.commands.CommandResult;
-import seedu.innsync.logic.commands.DeleteCommand;
 import seedu.innsync.logic.commands.ListCommand;
 import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.logic.parser.exceptions.ParseException;
