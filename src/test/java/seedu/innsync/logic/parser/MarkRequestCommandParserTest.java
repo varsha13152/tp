@@ -1,6 +1,7 @@
 package seedu.innsync.logic.parser;
 
 import static seedu.innsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.innsync.logic.Messages.MESSAGE_PARSE_EXCEPTION;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_REQUEST;
 import static seedu.innsync.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.innsync.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -32,5 +33,19 @@ public class MarkRequestCommandParserTest {
     public void parse_multipleRequest_throwsParseException() {
         assertParseFailure(parser, "1 " + PREFIX_REQUEST + "1 " + PREFIX_REQUEST + "2",
                 String.format(Messages.getErrorMessageForDuplicatePrefixes(CliSyntax.PREFIX_REQUEST)));
+    }
+
+    @Test
+    public void parse_invalidIndex_throwsParseException() {
+        assertParseFailure(parser, "a r/1", String.format(MESSAGE_PARSE_EXCEPTION,
+                ParserUtil.MESSAGE_INVALID_INDEX,
+                MarkRequestCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_invalidRequestIndex_throwsParseException() {
+        String exceedMaxInt = "2147483648";
+        assertParseFailure(parser, "1 r/" + exceedMaxInt, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                MarkRequestCommand.MESSAGE_USAGE));
     }
 }
