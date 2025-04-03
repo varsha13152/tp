@@ -109,9 +109,7 @@ public class UniqueTagList {
 
     @Override
     public String toString() {
-        return internalList.stream()
-                .map(Tag::toString)
-                .collect(Collectors.joining(", "));
+        return internalList.toString();
     }
 
     @Override

@@ -61,6 +61,16 @@ public class RequestCommandTest {
     }
 
     @Test
+    public void execute_validIndex_unsuccessful() throws CommandException {
+        Index indexFirstPerson = Index.fromOneBased(INDEX_SECOND_PERSON.getOneBased());
+        Person firstPerson = model.getPersonList().get(indexFirstPerson.getZeroBased());
+        Request validRequest = new Request(VALID_REQUEST_AMY);
+        List<Request> validRequests = List.of(validRequest, validRequest);
+        RequestCommand requestCommand = new RequestCommand(indexFirstPerson, validRequests);
+        assertCommandFailure(requestCommand, model, RequestCommand.MESSAGE_DUPLICATE_REQUEST);
+    }
+
+    @Test
     public void equals() {
         List<Request> firstRequestSet = new ArrayList<>();
         firstRequestSet.add(new Request("Need a bottle of champagne every morning"));

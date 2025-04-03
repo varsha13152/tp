@@ -19,6 +19,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.innsync.commons.core.index.Index;
+import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.AddressBook;
 import seedu.innsync.model.Model;
 import seedu.innsync.model.ModelManager;
@@ -111,6 +112,16 @@ public class TagCommandTest {
 
         firstPerson.clearTags();
         firstPerson.addTag(new Tag("friends"));
+    }
+
+    @Test
+    public void execute_validIndex_unsuccessful() throws CommandException {
+        // Index has needs to have friends tag (Index 1 has it)
+        Index indexFirstPerson = INDEX_FIRST_PERSON;
+        Tag validTag = new Tag("friends");
+        Set<Tag> validTags = Set.of(validTag);
+        TagCommand tagCommand = new TagCommand(indexFirstPerson, validTags, null);
+        assertCommandFailure(tagCommand, model, TagCommand.MESSAGE_DUPLICATE_TAG);
     }
 
 

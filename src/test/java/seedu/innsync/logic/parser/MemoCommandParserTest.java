@@ -37,6 +37,12 @@ public class MemoCommandParserTest {
     }
 
     @Test
+    public void parse_invalidIndex_throwsParseException() {
+        assertParseFailure(parser, "-1 m/", String.format(Messages.MESSAGE_PARSE_EXCEPTION,
+                ParserUtil.MESSAGE_INVALID_INDEX, MemoCommand.MESSAGE_USAGE));
+    }
+
+    @Test
     public void parse_mutipleMemos_throwsParseException() {
         assertParseFailure(parser, "1 m/test1 m/test2 m/test3",
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_MEMO));
