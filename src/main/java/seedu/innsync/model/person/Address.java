@@ -11,10 +11,10 @@ public class Address {
 
     public static final String MESSAGE_EMPTY = "Error: Address can take any value and it should not be empty.";
     public static final String MESSAGE_LENGTH = "Error: Address can take any value "
-            + "and should not exceed 170 characters.";
+            + "and should not exceed 500 characters.";
 
     public static final String REGEX_NOT_EMPTY = "^.+$"; // Ensures non-empty string
-    public static final String REGEX_MAX_LENGTH = "^.{1,170}$"; // Ensures length <= 170
+    public static final String REGEX_MAX_LENGTH = "^.{1,500}$"; // Ensures length <= 170
 
     public final String value;
 

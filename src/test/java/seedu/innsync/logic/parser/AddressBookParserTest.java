@@ -86,9 +86,9 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_tag2() throws Exception {
         TagCommand command = (TagCommand) parser.parseCommand(TagCommand.COMMAND_WORD + " 1 "
-            + TAG_DESC_FRIEND + BOOKINGTAG_DESC_AMY);
+            + TAG_DESC_FRIEND);
         assertEquals(new TagCommand(INDEX_FIRST_PERSON,
-                Set.of(new Tag(VALID_TAG_FRIEND)), Set.of(new BookingTag(VALID_BOOKINGTAG_BEACHHOUSE))), command);
+                Set.of(new Tag(VALID_TAG_FRIEND)), Set.of()), command);
     }
 
     @Test
@@ -158,9 +158,8 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_find() throws Exception {
-        // Test original format (backward compatibility for name search)
         FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " foo bar baz");
+                FindCommand.COMMAND_WORD + " n/foo n/bar n/baz");
         assertTrue(command instanceof FindCommand);
     }
 

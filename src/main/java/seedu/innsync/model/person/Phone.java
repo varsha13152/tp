@@ -16,6 +16,8 @@ public class Phone {
             at least 7 digits long and at most 15 digits long.
             """;
     public static final String VALIDATION_REGEX = "\\+\\d{1,3}\\s(?:\\d\\s?){6,14}\\d";
+    public static final String REGEX_NOT_EMPTY = "^(?!\\s)(?=.*\\S).*$";
+    public static final String MESSAGE_EMPTY = "Error: Phone cannot be empty.";
     private static final CountryCodeUtil COUNTRY_CODE_UTIL = new CountryCodeUtil();
     public final String value;
 
@@ -26,7 +28,7 @@ public class Phone {
      */
     public Phone(String phone) {
         requireNonNull(phone);
-        checkArgument(isValidPhone(phone), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidPhone(phone), getErrorMessage(phone));
         this.value = phone;
     }
 
@@ -36,12 +38,24 @@ public class Phone {
     public static boolean isValidPhone(String test) {
         String[] parsed = test.split(" ", 2);
         String code = parsed[0];
-        return test.matches(VALIDATION_REGEX) && COUNTRY_CODE_UTIL.existsCountryCode(code);
+        return test.matches(REGEX_NOT_EMPTY) && test.matches(VALIDATION_REGEX)
+                && COUNTRY_CODE_UTIL.existsCountryCode(code);
     }
 
     @Override
     public String toString() {
         return this.value;
+    }
+
+    /**
+     * Determines the specific error message based on the invalid  phone.
+     */
+    public static String getErrorMessage(String test) {
+        if (!test.matches(REGEX_NOT_EMPTY)) {
+            return MESSAGE_EMPTY;
+        }
+        System.out.println("Returning MESSAGE_CONSTRAINTS");
+        return MESSAGE_CONSTRAINTS;
     }
 
     @Override
@@ -50,7 +64,6 @@ public class Phone {
             return true;
         }
 
-        // instanceof handles nulls
         if (!(other instanceof Phone)) {
             return false;
         }

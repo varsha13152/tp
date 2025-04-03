@@ -11,7 +11,6 @@ public class ConfirmCommandParser {
      * Parses the user input and returns a ConfirmCommand to be executed.
      */
     public boolean parse(String userInput) throws ParseException {
-        boolean isConfirmed = userInput.trim().toLowerCase().equals("y");
-        return isConfirmed;
+        return userInput.trim().toLowerCase().equals("y");
     }
 }
