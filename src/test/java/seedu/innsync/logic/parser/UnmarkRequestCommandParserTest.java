@@ -31,16 +31,16 @@ public class UnmarkRequestCommandParserTest {
 
     @Test
     public void parse_invalidIndex_throwsParseException() {
-        final String EXCEED_MAX_INT = "2147483648";
-        assertParseFailure(parser, EXCEED_MAX_INT + " r/1", String.format(MESSAGE_PARSE_EXCEPTION,
+        String exceedMaxInt = "2147483648";
+        assertParseFailure(parser, exceedMaxInt + " r/1", String.format(MESSAGE_PARSE_EXCEPTION,
                 ParserUtil.MESSAGE_INVALID_INDEX,
                 UnmarkRequestCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_invalidRequestIndex_throwsParseException() {
-        final String EXCEED_MAX_INT = "2147483648";
-        assertParseFailure(parser, "1 r/" + EXCEED_MAX_INT, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+        String exceedMaxInt = "2147483648";
+        assertParseFailure(parser, "1 r/" + exceedMaxInt, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 UnmarkRequestCommand.MESSAGE_USAGE));
     }
 
@@ -50,3 +50,4 @@ public class UnmarkRequestCommandParserTest {
                 String.format(Messages.getErrorMessageForDuplicatePrefixes(PREFIX_REQUEST)));
     }
 }
+

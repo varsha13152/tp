@@ -123,7 +123,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setRequests_requestNotInAddressBook_returnsTrue(){
+    public void setRequests_requestNotInAddressBook_returnsTrue() {
         Request validRequest = new Request(VALID_REQUEST_AMY);
         modelManager.setRequests(List.of(validRequest));
         assertTrue(modelManager.getRequest(validRequest).equals(validRequest));

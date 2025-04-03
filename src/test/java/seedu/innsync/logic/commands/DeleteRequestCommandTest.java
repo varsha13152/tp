@@ -3,8 +3,6 @@ package seedu.innsync.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.innsync.logic.commands.CommandTestUtil.VALID_MEMO_AMY;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_REQUEST_AMY;
 import static seedu.innsync.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.innsync.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -23,7 +21,6 @@ import seedu.innsync.model.AddressBook;
 import seedu.innsync.model.Model;
 import seedu.innsync.model.ModelManager;
 import seedu.innsync.model.UserPrefs;
-import seedu.innsync.model.person.Memo;
 import seedu.innsync.model.person.Person;
 import seedu.innsync.model.request.Request;
 import seedu.innsync.testutil.PersonBuilder;
@@ -136,8 +133,8 @@ public class DeleteRequestCommandTest {
     public void toStringMethod() {
         Index targetIndex = Index.fromOneBased(1);
         DeleteRequestCommand deleteRequestCommand = new DeleteRequestCommand(targetIndex, targetIndex);
-        String expected = DeleteRequestCommand.class.getCanonicalName() + "{contactIndex=" + targetIndex +
-                ", requestIndex=" + targetIndex + "}";
+        String expected = DeleteRequestCommand.class.getCanonicalName() + "{contactIndex=" + targetIndex
+                + ", requestIndex=" + targetIndex + "}";
         assertEquals(expected, deleteRequestCommand.toString());
     }
 
@@ -148,3 +145,4 @@ public class DeleteRequestCommandTest {
         assertFalse(deleteRequestCommand.requireConfirmation());
     }
 }
+

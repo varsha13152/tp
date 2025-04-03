@@ -1,18 +1,19 @@
 package seedu.innsync.model.tag;
 
-import org.junit.jupiter.api.Test;
-import seedu.innsync.model.tag.exceptions.DuplicateTagException;
-import seedu.innsync.model.tag.exceptions.TagNotFoundException;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.innsync.testutil.Assert.assertThrows;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.innsync.model.tag.exceptions.DuplicateTagException;
+import seedu.innsync.model.tag.exceptions.TagNotFoundException;
 
 
 public class UniqueTagListTest {

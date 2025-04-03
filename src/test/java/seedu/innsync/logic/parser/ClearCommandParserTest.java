@@ -1,15 +1,12 @@
 package seedu.innsync.logic.parser;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
-import seedu.innsync.logic.Messages;
+
 import seedu.innsync.logic.commands.ClearCommand;
-import seedu.innsync.logic.commands.StarCommand;
 import seedu.innsync.logic.parser.exceptions.ParseException;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.innsync.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.innsync.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.innsync.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
