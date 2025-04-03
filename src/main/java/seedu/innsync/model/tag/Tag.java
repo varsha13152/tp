@@ -1,12 +1,12 @@
 package seedu.innsync.model.tag;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.innsync.commons.util.AppUtil.checkAllValidationRules;
+import static seedu.innsync.commons.util.AppUtil.checkAllRules;
 
 import java.util.List;
-import java.util.function.Function;
 
-import javafx.util.Pair;
+import seedu.innsync.commons.core.rule.Rule;
+import seedu.innsync.commons.core.rule.RuleList;
 import seedu.innsync.logic.Messages;
 
 /**
@@ -22,10 +22,10 @@ public class Tag {
     public static final String REGEX_NOT_EMPTY = "^.+$"; // Ensures non-empty string
     public static final String REGEX_MAX_LENGTH = "^.{1,170}$"; // Ensures length <= 170
 
-    public static final List<Pair<Function<String, Boolean>, String>> VALIDATION_RULES = List.of(
-            new Pair<>(Tag::notEmptyTagName, MESSAGE_EMPTY),
-            new Pair<>(Tag::notMaxLengthTagName, MESSAGE_LENGTH)
-    );
+    public static final RuleList VALIDATION_RULES = new RuleList(List.of(
+            Rule.ofRegex(REGEX_NOT_EMPTY, MESSAGE_EMPTY),
+            Rule.ofRegex(REGEX_MAX_LENGTH, MESSAGE_LENGTH)
+    ));
 
     public final String tagName;
     private int tagCount;
@@ -37,30 +37,22 @@ public class Tag {
      */
     public Tag(String tagName) {
         requireNonNull(tagName);
-        checkAllValidationRules(tagName, VALIDATION_RULES);
+        checkAllRules(tagName, VALIDATION_RULES);
         this.tagName = tagName;
         this.tagCount = 0;
     }
 
     /**
      * Returns true if a given string is a valid tag name.
+     *
+     * @param test The string to be validated.
+     * @throws IllegalArgumentException if the string does not pass any of the validation rules.
+     * @return true if the string is a valid tag name.
      */
-    public static boolean isValidTagName(String test) {
+    public static boolean isValidTagName(String test) throws IllegalArgumentException {
         requireNonNull(test);
-        try {
-            checkAllValidationRules(test, VALIDATION_RULES);
-        } catch (IllegalArgumentException e) {
-            return false;
-        }
+        checkAllRules(test, VALIDATION_RULES);
         return true;
-    }
-
-    private static boolean notEmptyTagName(String test) {
-        return test.matches(REGEX_NOT_EMPTY);
-    }
-
-    private static boolean notMaxLengthTagName(String test) {
-        return test.matches(REGEX_MAX_LENGTH);
     }
 
     public String getTagName() {

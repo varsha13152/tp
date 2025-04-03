@@ -2,12 +2,9 @@ package seedu.innsync.commons.util;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
-import java.util.function.Function;
-
 import javafx.scene.image.Image;
-import javafx.util.Pair;
 import seedu.innsync.MainApp;
+import seedu.innsync.commons.core.rule.RuleList;
 
 /**
  * A container for App specific utility functions
@@ -51,13 +48,22 @@ public class AppUtil {
      * @param validationRules
      * @throws IllegalArgumentException if any of the validation rules fail.
      */
-    public static void checkAllValidationRules(String test,
-            List<Pair<Function<String, Boolean>, String>> validationRules) {
+    public static void checkAllRules(String test, RuleList validationRules) {
         requireNonNull(test);
-        for (Pair<Function<String, Boolean>, String> rule : validationRules) {
-            if (!rule.getKey().apply(test)) {
-                throw new IllegalArgumentException(rule.getValue());
-            }
-        }
+        requireNonNull(validationRules);
+        validationRules.checkAllRules(test);
+    }
+
+    /**
+     * Checks that {@code test} passes all validation rules in {@code validationRules}.
+     *
+     * @param test
+     * @param validationRules
+     * @throws IllegalArgumentException if any of the validation rules fail.
+     */
+    public static void checkAllRules(Object test, RuleList validationRules) {
+        requireNonNull(test);
+        requireNonNull(validationRules);
+        validationRules.checkAllRules(test);
     }
 }

@@ -7,9 +7,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Function;
 
-import javafx.util.Pair;
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.commons.util.StringUtil;
 import seedu.innsync.logic.commands.RequestCommand;
@@ -161,9 +159,13 @@ public class ParserUtil {
     public static BookingTag parseBookingTag(String bookingTag) throws ParseException {
         requireNonNull(bookingTag);
         String trimmedBookingTag = bookingTag.trim();
-        if (!BookingTag.isValidBookingTag(trimmedBookingTag)) {
-            throw new ParseException(BookingTag.MESSAGE_CONSTRAINTS);
+
+        try {
+            BookingTag.isValidBookingTag(trimmedBookingTag);
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(e.getMessage());
         }
+
         return new BookingTag(trimmedBookingTag);
     }
 
@@ -189,10 +191,10 @@ public class ParserUtil {
         requireNonNull(tag);
         String trimmedTag = tag.trim();
 
-        for (Pair<Function<String, Boolean>, String> rule : Tag.VALIDATION_RULES) {
-            if (!rule.getKey().apply(trimmedTag)) {
-                throw new ParseException(rule.getValue());
-            }
+        try {
+            Tag.isValidTagName(trimmedTag);
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(e.getMessage());
         }
 
         return new Tag(trimmedTag);

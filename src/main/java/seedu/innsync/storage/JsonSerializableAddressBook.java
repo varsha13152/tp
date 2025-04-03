@@ -1,7 +1,5 @@
 package seedu.innsync.storage;
 
-import static seedu.innsync.logic.commands.RequestCommand.MESSAGE_DUPLICATE_REQUEST;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
