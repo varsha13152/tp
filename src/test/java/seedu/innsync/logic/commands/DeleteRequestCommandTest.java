@@ -1,6 +1,7 @@
 package seedu.innsync.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_REQUEST_AMY;
 import static seedu.innsync.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -15,7 +16,6 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import seedu.innsync.commons.core.index.Index;
-import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.AddressBook;
 import seedu.innsync.model.Model;
@@ -51,7 +51,8 @@ public class DeleteRequestCommandTest {
 
         // Expected result is the original person without the request
         Person expectedPerson = new PersonBuilder(personToEdit).build();
-        String expectedMessage = String.format(DeleteRequestCommand.MESSAGE_SUCCESS, Messages.format(expectedPerson));
+        String expectedMessage = String.format(DeleteRequestCommand.MESSAGE_SUCCESS,
+                VALID_REQUEST_AMY, expectedPerson.getName());
 
         // Create expected model
         Model expectedModel = new ModelManager(new AddressBook(setupModel.getAddressBook()), new UserPrefs());
@@ -67,7 +68,7 @@ public class DeleteRequestCommandTest {
 
         DeleteRequestCommand deleteRequestCommand = new DeleteRequestCommand(outOfBoundIndex, validRequestIndex);
 
-        assertCommandFailure(deleteRequestCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteRequestCommand, model, DeleteRequestCommand.MESSAGE_FAILURE_INVALID_INDEX);
     }
 
     @Test
@@ -127,4 +128,21 @@ public class DeleteRequestCommandTest {
         // null -> returns false
         assertNotEquals(deleteFirstRequestCommand, null);
     }
+
+    @Test
+    public void toStringMethod() {
+        Index targetIndex = Index.fromOneBased(1);
+        DeleteRequestCommand deleteRequestCommand = new DeleteRequestCommand(targetIndex, targetIndex);
+        String expected = DeleteRequestCommand.class.getCanonicalName() + "{contactIndex=" + targetIndex
+                + ", requestIndex=" + targetIndex + "}";
+        assertEquals(expected, deleteRequestCommand.toString());
+    }
+
+    @Test
+    public void requireComfirmation_returnFalse() {
+        Index targetIndex = Index.fromOneBased(1);
+        DeleteRequestCommand deleteRequestCommand = new DeleteRequestCommand(targetIndex, targetIndex);
+        assertFalse(deleteRequestCommand.requireConfirmation());
+    }
 }
+

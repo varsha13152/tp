@@ -1,5 +1,6 @@
 package seedu.innsync.logic.commands;
 
+import seedu.innsync.logic.Emoticons;
 import seedu.innsync.model.Model;
 
 /**
@@ -12,7 +13,7 @@ public class HelpCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
+    public static final String SHOWING_HELP_MESSAGE = "Opened help window! " + Emoticons.PROUD;
 
     @Override
     public CommandResult execute(Model model) {

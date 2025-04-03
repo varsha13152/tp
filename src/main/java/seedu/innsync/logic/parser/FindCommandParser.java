@@ -1,18 +1,25 @@
 package seedu.innsync.logic.parser;
 
-import static seedu.innsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static java.util.Objects.requireNonNull;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_BOOKING_DATE;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_BOOKING_PROPERTY;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_MEMO;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+import seedu.innsync.logic.Emoticons;
+import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.FindCommand;
 import seedu.innsync.logic.commands.FindCommand.SearchType;
 import seedu.innsync.logic.parser.exceptions.ParseException;
@@ -21,499 +28,249 @@ import seedu.innsync.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a new FindCommand object
  */
 public class FindCommandParser implements Parser<FindCommand> {
-    private static final Pattern NAME_VALIDATION_REGEX = Pattern.compile("^.{1,170}$");
-    private static final Pattern PHONE_VALIDATION_REGEX = Pattern.compile("^\\+?[0-9]+$");
-    private static final Pattern EMAIL_VALIDATION_REGEX = Pattern.compile("^[a-zA-Z0-9~!$%^&*_=+}{'?.\\-@]+$");
-    private static final Pattern ADDRESS_VALIDATION_REGEX = Pattern.compile("^.{1,170}$");
-    private static final Pattern TAG_VALIDATION_REGEX = Pattern.compile("^.{1,170}$");
-    private static final Pattern BOOKING_DATE_VALIDATION_REGEX = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
-    private static final Pattern BOOKING_PROPERTY_VALIDATION_REGEX = Pattern.compile("^.{1,170}$");
-    private static final Pattern MEMO_VALIDATION_REGEX = Pattern.compile("^.{1,170}$");
+
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    private static final Pattern FIELD_PATTERN = Pattern.compile("([a-z]{1,2}/)((?:(?!\\s[a-z]{1,2}/).)*)");
-    private static final Pattern PREFIX_PATTERN = Pattern.compile("^(.*?)\\s*([a-z]{1,2}/.*)$");
-    private static final String VALID_FLAGS = "Valid prefixes are: \n name: n/ \n phone: p/ \n email: e/ \n"
-            + "address: a/ \n tag: t/ \n memo: m/ \n booking date: bd/ \n booking property: bp/";
+
+    /**
+     * Maps prefixes to their corresponding search types
+     */
+    private static final Map<Prefix, SearchType> PREFIX_TO_SEARCH_TYPE = Map.of(
+            PREFIX_NAME, SearchType.NAME,
+            PREFIX_PHONE, SearchType.PHONE,
+            PREFIX_EMAIL, SearchType.EMAIL,
+            PREFIX_ADDRESS, SearchType.ADDRESS,
+            PREFIX_TAG, SearchType.TAG,
+            PREFIX_MEMO, SearchType.MEMO,
+            PREFIX_BOOKING_DATE, SearchType.BOOKING_DATE,
+            PREFIX_BOOKING_PROPERTY, SearchType.BOOKING_PROPERTY
+    );
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
      * and returns a FindCommand object for execution.
      * @throws ParseException if the user input does not conform to the expected format
-     * @throws NullPointerException if args is null
      */
     public FindCommand parse(String args) throws ParseException {
-        validateArgsNotNull(args);
+        requireNonNull(args);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
+                args,
+                PREFIX_NAME,
+                PREFIX_PHONE,
+                PREFIX_EMAIL,
+                PREFIX_ADDRESS,
+                PREFIX_TAG,
+                PREFIX_MEMO,
+                PREFIX_BOOKING_DATE,
+                PREFIX_BOOKING_PROPERTY);
 
-        String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
-        }
-
-        // Legacy support for the old format: find KEYWORD [MORE_KEYWORDS]...
-        if (!trimmedArgs.contains("/")) {
-            return handleLegacyFormat(trimmedArgs);
-        }
-
-        // Check for keywords before first prefix (e.g., "bob a/clementi")
-        return handleModernFormat(trimmedArgs);
-    }
-
-    /**
-     * Validates that the arguments are not null.
-     */
-    private void validateArgsNotNull(String args) {
-        if (args == null) {
-            throw new NullPointerException("Arguments string cannot be null");
-        }
-    }
-
-    /**
-     * Handles the legacy format of the find command (e.g., "find bob alice")
-     */
-    private FindCommand handleLegacyFormat(String args) throws ParseException {
-        List<String> keywords = Arrays.asList(args.split("\\s+"));
-        validateKeywords(keywords, FindCommand.SearchType.NAME);
         Map<SearchType, List<String>> searchCriteria = new HashMap<>();
-        searchCriteria.put(SearchType.NAME, keywords);
-        return new FindCommand(searchCriteria);
-    }
 
-    /**
-     * Handles the modern format of the find command with prefixes.
-     */
-    private FindCommand handleModernFormat(String trimmedArgs) throws ParseException {
-        Matcher prefixMatcher = PREFIX_PATTERN.matcher(trimmedArgs);
-        if (prefixMatcher.matches()) {
-            String beforePrefix = prefixMatcher.group(1).trim();
-            String afterPrefix = prefixMatcher.group(2);
+        for (Map.Entry<Prefix, SearchType> entry : PREFIX_TO_SEARCH_TYPE.entrySet()) {
+            Prefix prefix = entry.getKey();
+            SearchType searchType = entry.getValue();
 
-            // If there are keywords before the first prefix, treat them as name search
-            if (!beforePrefix.isEmpty()) {
-                return handleMixedFormat(beforePrefix, afterPrefix);
+            List<String> prefixValues = argMultimap.getAllValues(prefix);
+            if (!prefixValues.isEmpty()) {
+                processPrefix(prefixValues, prefix, searchType, searchCriteria);
             }
-        }
-
-        // Parse multi-field format without leading unprefixed keywords
-        return parseMultiFieldSearch(trimmedArgs);
-    }
-
-    /**
-     * Handles mixed format where unprefixed keywords appear before prefixed ones.
-     */
-    private FindCommand handleMixedFormat(String beforePrefix, String afterPrefix) throws ParseException {
-        List<String> nameKeywords = new ArrayList<>(Arrays.asList(beforePrefix.split("\\s+")));
-        validateKeywords(nameKeywords, FindCommand.SearchType.NAME);
-
-        Map<SearchType, List<String>> searchCriteria = parseFieldsWithPrefixes(afterPrefix);
-
-        if (searchCriteria.containsKey(SearchType.NAME)) {
-            List<String> combinedList = new ArrayList<>(searchCriteria.get(SearchType.NAME));
-            combinedList.addAll(nameKeywords);
-            searchCriteria.put(SearchType.NAME, combinedList);
-        } else {
-            searchCriteria.put(SearchType.NAME, nameKeywords);
-        }
-
-        return new FindCommand(searchCriteria);
-    }
-
-    /**
-     * Parses fields with explicit prefixes (e.g., "a/clementi p/12345")
-     */
-    private Map<SearchType, List<String>> parseFieldsWithPrefixes(String args) throws ParseException {
-        Map<SearchType, List<String>> searchCriteria = new HashMap<>();
-        Matcher matcher = FIELD_PATTERN.matcher(args + " ");
-
-        if (!matcher.find()) {
-            throw new ParseException(
-                    "At least one valid search keyword must be provided. "
-                            + VALID_FLAGS);
-        }
-
-        matcher.reset();
-        processAllPrefixMatches(matcher, searchCriteria);
-
-        return searchCriteria;
-    }
-
-    /**
-     * Processes all prefix matches found by the matcher.
-     */
-    private void processAllPrefixMatches(Matcher matcher, Map<SearchType, List<String>> searchCriteria)
-            throws ParseException {
-        while (matcher.find()) {
-            String prefix = validatePrefix(matcher.group(1));
-            String keywordsString = validateKeywordsString(prefix, matcher.group(2));
-
-            SearchType searchType = getSearchTypeFromPrefix(prefix);
-            checkForDuplicateField(searchCriteria, prefix, searchType);
-
-            List<String> keywords = processKeywords(prefix, keywordsString);
-            validateKeywords(keywords, searchType);
-
-            // Add to search criteria map
-            searchCriteria.put(searchType, keywords);
         }
 
         if (searchCriteria.isEmpty()) {
-            throw new ParseException("No valid search field found. "
-                    + "Please provide at least one search field with a valid keyword.");
+
+
+            throw new ParseException(Messages.MESSAGE_INVALID_COMMAND_FORMAT + " " + Emoticons.ANGRY + "\n"
+                    + FindCommand.MESSAGE_USAGE);
         }
+
+        return new FindCommand(searchCriteria);
     }
 
     /**
-     * Validates the prefix and returns it if valid.
+     * Processes all values for a given prefix and adds them to the search criteria.
+     * Each prefix value is kept as a complete string without splitting.
+     *
+     * @param prefixValues The list of values for a specific prefix
+     * @param prefix The prefix being processed
+     * @param searchType The search type corresponding to this prefix
+     * @param searchCriteria The map to store search criteria
+     * @throws ParseException if validation fails
      */
-    private String validatePrefix(String prefix) throws ParseException {
-        if (prefix == null) {
-            throw new ParseException("Invalid search format. Please specify search fields. "
-                    + VALID_FLAGS);
-        }
+    private void processPrefix(List<String> prefixValues, Prefix prefix,
+                               SearchType searchType, Map<SearchType, List<String>> searchCriteria)
+            throws ParseException {
+        requireNonNull(prefixValues);
+        requireNonNull(prefix);
+        requireNonNull(searchType);
+        requireNonNull(searchCriteria);
 
-        // Validate prefix before proceeding
-        if (!isValidPrefix(prefix)) {
-            throw new ParseException("Invalid search field: '" + prefix + "'. " + VALID_FLAGS);
-        }
+        List<String> keywords = new ArrayList<>();
 
-        return prefix;
-    }
-
-    /**
-     * Validates the keywords string for a given prefix.
-     */
-    private String validateKeywordsString(String prefix, String keywordsString) throws ParseException {
-        if (keywordsString == null) {
-            throw new ParseException("keywords missing for search flag: " + prefix);
-        }
-
-        keywordsString = keywordsString.trim();
-        if (keywordsString.isEmpty()) {
-            String term = prefix.equals("bd/") ? "date" : "keyword";
-            throw new ParseException("Please enter at least one " + term + " after " + prefix
-                    + " when searching by " + getFieldNameFromPrefix(prefix) + ".");
-        }
-
-        return keywordsString;
-    }
-
-    /**
-     * Checks for duplicate fields in the search criteria.
-     */
-    private void checkForDuplicateField(Map<SearchType, List<String>> searchCriteria,
-                                        String prefix, SearchType searchType) throws ParseException {
-        if (searchCriteria.containsKey(searchType)) {
-            throw new ParseException("Duplicate search field: " + prefix
-                    + ". Each field can only be specified once.");
-        }
-    }
-
-    /**
-     * Processes the keywords string into a list of keywords.
-     */
-    private List<String> processKeywords(String prefix, String keywordsString) throws ParseException {
-        List<String> keywords = Arrays.asList(keywordsString.split("\\s+"));
-
-        for (String keyword : keywords) {
-            if (keyword.isEmpty()) {
-                throw new ParseException("Invalid keyword format. Multiple spaces between keywords "
-                        + "are not allowed for " + getFieldNameFromPrefix(prefix));
+        // Add each complete prefix value as a keyword without splitting
+        for (String value : prefixValues) {
+            String trimmedValue = value.trim();
+            if (!trimmedValue.isEmpty()) {
+                keywords.add(trimmedValue);
             }
         }
 
+        validateKeywords(keywords, prefix);
+        searchCriteria.put(searchType, keywords);
+    }
+
+    /**
+     * Extracts keywords from a string, splitting by whitespace.
+     * This method is kept for backward compatibility but is no longer used
+     * in the main parsing flow.
+     *
+     * @param value The string to extract keywords from
+     * @return A list of keywords extracted from the string
+     */
+    private List<String> extractKeywords(String value) {
+        requireNonNull(value);
+
+        List<String> keywords = new ArrayList<>();
+        String[] keywordArray = value.trim().split("\\s+");
+        for (String keyword : keywordArray) {
+            if (!keyword.isEmpty()) {
+                keywords.add(keyword);
+            }
+        }
         return keywords;
     }
 
     /**
-     * Parses search for multiple fields
+     * Validates keywords based on the provided prefix.
+     * Checks if all keywords are valid according to their prefix type.
      *
-     * @param args the command arguments to parse
-     * @return a FindCommand object with the parsed search criteria
-     * @throws ParseException if the input does not conform to the expected format or contains invalid keywords
-     * @throws IllegalArgumentException if args is null or unsupported search type is encountered
+     * @param keywords The list of keywords to validate
+     * @param prefix The prefix that determines validation rules
+     * @throws ParseException if any keyword is invalid or if the keywords list is empty
      */
-    private FindCommand parseMultiFieldSearch(String args) throws ParseException {
-        assert args != null : "Arguments string cannot be null";
-        assert !args.trim().isEmpty() : "Arguments string cannot be empty";
+    private void validateKeywords(List<String> keywords, Prefix prefix) throws ParseException {
+        requireNonNull(keywords);
+        requireNonNull(prefix);
 
-        Map<SearchType, List<String>> searchCriteria = parseFieldsWithPrefixes(args);
-
-        // Final check to ensure we have search criteria
-        if (searchCriteria.isEmpty()) {
-            throw new ParseException("No valid search field found. "
-                    + "Please provide at least one search field with a valid keyword.");
+        if (keywords.isEmpty()) {
+            throw new ParseException("Error: Please enter a keyword after " + prefix + " when searching by "
+                    + getPrefixDescription(prefix) + ". " + Emoticons.ANGRY);
         }
 
-        return new FindCommand(searchCriteria);
+        List<String> invalidKeywords = new ArrayList<>();
+
+        for (String keyword : keywords) {
+            if (!isValidKeyword(keyword, prefix)) {
+                invalidKeywords.add(keyword);
+            }
+        }
+
+        if (!invalidKeywords.isEmpty()) {
+            throw new ParseException(getErrorMessage(prefix, invalidKeywords));
+        }
     }
 
     /**
-     * Checks if a prefix is valid
+     * Checks if a keyword is valid for the given prefix.
+     * Different validation rules apply based on the prefix type.
+     *
+     * @param keyword The keyword to validate
+     * @param prefix The prefix that determines validation rules
+     * @return true if the keyword is valid for the prefix, false otherwise
      */
-    private boolean isValidPrefix(String prefix) {
-        return prefix.equals("n/")
-                || prefix.equals("p/")
-                || prefix.equals("e/")
-                || prefix.equals("a/")
-                || prefix.equals("t/")
-                || prefix.equals("bd/")
-                || prefix.equals("bp/")
-                || prefix.equals("m/");
+    private boolean isValidKeyword(String keyword, Prefix prefix) {
+        requireNonNull(keyword);
+        requireNonNull(prefix);
+
+        if (keyword.isEmpty()) {
+            return false;
+        }
+
+        if (keyword.length() > 170) {
+            return false;
+        }
+
+        if (prefix.equals(PREFIX_PHONE)) {
+            return keyword.matches("^\\+?[0-9]+$");
+        } else if (prefix.equals(PREFIX_EMAIL)) {
+            return keyword.matches("^[A-Za-z0-9+_.@-]*$");
+        } else if (prefix.equals(PREFIX_BOOKING_DATE)) {
+            if (!keyword.matches("^\\d{4}-\\d{2}-\\d{2}$")) {
+                return false;
+            }
+
+            try {
+                LocalDate.parse(keyword, DATE_FORMAT);
+                return true;
+            } catch (DateTimeParseException e) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
-     * Gets a human-readable field name from a prefix for error messages
+     * Gets a description of the prefix for error messages.
+     *
+     * @param prefix The prefix to get a description for
+     * @return A human-readable description of the prefix
      */
-    private String getFieldNameFromPrefix(String prefix) {
-        switch (prefix) {
-        case "n/":
+    private String getPrefixDescription(Prefix prefix) {
+        if (prefix.equals(PREFIX_NAME)) {
             return "name";
-        case "p/":
+        } else if (prefix.equals(PREFIX_PHONE)) {
             return "phone number";
-        case "e/":
+        } else if (prefix.equals(PREFIX_EMAIL)) {
             return "email";
-        case "a/":
+        } else if (prefix.equals(PREFIX_ADDRESS)) {
             return "address";
-        case "t/":
+        } else if (prefix.equals(PREFIX_TAG)) {
             return "tag";
-        case "bd/":
-            return "booking date";
-        case "bp/":
-            return "booking property";
-        case "m/":
+        } else if (prefix.equals(PREFIX_MEMO)) {
             return "memo";
-        default:
+        } else if (prefix.equals(PREFIX_BOOKING_DATE)) {
+            return "booking date";
+        } else if (prefix.equals(PREFIX_BOOKING_PROPERTY)) {
+            return "booking property";
+        } else {
             return "field";
         }
     }
 
     /**
-     * Gets the search type from the prefix
+     * Gets an error message for invalid keywords.
+     * The message is customized based on the prefix type.
      *
-     * @param prefix the prefix string to convert to a SearchType
-     * @return the corresponding SearchType enum value
-     * @throws IllegalArgumentException if prefix is null or empty
+     * @param prefix The prefix associated with the invalid keywords
+     * @param invalidKeywords The list of invalid keywords
+     * @return A formatted error message
      */
-    private SearchType getSearchTypeFromPrefix(String prefix) {
-        if (prefix == null) {
-            throw new IllegalArgumentException("Search field cannot be null");
-        }
-        if (prefix.isEmpty()) {
-            throw new IllegalArgumentException("Search field cannot be empty");
-        }
+    private String getErrorMessage(Prefix prefix, List<String> invalidKeywords) {
+        String errorMessage;
 
-        assert prefix != null && !prefix.isEmpty() : "Prefix must be non-null and non-empty";
-        assert isValidPrefix(prefix) : "Prefix must be valid";
-
-        switch (prefix) {
-        case "n/":
-            return SearchType.NAME;
-        case "p/":
-            return SearchType.PHONE;
-        case "e/":
-            return SearchType.EMAIL;
-        case "a/":
-            return SearchType.ADDRESS;
-        case "t/":
-            return SearchType.TAG;
-        case "bd/":
-            return SearchType.BOOKING_DATE;
-        case "bp/":
-            return SearchType.BOOKING_PROPERTY;
-        case "m/":
-            return SearchType.MEMO;
-        default:
-            throw new IllegalArgumentException("Unsupported search field: " + prefix);
-        }
-    }
-
-    /**
-     * Validates keywords based on the search type
-     *
-     * @param keywords list of keywords to validate
-     * @param searchType the type of search being performed
-     * @throws ParseException if any keywords are invalid for the specified search type
-     * @throws IllegalArgumentException if keywords list or searchType is null
-     */
-    private void validateKeywords(List<String> keywords, FindCommand.SearchType searchType) throws ParseException {
-        checkKeywordsNotNullOrEmpty(keywords, searchType);
-
-        List<String> invalidKeywords = findInvalidKeywords(keywords, searchType);
-
-        if (!invalidKeywords.isEmpty()) {
-            throw createValidationException(searchType, invalidKeywords);
-        }
-    }
-
-    /**
-     * Checks that keywords are not null or empty.
-     */
-    private void checkKeywordsNotNullOrEmpty(List<String> keywords, SearchType searchType) throws ParseException {
-        if (keywords == null) {
-            throw new IllegalArgumentException("Keyword after search field cannot be null");
-        }
-        if (searchType == null) {
-            throw new IllegalArgumentException("Search field cannot be null");
+        if (prefix.equals(PREFIX_NAME)) {
+            errorMessage = "Error: Name values should not exceed 170 characters.";
+        } else if (prefix.equals(PREFIX_PHONE)) {
+            errorMessage = "Error: Invalid phone format. Phone numbers should contain digits, with an optional "
+                    + "'+' at the beginning.";
+        } else if (prefix.equals(PREFIX_EMAIL)) {
+            errorMessage = "Error: Invalid email format. Email values may only contain alphanumeric characters, '@', "
+                    + "and these special characters: + _ . -";
+        } else if (prefix.equals(PREFIX_ADDRESS)) {
+            errorMessage = "Error: Address values should not exceed 500 characters.";
+        } else if (prefix.equals(PREFIX_TAG)) {
+            errorMessage = "Error: Tag values should not exceed 170 characters.";
+        } else if (prefix.equals(PREFIX_MEMO)) {
+            errorMessage = "Error: Memo values should not exceed 500 characters.";
+        } else if (prefix.equals(PREFIX_BOOKING_DATE)) {
+            errorMessage = "Error: Invalid booking date format. "
+                    + "Dates should be in the format yyyy-MM-dd (e.g., 2024-10-15).";
+        } else if (prefix.equals(PREFIX_BOOKING_PROPERTY)) {
+            errorMessage = "Error: Booking property values should not exceed 170 characters.";
+        } else {
+            errorMessage = "Error: Invalid keyword format.";
         }
 
-        if (keywords.isEmpty()) {
-            throw new ParseException("Please provide at least one keyword when searching by" + searchType);
-        }
-
-        assert keywords != null : "Keyword list must be non-null";
-        assert searchType != null : "Search type must be non-null";
-        assert !keywords.isEmpty() : "Keywords list must not be empty";
-    }
-
-    /**
-     * Finds invalid keywords in the list.
-     */
-    private List<String> findInvalidKeywords(List<String> keywords, SearchType searchType) {
-        List<String> invalidKeywords = new ArrayList<>();
-
-        for (String keyword : keywords) {
-            // Check for null keywords
-            if (keyword == null) {
-                throw new IllegalArgumentException("Keyword cannot be null");
-            }
-
-            if (!isValidKeyword(keyword, searchType)) {
-                invalidKeywords.add(keyword);
-            }
-        }
-
-        return invalidKeywords;
-    }
-
-    /**
-     * Checks if a keyword is valid for the given search type
-     *
-     * @param keyword the keyword to validate
-     * @param searchType the type of search being performed
-     * @return true if the keyword is valid for the search type, false otherwise
-     * @throws IllegalArgumentException if keyword is null or searchType is null
-     */
-    private boolean isValidKeyword(String keyword, FindCommand.SearchType searchType) {
-        checkKeywordAndSearchTypeNotNull(keyword, searchType);
-        if (keyword.isEmpty()) {
-            return false;
-        }
-
-        return validateKeywordFormat(keyword, searchType);
-    }
-
-    /**
-     * Checks that keyword and search type are not null.
-     */
-    private void checkKeywordAndSearchTypeNotNull(String keyword, SearchType searchType) {
-        // Check for null parameters
-        if (keyword == null) {
-            throw new IllegalArgumentException("Keyword cannot be null");
-        }
-        if (searchType == null) {
-            throw new IllegalArgumentException("Search type cannot be null");
-        }
-
-        assert keyword != null : "Keyword must be non-null";
-        assert searchType != null : "Search type must be non-null";
-    }
-
-    /**
-     * Validates the keyword format based on the search type.
-     * @param keyword the keyword to validate
-     * @param searchType the type of search being performed
-     * @return true if the keyword is valid for the search type, false otherwise
-     * @throws IllegalArgumentException if searchType is not supported
-     */
-    private boolean validateKeywordFormat(String keyword, SearchType searchType) {
-        // Assert parameters have been checked by caller
-        assert keyword != null : "Keyword must be non-null";
-        assert searchType != null : "Search type must be non-null";
-        assert !keyword.isEmpty() : "Keyword must be non-empty";
-
-        try {
-            switch (searchType) {
-            case NAME:
-                return NAME_VALIDATION_REGEX.matcher(keyword).matches();
-            case PHONE:
-                return PHONE_VALIDATION_REGEX.matcher(keyword).matches();
-            case EMAIL:
-                return EMAIL_VALIDATION_REGEX.matcher(keyword).matches();
-            case ADDRESS:
-                return ADDRESS_VALIDATION_REGEX.matcher(keyword).matches();
-            case TAG:
-                return TAG_VALIDATION_REGEX.matcher(keyword).matches();
-            case BOOKING_DATE:
-                return BOOKING_DATE_VALIDATION_REGEX.matcher(keyword).matches() && validateDateFormat(keyword);
-            case BOOKING_PROPERTY:
-                return BOOKING_PROPERTY_VALIDATION_REGEX.matcher(keyword).matches();
-            case MEMO:
-                return MEMO_VALIDATION_REGEX.matcher(keyword).matches();
-            default:
-                throw new IllegalArgumentException("Unsupported search type: " + searchType);
-            }
-        } catch (Exception e) {
-            System.err.println("Error validating keyword: " + e.getMessage());
-            return false;
-        }
-    }
-
-    /**
-     * Additional validation for date format to ensure it's a valid date
-     * @param dateString the date string to validate in yyyy-MM-dd format
-     * @return true if the date is valid, false otherwise
-     */
-    private boolean validateDateFormat(String dateString) {
-        try {
-            // Attempt to parse the date to validate it
-            LocalDate.parse(dateString, DATE_FORMAT);
-            return true;
-        } catch (DateTimeParseException e) {
-            // Invalid date format
-            System.err.println("Invalid date format: " + e.getMessage());
-            return false;
-        }
-    }
-
-
-    /**
-     * Creates a specific ParseException based on the search type
-     */
-    private ParseException createValidationException(FindCommand.SearchType searchType, List<String> invalidKeywords) {
-        String errorMessage = getErrorMessageForSearchType(searchType);
-        if (searchType == SearchType.NAME || searchType == SearchType.ADDRESS
-                || searchType == SearchType.TAG || searchType == SearchType.BOOKING_PROPERTY
-                || searchType == SearchType.MEMO) {
-            return new ParseException(errorMessage);
-        }
-        return new ParseException(errorMessage + " Invalid keyword(s): " + String.join(", ", invalidKeywords));
-    }
-
-    /**
-     * Gets the appropriate error message for a given search type.
-     */
-    private String getErrorMessageForSearchType(SearchType searchType) {
-        switch (searchType) {
-        case NAME:
-            return "Error: Name values should not exceed 170 characters.";
-        case PHONE:
-            return "Error: Invalid phone format. Phone numbers should contain digits, with an optional "
-                   + "'+' at the beginning.";
-        case EMAIL:
-            return "Error: Invalid email format. Emails should only contain alphanumeric characters, dots, '@',"
-                    + " underscores, hyphens, and the special characters: ~!$%^&*_=+}{'?\\.-.";
-        case ADDRESS:
-            return "Error: Address values should not exceed 170 characters.";
-        case TAG:
-            return "Error: Tag values should not exceed 170 characters.";
-        case BOOKING_DATE:
-            return "Invalid booking date format. Dates should be in the format yyyy-MM-dd (e.g., 2024-10-15).";
-        case BOOKING_PROPERTY:
-            return "Error! Booking Property values should not exceed 170 characters.";
-        case MEMO:
-            return "Error! Memo values should not exceed 170 characters.";
-        default:
-            return String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
-        }
+        return errorMessage + " Invalid keyword(s): " + String.join(", ", invalidKeywords) + " "
+                + Emoticons.ANGRY;
     }
 }

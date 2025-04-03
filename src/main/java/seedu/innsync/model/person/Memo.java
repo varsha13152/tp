@@ -10,9 +10,9 @@ import static seedu.innsync.commons.util.AppUtil.checkArgument;
 public class Memo {
 
 
-    public static final String MESSAGE_LENGTH = "Error: Memo value must not exceed 170 characters.";
-    public static final String REGEX_MAX_LENGTH = "^.{0,170}$"; // Ensures length <= 170
-    public static final String MESSAGE_CONSTRAINTS = "Error: Memo values must not exceed 170 characters.";
+    public static final String MESSAGE_LENGTH = "Error: Memo value must not exceed 500 characters.";
+    public static final String REGEX_MAX_LENGTH = "^.{0,500}$";
+    public static final String MESSAGE_CONSTRAINTS = "Memo can take any value and must not exceed 500 characters.";
     public final String value;
 
     /**

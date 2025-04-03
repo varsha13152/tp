@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.innsync.commons.core.index.Index;
+import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.TagCommand;
 import seedu.innsync.logic.parser.exceptions.ParseException;
 import seedu.innsync.model.tag.BookingTag;
@@ -27,21 +28,29 @@ public class TagCommandParser implements Parser<TagCommand> {
     public TagCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_BOOKINGTAG, PREFIX_TAG);
 
-        if (!atLeastOnePrefixPresent(argMultimap, PREFIX_BOOKINGTAG, PREFIX_TAG)) {
+        Index index;
+        Set<BookingTag> bookingTagList;
+        Set<Tag> tagList;
+        if (onlyOneTypOfPrefixPresent(argMultimap, PREFIX_BOOKINGTAG, PREFIX_TAG) != 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
         }
-
-        Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        Set<BookingTag> bookingTagList = ParserUtil.parseBookingTags(argMultimap.getAllValues(PREFIX_BOOKINGTAG));
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        try {
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+        } catch (ParseException pe) {
+            throw new ParseException(
+                    String.format(Messages.MESSAGE_PARSE_EXCEPTION,
+                            pe.getMessage(), TagCommand.MESSAGE_USAGE), pe);
+        }
+        bookingTagList = ParserUtil.parseBookingTags(argMultimap.getAllValues(PREFIX_BOOKINGTAG));
+        tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         return new TagCommand(index, tagList, bookingTagList);
     }
 
     /**
-     * Returns true if at least one of the prefixes is present in the {@code ArgumentMultimap}.
+     * Returns count of the number of prefixes is present in the {@code ArgumentMultimap}.
      */
-    private static boolean atLeastOnePrefixPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    private static long onlyOneTypOfPrefixPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).filter(prefix -> argumentMultimap.getValue(prefix).isPresent()).count();
     }
 }

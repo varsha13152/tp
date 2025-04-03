@@ -28,8 +28,6 @@ public class Tag {
     ));
 
     public final String tagName;
-    private int tagCount;
-
     /**
      * Constructs a {@code Tag}.
      *
@@ -39,7 +37,6 @@ public class Tag {
         requireNonNull(tagName);
         checkAllRules(tagName, VALIDATION_RULES);
         this.tagName = tagName;
-        this.tagCount = 0;
     }
 
     /**
@@ -57,22 +54,6 @@ public class Tag {
 
     public String getTagName() {
         return tagName;
-    }
-
-    public int getTagCount() {
-        return tagCount;
-    }
-
-    public void addTagCount() {
-        tagCount++;
-    }
-
-    public void removeTagCount() {
-        tagCount--;
-    }
-
-    public boolean isInUse() {
-        return tagCount > 0;
     }
 
     @Override

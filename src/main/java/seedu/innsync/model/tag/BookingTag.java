@@ -70,7 +70,7 @@ public class BookingTag {
     /**
      * Constructs a {@code BookingTag}.
      *
-     * @param bookingTag Valid booking tag parts.
+     * @param bookingTagName Valid booking tag parts.
      */
     public BookingTag(String bookingTagName) {
         requireNonNull(bookingTagName);
@@ -133,6 +133,10 @@ public class BookingTag {
 
     public String getFullBookingTag() {
         return bookingTagName + " from/" + startDate.format(DATE_FORMATTER) + " to/" + endDate.format(DATE_FORMATTER);
+    }
+
+    public static String getErrorMessage() {
+        return BookingTag.errorMessage;
     }
 
     @Override

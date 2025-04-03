@@ -7,6 +7,7 @@ import static seedu.innsync.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.stream.Stream;
 
 import seedu.innsync.commons.core.index.Index;
+import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.UntagCommand;
 import seedu.innsync.logic.parser.exceptions.ParseException;
 import seedu.innsync.model.tag.Tag;
@@ -31,8 +32,13 @@ public class UntagCommandParser implements Parser<UntagCommand> {
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_BOOKINGTAG, PREFIX_TAG);
-        Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
-
+        Index index;
+        try {
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(Messages.MESSAGE_PARSE_EXCEPTION,
+                    pe.getMessage(), UntagCommand.MESSAGE_USAGE), pe);
+        }
         Tag tag = null;
         if (argMultimap.getValue(PREFIX_TAG).isPresent()) {
             tag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get());

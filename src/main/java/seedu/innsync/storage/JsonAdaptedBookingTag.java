@@ -5,33 +5,32 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.innsync.commons.exceptions.IllegalValueException;
 import seedu.innsync.model.tag.BookingTag;
-import seedu.innsync.model.tag.Tag;
 
 /**
  * Jackson-friendly version of {@link BookingTag}.
  */
 class JsonAdaptedBookingTag {
 
-    private final String bookingTagName;
+    private final String bookingTag;
 
     /**
      * Constructs a {@code JsonAdaptedTag} with the given {@code tagName}.
      */
     @JsonCreator
-    public JsonAdaptedBookingTag(String bookingTagName) {
-        this.bookingTagName = bookingTagName;
+    public JsonAdaptedBookingTag(String bookingTag) {
+        this.bookingTag = bookingTag;
     }
 
     /**
      * Converts a given {@code Tag} into this class for Jackson use.
      */
     public JsonAdaptedBookingTag(BookingTag source) {
-        bookingTagName = source.bookingTagName;
+        bookingTag = source.getFullBookingTag();
     }
 
     @JsonValue
     public String getBookingTagName() {
-        return bookingTagName;
+        return bookingTag;
     }
 
     /**
@@ -45,7 +44,7 @@ class JsonAdaptedBookingTag {
         } catch (IllegalArgumentException e) {
             throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);
         }
-        return new BookingTag(bookingTagName);
+        return new BookingTag(bookingTag);
     }
 
 }

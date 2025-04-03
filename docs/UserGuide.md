@@ -485,8 +485,6 @@ Format: `deletereq INDEX r/REQUEST_INDEX`
 Examples:
 * `deletereq 1 r/1` Deletes the first request of the first visitor on the list.
 
-### 4.5.5 Listing requests: `listreq`
-
 ## 4.6 Memo a visitor : `memo`
 
 Add a memo into the visitor in the address book.
@@ -507,91 +505,75 @@ Examples:
 
 ### 4.6.1 Locating visitors: `find`
 
-Allows users to search for a contact by their name, phone, address, email, tag, memo, booking date, or booking property.
+Allows users to search for visitors whose details match the specified keywords.
 
-Format: `find [n/]KEYWORD [MORE_KEYWORDS...] | p/KEYWORD [MORE_KEYWORDS...] | e/KEYWORD [MORE_KEYWORDS...] | a/KEYWORD [MORE_KEYWORDS...] | t/KEYWORD [MORE_KEYWORDS...] | m/KEYWORD [MORE_KEYWORDS...] | bd/DATE [MORE_DATES...] | bp/KEYWORD [MORE_KEYWORDS...]`
+Format: `find [n/KEYWORD]... [p/KEYWORD]... [e/KEYWORD]... [a/KEYWORD]... [t/KEYWORD]... [m/KEYWORD]... [bd/DATE]... [bp/KEYWORD]...`
+
+* At least one prefix with a keyword must be provided.
+* Searches are case-insensitive (e.g., `n/hans` will match `Hans`).
+* Searches match by containment (e.g., `n/han` will match `Hans`).
+* When multiple keywords are provided for a single field type (e.g., `n/john n/doe`), visitors matching ANY of those keywords will be returned.
+* When multiple field types are specified (e.g., `n/john p/9123`), visitors matching ANY of the specified fields will be returned.
+* Each search term is treated as a complete phrase. 
 
 #### Search Modes:
 
-| Prefix | Field | Description |
-|--------|------------------|----------------------------------------------|
-| (none) or `n/` | Name | Searches through contact names |
-| `p/` | Phone | Searches through phone numbers |
-| `e/` | Email | Searches through email addresses |
-| `a/` | Address | Searches through addresses |
-| `t/` | Tag | Searches through contact tags |
-| `m/` | Memo | Searches through contact memos |
-| `bd/` | Booking Date | Searches for contacts with bookings that include the specified date(s) |
-| `bp/` | Booking Property | Searches for contacts with bookings at the specified property |
-
-#### Search Behavior:
-
-* **Case-insensitive** - Search is not affected by upper or lower case (e.g., `find john` matches `John Doe`)
-* **Order-independent** - The order of keywords doesn't matter (e.g., `find Bo Hans` matches `Hans Bo`)
-* **Partial matching** - Keywords are matched partially against fields (e.g., `find Jo` matches `John`)
-
-* **Multiple fields**:
-  * Different search field types can be combined (e.g., `find n/John t/friend`)
-  * When multiple field types are specified, only contacts matching ANY specified fields are returned (e.g., `find n/John t/friend` returns contacts named John as well as contacts who are tagged as friend)
-
-* **Multiple keywords**:
-  * Multiple search terms can be provided for any field type
-  * When multiple keywords are provided for the same field, contacts matching ANY of those keywords are returned (e.g., `find John Jane` returns contacts with either "John" or "Jane" in their name)
-
-#### Special Notes for Booking Searches:
-
-* Dates must be in the `yyyy-MM-dd` format (e.g., `2025-01-02` for January 2, 2025)
-* A contact is matched if the specified date falls within the booking's start and end dates
-* Multiple dates can be specified to find contacts with bookings during any of those dates
-* Booking property searches match property names partially (e.g., `find bp/Beach` matches `BeachHouse`)
+| Prefix | Field            | What You’re Searching      | What to Type (Format)                                               |
+|:------:|------------------|----------------------------|----------------------------------------------------------------------|
+|  `n/`  | Name             | Contact names              | Any value (up to 170 characters).                                   |
+|  `p/`  | Phone            | Phone numbers              | Any value that looks like a phone number. Can start with `+`.       |
+|  `e/`  | Email            | Email addresses            | Any value with letters, numbers, and `@`, `.`, `_`, `-`, `+`.        |
+|  `a/`  | Address          | Physical addresses         | Any value (up to 500 characters).                                   |
+|  `t/`  | Tag              | Contact tags               | Any value (up to 170 characters).                                   |
+|  `m/`  | Memo             | Notes or comments          | Any value (up to 500 characters).                                   |
+| `bd/`  | Booking Date     | Dates from bookings        | Use the format `yyyy-MM-dd` (e.g., `2025-01-15`).                   |
+| `bp/`  | Booking Property | Property names in bookings | Any value (up to 170 characters).                                   |
 
 #### Examples:
 
 **Searching by name:**
-* `find John` - Finds contacts with "John" in their name
-* `find alex david` - Finds contacts with either "alex" or "david" in their name
-* `find bob n/tom` - Finds contacts with either "bob" or "tom" in their name
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+* `find n/John` - Finds contacts with "John" in their name
+* `find n/Betsy n/Tim` - Finds contacts with either "Betsy" or "Tim" in their name
 
 **Searching by phone:**
 * `find p/9123` - Finds contacts whose phone numbers contain "9123"
-* `find p/8765 9123` - Finds contacts whose phone numbers contain either "8765" or "9123"
+* `find p/+65 p/9123` - Finds contacts whose phone numbers contain either "+65" or "9123"
 
 **Searching by email:**
 * `find e/@example.com` - Finds contacts with email addresses containing "@example.com"
-* `find e/gmail yahoo` - Finds contacts with email addresses containing either "gmail" or "yahoo"
+* `find e/gmail.com e/yahoo.com` - Finds contacts with email addresses containing either "gmail.com" or "yahoo.com"
 
 **Searching by address:**
 * `find a/Clementi` - Finds contacts with "Clementi" in their addresses
-* `find a/Street Avenue` - Finds contacts with either "Street" or "Avenue" in their addresses
+* `find a/Blk 123 a/Jurong` - Finds contacts with either "Blk 123" or "Jurong" in their addresses
 
 **Searching by tag:**
-* `find t/fri` - Finds contacts with tags containing "fri" (e.g., "friend", "friendly")
-* `find t/work col` - Finds contacts with tags containing either "work" or "col"  (e.g., "network", "colleague", "collaboration")
+* `find t/friend` - Finds contacts with tags containing "friend"
+* `find t/friend t/family` - Finds contacts with tags containing either "friend" or "family"
 
 **Searching by memo:**
 * `find m/important` - Finds contacts with "important" in their memos
-* `find m/call meeting` - Finds contacts with either "call" or "meeting" in their memos
+* `find m/call later m/follow up` - Finds contacts with either "call later" or "follow up" in their memos
 
 **Searching by booking date:**
 * `find bd/2024-12-25` - Finds contacts with bookings that include December 25, 2024
-* `find bd/2025-01-01 2025-02-14` - Finds contacts with bookings that include either January 1, 2025 or February 14, 2025
+* `find bd/2025-01-01 bd/2025-02-14` - Finds contacts with bookings that include either January 1, 2025 or February 14, 2025
 
 **Searching by booking property:**
-* `find bp/Beach` - Finds contacts with bookings at properties containing "Beach" (e.g., "BeachHouse", "SunnyBeach")
-* `find bp/Villa Resort` - Finds contacts with bookings at properties containing either "Villa" or "Resort"
+* `find bp/BeachHouse` - Finds contacts with bookings at properties containing "BeachHouse"
+* `find bp/Villa bp/Resort` - Finds contacts with bookings at properties containing either "Villa" or "Resort"
 
 **Combining search fields:**
-* `find n/Jo t/fri` - Finds contacts with names containing "Jo" (e.g., "John", "Joseph") or tags containing "fri" (e.g., "friend", "friendly")
-* `find n/Jo m/import bd/2025-01` - Finds contacts with names containing "Jo", memos containing "import" (e.g., "important"), or bookings in January 2025
+* `find n/John t/friend` - Finds contacts with either "John" in their name OR "friend" in their tags
+* `find n/Alice p/9123 e/example.com` - Finds contacts with "Alice" in their name, "9123" in their phone number, or "example.com" in their email
 
-#### Common Errors and How to Resolve Them:
+#### Common Errors:
 
-* **Invalid format**: Make sure to use the correct prefix for your search type
-* **Invalid date format**: Booking dates must follow the `yyyy-MM-dd` format exactly
-* **No matches found**: Try using shorter or more general keywords to widen your search
-* **Invalid characters**: Make sure your search terms contain only valid characters for the search field
-* **Duplicate fields**: Each field type can only be specified once in a command (ie: `find p/8793 p/9090` will throw an error)
+* **Empty keyword**: `find n/` - Please provide a keyword after the prefix
+* **Invalid phone format**: Phone numbers should contain digits with an optional '+' at the beginning
+* **Invalid email format**: Email addresses may only contain alphanumeric characters, '@', and special characters: + _ . -
+* **Invalid booking date**: Dates must be in the format yyyy-MM-dd (e.g., 2025-10-15)
+* **Exceeding character limits**: Ensure keywords don't exceed the maximum length for each field type
 
 ## 4.7 General features
 

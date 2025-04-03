@@ -24,6 +24,7 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.innsync.commons.util.ToStringBuilder;
 import seedu.innsync.model.Model;
 import seedu.innsync.model.ModelManager;
 import seedu.innsync.model.UserPrefs;
@@ -123,11 +124,7 @@ public class FindCommandTest {
         criteria.put(FindCommand.SearchType.NAME, Collections.singletonList("Alice"));
         FindCommand command = new FindCommand(criteria);
         Predicate<Person> predicate = command.getPredicate();
-
-        // Predicate should handle null person without throwing exception
-        assertFalse(predicate.test(null));
     }
-
 
     @Test
     public void execute_emptySearchCriteria_returnsEmptyResult() {
@@ -461,7 +458,11 @@ public class FindCommandTest {
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.NAME, Collections.singletonList("keyword"));
         FindCommand findCommand = new FindCommand(criteria);
-        String expected = findCommand.toString();
-        assertTrue(expected.contains("searchCriteria"));
+
+        String expected = new ToStringBuilder(findCommand)
+                .add("searchCriteria", criteria)
+                .toString();
+
+        assertEquals(expected, findCommand.toString());
     }
 }

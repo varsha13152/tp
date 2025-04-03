@@ -1,5 +1,6 @@
 package seedu.innsync.logic.commands;
 
+import seedu.innsync.logic.Emoticons;
 import seedu.innsync.model.AddressBook;
 import seedu.innsync.model.Model;
 
@@ -9,7 +10,7 @@ import seedu.innsync.model.Model;
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
+    public static final String MESSAGE_SUCCESS = "Address book has been cleared! " + Emoticons.PROUD;
 
     @Override
     public CommandResult execute(Model model) {
