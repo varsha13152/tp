@@ -13,7 +13,6 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.TagCommand;
 import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
