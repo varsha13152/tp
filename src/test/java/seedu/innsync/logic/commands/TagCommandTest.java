@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.innsync.logic.commands.CommandTestUtil.OVERLAPPING_BOOKINGTAG_INN;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_BOOKINGTAG_BEACHHOUSE;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_BOOKINGTAG_HOTEL;
+import static seedu.innsync.logic.commands.CommandTestUtil.VALID_REQUEST_AMY;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.innsync.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -14,16 +15,19 @@ import static seedu.innsync.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.innsync.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.innsync.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.innsync.commons.core.index.Index;
+import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.AddressBook;
 import seedu.innsync.model.Model;
 import seedu.innsync.model.ModelManager;
 import seedu.innsync.model.UserPrefs;
 import seedu.innsync.model.person.Person;
+import seedu.innsync.model.request.Request;
 import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
 import seedu.innsync.testutil.PersonBuilder;
@@ -111,6 +115,16 @@ public class TagCommandTest {
 
         firstPerson.clearTags();
         firstPerson.addTag(new Tag("friends"));
+    }
+
+    @Test
+    public void execute_validIndex_unsuccessful() throws CommandException {
+        //Index has needs to have friends tag (Index 1 has it)
+        Index indexFirstPerson = INDEX_FIRST_PERSON;
+        Tag validTag = new Tag("friends");
+        Set<Tag> validTags = Set.of(validTag);
+        TagCommand tagCommand = new TagCommand(indexFirstPerson, validTags, null);
+        assertCommandFailure(tagCommand, model, TagCommand.MESSAGE_DUPLICATE_TAG);
     }
 
 

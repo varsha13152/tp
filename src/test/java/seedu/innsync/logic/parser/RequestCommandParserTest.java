@@ -11,6 +11,8 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.innsync.logic.Messages;
+import seedu.innsync.logic.commands.MemoCommand;
 import seedu.innsync.logic.commands.RequestCommand;
 import seedu.innsync.model.request.Request;
 
@@ -25,6 +27,13 @@ public class RequestCommandParserTest {
         assertParseSuccess(parser, "1 r/" + VALID_REQUEST_AMY, new RequestCommand(INDEX_FIRST_PERSON,
                 new ArrayList<>(Arrays.asList(new Request(VALID_REQUEST_AMY)))));
     }
+
+    @Test
+    public void parse_invalidIndex_throwsParseException() {
+        assertParseFailure(parser, "-1 r/1", String.format(Messages.MESSAGE_PARSE_EXCEPTION,
+                ParserUtil.MESSAGE_INVALID_INDEX, RequestCommand.MESSAGE_USAGE));
+    }
+
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
@@ -46,10 +55,5 @@ public class RequestCommandParserTest {
         assertParseSuccess(parser, "1 r/requestName1 r/requestName2",
                 new RequestCommand(INDEX_FIRST_PERSON,
                         new ArrayList<>(Arrays.asList(new Request("requestName1"), new Request("requestName2")))));
-    }
-
-    @Test
-    public void parse_invalidIndex_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, RequestCommand.MESSAGE_USAGE));
     }
 }
