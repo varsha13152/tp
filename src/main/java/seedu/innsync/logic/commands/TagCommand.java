@@ -33,9 +33,10 @@ public class TagCommand extends Command {
             + PREFIX_TAG + "TAG or\n"
             + PREFIX_BOOKINGTAG + "{property} from/{start-date} to/{end-date}\n"
             + "Example: " + COMMAND_WORD + " 1 t/friend b/BeachHouse from/2025-06-01 to/2025-06-10";
-    public static final String MESSAGE_SUCCESS = "Tag successfully added: %s";
-    public static final String MESSAGE_FAILURE = "Failed to add booking tag. "
-            + "The booking tag %s overlaps with an existing tag.";
+    public static final String MESSAGE_SUCCESS = String.format(
+            Messages.MESSAGE_COMMAND_SUCCESS, "Tag", "%s has been added to the contact's tag list!");
+    public static final String MESSAGE_FAILURE = String.format(
+            Messages.MESSAGE_COMMAND_FAILURE, "Tag", "%s already exists in the contact's tag list!");
 
     private final Index index;
     private final Set<Tag> tagList;

@@ -3,14 +3,17 @@ package seedu.innsync.model.request;
 import static java.util.Objects.requireNonNull;
 import static seedu.innsync.commons.util.AppUtil.checkArgument;
 
+import seedu.innsync.logic.Messages;
+
 /**
  * Represents a Request in the system.
  * Guarantees: immutable; name is valid as declared in {@link #isValidRequest(String)}
  */
 public class Request {
 
-    public static final String MESSAGE_EMPTY = "Error: Request value should not be empty.";
-    public static final String MESSAGE_LENGTH = "Error: Request value must not exceed 170 characters.";
+    public static final String MESSAGE_EMPTY = String.format(Messages.MESSAGE_EMPTY_FIELD, "Request");
+    public static final String MESSAGE_LENGTH = String.format(Messages.MESSAGE_MAX_LENGTH_EXCEEDED,
+            "Request", 170);
 
     public static final String REGEX_NOT_EMPTY = "^.+$"; // Ensures non-empty string
     public static final String REGEX_MAX_LENGTH = "^.{1,170}$"; // Ensures length <= 170
