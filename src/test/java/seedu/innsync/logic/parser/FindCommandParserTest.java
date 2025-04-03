@@ -279,7 +279,7 @@ public class FindCommandParserTest {
     @Test
     public void parse_invalidPrefix_throwsParseException() {
         assertParseFailure(parser, "find x/keyword",
-                Messages.MESSAGE_INVALID_COMMAND_FORMAT + " " + Emoticons.ANGRY + "\n" + FindCommand.MESSAGE_USAGE);
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
     }
 
     @Test
