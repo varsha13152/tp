@@ -304,7 +304,7 @@ e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 Adds a visitor to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​ [b/BOOKINGTAG]…​ [r/REQUEST]…​ [m/MEMO]...`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​ [b/BOOKINGTAG]…​ [r/REQUEST]…​ [m/MEMO]`
 
 <box type="tip" seamless>
 
