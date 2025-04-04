@@ -395,7 +395,7 @@ Adds a booking tag into the visitor in the address book.
 
 Format: `tag INDEX b/PROPERTY START_DATE END_DATE`
 
-* Adds the booking tag to the visitor specified by 'INDEX'. The index refers to the index number shown in the displayed visitor LIST. The index **must be a positive integer**
+* Adds the booking tag to the visitor specified by 'INDEX'. The index refers to the index number shown in the displayed visitor list. The index **must be a positive integer**
 * All the fields must be provided.
 * The date format has to be exactly the same "yyyy-MM-dd".
 * When adding a new booking tag and if they exist, and if they dont overlap the time interval, it will be added to the visitor.
@@ -411,7 +411,7 @@ Adds a tag into the visitor in the address book.
 
 Format: `tag INDEX t/TAG`
 
-* Adds the tag to the visitor specified by 'INDEX'. The index refers to the index number shown in the displayed visitor LIST. The index **must be a positive integer**
+* Adds the tag to the visitor specified by 'INDEX'. The index refers to the index number shown in the displayed visitor list. The index **must be a positive integer**
 * All the fields must be provided.
 * When adding a tag the new tag will be appended to the previous tags if they do not exist.
 * When adding a tag and if they exist, they will not be added and will be rejected.
@@ -426,7 +426,7 @@ Removes a booking tag on the 1st visitor in the address book.
 
 Format: `untag INDEX b/{property} {from/yyyy-MM-dd} {to/yyyy-MM-dd}`
 
-* Removes a booking tag to the visitor specified by 'INDEX'. The index refers to the index number shown in the displayed visitor LIST. The index **must be a positive integer**
+* Removes a booking tag to the visitor specified by 'INDEX'. The index refers to the index number shown in the displayed visitor list. The index **must be a positive integer**
 * All the fields must be provided.
 * The date format has to be exactly the same "yyyy-MM-dd".
 * When removing a booking tag and if they exist in the visitor the booking tag will be removed
@@ -442,7 +442,7 @@ Removes a tag on the 1st visitor in the address book.
 
 Format: `untag INDEX t/TAG`
 
-* Removes a tag to the visitor specified by 'INDEX'. The index refers to the index number shown in the displayed visitor LIST. The index **must be a positive integer**
+* Removes a tag to the visitor specified by 'INDEX'. The index refers to the index number shown in the displayed visitor list. The index **must be a positive integer**
 * All the fields must be provided.
 * When removing a tag the matching tag will be removed if the tag exist in the visitor.
 * When removing a tag the matching tag will not be removed if the tag don't exist in the visitor.
@@ -459,7 +459,7 @@ Adds a request into the visitor in the address book.
 
 Format: `req INDEX r/REQUEST`
 
-* Adds the request to the visitor specified by 'INDEX'. The index refers to the index number shown in the displayed visitor LIST. The index **must be a positive integer**
+* Adds the request to the visitor specified by 'INDEX'. The index refers to the index number shown in the displayed visitor list. The index **must be a positive integer**
 * All the fields must be provided.
 * When adding a request the new request will be appended to the previous requests if they do not exist.
 * When adding a request and if they exist, they will not be added and will be rejected.
