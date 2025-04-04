@@ -1,5 +1,8 @@
 package seedu.innsync.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.innsync.logic.commands.CommandTestUtil.VALID_REQUEST_BOB;
 import static seedu.innsync.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.innsync.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -10,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.innsync.commons.core.index.Index;
+import seedu.innsync.logic.Messages;
 import seedu.innsync.model.AddressBook;
 import seedu.innsync.model.Model;
 import seedu.innsync.model.ModelManager;
@@ -66,7 +70,7 @@ public class UnmarkRequestCommandTest {
         UnmarkRequestCommand unmarkCommand = new UnmarkRequestCommand(INDEX_FIRST_PERSON,
                 INDEX_FIRST_PERSON);
         assertCommandFailure(unmarkCommand, unmarkedModel,
-                String.format(UnmarkRequestCommand.MESSAGE_FAILURE_NOT_MARKED, VALID_REQUEST_BOB));
+                String.format(UnmarkRequestCommand.MESSAGE_FAILURE, VALID_REQUEST_BOB));
     }
 
     @Test
@@ -74,7 +78,7 @@ public class UnmarkRequestCommandTest {
         Index outOfBounds = Index.fromOneBased(model.getPersonList().size() + 1);
         UnmarkRequestCommand unmarkCommand = new UnmarkRequestCommand(outOfBounds,
                 INDEX_FIRST_PERSON);
-        assertCommandFailure(unmarkCommand, model, UnmarkRequestCommand.MESSAGE_FAILURE_INVALID_INDEX);
+        assertCommandFailure(unmarkCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
@@ -82,7 +86,33 @@ public class UnmarkRequestCommandTest {
         Index outOfBounds = Index.fromOneBased(model.getPersonList().get(INDEX_FIRST_PERSON.getZeroBased())
                 .getRequests().size() + 1);
         UnmarkRequestCommand unmarkCommand = new UnmarkRequestCommand(INDEX_FIRST_PERSON, outOfBounds);
-        assertCommandFailure(unmarkCommand, model, UnmarkRequestCommand.MESSAGE_FAILURE_INVALID_REQUEST_INDEX);
+        assertCommandFailure(unmarkCommand, model, UnmarkRequestCommand.MESSAGE_INVALID_REQUEST_INDEX);
+    }
+
+    @Test
+    public void equals() {
+        Index targetIndex = Index.fromOneBased(1);
+        UnmarkRequestCommand unmarkRequestCommand = new UnmarkRequestCommand(targetIndex, targetIndex);
+        // null unmarkRequestCommand returns false
+        assertFalse(unmarkRequestCommand.equals(null));
+
+        // unmarkRequestCommand itself returns true
+        assertTrue(unmarkRequestCommand.equals(unmarkRequestCommand));
+    }
+
+    @Test
+    public void hasConfirmationTest_returnsFalse() {
+        Index targetIndex = Index.fromOneBased(1);
+        UnmarkRequestCommand unmarkRequestCommand = new UnmarkRequestCommand(targetIndex, targetIndex);
+        assertFalse(unmarkRequestCommand.requireConfirmation());
+    }
+
+    @Test
+    public void toStringMethod() {
+        Index targetIndex = Index.fromOneBased(1);
+        UnmarkRequestCommand unmarkRequestCommand = new UnmarkRequestCommand(targetIndex, targetIndex);
+        String expected = UnmarkRequestCommand.class.getCanonicalName() + "{index=" + targetIndex + "}";
+        assertEquals(expected, unmarkRequestCommand.toString());
     }
 
 }

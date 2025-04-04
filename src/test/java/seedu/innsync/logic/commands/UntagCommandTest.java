@@ -18,6 +18,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.innsync.commons.core.index.Index;
+import seedu.innsync.logic.Messages;
 import seedu.innsync.model.AddressBook;
 import seedu.innsync.model.Model;
 import seedu.innsync.model.ModelManager;
@@ -89,9 +90,9 @@ public class UntagCommandTest {
     @Test
     public void execute_removeNonExistingTag_failure() {
         Index index = Index.fromZeroBased(INDEX_FIRST_PERSON.getZeroBased());
-
-        UntagCommand untagCommand = new UntagCommand(index, new Tag(VALID_TAG_HUSBAND), null);
-        String expectedMessage = String.format(UntagCommand.MESSAGE_FAILURE_TAG, VALID_TAG_HUSBAND);
+        Tag tagToRemove = new Tag(VALID_TAG_HUSBAND);
+        UntagCommand untagCommand = new UntagCommand(index, tagToRemove, null);
+        String expectedMessage = String.format(UntagCommand.MESSAGE_FAILURE_TAG, tagToRemove);
 
         assertCommandFailure(untagCommand, model, expectedMessage);
     }
@@ -100,7 +101,15 @@ public class UntagCommandTest {
     public void execute_invalidIndex_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getPersonList().size() + 1);
         UntagCommand untagCommand = new UntagCommand(outOfBoundIndex, new Tag(VALID_TAG_HUSBAND), null);
-        assertCommandFailure(untagCommand, model, UntagCommand.MESSAGE_FAILURE_INVALID_INDEX);
+        assertCommandFailure(untagCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void removeTagsPerson() {
+        Index targetIndex = Index.fromOneBased(1);
+        Tag tagToRemove = new Tag(VALID_TAG_HUSBAND);
+        UntagCommand untagCommand = new UntagCommand(targetIndex, tagToRemove, "");
+        assertCommandFailure(untagCommand, model, String.format(UntagCommand.MESSAGE_FAILURE_TAG, tagToRemove));
     }
 
     @Test
@@ -127,24 +136,31 @@ public class UntagCommandTest {
     }
 
     @Test
+    public void hasConfirmationTest_returnsFalse() {
+        Index targetIndex = Index.fromOneBased(1);
+        UntagCommand untagCommand = new UntagCommand(targetIndex, new Tag(VALID_TAG_HUSBAND), "");
+        assertFalse(untagCommand.requireConfirmation());
+    }
+
+    @Test
     public void toStringMethod() {
         Index targetIndex = Index.fromOneBased(1);
         UntagCommand untagCommand = new UntagCommand(targetIndex, new Tag("test1"), "test2");
         String expected1 = UntagCommand.class.getCanonicalName() + "{index=" + targetIndex
-                + ", tag=test1"
-                + ", bookingTag=test2}";
+                + ", tag=[test1]"
+                + ", bookingTag=[test2]}";
         assertEquals(expected1, untagCommand.toString());
 
         untagCommand = new UntagCommand(targetIndex, null, "test2");
         String expected2 = UntagCommand.class.getCanonicalName() + "{index=" + targetIndex
                 + ", tag=null"
-                + ", bookingTag=test2}";
+                + ", bookingTag=[test2]}";
         assertEquals(expected2, untagCommand.toString());
 
         untagCommand = new UntagCommand(targetIndex, new Tag("test1"), null);
         String expected3 = UntagCommand.class.getCanonicalName() + "{index=" + targetIndex
-                + ", tag=test1"
-                + ", bookingTag=null}";
+                + ", tag=[test1]"
+                + ", bookingTag=[null]}";
         assertEquals(expected3, untagCommand.toString());
     }
 }

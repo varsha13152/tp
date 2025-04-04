@@ -16,7 +16,6 @@ import org.junit.jupiter.api.Test;
 import seedu.innsync.model.request.exceptions.DuplicateRequestException;
 import seedu.innsync.model.request.exceptions.RequestNotFoundException;
 
-
 public class UniqueRequestListTest {
 
     private static final Request VALID_REQUEST_STUB = new Request(VALID_REQUEST_AMY);
@@ -66,6 +65,16 @@ public class UniqueRequestListTest {
     }
 
     @Test
+    public void getRequest_nullRequest_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniqueRequestList.getRequest((String) null));
+    }
+
+    @Test
+    public void getRequest_noRequests_throwsRequestNotFoundException() {
+        assertTrue(() -> uniqueRequestList.getRequest(VALID_REQUEST_BOB) == null);
+    }
+
+    @Test
     public void remove_existingRequest_removesRequest() {
         uniqueRequestList.add(VALID_REQUEST_STUB);
         uniqueRequestList.remove(VALID_REQUEST_STUB);
@@ -107,6 +116,15 @@ public class UniqueRequestListTest {
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
             -> uniqueRequestList.asUnmodifiableObservableList().remove(0));
+    }
+
+    @Test
+    public void equals() {
+        // null uniqueRequestList returns false
+        assertFalse(uniqueRequestList.equals(null));
+
+        // uniqueRequestList itself returns true
+        assertTrue(uniqueRequestList.equals(uniqueRequestList));
     }
 
     @Test

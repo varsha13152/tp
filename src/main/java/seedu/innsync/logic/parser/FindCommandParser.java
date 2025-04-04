@@ -76,10 +76,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         if (searchCriteria.isEmpty()) {
-
-
-            throw new ParseException(Messages.MESSAGE_INVALID_COMMAND_FORMAT + " " + Emoticons.ANGRY + "\n"
-                    + FindCommand.MESSAGE_USAGE);
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
         return new FindCommand(searchCriteria);
@@ -184,7 +181,8 @@ public class FindCommandParser implements Parser<FindCommand> {
             return false;
         }
 
-        if (keyword.length() > 170) {
+        int maxLength = (prefix.equals(PREFIX_ADDRESS) || prefix.equals(PREFIX_MEMO)) ? 500 : 170;
+        if (keyword.length() > maxLength) {
             return false;
         }
 
@@ -207,7 +205,6 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         return true;
     }
-
     /**
      * Gets a description of the prefix for error messages.
      *

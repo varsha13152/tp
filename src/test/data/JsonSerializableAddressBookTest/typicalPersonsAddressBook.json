@@ -22,7 +22,7 @@
     "starred": false,
     "requests": [ ],
     "bookingTags" : [ ],
-    "tags" : [ "owesMoney", "friends" ]
+    "tags" : [ "owes money", "friends" ]
   }, {
     "name" : "Carl Kurz",
     "phone" : "+65 95352563",
@@ -71,7 +71,7 @@
     "memo" : "",
     "starred": false,
     "requests": [ ],
-    "bookingTags" : ["BeachHouse from/2025-06-01 to/2025-06-10"],
+    "bookingTags" : ["Beach House from/2025-06-01 to/2025-06-10"],
     "tags" : [ ]
   } ]
 }

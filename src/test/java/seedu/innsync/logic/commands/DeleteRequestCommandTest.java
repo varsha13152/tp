@@ -16,6 +16,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import seedu.innsync.commons.core.index.Index;
+import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.AddressBook;
 import seedu.innsync.model.Model;
@@ -68,7 +69,7 @@ public class DeleteRequestCommandTest {
 
         DeleteRequestCommand deleteRequestCommand = new DeleteRequestCommand(outOfBoundIndex, validRequestIndex);
 
-        assertCommandFailure(deleteRequestCommand, model, DeleteRequestCommand.MESSAGE_FAILURE_INVALID_INDEX);
+        assertCommandFailure(deleteRequestCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test

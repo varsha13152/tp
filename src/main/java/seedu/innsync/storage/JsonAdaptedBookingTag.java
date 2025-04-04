@@ -39,8 +39,10 @@ class JsonAdaptedBookingTag {
      * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
      */
     public BookingTag toModelType() throws IllegalValueException {
-        if (!BookingTag.isValidBookingTag(getBookingTagName())) {
-            throw new IllegalValueException(BookingTag.getErrorMessage());
+        try {
+            BookingTag.checkValidBookingTag(bookingTag);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalValueException(e.getMessage());
         }
         return new BookingTag(bookingTag);
     }

@@ -18,6 +18,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import seedu.innsync.commons.core.index.Index;
+import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.AddressBook;
 import seedu.innsync.model.Model;
@@ -57,13 +58,12 @@ public class RequestCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getPersonList().size() + 1);
         RequestCommand requestCommand = new RequestCommand(outOfBoundIndex,
                 new ArrayList<>(Arrays.asList(new Request(VALID_REQUEST_AMY))));
-        assertCommandFailure(requestCommand, model, RequestCommand.MESSAGE_FAILURE_INVALID_INDEX);
+        assertCommandFailure(requestCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void execute_validIndex_unsuccessful() throws CommandException {
         Index indexFirstPerson = Index.fromOneBased(INDEX_SECOND_PERSON.getOneBased());
-        Person firstPerson = model.getPersonList().get(indexFirstPerson.getZeroBased());
         Request validRequest = new Request(VALID_REQUEST_AMY);
         List<Request> validRequests = List.of(validRequest, validRequest);
         RequestCommand requestCommand = new RequestCommand(indexFirstPerson, validRequests);
