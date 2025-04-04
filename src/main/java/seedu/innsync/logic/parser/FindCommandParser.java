@@ -181,7 +181,8 @@ public class FindCommandParser implements Parser<FindCommand> {
             return false;
         }
 
-        if (keyword.length() > 170) {
+        int maxLength = (prefix.equals(PREFIX_ADDRESS) || prefix.equals(PREFIX_MEMO)) ? 500 : 170;
+        if (keyword.length() > maxLength) {
             return false;
         }
 
@@ -204,7 +205,6 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         return true;
     }
-
     /**
      * Gets a description of the prefix for error messages.
      *
