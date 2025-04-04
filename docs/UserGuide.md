@@ -312,8 +312,8 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​ [b/BOOKINGTAG
 </box>
 
 **Note:** New visitors added will be sorted alphabetically.    
-**Note:** To add a visitor with a name containing a prefix, escape the prefix with '$'.
-i.e. To add a contact with the name "murthu a/p", use the command `add n/murthu $a/p [...]`.
+**Note:** To add a visitor with a name containing a prefix, escape the prefix with '$'.    
+_i.e. To add a contact with the name "murthu a/p", use the command `add n/murthu $a/p [...]`._
 
 Examples:
 * `add n/John Doe p/+65 98765432 e/johnd@example.com a/John street, block 123, #01-01`
@@ -338,8 +338,8 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [b/BOOKING_TAG]…�
 * You can remove the visitor’s memo by typing `m/` without
     specifying any memo after it.
 
-**Note:** To edit a new name containing a prefix, escape the prefix with '$'.
-i.e. To change the name of the first contact in the list toe "murthu a/p", use the command `edit 1 n/murthu $a/p [...]`.
+**Note:** To edit a new name containing a prefix, escape the prefix with '$'.    
+_i.e. To change the name of the first contact in the list toe "murthu a/p", use the command `edit 1 n/murthu $a/p [...]`._
 
 Examples:
 *  `edit 1 p/+65 91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st visitor to be `+65 91234567` and `johndoe@example.com` respectively.
