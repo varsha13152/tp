@@ -306,7 +306,7 @@ e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 Adds a visitor to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG...] [b/BOOKING_TAG...]​ [r/REQUEST...]​ [m/MEMO/...]`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG...] [b/BOOKING_TAG...]​ [r/REQUEST...]​ [m/MEMO]`
 
 <box type="tip" seamless>
 **Tip:** A visitor can have any number of tags or requests (including 0) and at most one memo.
@@ -526,9 +526,10 @@ Format: `memo INDEX m/MEMO`
 
 * Adds a memo to the visitor specified by `INDEX`. The index refers to the index number shown in the displayed visitor LIST. The index **must be a positive integer**.
 * All the fields must be provided.
+* This command will overwrite the existing memo of the visitor if it exists.
 
 Examples:
-* `memo 1 m/recurring customer` Adds the memo to the 1st visitor on the list.
+* `memo 1 m/recurring customer` Overwrites the memo of the 1st visitor on the list.
 
 > **Tip:** You can remove a memo with `memo INDEX m/` intead of using the `edit` command!
 
