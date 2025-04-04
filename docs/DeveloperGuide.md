@@ -539,7 +539,7 @@ Suggested command format: `select [INDEX]`
 
 Currently, users are automatically sorted first by whether they are starred, and then in alphabetical order of the contact's name. To better cater to different user preferences, a command can be implemented to allow users to sort not just by name, but also by their address, email, or even based on the date the contact was added, or their number of requests.
 
-Suggested command format `sort n/[ASC/DESC] a/[ASC/DESC] p/[ASC/DESC]` or `sortnewest`
+Suggested command format: `sort n/[ASC/DESC] a/[ASC/DESC] p/[ASC/DESC]` or `sortnewest`
 
 --------------------------------------------------------------------------------------------------------------------
 ## **Appendix: Instructions for manual testing**
