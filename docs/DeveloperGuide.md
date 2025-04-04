@@ -528,7 +528,14 @@ Use case ends.
 * **MSS (Main Success Scenario)**:It describes the most straightforward interaction for a given use case, which assumes that nothing goes wrong.
 * **API (Application Programming Interface)**: A set of rules or protocols that govern the application to allow different software applications to work together by communication with each other.
 --------------------------------------------------------------------------------------------------------------------
+## **Appendix: Planned Enhancements**
 
+### Select Command
+Currently, users can only view the more detailed information of a person by clicking on their card in the GUI using a mouse, or by modifying the person's details. To cater to the target user who prefers typing using CLI over the mouse, a command can be implemented to allow a user to view a visitor's detail without using the mouse to click on that person's list card in the GUI.
+
+Suggested command format: `select [INDEX]`
+
+--------------------------------------------------------------------------------------------------------------------
 ## **Appendix: Instructions for manual testing**
 
 Given below are instructions to test the app manually.
