@@ -517,7 +517,7 @@ Examples:
 
 ## 4.6 Memo a visitor : `memo`
 
-Add a memo into the visitor in the address book.
+Adds a memo into the visitor in the address book.
 
 Format: `memo INDEX m/MEMO`
 
