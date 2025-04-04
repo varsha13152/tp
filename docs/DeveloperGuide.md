@@ -529,17 +529,9 @@ Use case ends.
 * **API (Application Programming Interface)**: A set of rules or protocols that govern the application to allow different software applications to work together by communication with each other.
 --------------------------------------------------------------------------------------------------------------------
 ## **Appendix: Planned Enhancements**
+Team Size: 5    
 
-### Select Command
-Currently, users can only view the more detailed information of a person by clicking on their card in the GUI using a mouse, or by modifying the person's details. To cater to the target user who prefers typing using CLI over the mouse, a command can be implemented to allow a user to view a person's detail without using the mouse to click on that person's list card in the GUI.
-
-Suggested command format: `select [INDEX]`
-
-### Sorting
-
-Currently, users are automatically sorted first by whether they are starred, and then in alphabetical order of the contact's name. To better cater to different user preferences, a command can be implemented to allow users to sort not just by name, but also by their address, email, or even based on the date the contact was added, or their number of requests.
-
-Suggested command format: `sort n/[ASC/DESC] a/[ASC/DESC] p/[ASC/DESC]` or `sortnewest`
+1. **Allow all command parsers to escape prefixes in all fields**: Currently, only the edit and add command allow escaping of prefixes, and only in the name argument. We plan to extend this to all commands and fields, in order to allow the user more freedom in their choice of arguments and keywords.
 
 --------------------------------------------------------------------------------------------------------------------
 ## **Appendix: Instructions for manual testing**
