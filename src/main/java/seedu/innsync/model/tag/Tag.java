@@ -1,21 +1,21 @@
 package seedu.innsync.model.tag;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.innsync.commons.util.AppUtil.checkArgument;
+
+import seedu.innsync.logic.Messages;
 
 /**
  * Represents a Tag in the address book.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
 public class Tag {
-
-    public static final String MESSAGE_EMPTY = "Error: Tag value should not be empty.";
-    public static final String MESSAGE_LENGTH = "Error: Tag value must not exceed 170 characters.";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Tag names should not be blank and should not exceed 170 characters.";
+    public static final String MESSAGE_EMPTY = String.format(Messages.MESSAGE_EMPTY_FIELD, "Tag");
+    public static final String MESSAGE_LENGTH = String.format(Messages.MESSAGE_MAX_LENGTH_EXCEEDED, "Tag", 170);
 
     public static final String REGEX_NOT_EMPTY = "^.+$"; // Ensures non-empty string
     public static final String REGEX_MAX_LENGTH = "^.{1,170}$"; // Ensures length <= 170
-
-    private static String errorMessage = "Error: Tag is invalid.";
 
     public final String tagName;
     /**
@@ -25,34 +25,41 @@ public class Tag {
      */
     public Tag(String tagName) {
         requireNonNull(tagName);
-        checkArgument(isValidTagName(tagName), errorMessage);
+        checkValidTag(tagName);
         this.tagName = tagName;
     }
 
     /**
-     * Returns true if a given string matches all validation rules.
-     * Else sets the error message to the specific error and returns false.
+     * Checks if a given string is a valid tag name.
+     *
+     * @param test The string to be validated.
+     * @throws IllegalArgumentException if the string is not a valid tag name.
      */
-    public static boolean isValidTagName(String test) {
+    public static void checkValidTag(String test) {
+        requireNonNull(test);
+
         if (!test.matches(REGEX_NOT_EMPTY)) {
-            errorMessage = MESSAGE_EMPTY;
-            return false;
+            throw new IllegalArgumentException(MESSAGE_EMPTY);
         }
         if (!test.matches(REGEX_MAX_LENGTH)) {
-            errorMessage = MESSAGE_LENGTH;
-            return false;
+            throw new IllegalArgumentException(MESSAGE_LENGTH);
         }
-        return true;
     }
 
     /**
-     * Determines the specific error message based on the invalid tag name.
+     * Returns true if a given string is a valid tag name.
+     *
+     * @param test The string to be validated.
+     * @return true if the string is a valid tag name.
      */
-    public static String getErrorMessage(String test) {
-        if (!test.matches(REGEX_NOT_EMPTY)) {
-            return MESSAGE_EMPTY;
+    public static boolean isValidTag(String test) {
+        requireNonNull(test);
+        try {
+            checkValidTag(test);
+        } catch (IllegalArgumentException e) {
+            return false;
         }
-        return MESSAGE_LENGTH;
+        return true;
     }
 
     public String getTagName() {
@@ -80,9 +87,9 @@ public class Tag {
     }
 
     /**
-     * Format state as text for viewing.
+     * Format state as text for storage.
      */
     public String toString() {
-        return tagName;
+        return "[" + tagName + "]";
     }
 }

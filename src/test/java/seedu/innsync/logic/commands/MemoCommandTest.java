@@ -15,6 +15,7 @@ import static seedu.innsync.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.Test;
 
 import seedu.innsync.commons.core.index.Index;
+import seedu.innsync.logic.Messages;
 import seedu.innsync.model.AddressBook;
 import seedu.innsync.model.Model;
 import seedu.innsync.model.ModelManager;
@@ -39,7 +40,7 @@ public class MemoCommandTest {
 
         MemoCommand memoCommand = new MemoCommand(INDEX_FIRST_PERSON, new Memo(editedPerson.getMemo().value));
 
-        String expectedMessage = String.format(MemoCommand.MESSAGE_ADD_MEMO_SUCCESS, MEMO_STUB, editedPerson.getName());
+        String expectedMessage = String.format(MemoCommand.MESSAGE_ADD_MEMO_SUCCESS, editedPerson.getName());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
@@ -73,7 +74,7 @@ public class MemoCommandTest {
 
         MemoCommand memoCommand = new MemoCommand(INDEX_FIRST_PERSON, new Memo(editedPerson.getMemo().value));
 
-        String expectedMessage = String.format(MemoCommand.MESSAGE_ADD_MEMO_SUCCESS, MEMO_STUB, editedPerson.getName());
+        String expectedMessage = String.format(MemoCommand.MESSAGE_ADD_MEMO_SUCCESS, editedPerson.getName());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
@@ -86,7 +87,7 @@ public class MemoCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getPersonList().size() + 1);
         MemoCommand memoCommand = new MemoCommand(outOfBoundIndex, new Memo(VALID_MEMO_BOB));
 
-        assertCommandFailure(memoCommand, model, MemoCommand.MESSAGE_FAILURE_INVALID_INDEX);
+        assertCommandFailure(memoCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     /**
@@ -102,7 +103,7 @@ public class MemoCommandTest {
 
         MemoCommand memoCommand = new MemoCommand(outOfBoundIndex, new Memo(VALID_MEMO_BOB));
 
-        assertCommandFailure(memoCommand, model, MemoCommand.MESSAGE_FAILURE_INVALID_INDEX);
+        assertCommandFailure(memoCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test

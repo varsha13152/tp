@@ -48,8 +48,10 @@ class JsonAdaptedRequest {
      * @throws IllegalValueException if there were any data constraints violated in the adapted request.
      */
     public Request toModelType() throws IllegalValueException {
-        if (!Request.isValidRequest(requestName)) {
-            throw new IllegalValueException(Request.getErrorMessage(requestName));
+        try {
+            Request.checkValidRequest(requestName);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalValueException(e.getMessage());
         }
         Request request = new Request(requestName);
         if (isCompleted) {

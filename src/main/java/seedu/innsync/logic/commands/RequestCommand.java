@@ -9,7 +9,6 @@ import java.util.List;
 
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.commons.util.ToStringBuilder;
-import seedu.innsync.logic.Emoticons;
 import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.Model;
@@ -31,13 +30,10 @@ public class RequestCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) " + PREFIX_REQUEST + "REQUEST\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_REQUEST + "Need a bottle of champagne every morning";
 
-    public static final String MESSAGE_SUCCESS = "Request successfully added to `%s`! " + Emoticons.PROUD;
-    public static final String MESSAGE_FAILURE_INVALID_INDEX = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX + "\n"
-            + MESSAGE_USAGE;
-    public static final String MESSAGE_DUPLICATE_REQUEST = "This contact already has this request! " + Emoticons.SAD
-            + "\n" + MESSAGE_USAGE;
-    public static final String MESSAGE_DUPLICATE_REQUEST_EDIT = "This edit contains duplicate requests! "
-            + Emoticons.SAD + "\n" + MESSAGE_USAGE;
+    public static final String MESSAGE_SUCCESS = String.format(Messages.MESSAGE_COMMAND_SUCCESS,
+            "Add request", "Added request to %s!");
+    public static final String MESSAGE_DUPLICATE_REQUEST = String.format(Messages.MESSAGE_DUPLICATE_FIELD,
+            "request");
 
 
     private final Index index;
@@ -68,7 +64,7 @@ public class RequestCommand extends Command {
         requireNonNull(model);
         List<Person> lastShownList = model.getPersonList();
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(MESSAGE_FAILURE_INVALID_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
         Person personToEdit = lastShownList.get(this.index.getZeroBased());

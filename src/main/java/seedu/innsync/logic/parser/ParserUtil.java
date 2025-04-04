@@ -127,8 +127,10 @@ public class ParserUtil {
     public static Request parseRequest(String request) throws ParseException {
         requireNonNull(request);
         String trimmedRequest = request.trim();
-        if (!Request.isValidRequest(trimmedRequest)) {
-            throw new ParseException(Request.getErrorMessage(trimmedRequest));
+        try {
+            Request.checkValidRequest(trimmedRequest);
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(e.getMessage());
         }
         return new Request(trimmedRequest);
     }
@@ -143,7 +145,7 @@ public class ParserUtil {
             Request request = parseRequest(requestName);
             for (Request requestInList : requestList) {
                 if (requestInList.isSameRequest(request)) {
-                    throw new ParseException(RequestCommand.MESSAGE_DUPLICATE_REQUEST_EDIT);
+                    throw new ParseException(RequestCommand.MESSAGE_DUPLICATE_REQUEST);
                 }
             }
             requestList.add(request);
@@ -161,9 +163,13 @@ public class ParserUtil {
     public static BookingTag parseBookingTag(String bookingTag) throws ParseException {
         requireNonNull(bookingTag);
         String trimmedBookingTag = bookingTag.trim();
-        if (!BookingTag.isValidBookingTag(trimmedBookingTag)) {
-            throw new ParseException(BookingTag.MESSAGE_CONSTRAINTS);
+
+        try {
+            BookingTag.checkValidBookingTag(trimmedBookingTag);
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(e.getMessage());
         }
+
         return new BookingTag(trimmedBookingTag);
     }
 
@@ -188,9 +194,13 @@ public class ParserUtil {
     public static Tag parseTag(String tag) throws ParseException {
         requireNonNull(tag);
         String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.getErrorMessage(trimmedTag));
+
+        try {
+            Tag.checkValidTag(trimmedTag);
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(e.getMessage());
         }
+
         return new Tag(trimmedTag);
     }
 
