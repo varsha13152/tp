@@ -531,9 +531,15 @@ Use case ends.
 ## **Appendix: Planned Enhancements**
 
 ### Select Command
-Currently, users can only view the more detailed information of a person by clicking on their card in the GUI using a mouse, or by modifying the person's details. To cater to the target user who prefers typing using CLI over the mouse, a command can be implemented to allow a user to view a visitor's detail without using the mouse to click on that person's list card in the GUI.
+Currently, users can only view the more detailed information of a person by clicking on their card in the GUI using a mouse, or by modifying the person's details. To cater to the target user who prefers typing using CLI over the mouse, a command can be implemented to allow a user to view a person's detail without using the mouse to click on that person's list card in the GUI.
 
 Suggested command format: `select [INDEX]`
+
+### Sorting
+
+Currently, users are automatically sorted first by whether they are starred, and then in alphabetical order of the contact's name. To better cater to different user preferences, a command can be implemented to allow users to sort not just by name, but also by their address, email, or even based on the date the contact was added, or their number of requests.
+
+Suggested command format `sort n/[ASC/DESC] a/[ASC/DESC] p/[ASC/DESC]` or `sortnewest`
 
 --------------------------------------------------------------------------------------------------------------------
 ## **Appendix: Instructions for manual testing**
