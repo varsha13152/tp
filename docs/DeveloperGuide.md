@@ -128,14 +128,6 @@ The `Model` component,
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-<box type="info" seamless>
-
-**Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
-
-<puml src="diagrams/BetterModelClassDiagram.puml" width="450" />
-
-</box>
-
 
 ### Storage component
 
@@ -536,7 +528,12 @@ Use case ends.
 * **MSS (Main Success Scenario)**:It describes the most straightforward interaction for a given use case, which assumes that nothing goes wrong.
 * **API (Application Programming Interface)**: A set of rules or protocols that govern the application to allow different software applications to work together by communication with each other.
 --------------------------------------------------------------------------------------------------------------------
+## **Appendix: Planned Enhancements**
+Team Size: 5    
 
+1. **Allow all command parsers to escape prefixes in all fields**: Currently, only the edit and add command allow escaping of prefixes, and only in the name argument. We plan to extend this to all commands and fields, in order to allow the user more freedom in their choice of arguments and keywords.
+
+--------------------------------------------------------------------------------------------------------------------
 ## **Appendix: Instructions for manual testing**
 
 Given below are instructions to test the app manually.
