@@ -669,3 +669,12 @@ Furthermore, certain edits can cause the InnSync to behave in unexpected ways (e
 --------------------------------------------------------------------------------------------------------------------
 
 ## 7. Glossary
+
+* **Mainstream OS**: Windows, Linux, Unix, MacOS
+* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Airbnb host**: An Airbnb host is an individual or business that list their property on the platform for short-term rentals. The host provide accommodations in the forms of apartments, houses or rooms for guests, typically for leisure activities.
+* **Visitor**:  Any individual who accesses an Airbnb property, including guests staying at the property, property owners, service providers performing work, or other authorized individuals. Visitors may include cleaners, maintenance personnel, property inspectors, delivery services, and other vendors.
+* **CLI (Command Line Interface)**: A text-based interface where users interact with the application with a keyboard typing commands instead of using a graphical user interface.
+* **JAR**: A packed file format used in Java that contains compiled java codes to enable easy distribution, portability and execution that includes libraries and resources to allow the program to function.
+* **JSON (JavaScript Object Notation)**: A lightweight data format widely used for storing and exchanging structured data in a human-readable, that is often used in databases and APIs.
+* **GUI (Graphical User Interface)**: A visual graphical interface that allows users to interact with the application using various graphical elements like search boxes, buttons, text boxes, and eta.
