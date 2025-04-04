@@ -60,6 +60,8 @@ In this comprehensive user guide, we will take you to experience a full journey 
 
 [6. Known issues](#6-known-issues)
 
+[7. Glossary](#7-glossary)
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## 1. Introduction
