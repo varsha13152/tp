@@ -60,6 +60,8 @@ In this comprehensive user guide, we will take you to experience a full journey 
 
 [6. Known issues](#6-known-issues)
 
+[7. Glossary](#7-glossary)
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## 1. Introduction
@@ -211,7 +213,7 @@ Essentially, they are to be supplied by the user.
 
 | Parameter          | Prefix    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 |--------------------|-----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `NAME`             | `n/`      | Specifies the name of a visitor. <br><br> **Requirements:** <ul><li>Names can take any values but cannot exceed 170 characters.</li><li>Names with only whitespace are not allowed.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `NAME`             | `n/`      | Specifies the name of a visitor. <br><br> **Requirements:** <ul><li>Names can take any values not containing '$'.</li><li>Names cannot exceed 170 characters.</li><li>Names with only whitespace are not allowed.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | `PHONE`            | `p/`      | Specifies the phone number of a visitor. <br><br> **Requirements:** <ul><li>Phone numbers should be in the format `+[COUNTRY_CODE] [NUMBER]`.</li><li>The country code must be valid.</li><li>The number should be 7-15 digits long.</li></ul>                                                                                                                                                                                                                                                                                                                                                                   |
 | `EMAIL`            | `e/`      | Specifies the email of a visitor. <br><br> **Requirements:** <ul><li>Emails should be of the format `local-part@domain`.</li><li>The local-part should contain only alphanumeric characters and special characters.</li><li>Domain must follow standard domain name rules with proper labels separated by periods.</li></ul>                                                                                                                                                                                                                                                                                     |
 | `ADDRESS`          | `a/`      | Specifies the address of a visitor. <br><br> **Requirements:** <ul><li>Addresses can take any values.</li><li>The address should not be blank.</li><li>The address should not exceed 500 characters.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                   |
@@ -275,7 +277,7 @@ e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 ## 4.1 Command Summary
 
 | Action                   | Format, Examples                                                                                                                                                                                                                                                                                     |
-|--------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add Visitor**          | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/+82 22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`                                                                                                                            |
 | **Edit Visitor**         | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                                                                                                                          |
 | **List Visitor**         | `list`                                                                                                                                                                                                                                                                                               |
@@ -302,14 +304,16 @@ e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 Adds a visitor to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​ [b/BOOKINGTAG]…​ [r/REQUEST]…​ [m/MEMO]`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​ [b/BOOKINGTAG]…​ [r/REQUEST]…​ [m/MEMO]...`
 
 <box type="tip" seamless>
 
 **Tip:** A visitor can have any number of tags or requests (including 0) and at most one memo.
 </box>
 
-**Note:** New visitors added will be sorted alphabetically.
+**Note:** New visitors added will be sorted alphabetically.    
+**Note:** To add a visitor with a name containing a prefix, escape the prefix with '$'.    
+e.g. To add a contact with the name "murthu a/p", use the command `add n/murthu $a/p [...]`.
 
 Examples:
 * `add n/John Doe p/+65 98765432 e/johnd@example.com a/John street, block 123, #01-01`
@@ -333,6 +337,9 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [b/BOOKING_TAG]…�
     specifying any booking tags after it.
 * You can remove the visitor’s memo by typing `m/` without
     specifying any memo after it.
+
+**Note:** To edit a new name containing a prefix, escape the prefix with '$'.    
+e.g. To change the name of the first contact in the list toe "murthu a/p", use the command `edit 1 n/murthu $a/p [...]`.
 
 Examples:
 *  `edit 1 p/+65 91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st visitor to be `+65 91234567` and `johndoe@example.com` respectively.
@@ -564,6 +571,11 @@ Format: `find [n/KEYWORD]... [p/KEYWORD]... [e/KEYWORD]... [a/KEYWORD]... [t/KEY
 **Searching by name:**
 * `find n/John` - Finds contacts with "John" in their name
 * `find n/Betsy n/Tim` - Finds contacts with either "Betsy" or "Tim" in their name
+
+**Note:** `find` with '$' (i.e. `find n/$a/p`) acutually finds users with names containing '$a/p',
+which does not exist as '$' is not allowed in names but you can still do it.
+**[Planned Enhancement]** There are ongoing plans to allow the use of '$' to escape any prefixes,
+to enable you to search for names containing prefixes, i.e. find a contact whose name contains "murthu a/p" - `find n/murthu $a/p`.
 
 **Searching by phone:**
 * `find p/9123` - Finds contacts whose phone numbers contain "9123"
