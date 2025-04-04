@@ -250,9 +250,6 @@ The following activity diagram summarizes what happens when a user executes a ne
     * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
     * Cons: We must ensure that the implementation of each individual command are correct.
 
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -547,7 +544,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Private contact detail**: A contact detail that is not meant to be shared with others
 * **Airbnb host**: An Airbnb host is an individual or business that list their property on the platform for short-term rentals. The host provide accommodations in the forms of apartments, houses or rooms for guests, typically for leisure activities.
-* **Visitor**:  Any individual who accesses an Airbnb property, including guests staying at the property, service providers performing work, or other authorized individuals. Visitors may include cleaners, maintenance personnel, property inspectors, delivery services, and other vendors.
+* **Visitor**:  Any individual who accesses an Airbnb property, including guests staying at the property, property owners, service providers performing work, or other authorized individuals. Visitors may include cleaners, maintenance personnel, property inspectors, delivery services, and other vendors.
 * **CLI (Command Line Interface)**: A text-based interface where users interact with the application with a keyboard typing commands instead of using a graphical user interface.
 * **JAR**: A packed file format used in Java that contains compiled java codes to enable easy distribution, portability and execution that includes libraries and resources to allow the program to function.
 * **JSON (JavaScript Object Notation)**: A lightweight data format widely used for storing and exchanging structured data in a human-readable, that is often used in databases and APIs.
