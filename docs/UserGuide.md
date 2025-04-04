@@ -476,9 +476,9 @@ Format: `mark INDEX r/REQUEST_INDEX`
 
 * Marks the request specified by 'REQUEST_INDEX' for the visitor at 'INDEX' as completed.
 * All the fields must be provided.
-* The INDEX refers to the index number shown in the displayed visitor list. The index **must be a positive integer**.
-* The REQUEST_INDEX refers to the index number of the request in the visitor's request list. The REQUEST_INDEX **must be a positive integer**.
-* The REQUEST_INDEX must exist before u can mark, e.g. the request with index 1 has to exist, else it will be rejected.
+* The 'INDEX' refers to the index number shown in the displayed visitor list. The index **must be a positive integer**.
+* The 'REQUEST_INDEX' refers to the index number of the request in the visitor's request list. The 'REQUEST_INDEX' **must be a positive integer**.
+* The 'REQUEST_INDEX' must exist before u can mark, e.g. the request with index 1 has to exist, else it will be rejected.
 * When marking something that is already marked, it will be rejected.
 
 Examples:
@@ -493,9 +493,9 @@ Format: `unmark INDEX r/REQUEST_INDEX`
 
 * Unmarks the request specified by 'REQUEST_INDEX' for the visitor at 'INDEX', removing its completed status.
 * All the fields must be provided.
-* The INDEX refers to the index number shown in the displayed visitor list. The index **must be a positive integer**.
-* The REQUEST_INDEX refers to the index number of the request in the visitor's request list. The REQUEST_INDEX **must be a positive integer**.
-* The REQUEST_INDEX must exist and be marked before u can unmark, e.g. the request with index 1 has to exist while being marked, else it will be rejected.
+* The 'INDEX' refers to the index number shown in the displayed visitor list. The index **must be a positive integer**.
+* The 'REQUEST_INDEX' refers to the index number of the request in the visitor's request list. The 'REQUEST_INDEX' **must be a positive integer**.
+* The 'REQUEST_INDEX' must exist and be marked before u can unmark, e.g. the request with index 1 has to exist while being marked, else it will be rejected.
 * When unmarking something that is already unmarked, it will be rejected.
 
 Examples:
@@ -509,8 +509,8 @@ Format: `deletereq INDEX r/REQUEST_INDEX`
 
 * Deletes the request specified by 'REQUEST_INDEX' from the visitor at 'INDEX'.
 * All the fields must be provided.
-* The INDEX refers to the index number shown in the displayed visitor list. The index **must be a positive integer**.
-* The REQUEST_INDEX refers to the index number of the request in the visitor's request list. The REQUEST_INDEX **must be a positive integer**.
+* The 'INDEX' refers to the index number shown in the displayed visitor list. The 'INDEX' **must be a positive integer**.
+* The 'REQUEST_INDEX' refers to the index number of the request in the visitor's request list. The 'REQUEST_INDEX' **must be a positive integer**.
 
 Examples:
 * `deletereq 1 r/1` Deletes the first request of the first visitor on the list.
