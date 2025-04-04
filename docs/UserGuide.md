@@ -134,7 +134,7 @@ First-time users are strongly encouraged to read the Quick Start section before 
 5.  Navigate to the folder by using `cd` into the folder you put the jar file in, and use the `java -jar innsync.jar` command to run the application.<br>
 
 6. A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br><br>
-   ![Ui](images/Ui.png)
+   ![Ui](images/image.png)
 
 
 7. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
@@ -289,12 +289,13 @@ e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 | **List Starred Visitors** | `liststar` |
 | **Tag Visitor**           | `tag INDEX t/TAG [t/TAG...]` <br> e.g., `tag 1 t/friend` or <br> `tag INDEX b/PROPERTY from/yyyy-MM-dd to/yyyy-MM-dd [b/BOOKING_TAG....]` <br> e.g., `tag 1 b/Hotel from/2025-10-10 to/2025-10-11` |
 | **Untag Visitor**         | `untag INDEX t/TAG` <br> e.g., `untag 1 t/friend` or <br> `untag INDEX b/PROPERTY from/START_DATE to/END_DATE` <br> e.g., `untag 1 b/Hotel from/2025-10-10 to/2025-10-11` |
-| **Add Request**           | `req INDEX r/REQUEST...` <br> e.g., `req 1 r/a request` |
+| **Add Request**           | `req INDEX r/REQUEST [r/REQUEST...]` <br> e.g., `req 1 r/a request` |
 | **Mark Request**          | `mark INDEX r/REQUEST_INDEX` <br> e.g., `mark 1 r/1` |
 | **Unmark Request**        | `unmark INDEX r/REQUEST_INDEX` <br> e.g., `unmark 1 r/1` |
 | **Delete Request**        | `deletereq INDEX r/REQUEST_INDEX` <br> e.g. `deletereq 1 r/1` |
 | **Memo Visitor**          | `memo INDEX m/MEMO` <br> e.g., `memo 1 m/cool` |
-| **Find**                  | `find [n/]KEYWORD [MORE_KEYWORDS...] \| p/KEYWORD [MORE_KEYWORDS...] \| e/KEYWORD [MORE_KEYWORDS...] \| a/KEYWORD [MORE_KEYWORDS...] \| t/KEYWORD [MORE_KEYWORDS...] \| m/KEYWORD [MORE_KEYWORDS...] \| bd/DATE [MORE_DATES...] \| bp/KEYWORD [MORE_KEYWORDS...]` <br> e.g., `find n/john p/879294`|
+| **Find**                  | `find [n/KEYWORD...] [p/KEYWORD...] [e/KEYWORD...] [a/KEYWORD] [t/KEYWORD...] [bp/KEYWORD...] [bd/KEYWORD...] [m/KEYWORD...]` <br> e.g., `find n/john p/879294` |
+` <br> e.g., `find n/john p/879294`|
 | **Clear**                 | `clear` |
 | **Exit**                  | `exit`  |
 | **Undo**                  | `undo`  |
