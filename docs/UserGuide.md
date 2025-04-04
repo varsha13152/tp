@@ -639,11 +639,11 @@ Format: `help`
 
 ### 4.8 Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+InnSync's address book data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### 4.9 Editing the data file
 
-AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+InnSync's address book data is saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <box type="warning" seamless>
 
