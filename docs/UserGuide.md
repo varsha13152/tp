@@ -197,11 +197,13 @@ Here's a reference table for common parameter prefixes and their corresponding p
 | `p/`             | `PHONE`                  |
 | `e/`             | `EMAIL`                  |
 | `a/`             | `ADDRESS`                |
-| `m/`             | `MEMO`                   |
 | `b/`             | `BOOKING_TAG`            |
-| `t/`             | `TAG`                    |
-| `bd/`            | `BOOKING_DATE`           |
 | `bp/`            | `BOOKING_PROPERTY`       |
+| `bd/`            | `BOOKING_DATE`           |
+| `t/`             | `TAG`                    |
+| `r/`             | `REQUEST`                |
+| `r/`             | `REQUEST_INDEX`          |
+| `m/`             | `MEMO`                   |
 
 #### 3.3.2 Parameters:
 
@@ -211,20 +213,72 @@ Essentially, they are to be supplied by the user.
 
 **Note:** All user inputs, including parameters, will be trimmed (all leading and trailing whitespaces will be ignored).
 
-| Parameter          | Prefix    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-|--------------------|-----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `NAME`             | `n/`      | Specifies the name of a visitor. <br><br> **Requirements:** <ul><li>Names can take any values not containing '$'.</li><li>Names cannot exceed 170 characters.</li><li>Names with only whitespace are not allowed.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| `PHONE`            | `p/`      | Specifies the phone number of a visitor. <br><br> **Requirements:** <ul><li>Phone numbers should be in the format `+[COUNTRY_CODE] [NUMBER]`.</li><li>The country code must be valid.</li><li>The number should be 7-15 digits long.</li></ul>                                                                                                                                                                                                                                                                                                                                                                   |
-| `EMAIL`            | `e/`      | Specifies the email of a visitor. <br><br> **Requirements:** <ul><li>Emails should be of the format `local-part@domain`.</li><li>The local-part should contain only alphanumeric characters and special characters.</li><li>Domain must follow standard domain name rules with proper labels separated by periods.</li></ul>                                                                                                                                                                                                                                                                                     |
-| `ADDRESS`          | `a/`      | Specifies the address of a visitor. <br><br> **Requirements:** <ul><li>Addresses can take any values.</li><li>The address should not be blank.</li><li>The address should not exceed 500 characters.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                   |
-| `MEMO`             | `m/`      | Specifies the memo of a visitor. <br><br> **Requirements:** <ul><li>Memos can take any values.</li><li>Memos should not be null.</li><li>Memos should not exceed 500 characters.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| `REQUEST`          | `r/`      | Specifies the request of a visitor. <br><br> **Requirements:** <ul><li>Request can take any values.</li><li>Request cannot be empty.</li><li>Request cannot exceed 170 characters.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `BOOKING_DATE`     | `bd/`     | Specifies the booking date for searching. <br><br> **Requirements:** <ul><li>Dates must be in the format `yyyy-MM-dd` (e.g., 2025-01-01).</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| `BOOKING_PROPERTY` | `bp/`     | Specifies the booking property for searching. <br><br> **Requirements:** <ul><li>Can be any valid property name or partial name.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| `TAG`              | `t/`      | Specifies the tag name of a visitor. <br><br> **Requirements:** <ul><li>Tags can take any values.</li><li>Tags cannot be null.</li><li>Tags cannot exceed 170 characters.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| `BOOKING_TAG`      | `b/`      | Specifies the tag name of a booking. <br><br> **Requirements:** <ul><li>Booking tags must be in the format: `PROPERTY from/START_DATE to/END_DATE`.</li> <li>`START_DATE` and `END_DATE` must follow the format `yyyy-MM-dd`.</li> <li>`START_DATE` must be before `END_DATE`.</li> <li>`PROPERTY` must have between 1 and 170 characters.</li> <li>`PROPERTY` cannot be empty.</li> <li>`START_DATE` and `END_DATE` cannot be empty.</li> <li>`START_DATE` and `END_DATE` must be valid dates.</li> </ul>                                                                                                       |
-| `INDEX`            | N/A       | Refers to the index number shown in the List Panel. <br><br> **Requirements:** <ul><li>Must be a positive integer.</li><li>The value must fall within the valid range (1 to number of visitors in the list).</li></ul>                                                                                                                                                                                                                                                                                                                                                                                           |
-| `REQUEST_INDEX`    | `r/`      | Refers to the index number shown in the Request panel. <br><br> **Requirements:** Requirements: <ul> <li>Must be a positive integer.</li> <li>Any number greater than the valid range will not be accepted (e.g., if there are 10 requests, the valid range is from 1 to 10, and 11 or higher is invalid).</li> <li>The value must fall within the valid range of unsigned integer max number.</li> <li>Unsigned Integer Max Number: For example, this app uses 32-bit integers, the maximum value would be <strong>2,147,483,647</strong>. Any index greater than this number would not be accepted.</li> </ul> |
+| Parameter | Prefix | Description |
+|-----------|--------|-------------|
+| `NAME`    | `n/`   | Specifies the name of a visitor.
+                       <br><br>
+                       **Requirements:** <ul>
+                       <li>Names can take any values not containing '$'.</li>
+                       <li>Names cannot be empty.</li>
+                       <li>Names cannot exceed 170 characters.</li>
+                       <li>Names with only whitespace are not allowed.</li></ul> |
+| `PHONE`   | `p/`   | Specifies the phone number of a visitor.
+                       <br><br>
+                       **Requirements:** <ul>
+                       <li>Phone numbers should be in the format `+[COUNTRY_CODE] [NUMBER]`.</li>
+                       <li>Country code should be a valid country code.</li>
+                       <li>Country code should be 1-3 digits long.</li>
+                       <li>Number should be 7-15 digits long.</li></ul> |
+| `EMAIL`   | `e/`   | Specifies the email of a visitor.
+                       <br><br>
+                       **Requirements:** <ul>
+                       <li>Emails should be of the format `local-part@domain`.</li>
+                       <li>Emails cannot be empty.</li>
+                       <li>Local-part should contain only alphanumeric characters and special characters.</li>
+                       <li>Domain must follow standard domain name rules with proper labels separated by periods.</li></ul> |
+| `ADDRESS` | `a/`   | Specifies the address of a visitor.
+                       <br><br> **Requirements:** <ul>
+                       <li>Addresses can take any values.</li>
+                       <li>Addresses cannot be empty.</li>
+                       <li>Addresses cannot exceed 500 characters.</li></ul> |
+| `BOOKING_TAG` | `b/`  | Specifies the booking tag of a visitor.
+                          <br><br> **Requirements:** <ul>
+                          <li>Booking tags must be in the format: `PROPERTY from/START_DATE to/END_DATE`.</li>
+                          <li>`PROPERTY` cannot be empty.</li>
+                          <li>`PROPERTY` cannot exceed 170 characters.</li>
+                          <li>`START_DATE` and `END_DATE` cannot be empty.</li>
+                          <li>`START_DATE` and `END_DATE` must follow the format `yyyy-MM-dd`.</li>
+                          <li>`START_DATE` and `END_DATE` must be valid dates.</li>
+                          <li>`START_DATE` must be before `END_DATE`.</li></ul> |
+| `BOOKING_PROPERTY` | `bp/`  | Specifies the booking property of a visitor for searching.
+                                <br><br> **Requirements:** <ul>
+                                <li>Booking properties can take any values.</li></ul> |
+| `BOOKING_DATE` | `bd/`  | Specifies the booking date of a visitor for searching.
+                            <br><br> **Requirements:** <ul>
+                            <li>Booking dates must be in the format `yyyy-MM-dd`.</li></ul> |
+| `TAG`     | `t/`   | Specifies the tag name of a visitor.
+                       <br><br> **Requirements:** <ul>
+                       <li>Tags can take any values.</li>
+                       <li>Tags cannot be empty.</li>
+                       <li>Tags cannot exceed 170 characters.</li></ul> |
+| `REQUEST` | `r/`   | Specifies the request of a visitor.
+                       <br><br> **Requirements:** <ul>
+                       <li>Requests can take any values.</li>
+                       <li>Requests cannot be empty.</li>
+                       <li>Requests cannot exceed 170 characters.</li></ul> |
+| `REQUEST_INDEX` | `r/`  | Refers to the index number shown in the Request panel.
+                            <br><br> **Requirements:** <ul>
+                            <li>Must be a positive integer.</li>
+                            <li>The value must fall within the valid range (1 to number of requests in the list).</li></ul> |
+| `MEMO`    | `m/`   | Specifies the memo of a visitor.
+                       <br><br> **Requirements:** <ul>
+                       <li>Memos can take any values.</li>
+                       <li>Memos cannot be empty.</li>
+                       <li>Memos cannot not exceed 500 characters.</li></ul> |
+| `INDEX`   | N/A    | Refers to the index number shown in the List Panel.
+                       <br><br> **Requirements:** <ul>
+                       <li>Must be a positive integer.</li>
+                       <li>The value must fall within the valid range (1 to number of visitors in the list).</li></ul> |
 
 #### 3.3.3 Command Format:
 
@@ -259,8 +313,8 @@ e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe
 * Items in square brackets are optional.<br>
 e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-e.g. `[t/TAG]…​` can be used as ` `&nbsp;(i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items with `...`​ after them can be used multiple times including zero times.<br>
+e.g. `[t/TAG...]` can be used as ` `&nbsp;(i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
 e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, then `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -276,27 +330,44 @@ e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 ## 4. Features
 ## 4.1 Command Summary
 
-| Action                   | Format, Examples                                                                                                                                                                                                                                                                                     |
-|------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add Visitor**          | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/+82 22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`                                                                                                                            |
-| **Edit Visitor**         | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                                                                                                                          |
-| **List Visitor**         | `list`                                                                                                                                                                                                                                                                                               |
-| **Delete Visitor**       | `delete INDEX`<br> e.g., `delete 3`  <br/>                                                                                                                                                                                                                                                           | 
-| **Star Visitor**         | `star INDEX` <br> e.g., `star 1`                                                                                                                                                                                                                                                                     |
-| **Unstar Visitor**       | `unstar INDEX` <br> e.g., `unstar 1`                                                                                                                                                                                                                                                                 |
-| **List Starred Visitor** | `liststar`                                                                                                                                                                                                                                                                                           |
-| **Tag Visitor**          | `tag INDEX t/TAG...` <br> e.g., `tag 1 t/friend` or <br/> `tag INDEX b/PROPERTY... from/yyyy-MM-dd to/yyyy-MM-dd` <br> e.g., `tag 1 b/Hotel from/2025-10-10 to/2025-10-11`                                                                                                                           |
-| **Untag Visitor**        | `untag INDEX t/TAG` <br> e.g., `untag 1 t/TEST` or <br/> `untag INDEX b/PROPERTY from/START_DATE to/END_DATE` <br> e.g., `untag 1 b/Hotel from/2025-10-10 to/2025-10-11`                                                                                                                             |
-| **Add Request**          | `req INDEX r/REQUEST...` <br> e.g., `req 1 r/REQUEST`                                                                                                                                                                                                                                                | |
-| **Mark Request**         | `mark INDEX r/REQUEST_INDEX` <br> e.g., `mark 1 r/1`                                                                                                                                                                                                                                                 | | 
-| **Unmark Request**       | `unmark INDEX r/REQUEST_INDEX` <br> e.g., `unmark 1 r/1`                                                                                                                                                                                                                                             | |
-| **Delete Request**       | `deletereq INDEX r/REQUEST_INDEX` <br> e.g. `deletereq 1 r/1`                                                                                                                                                                                                                                        |  |
-| **Memo Visitor**         | `memo INDEX m/MEMO` <br/> e.g., `memo 1 m/cool`                                                                                                                                                                                                                                                      | |
-| **Find**                 | `find [n/]KEYWORD [MORE_KEYWORDS...] \| p/KEYWORD [MORE_KEYWORDS...] \| e/KEYWORD [MORE_KEYWORDS...] \| a/KEYWORD [MORE_KEYWORDS...] \| t/KEYWORD [MORE_KEYWORDS...] \| m/KEYWORD [MORE_KEYWORDS...] \| bd/DATE [MORE_DATES...] \| bp/KEYWORD [MORE_KEYWORDS...]` <br> e.g., `find n/john p/879294 ` |
-| **Clear**                | `clear`                                                                                                                                                                                                                                                                                              |
-| **Exit**                 | `exit`                                                                                                                                                                                                                                                                                               |
-| **Undo**                 | `undo`                                                                                                                                                                                                                                                                                               |
-| **Help**                 | `help`                                                                                                                                                                                                                                                                                               |
+| Action                    | Format, Examples |
+|---------------------------|------------------|
+| **Add Visitor**           | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...​`
+                              <br> e.g., `add n/James Ho p/+82 22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend` |
+| **Edit Visitor**          | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...​`
+                              <br> e.g.,`edit 2 n/James Lee e/jameslee@example.com` |
+| **List Visitor**          | `list` |
+| **Delete Visitor**        | `delete INDEX`
+                              <br> e.g., `delete 3` |
+| **Star Visitor**          | `star INDEX`
+                              <br> e.g., `star 1`|
+| **Unstar Visitor**        | `unstar INDEX`
+                              <br> e.g., `unstar 1` |
+| **List Starred Visitors** | `liststar` |
+| **Tag Visitor**           | `tag INDEX t/TAG [t/TAG...]`
+                            <br> e.g., `tag 1 t/friend` or
+                            <br> `tag INDEX b/PROPERTY from/yyyy-MM-dd to/yyyy-MM-dd [b/BOOKING_TAG....]`
+                            <br> e.g., `tag 1 b/Hotel from/2025-10-10 to/2025-10-11` |
+| **Untag Visitor**         | `untag INDEX t/TAG`
+                              <br> e.g., `untag 1 t/friend      ` or
+                              <br> `untag INDEX b/PROPERTY from/START_DATE to/END_DATE`
+                              <br> e.g., `untag 1 b/Hotel from/2025-10-10 to/2025-10-11` |
+| **Add Request**           | `req INDEX r/REQUEST...`
+                              <br> e.g., `req 1 r/a request` |
+| **Mark Request**          | `mark INDEX r/REQUEST_INDEX`
+                              <br> e.g., `mark 1 r/1` |
+| **Unmark Request**        | `unmark INDEX r/REQUEST_INDEX`
+                              <br> e.g., `unmark 1 r/1` |
+| **Delete Request**        | `deletereq INDEX r/REQUEST_INDEX`
+                              <br> e.g. `deletereq 1 r/1` |
+| **Memo Visitor**          | `memo INDEX m/MEMO`
+                              <br> e.g., `memo 1 m/cool` |
+| **Find**                  | `find [n/]KEYWORD [MORE_KEYWORDS...] \| p/KEYWORD [MORE_KEYWORDS...] \| e/KEYWORD [MORE_KEYWORDS...] \| a/KEYWORD [MORE_KEYWORDS...] \| t/KEYWORD [MORE_KEYWORDS...] \| m/KEYWORD [MORE_KEYWORDS...] \| bd/DATE [MORE_DATES...] \| bp/KEYWORD [MORE_KEYWORDS...]`
+                              <br> e.g., `find n/john p/879294`|
+| **Clear**                 | `clear` |
+| **Exit**                  | `exit`  |
+| **Undo**                  | `undo`  |
+| **Help**                  | `help`  |
 
 ## 4.2 Features related to visitor
 
@@ -304,16 +375,15 @@ e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 Adds a visitor to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​ [b/BOOKINGTAG]…​ [r/REQUEST]…​ [m/MEMO]...`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG...] [b/BOOKING_TAG...]​ [r/REQUEST...]​ [m/MEMO/...]`
 
 <box type="tip" seamless>
-
 **Tip:** A visitor can have any number of tags or requests (including 0) and at most one memo.
+**Tip:** If a visitor's name contains a prefix, escape the prefix with '$'.
+e.g. To add a visitor with the name "murthu a/p", use the command `add n/murthu $a/p [...]`.
 </box>
 
-**Note:** New visitors added will be sorted alphabetically.    
-**Note:** To add a visitor with a name containing a prefix, escape the prefix with '$'.    
-e.g. To add a contact with the name "murthu a/p", use the command `add n/murthu $a/p [...]`.
+**Note:** New visitors added will be sorted alphabetically.
 
 Examples:
 * `add n/John Doe p/+65 98765432 e/johnd@example.com a/John street, block 123, #01-01`
@@ -338,8 +408,10 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [b/BOOKING_TAG]…�
 * You can remove the visitor’s memo by typing `m/` without
     specifying any memo after it.
 
-**Note:** To edit a new name containing a prefix, escape the prefix with '$'.    
-e.g. To change the name of the first contact in the list toe "murthu a/p", use the command `edit 1 n/murthu $a/p [...]`.
+<box type="tip" seamless>
+**Tip:** To edit a visitor's name to contain a prefix, escape the prefix with '$'.
+e.g. To change the name of the first contact in the list to "murthu a/p", use the command `edit 1 n/murthu $a/p [...]`.
+</box>
 
 Examples:
 *  `edit 1 p/+65 91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st visitor to be `+65 91234567` and `johndoe@example.com` respectively.
@@ -354,7 +426,7 @@ Shows a list of all visitors in the address book.
 
 Format: `list`
 
-**Note:** Listing without any visitor, will recommend you to add some.
+**Tip:** Listing without any visitors added will recommend you to add some.
 
 ### 4.2.4 Deleting a visitor : `delete`
 
@@ -400,7 +472,7 @@ Format: `liststar`
 
 Adds a booking tag into the visitor in the address book.
 
-Format: `tag INDEX b/PROPERTY START_DATE END_DATE`
+Format: `tag INDEX b/PROPERTY from/START_DATE to/END_DATE`
 
 * Adds the booking tag to the visitor specified by 'INDEX'. The index refers to the index number shown in the displayed visitor list. The index **must be a positive integer**
 * All the fields must be provided.
@@ -411,7 +483,7 @@ Format: `tag INDEX b/PROPERTY START_DATE END_DATE`
 Examples:
 * `tag 1 b/Hotel from/2025-10-10 to/2025-10-11` Adds the booking tag to the 1st visitor on the list.
 * `tag 1 b/Hotel from/2025-10-10 to/2025-10-11` Will be rejected due to overlapping time interval.
-* 
+*
 ### 4.4.2 Adding a tag : `tag`
 
 Adds a tag into the visitor in the address book.
@@ -431,7 +503,7 @@ Examples:
 
 Removes a booking tag on the 1st visitor in the address book.
 
-Format: `untag INDEX b/{property} {from/yyyy-MM-dd} {to/yyyy-MM-dd}`
+Format: `untag INDEX b/PROPERTY from/START_DATE to/END_DATE`
 
 * Removes a booking tag to the visitor specified by 'INDEX'. The index refers to the index number shown in the displayed visitor list. The index **must be a positive integer**
 * All the fields must be provided.
@@ -561,10 +633,10 @@ Format: `find [n/KEYWORD]... [p/KEYWORD]... [e/KEYWORD]... [a/KEYWORD]... [t/KEY
 |  `p/`  | Phone            | Phone numbers              | Any value that looks like a phone number. Can start with `+`.                    |
 |  `e/`  | Email            | Email addresses            | Any value with letters, numbers, and special characters:`@`, `.`, `_`, `-`, `+`. |
 |  `a/`  | Address          | Physical addresses         | Any value (up to 500 characters).                                                |
-|  `t/`  | Tag              | Contact tags               | Any value (up to 170 characters).                                                |
-|  `m/`  | Memo             | Notes or comments          | Any value (up to 500 characters).                                                |
 | `bd/`  | Booking Date     | Dates from bookings        | Use the format `yyyy-MM-dd` (e.g., `2025-01-15`).                                |
 | `bp/`  | Booking Property | Property names in bookings | Any value (up to 170 characters).                                                |
+|  `t/`  | Tag              | Contact tags               | Any value (up to 170 characters).                                                |
+|  `m/`  | Memo             | Notes or comments          | Any value (up to 500 characters).                                                |
 
 #### Examples:
 
