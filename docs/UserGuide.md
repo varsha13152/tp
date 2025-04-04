@@ -572,10 +572,10 @@ Format: `find [n/KEYWORD]... [p/KEYWORD]... [e/KEYWORD]... [a/KEYWORD]... [t/KEY
 * `find n/John` - Finds contacts with "John" in their name
 * `find n/Betsy n/Tim` - Finds contacts with either "Betsy" or "Tim" in their name
 
-**Note:** `find` with '$' (i.e. `find n/$a/p`) acutually finds users with named '$a/p',
+**Note:** `find` with '$' (i.e. `find n/$a/p`) acutually finds users with names containing '$a/p',
 which does not exist as '$' is not allowed in names but you can still do it.
 **[Planned Enhancement]** There are ongoing plans to allow the use of '$' to escape any prefixes,
-to enable you to search for names containing prefixes, i.e. find a contact named "murthu a/p" - `find n/murthu $a/p`.
+to enable you to search for names containing prefixes, i.e. find a contact whose name contains "murthu a/p" - `find n/murthu $a/p`.
 
 **Searching by phone:**
 * `find p/9123` - Finds contacts whose phone numbers contain "9123"
