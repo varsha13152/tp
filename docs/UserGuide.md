@@ -395,7 +395,7 @@ Adds a booking tag into the visitor in the address book.
 
 Format: `tag INDEX b/PROPERTY START_DATE END_DATE`
 
-* Adds the booking tag to the visitor specified by 'INDEX'. The index refers to the index number shown in the displayed visitor LIST. The index **must be a positive integer**
+* Adds the booking tag to the visitor specified by 'INDEX'. The index refers to the index number shown in the displayed visitor list. The index **must be a positive integer**
 * All the fields must be provided.
 * The date format has to be exactly the same "yyyy-MM-dd".
 * When adding a new booking tag and if they exist, and if they dont overlap the time interval, it will be added to the visitor.
@@ -411,7 +411,7 @@ Adds a tag into the visitor in the address book.
 
 Format: `tag INDEX t/TAG`
 
-* Adds the tag to the visitor specified by 'INDEX'. The index refers to the index number shown in the displayed visitor LIST. The index **must be a positive integer**
+* Adds the tag to the visitor specified by 'INDEX'. The index refers to the index number shown in the displayed visitor list. The index **must be a positive integer**
 * All the fields must be provided.
 * When adding a tag the new tag will be appended to the previous tags if they do not exist.
 * When adding a tag and if they exist, they will not be added and will be rejected.
@@ -426,7 +426,7 @@ Removes a booking tag on the 1st visitor in the address book.
 
 Format: `untag INDEX b/{property} {from/yyyy-MM-dd} {to/yyyy-MM-dd}`
 
-* Removes a booking tag to the visitor specified by 'INDEX'. The index refers to the index number shown in the displayed visitor LIST. The index **must be a positive integer**
+* Removes a booking tag to the visitor specified by 'INDEX'. The index refers to the index number shown in the displayed visitor list. The index **must be a positive integer**
 * All the fields must be provided.
 * The date format has to be exactly the same "yyyy-MM-dd".
 * When removing a booking tag and if they exist in the visitor the booking tag will be removed
@@ -442,7 +442,7 @@ Removes a tag on the 1st visitor in the address book.
 
 Format: `untag INDEX t/TAG`
 
-* Removes a tag to the visitor specified by 'INDEX'. The index refers to the index number shown in the displayed visitor LIST. The index **must be a positive integer**
+* Removes a tag to the visitor specified by 'INDEX'. The index refers to the index number shown in the displayed visitor list. The index **must be a positive integer**
 * All the fields must be provided.
 * When removing a tag the matching tag will be removed if the tag exist in the visitor.
 * When removing a tag the matching tag will not be removed if the tag don't exist in the visitor.
@@ -459,7 +459,7 @@ Adds a request into the visitor in the address book.
 
 Format: `req INDEX r/REQUEST`
 
-* Adds the request to the visitor specified by 'INDEX'. The index refers to the index number shown in the displayed visitor LIST. The index **must be a positive integer**
+* Adds the request to the visitor specified by 'INDEX'. The index refers to the index number shown in the displayed visitor list. The index **must be a positive integer**
 * All the fields must be provided.
 * When adding a request the new request will be appended to the previous requests if they do not exist.
 * When adding a request and if they exist, they will not be added and will be rejected.
@@ -476,9 +476,9 @@ Format: `mark INDEX r/REQUEST_INDEX`
 
 * Marks the request specified by 'REQUEST_INDEX' for the visitor at 'INDEX' as completed.
 * All the fields must be provided.
-* The INDEX refers to the index number shown in the displayed visitor list. The index **must be a positive integer**.
-* The REQUEST_INDEX refers to the index number of the request in the visitor's request list. The REQUEST_INDEX **must be a positive integer**.
-* The REQUEST_INDEX must exist before u can mark, e.g. the request with index 1 has to exist, else it will be rejected.
+* The 'INDEX' refers to the index number shown in the displayed visitor list. The index **must be a positive integer**.
+* The 'REQUEST_INDEX' refers to the index number of the request in the visitor's request list. The 'REQUEST_INDEX' **must be a positive integer**.
+* The 'REQUEST_INDEX' must exist before u can mark, e.g. the request with index 1 has to exist, else it will be rejected.
 * When marking something that is already marked, it will be rejected.
 
 Examples:
@@ -493,9 +493,9 @@ Format: `unmark INDEX r/REQUEST_INDEX`
 
 * Unmarks the request specified by 'REQUEST_INDEX' for the visitor at 'INDEX', removing its completed status.
 * All the fields must be provided.
-* The INDEX refers to the index number shown in the displayed visitor list. The index **must be a positive integer**.
-* The REQUEST_INDEX refers to the index number of the request in the visitor's request list. The REQUEST_INDEX **must be a positive integer**.
-* The REQUEST_INDEX must exist and be marked before u can unmark, e.g. the request with index 1 has to exist while being marked, else it will be rejected.
+* The 'INDEX' refers to the index number shown in the displayed visitor list. The index **must be a positive integer**.
+* The 'REQUEST_INDEX' refers to the index number of the request in the visitor's request list. The 'REQUEST_INDEX' **must be a positive integer**.
+* The 'REQUEST_INDEX' must exist and be marked before u can unmark, e.g. the request with index 1 has to exist while being marked, else it will be rejected.
 * When unmarking something that is already unmarked, it will be rejected.
 
 Examples:
@@ -509,15 +509,15 @@ Format: `deletereq INDEX r/REQUEST_INDEX`
 
 * Deletes the request specified by 'REQUEST_INDEX' from the visitor at 'INDEX'.
 * All the fields must be provided.
-* The INDEX refers to the index number shown in the displayed visitor list. The index **must be a positive integer**.
-* The REQUEST_INDEX refers to the index number of the request in the visitor's request list. The REQUEST_INDEX **must be a positive integer**.
+* The 'INDEX' refers to the index number shown in the displayed visitor list. The 'INDEX' **must be a positive integer**.
+* The 'REQUEST_INDEX' refers to the index number of the request in the visitor's request list. The 'REQUEST_INDEX' **must be a positive integer**.
 
 Examples:
 * `deletereq 1 r/1` Deletes the first request of the first visitor on the list.
 
 ## 4.6 Memo a visitor : `memo`
 
-Add a memo into the visitor in the address book.
+Adds a memo into the visitor in the address book.
 
 Format: `memo INDEX m/MEMO`
 
@@ -625,7 +625,7 @@ Format: `exit`
 ### 4.7.3 Undoing the last change : `undo`
 
 Undoes the last modification to the addressbook, reverting it to its original state before the last modification.
-Edit, add, delete, tag, untag, star, unstar, memo, and undo are the modifications which can be undone.
+Commands edit, add, delete, tag, untag, req, deletereq, mark, unmark, star, unstar, memo, and undo are all counted as modifications which can be undone.
 
 Format: `undo`
 
@@ -639,11 +639,11 @@ Format: `help`
 
 ### 4.8 Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+InnSync's address book data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### 4.9 Editing the data file
 
-AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+InnSync's address book data is saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <box type="warning" seamless>
 
@@ -669,3 +669,12 @@ Furthermore, certain edits can cause the InnSync to behave in unexpected ways (e
 --------------------------------------------------------------------------------------------------------------------
 
 ## 7. Glossary
+
+* **Mainstream OS**: Windows, Linux, Unix, MacOS
+* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Airbnb host**: An Airbnb host is an individual or business that list their property on the platform for short-term rentals. The host provide accommodations in the forms of apartments, houses or rooms for guests, typically for leisure activities.
+* **Visitor**:  Any individual who accesses an Airbnb property, including guests staying at the property, property owners, service providers performing work, or other authorized individuals. Visitors may include cleaners, maintenance personnel, property inspectors, delivery services, and other vendors.
+* **CLI (Command Line Interface)**: A text-based interface where users interact with the application with a keyboard typing commands instead of using a graphical user interface.
+* **JAR**: A packed file format used in Java that contains compiled java codes to enable easy distribution, portability and execution that includes libraries and resources to allow the program to function.
+* **JSON (JavaScript Object Notation)**: A lightweight data format widely used for storing and exchanging structured data in a human-readable, that is often used in databases and APIs.
+* **GUI (Graphical User Interface)**: A visual graphical interface that allows users to interact with the application using various graphical elements like search boxes, buttons, text boxes, and eta.
