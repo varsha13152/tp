@@ -329,22 +329,19 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2. InnSync validates the input.
 3. InnSync adds the visitor.
 4. InnSync shows a success message.
-
-  * Use case ends.
+Use case ends.
 
 **Extensions**
 
 * 2a. The input format is invalid.
 
-    * 2a1. InnSync shows an error message and informs the Airbnb Host of the proper format.
-
-    * Use case resumes at step 1.
+    * 2a1. InnSync shows an error message and informs the Airbnb Host of the proper format. <br>
+      Use case resumes at step 1.
 
 * 2b. The visitor already exists in InnSync.
 
-    * 2b1. InnSync shows an error message and informs the Airbnb Host that the visitor already exists.
-
-    * Use case resumes at step 1.
+    * 2b1. InnSync shows an error message and informs the Airbnb Host that the visitor already exists. <br>
+      Use case resumes at step 1.
 
 * Guarantees: The contact is successfully created and stored in the system if the input data is valid. Duplicate contacts will not be created.
 
@@ -354,17 +351,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1. Airbnb Host requests to delete a specific visitor.
 2. InnSync deletes the visitor.
-3. InnSync displays a message for successful deletion of a visitor's contact.
-
+3. InnSync displays a message for successful deletion of a visitor's contact. <br>
     Use case ends.
 
 **Extensions**
 
 * 1a. The given index is invalid.
 
-    * 1a1. InnSync shows an error message and informs the Airbnb Host that the index is invalid.
-
-    * Use case resumes at step 1.
+    * 1a1. InnSync shows an error message and informs the Airbnb Host that the index is invalid. <br>
+      Use case resumes at step 1.
 
 *  Guarantees: The contact is successfully deleted from InnSync, and any persistent storage.
 
@@ -378,33 +373,28 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 4.  InnSync validates the entered detail
 5.  InnSync updates the contact with the new provided detail
 6.  InnSync shows the updated details of the visitor.
-7.  InnSync updates local JSON file with updated contact detail
-
+7.  InnSync updates local JSON file with updated contact detail <br>
     Use case ends.
 
 **Extensions**
 
 * 2a. The list is empty.
-   * 2a1. InnSync shows an error message that there are no saved contacts.
-
+   * 2a1. InnSync shows an error message that there are no saved contacts. <br>
     Use case ends.
 
 * 3a. The given index is invalid.
 
-    * 3a1. InnSync shows an error message.
-
+    * 3a1. InnSync shows an error message. <br>
       Use case resumes at step 2.
 
 * 3b. Input argument(s) are invalid  tag.
 
-    * 3b1. InnSync shows an error message.
-
+    * 3b1. InnSync shows an error message. <br>
       Use case resumes at step 2.
 
 * 3c. The contact already exists in InnSync
 
-    * 3c1. InnSync shows an error message that the contact already exists.
-
+    * 3c1. InnSync shows an error message that the contact already exists. <br>
       Use case resumes at step 2.
 
 **Use case: UC04 - Find a visitor by name**
@@ -412,21 +402,18 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  Airbnb Host requests to find a visitor by name
-2.  InnSync shows the details of the visitor if found.
-
+2.  InnSync shows the details of the visitor if found. <br>
     Use case ends.
 
 **Extensions**
 
 * 2a. The list is empty.
-  * 2a1. InnSync shows an error message that there are no contacts available
-
+  * 2a1. InnSync shows an error message that there are no contacts available <br>
   Use case ends.
 
 * 3a. The given name is invalid.
 
-    * 3a1. InnSync shows an error message.
-
+    * 3a1. InnSync shows an error message. <br>
       Use case ends.
 
 
@@ -440,25 +427,23 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 4.  InnSync validates the entered tag (ie. missing input)
 5.  InnSync updates the contact with the new provided tag
 6.  InnSync shows the updated details of the visitor.
-7.  InnSync updates local JSON file with updated contact detail
-
+7.  InnSync updates local JSON file with updated contact detail <br>
     Use case ends.
 
 **Extensions**
 
 * 2a. The list is empty.
-   * 2a1. InnSync shows an error message that there are no saved contacts.
-
+   * 2a1. InnSync shows an error message that there are no saved contacts. <br>
     Use case ends.
 
 * 3a. The given index is invalid.
 
-    * 3a1. InnSync shows an error message.
+    * 3a1. InnSync shows an error message. <br>
       Use case resumes at step 2.
 
 * 4a. Input argument(s) are invalid.
 
-    * 4a1. InnSync shows an error message.
+    * 4a1. InnSync shows an error message. <br>
       Use case resumes at step 2.
 
 **Use case: UC06 - Add Booking Tag to Contact**
@@ -471,20 +456,18 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 4.  InnSync validates the entered booking tag (ie. date format, missing input)
 5.  InnSync updates the contact with the new provided booking tag
 6.  InnSync shows the updated details of the visitor.
-7.  InnSync updates local JSON file with updated contact detail
-
+7.  InnSync updates local JSON file with updated contact detail <br>
     Use case ends.
 
 **Extensions**
 
 * 2a. The list is empty.
-   * 2a1. InnSync shows an error message that there are no saved contacts.
-
+   * 2a1. InnSync shows an error message that there are no saved contacts. <br>
     Use case ends.
 
 * 3a. The given index is invalid.
 
-    * 3a1. InnSync shows an error message.
+    * 3a1. InnSync shows an error message. <br>
       Use case resumes at step 2.
 
 * 4a. Input argument(s) are invalid.
@@ -494,7 +477,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 5a. The given booking tag date overlaps with an existing booking tag.
 
-    * 5a1. InnSync shows an error message.
+    * 5a1. InnSync shows an error message. <br>
       Use case resumes at step 2.
 
 **Use case: UC07 - List visitors**
@@ -506,7 +489,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2a. The list is empty.
 
-    * 2a1. InnSync shows a message that the list is empty.
+    * 2a1. InnSync shows a message that the list is empty. <br>
      Use case ends.
 
 **Use case: UC08 - Help**
@@ -514,7 +497,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. Airbnb Host wants to see the user guide
-2. InnSync displays a pop up with a hyperlink to the user guide
+2. InnSync displays a pop up with a hyperlink to the user guide <br>
    Use case ends.
 
 **Use case: UC09 - Clear**
@@ -522,7 +505,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. Airbnb Host remove all visitor contacts in the database
-2. InnSync clears the database and updates local JSON file
+2. InnSync clears the database and updates local JSON file <br>
    Use case ends.
 
 **Use case: UC09 - Exit**
@@ -530,7 +513,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. Airbnb Host wants to exit the application
-2. InnSync is terminated
+2. InnSync is terminated <br>
    Use case ends.
 
 ### Non-Functional Requirements
