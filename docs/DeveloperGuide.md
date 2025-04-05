@@ -459,7 +459,7 @@ Use case ends.
 
 * 4a. Input argument(s) are invalid.
 
-    * 4a1. InnSync shows an error message.
+    * 4a1. InnSync shows an error message. <br>
       Use case resumes at step 2.
 
 * 5a. The given booking tag date overlaps with an existing booking tag.
@@ -473,6 +473,8 @@ Use case ends.
 
 1. AirBnB Host requests to list all visitors.
 2. InnSync displays a list of all visitors.
+
+**Extensions**
 
 * 2a. The list is empty.
 
@@ -495,7 +497,7 @@ Use case ends.
 2. InnSync clears the database and updates local JSON file <br>
    Use case ends.
 
-**Use case: UC09 - Exit**
+**Use case: UC10 - Exit**
 
 **MSS**
 
