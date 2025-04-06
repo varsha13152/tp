@@ -621,12 +621,26 @@ testers are expected to do more *exploratory* testing.
    6. Other incorrect delete commands to try: `Add`, `add abc`, `...`<br>
       Expected: Similar to previous.
 
-
-
 ### Saving data
 
-1. Dealing with missing/corrupted data files
+1. Dealing with missing data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+   1. Navigate to the directory containing the .jar file
 
-1. _{ more test cases …​ }_
+   2. Navigate into the 'data/' folder and locate the data file 'addressbook.json'
+
+   3. Delete the file 'addressbook.json'
+
+   4. Attempt to run the app. <br>
+      Expected: App populates address book with default list of contacts
+
+2. Dealing with corrupted data files
+
+   1. Navigate to the directory containing the .jar file
+
+   2. Navigate into the 'data/' folder and locate the data file 'addressbook.json'
+
+   3. Open the file and delete a semicolon (';'), or add random characters such as '/' anywhere in the file
+
+   4. Attempt to run the app. <br>
+      Expected: App starts up using an empty address book.
