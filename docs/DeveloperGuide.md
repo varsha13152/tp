@@ -554,14 +554,14 @@ testers are expected to do more *exploratory* testing.
    2. Open a new terminal and navigate to the directory containing the jar file
 
    3. Run the jar file using the command `java -jar innsync.jar`. <br>
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+      Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 2. Saving window preferences
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
    2. Re-launch the app using the command `java -jar innsync.jar`.<br>
-       Expected: The most recent window size and location is retained.
+      Expected: The most recent window size and location is retained.
 
 ### Listing all visitors
 
@@ -572,7 +572,7 @@ testers are expected to do more *exploratory* testing.
    2. Test case: `list`<br>
       Expected: No contacts displayed in list. Message stating that there are no contacts shown in the status message.
 
-   6. Other incorrect delete commands to try: `List`, `listx`, `...`<br>
+   3. Other incorrect delete commands to try: `List`, `listx`, `...`<br>
       Expected: Error message displayed in status message.
 
 2. Listing all visitors when there is at least one contact in address book
@@ -582,7 +582,7 @@ testers are expected to do more *exploratory* testing.
    2. Test case: `list`<br>
       Expected: All contacts displayed in list, with all contacts sorted first by whether they are starred, and then in alphabetical order of their name. Success Message shown in the status message.
 
-   6. Other incorrect delete commands to try: `List`, `listx`, `...`<br>
+   3. Other incorrect delete commands to try: `List`, `listx`, `...`<br>
       Expected: Error message displayed in status message.
 
 ### Deleting a visitor
