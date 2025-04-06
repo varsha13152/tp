@@ -86,7 +86,7 @@ public class UntagCommand extends Command {
 
         if (toRemoveBookingTag != null && !toRemoveBookingTag.isEmpty()) {
             BookingTag bookingTagToRemove = new BookingTag(toRemoveBookingTag);
-            if (!bookingTagList.remove(bookingTagToRemove)) {
+            if (!updatedBookingTags.remove(bookingTagToRemove)) {
                 throw new CommandException(String.format(MESSAGE_FAILURE_BOOKINGTAG, bookingTagToRemove.toPrettier()));
             }
         }
