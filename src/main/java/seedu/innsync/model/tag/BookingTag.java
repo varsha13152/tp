@@ -28,8 +28,12 @@ public class BookingTag {
             "No booking tag fields");
     public static final String MESSAGE_PROPERTY_LENGTH = String.format(Messages.MESSAGE_MAX_LENGTH_EXCEEDED,
             "Booking tag", 170);
-    public static final String MESSAGE_STARTDATE_INVALID = String.format(Messages.MESSAGE_EMPTY_FIELD, "Start date");
-    public static final String MESSAGE_ENDDATE_INVALID = String.format(Messages.MESSAGE_EMPTY_FIELD, "End date");
+    public static final String MESSAGE_STARTDATE_EMPTY = String.format(Messages.MESSAGE_EMPTY_FIELD, "Start date");
+    public static final String MESSAGE_STARTDATE_INVALID = String.format(Messages.MESSAGE_INVALID_FIELD,
+        "Start date", "Start date is invalid.");
+    public static final String MESSAGE_ENDDATE_EMPTY = String.format(Messages.MESSAGE_EMPTY_FIELD, "End date");
+    public static final String MESSAGE_ENDDATE_INVALID = String.format(Messages.MESSAGE_INVALID_FIELD,
+            "End date", "End date is invalid.");
     public static final String MESSAGE_STARTDATE_AFTER_ENDDATE =
             "Error: Booking tag start date must be before end date.";
 
@@ -97,10 +101,10 @@ public class BookingTag {
         }
 
         if (!startDate.matches(REGEX_NOT_EMPTY)) {
-            throw new IllegalArgumentException(MESSAGE_STARTDATE_INVALID);
+            throw new IllegalArgumentException(MESSAGE_STARTDATE_EMPTY);
         }
         if (!endDate.matches(REGEX_NOT_EMPTY)) {
-            throw new IllegalArgumentException(MESSAGE_ENDDATE_INVALID);
+            throw new IllegalArgumentException(MESSAGE_ENDDATE_EMPTY);
         }
         try {
             checkValidDate(startDate);
@@ -141,7 +145,7 @@ public class BookingTag {
 
         // check if parser rounded down the date
         if (parsedDate.getDayOfMonth() != Integer.parseInt(date.substring(8, 10))) {
-            throw new IllegalArgumentException();
+            throw new DateTimeParseException("Invalid date", date, 0);
         }
     }
 
