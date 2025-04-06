@@ -582,7 +582,7 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: At least one contact in address book.
 
    2. Test case: `list`<br>
-      Expected: All contacts displayed in list, with all contacts sorted first by whether they are starred, and then in alphabetical order of their name. Success Message shown in the status message.
+      Expected: All contacts displayed in list, with all contacts sorted first by whether they are starred, and then in lexographical order of their name. Success Message shown in the status message.
 
    3. Other incorrect list commands to try: `List`, `listx`, `...`<br>
       Expected: Error message displayed in status message.
