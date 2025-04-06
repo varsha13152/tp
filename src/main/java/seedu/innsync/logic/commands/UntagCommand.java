@@ -32,7 +32,7 @@ public class UntagCommand extends Command {
             + PREFIX_BOOKINGTAG + "{property} from/{start-date} to/{end-date}\n"
             + "Example: " + COMMAND_WORD + " 1 t/friends";
     public static final String MESSAGE_SUCCESS = String.format(
-            Messages.MESSAGE_COMMAND_SUCCESS, "Unag", "%s has been removed from the contact's tag list!");
+            Messages.MESSAGE_COMMAND_SUCCESS, "Untag", "%s has been removed from the contact's tag list!");
     public static final String MESSAGE_FAILURE_TAG = String.format(
             Messages.MESSAGE_COMMAND_FAILURE, "Untag", "Contact does not have the tag %s!");
     public static final String MESSAGE_FAILURE_BOOKINGTAG = String.format(
@@ -82,7 +82,7 @@ public class UntagCommand extends Command {
     public static Person removeTagsPerson(Person personToCopy, Tag toRemoveTag, String toRemoveBookingTag)
             throws CommandException {
 
-            Set<BookingTag> updatedBookingTags = new HashSet<>(personToCopy.getBookingTags());
+        Set<BookingTag> updatedBookingTags = new HashSet<>(personToCopy.getBookingTags());
 
         if (toRemoveBookingTag != null && !toRemoveBookingTag.isEmpty()) {
             BookingTag bookingTagToRemove = new BookingTag(toRemoveBookingTag);
@@ -91,23 +91,23 @@ public class UntagCommand extends Command {
             }
         }
 
-            Person copiedPerson = new Person(
-                personToCopy.getName(),
-                personToCopy.getPhone(),
-                personToCopy.getEmail(),
-                personToCopy.getAddress(),
-                personToCopy.getMemo(),
-                personToCopy.getRequests(),
-                updatedBookingTags,
-                personToCopy.getTags(),
-                personToCopy.getStarred());
-            try {
-                copiedPerson.removeTag(toRemoveTag);
-            } catch (TagNotFoundException e) {
-                throw new CommandException(String.format(MESSAGE_FAILURE_TAG, toRemoveTag));
-            }
+        Person copiedPerson = new Person(
+            personToCopy.getName(),
+            personToCopy.getPhone(),
+            personToCopy.getEmail(),
+            personToCopy.getAddress(),
+            personToCopy.getMemo(),
+            personToCopy.getRequests(),
+            updatedBookingTags,
+            personToCopy.getTags(),
+            personToCopy.getStarred());
+        try {
+            copiedPerson.removeTag(toRemoveTag);
+        } catch (TagNotFoundException e) {
+            throw new CommandException(String.format(MESSAGE_FAILURE_TAG, toRemoveTag));
+        }
 
-            return copiedPerson;
+        return copiedPerson;
 
     }
 
