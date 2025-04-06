@@ -92,15 +92,15 @@ public class UntagCommand extends Command {
         }
 
         Person copiedPerson = new Person(
-            personToCopy.getName(),
-            personToCopy.getPhone(),
-            personToCopy.getEmail(),
-            personToCopy.getAddress(),
-            personToCopy.getMemo(),
-            personToCopy.getRequests(),
-            updatedBookingTags,
-            personToCopy.getTags(),
-            personToCopy.getStarred());
+                personToCopy.getName(),
+                personToCopy.getPhone(),
+                personToCopy.getEmail(),
+                personToCopy.getAddress(),
+                personToCopy.getMemo(),
+                personToCopy.getRequests(),
+                updatedBookingTags,
+                personToCopy.getTags(),
+                personToCopy.getStarred());
         try {
             if (toRemoveTag != null) {
                 copiedPerson.removeTag(toRemoveTag);
