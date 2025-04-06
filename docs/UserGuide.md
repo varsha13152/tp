@@ -35,12 +35,12 @@ In this comprehensive user guide, we will take you to experience a full journey 
 - [4.2 Features related to visitor](#4-2-features-related-to-visitor)
   - [4.2.1 Adding a visitor](#4-2-1-adding-a-visitor-add)
   - [4.2.2 Editing a visitor](#4-2-2-editing-a-visitor-edit)
-  - [4.2.3 Listing all visitor](#4-2-3-listing-all-visitors-list)
+  - [4.2.3 Listing all visitors](#4-2-3-listing-all-visitors-list)
   - [4.2.4 Deleting a visitor](#4-2-4-deleting-a-visitor-delete)
 - [4.3 Features related to star a visitor](#4-3-features-related-to-star-a-visitor)
   - [4.3.1 Star a visitor](#4-3-1-star-a-visitor-star)
   - [4.3.2 Unstar a visitor](#4-3-2-unstar-a-visitor-unstar)
-  - [4.3.4 Listing all starred visitors](#4-3-3-listing-all-starred-visitors-liststar)
+  - [4.3.3 Listing all starred visitors](#4-3-3-listing-all-starred-visitors-liststar)
 - [4.4 Features related to tag a visitor](#4-4-features-related-to-tag-a-visitor)
   - [4.4.1 Adding a booking tag](#4-4-1-adding-a-booking-tag-tag)
   - [4.4.2 Adding a tag](#4-4-2-adding-a-tag)
@@ -356,6 +356,7 @@ Examples:
 Shows a list of all visitors in the address book.
 
 Format: `list`
+* Any additional text or parameters after the `list` command will be ignored.
 
 **Tip:** Listing without any visitors added will recommend you to add some.
 
@@ -520,7 +521,7 @@ Format: `deletereq INDEX r/REQUEST_INDEX`
 
 Examples:
 * `deletereq 1 r/1` Deletes the first request of the first visitor on the list.
-* `deletereq 1 r/1` Deleting again will be rejected.
+* `deletereq 1 r/1` If the visitor has no more requests, this command will be rejected.
 
 ## 4.6 Memo a visitor : `memo`
 
@@ -571,7 +572,7 @@ Format: `find [n/KEYWORD...] [p/KEYWORD...] [e/KEYWORD...] [a/KEYWORD...] [bp/KE
 * `find n/John` - Finds contacts with "John" in their name
 * `find n/Betsy n/Tim` - Finds contacts with either "Betsy" or "Tim" in their name
 
-**Note:** `find` with '$' (i.e. `find n/$a/p`) acutually finds users with names containing '$a/p',
+**Note:** `find` with '$' (i.e. `find n/$a/p`) actually finds users with names containing '$a/p',
 which does not exist as '$' is not allowed in names but you can still do it.
 **[Planned Enhancement]** There are ongoing plans to allow the use of '$' to escape any prefixes,
 to enable you to search for names containing prefixes, i.e. find a contact whose name contains "murthu a/p" - `find n/murthu $a/p`.
@@ -636,7 +637,7 @@ Format: `exit`
 ### 4.7.3 Undoing the last change : `undo`
 
 Undoes the last modification to the addressbook, reverting it to its original state before the last modification.
-Commands `edit`, `add`, `delete`, `star`, `tag`, `untag`, `req`, `deletereq`, `mark`, `unmark`,, `unstar`, `memo`, and `undo` are all modifications that can be undone.
+Commands `edit`, `add`, `delete`, `star`, `tag`, `untag`, `req`, `deletereq`, `mark`, `unmark`, `unstar`, `memo`, and even another `undo` are all modifications that can be undone.
 
 Format: `undo`
 
