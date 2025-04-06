@@ -30,7 +30,7 @@ public class BookingTag {
             "Booking tag", 170);
     public static final String MESSAGE_STARTDATE_EMPTY = String.format(Messages.MESSAGE_EMPTY_FIELD, "Start date");
     public static final String MESSAGE_STARTDATE_INVALID = String.format(Messages.MESSAGE_INVALID_FIELD,
-    "Start date", "Start date is invalid.");
+        "Start date", "Start date is invalid.");
     public static final String MESSAGE_ENDDATE_EMPTY = String.format(Messages.MESSAGE_EMPTY_FIELD, "End date");
     public static final String MESSAGE_ENDDATE_INVALID = String.format(Messages.MESSAGE_INVALID_FIELD,
             "End date", "End date is invalid.");
