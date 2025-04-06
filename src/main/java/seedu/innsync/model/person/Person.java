@@ -180,8 +180,7 @@ public class Person {
             return true;
         }
         return otherPerson != null
-                && otherPerson.getPhone().value.equals(getPhone().value)
-                && otherPerson.getEmail().value.equals(getEmail().value);
+                && otherPerson.getPhone().equals(getPhone()) && otherPerson.getEmail().equals(getEmail());
     }
 
     /**
