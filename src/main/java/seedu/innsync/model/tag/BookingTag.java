@@ -145,7 +145,7 @@ public class BookingTag {
 
         // check if parser rounded down the date
         if (parsedDate.getDayOfMonth() != Integer.parseInt(date.substring(8, 10))) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Invalid date: " + date);
         }
     }
 

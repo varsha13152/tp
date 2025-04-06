@@ -51,6 +51,9 @@ public class BookingTagTest {
     void constructor_invalidLeapYearBookingTag_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> new BookingTag("LeapYear from/2024-02-30 to/2024-03-01"));
         assertThrows(IllegalArgumentException.class, () -> new BookingTag("LeapYear from/2024-01-29 to/2024-02-30"));
+
+        assertThrows(IllegalArgumentException.class, () -> new BookingTag("NotLeapYear from/2025-02-29 to/2025-03-01"));
+        assertThrows(IllegalArgumentException.class, () -> new BookingTag("NotLeapYear from/2025-01-29 to/2025-02-29"));
     }
 
     @Test
