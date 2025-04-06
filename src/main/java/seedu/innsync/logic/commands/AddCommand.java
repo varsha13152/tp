@@ -14,6 +14,7 @@ import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.exceptions.CommandException;
 import seedu.innsync.model.Model;
 import seedu.innsync.model.person.Person;
+import seedu.innsync.model.tag.Tag;
 
 /**
  * Adds a person to the address book.
@@ -59,6 +60,9 @@ public class AddCommand extends Command {
 
         if (model.hasPerson(toAdd)) {
             throw new CommandException(Messages.MESSAGE_DUPLICATE_PERSONS);
+        }
+        for (Tag tag : toAdd.getTags()) {
+            model.getTagElseCreate(tag);
         }
 
         model.addPerson(toAdd);

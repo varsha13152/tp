@@ -70,7 +70,6 @@ public class TagCommand extends Command {
         Person editedPerson = addTagsPerson(personToEdit, bookingTagList);
 
 
-
         for (Tag tag : modelTags) {
             try {
                 editedPerson.addTag(tag);
