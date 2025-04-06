@@ -65,14 +65,7 @@ public class UntagCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
-        Tag modelTag = null;
-        if (tag != null) {
-            modelTag = model.getTag(tag);
-            if (modelTag == null) {
-                throw new CommandException(String.format(MESSAGE_FAILURE_TAG, tag));
-            }
-        }
-        Person editedPerson = removeTagsPerson(personToEdit, modelTag, bookingTag);
+        Person editedPerson = removeTagsPerson(personToEdit, tag, bookingTag);
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -88,43 +81,36 @@ public class UntagCommand extends Command {
      */
     public static Person removeTagsPerson(Person personToCopy, Tag toRemoveTag, String toRemoveBookingTag)
             throws CommandException {
-        Set<BookingTag> bookingTagList = new HashSet<>(personToCopy.getBookingTags());
 
-        if (toRemoveTag != null) {
-            try {
-                personToCopy.removeTag(toRemoveTag);
-            } catch (TagNotFoundException e) {
-                throw new CommandException(String.format(MESSAGE_FAILURE_TAG, toRemoveTag));
-            }
-        }
+            Set<BookingTag> updatedBookingTags = new HashSet<>(personToCopy.getBookingTags());
 
-        if (toRemoveBookingTag != null && !toRemoveBookingTag.isEmpty()) {
-            BookingTag bookingTagToRemove = null;
-            boolean found = false;
-            for (BookingTag existingTag : bookingTagList) {
-                if (existingTag.getFullBookingTag().equals(toRemoveBookingTag)) {
-                    bookingTagToRemove = existingTag;
-                    found = true;
-                    break;
+            if (toRemoveBookingTag != null && !toRemoveBookingTag.isEmpty()) {
+                BookingTag bookingTagToRemove = new BookingTag(toRemoveBookingTag);
+                try {
+                    updatedBookingTags.remove(bookingTagToRemove);
+                } catch (TagNotFoundException e) {
+                    throw new CommandException(String.format(MESSAGE_FAILURE_BOOKINGTAG, bookingTagToRemove.toPrettier()));
                 }
             }
-            if (found) {
-                bookingTagList.remove(bookingTagToRemove);
-            } else {
-                throw new CommandException(String.format(MESSAGE_FAILURE_BOOKINGTAG, toRemoveBookingTag));
-            }
-        }
 
-        return new Person(
+            Person copiedPerson = new Person(
                 personToCopy.getName(),
                 personToCopy.getPhone(),
                 personToCopy.getEmail(),
                 personToCopy.getAddress(),
                 personToCopy.getMemo(),
                 personToCopy.getRequests(),
-                bookingTagList,
+                updatedBookingTags,
                 personToCopy.getTags(),
                 personToCopy.getStarred());
+            try {
+                copiedPerson.removeTag(toRemoveTag);
+            } catch (TagNotFoundException e) {
+                throw new CommandException(String.format(MESSAGE_FAILURE_TAG, toRemoveTag));
+            }
+
+            return copiedPerson;
+
     }
 
     @Override
