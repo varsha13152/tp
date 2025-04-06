@@ -646,7 +646,7 @@ Format: `exit`
 Undoes the last modification to the addressbook, reverting it to its original state before the last modification.
 Commands `edit`, `add`, `delete`, `star`, `tag`, `untag`, `req`, `deletereq`, `mark`, `unmark`, `unstar`, `memo`, and even another `undo` are all modifications that can be undone.
 
-**Note:** Undoing the undo, undo the undo.
+**Note:** Undoing the undo, undoes the undo.
 
 Format: `undo`
 
