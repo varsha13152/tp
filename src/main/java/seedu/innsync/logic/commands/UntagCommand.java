@@ -1,7 +1,6 @@
 package seedu.innsync.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static java.util.Objects.requireNonNullElse;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_BOOKINGTAG;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.innsync.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -41,7 +40,7 @@ public class UntagCommand extends Command {
 
     private final Index index;
     private final Tag tag;
-    private final String bookingTag;
+    private final BookingTag bookingTag;
 
     /**
      * @param index of the person in the filtered person list to edit
@@ -49,7 +48,7 @@ public class UntagCommand extends Command {
      * @param bookingTag to be removed from the contact
      *
      */
-    public UntagCommand(Index index, Tag tag, String bookingTag) {
+    public UntagCommand(Index index, Tag tag, BookingTag bookingTag) {
         requireNonNull(index);
         this.index = index;
         this.tag = tag;
@@ -71,7 +70,8 @@ public class UntagCommand extends Command {
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, requireNonNullElse(tag, bookingTag)), editedPerson);
+        return new CommandResult(String.format(MESSAGE_SUCCESS,
+                tag != null ? tag : bookingTag.toPrettier()), editedPerson);
     }
 
     /**
@@ -80,15 +80,14 @@ public class UntagCommand extends Command {
      * @param toRemoveBookingTag the bookingTag to be removed
      * @return the person with the tags or bookingTags removed
      */
-    public static Person removeTagsPerson(Person personToCopy, Tag toRemoveTag, String toRemoveBookingTag)
+    public static Person removeTagsPerson(Person personToCopy, Tag toRemoveTag, BookingTag toRemoveBookingTag)
             throws CommandException {
 
         Set<BookingTag> updatedBookingTags = new HashSet<>(personToCopy.getBookingTags());
 
-        if (toRemoveBookingTag != null && !toRemoveBookingTag.isEmpty()) {
-            BookingTag bookingTagToRemove = new BookingTag(toRemoveBookingTag);
-            if (!updatedBookingTags.remove(bookingTagToRemove)) {
-                throw new CommandException(String.format(MESSAGE_FAILURE_BOOKINGTAG, bookingTagToRemove.toPrettier()));
+        if (toRemoveBookingTag != null) {
+            if (!updatedBookingTags.remove(toRemoveBookingTag)) {
+                throw new CommandException(String.format(MESSAGE_FAILURE_BOOKINGTAG, toRemoveBookingTag.toPrettier()));
             }
         }
 
@@ -131,8 +130,9 @@ public class UntagCommand extends Command {
         }
 
         UntagCommand otherUntagCommand = (UntagCommand) other;
-        return index.equals(otherUntagCommand.index) && tag.equals(otherUntagCommand.tag)
-                && bookingTag.equals(otherUntagCommand.bookingTag);
+        return index.equals(otherUntagCommand.index)
+                && tag != null ? tag.equals(otherUntagCommand.tag)
+                : bookingTag.equals(otherUntagCommand.bookingTag);
     }
 
     @Override

@@ -46,8 +46,9 @@ public class UntagCommandTest {
         Person editedPerson = new PersonBuilder(taggedPerson).withBookingTags().build();
         expectedModel.addPerson(editedPerson);
 
-        UntagCommand untagCommand = new UntagCommand(index, null, VALID_BOOKINGTAG_BEACHHOUSE);
-        String expectedMessage = String.format(UntagCommand.MESSAGE_SUCCESS, VALID_BOOKINGTAG_BEACHHOUSE);
+        BookingTag bookingTagToRemove = new BookingTag(VALID_BOOKINGTAG_BEACHHOUSE);
+        UntagCommand untagCommand = new UntagCommand(index, null, bookingTagToRemove);
+        String expectedMessage = String.format(UntagCommand.MESSAGE_SUCCESS, bookingTagToRemove.toPrettier());
 
         assertCommandSuccess(untagCommand, model, expectedMessage, expectedModel, editedPerson);
     }
@@ -78,9 +79,10 @@ public class UntagCommandTest {
     public void execute_removeNonExistingBookingTag_failure() {
         Index index = Index.fromZeroBased(INDEX_FIRST_PERSON.getZeroBased());
 
-        UntagCommand untagCommand = new UntagCommand(index, null, VALID_BOOKINGTAG_HOTEL);
+        BookingTag bookingTagToRemove = new BookingTag(VALID_BOOKINGTAG_HOTEL);
+        UntagCommand untagCommand = new UntagCommand(index, null, bookingTagToRemove);
         String expectedMessage = String.format(UntagCommand.MESSAGE_FAILURE_BOOKINGTAG,
-                new BookingTag(VALID_BOOKINGTAG_HOTEL).toPrettier());
+                bookingTagToRemove.toPrettier());
 
         assertCommandFailure(untagCommand, model, expectedMessage);
     }
@@ -106,21 +108,23 @@ public class UntagCommandTest {
     public void removeTagsPerson() {
         Index targetIndex = Index.fromOneBased(1);
         Tag tagToRemove = new Tag(VALID_TAG_HUSBAND);
-        UntagCommand untagCommand = new UntagCommand(targetIndex, tagToRemove, "");
+        UntagCommand untagCommand = new UntagCommand(targetIndex, tagToRemove, null);
         assertCommandFailure(untagCommand, model, String.format(UntagCommand.MESSAGE_FAILURE_TAG, tagToRemove));
     }
 
     @Test
     public void equals() {
-        UntagCommand untagFirstCommand = new UntagCommand(INDEX_FIRST_PERSON, new Tag("testTag1"), "testBookingTag1");
-        UntagCommand untagSecondCommand = new UntagCommand(INDEX_SECOND_PERSON, new Tag("testTag2"), "testBookingTag2");
+        UntagCommand untagFirstCommand = new UntagCommand(INDEX_FIRST_PERSON, new Tag("testTag1"),
+                new BookingTag(VALID_BOOKINGTAG_HOTEL));
+        UntagCommand untagSecondCommand = new UntagCommand(INDEX_SECOND_PERSON, new Tag("testTag2"),
+                new BookingTag(VALID_BOOKINGTAG_BEACHHOUSE));
 
         // same object -> returns true
         assertTrue(untagFirstCommand.equals(untagFirstCommand));
 
         // same values -> returns true
         UntagCommand untagFirstCommandCopy = new UntagCommand(INDEX_FIRST_PERSON, new Tag("testTag1"),
-                "testBookingTag1");
+                new BookingTag(VALID_BOOKINGTAG_HOTEL));
         assertTrue(untagFirstCommand.equals(untagFirstCommandCopy));
 
         // different types -> returns false
@@ -136,23 +140,25 @@ public class UntagCommandTest {
     @Test
     public void hasConfirmationTest_returnsFalse() {
         Index targetIndex = Index.fromOneBased(1);
-        UntagCommand untagCommand = new UntagCommand(targetIndex, new Tag(VALID_TAG_HUSBAND), "");
+        UntagCommand untagCommand = new UntagCommand(targetIndex, new Tag(VALID_TAG_HUSBAND), null);
         assertFalse(untagCommand.requireConfirmation());
     }
 
+    // NOTE: BOOKING TAG TO STRING IS NOT FULLY CORRECT
     @Test
     public void toStringMethod() {
         Index targetIndex = Index.fromOneBased(1);
-        UntagCommand untagCommand = new UntagCommand(targetIndex, new Tag("test1"), "test2");
+        UntagCommand untagCommand = new UntagCommand(targetIndex, new Tag("test1"),
+                new BookingTag(VALID_BOOKINGTAG_HOTEL));
         String expected1 = UntagCommand.class.getCanonicalName() + "{index=" + targetIndex
                 + ", tag=[test1]"
-                + ", bookingTag=[test2]}";
+                + ", bookingTag=[[Hotel]]}";
         assertEquals(expected1, untagCommand.toString());
 
-        untagCommand = new UntagCommand(targetIndex, null, "test2");
+        untagCommand = new UntagCommand(targetIndex, null, new BookingTag(VALID_BOOKINGTAG_HOTEL));
         String expected2 = UntagCommand.class.getCanonicalName() + "{index=" + targetIndex
                 + ", tag=null"
-                + ", bookingTag=[test2]}";
+                + ", bookingTag=[[Hotel]]}";
         assertEquals(expected2, untagCommand.toString());
 
         untagCommand = new UntagCommand(targetIndex, new Tag("test1"), null);
