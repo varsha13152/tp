@@ -10,6 +10,7 @@ import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.UntagCommand;
 import seedu.innsync.logic.parser.exceptions.ParseException;
+import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
 
 /**
@@ -44,9 +45,12 @@ public class UntagCommandParser implements Parser<UntagCommand> {
             tag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get());
         }
 
-        String bookingTag = argMultimap.getValue(PREFIX_BOOKINGTAG).orElse("");
+        BookingTag bookingTag = null;
+        if (argMultimap.getValue(PREFIX_BOOKINGTAG).isPresent()) {
+            bookingTag = ParserUtil.parseBookingTag(argMultimap.getValue(PREFIX_BOOKINGTAG).get());
+        }
 
-        if (tag == null && bookingTag.isEmpty()) {
+        if (tag == null && bookingTag == null) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UntagCommand.MESSAGE_USAGE));
         }
 

@@ -31,8 +31,9 @@ public class TagCommand extends Command {
             + ": Adds tag to the contact identified by the index number in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_TAG + "TAG or\n"
-            + PREFIX_BOOKINGTAG + "{property} from/{start-date} to/{end-date}\n"
-            + "Example: " + COMMAND_WORD + " 1 t/friend b/Beach House from/2025-06-01 to/2025-06-10";
+            + PREFIX_BOOKINGTAG + "PROPERTY from/START_DATE to/END_DATE\n"
+            + "Example: " + COMMAND_WORD + " 1 t/friends\n"
+            + "Example: " + COMMAND_WORD + " 1 b/property from/2023-10-01 to/2023-10-31\n";
     public static final String MESSAGE_SUCCESS = String.format(
             Messages.MESSAGE_COMMAND_SUCCESS, "Tag", "%s's tag list has been updated!");
     public static final String MESSAGE_FAILURE = String.format(

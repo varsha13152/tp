@@ -36,7 +36,7 @@ public class Messages {
     public static final String MESSAGE_EMPTY_FIELD = "%s cannot be empty!";
     public static final String MESSAGE_MAX_LENGTH_EXCEEDED = "%s exceeds maximum length of %d characters!";
     public static final String MESSAGE_INVALID_FIELD = "%s is invalid!";
-    public static final String MESSAGE_DUPLICATE_FIELD = "Contact already has this %s!";
+    public static final String MESSAGE_DUPLICATE_FIELD = "Command will result in duplicate %s!";
 
     /**
      * Returns an error message indicating the duplicate prefixes.

@@ -19,7 +19,7 @@ public class UntagCommandParserTest {
     @Test
     public void parse_validArgs_returnsUntagCommand() {
         assertParseSuccess(parser, "1 t/" + VALID_TAG_FRIEND,
-                new UntagCommand(INDEX_FIRST_PERSON, new Tag(VALID_TAG_FRIEND), ""));
+                new UntagCommand(INDEX_FIRST_PERSON, new Tag(VALID_TAG_FRIEND), null));
     }
 
     @Test
