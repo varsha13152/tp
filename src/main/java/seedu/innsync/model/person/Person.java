@@ -179,9 +179,9 @@ public class Person {
         if (otherPerson == this) {
             return true;
         }
-
         return otherPerson != null
-                && otherPerson.getName().equals(getName());
+                && otherPerson.getPhone().value.equals(getPhone().value)
+                && otherPerson.getEmail().value.equals(getEmail().value);
     }
 
     /**
