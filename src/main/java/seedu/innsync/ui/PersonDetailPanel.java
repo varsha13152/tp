@@ -1,6 +1,5 @@
 package seedu.innsync.ui;
 
-import java.awt.Checkbox;
 import static java.util.Objects.requireNonNullElse;
 
 import java.util.Comparator;
