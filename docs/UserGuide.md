@@ -318,7 +318,7 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG...] [b/BOOKING_TAG..
 e.g. To add a visitor with the name "murthu a/p", use the command `add n/murthu $a/p [...]`.
 </box>
 
-**Note:** New visitors added will be sorted lexographically.
+**Note:** New visitors added will be sorted lexicographically.
 
 Examples:
 * `add n/John Doe p/+65 98765432 e/johnd@example.com a/John street, block 123, #01-01`
