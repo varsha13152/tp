@@ -551,16 +551,39 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   2. Open a new terminal and navigate to the directory containing the jar file
 
-1. Saving window preferences
+   3. Run the jar file using the command `java -jar innsync.jar`. <br>
+   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+
+2. Saving window preferences
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
+   2. Re-launch the app using the command `java -jar innsync.jar`.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+### Listing all visitors
+
+1. Listing all visitors when there are no contacts
+
+   1. Prerequisites: No contacts in addressbook. This can be done using the `clear` command.
+
+   2. Test case: `list`<br>
+      Expected: No contacts displayed in list. Message stating that there are no contacts shown in the status message.
+
+   6. Other incorrect delete commands to try: `List`, `listx`, `...`<br>
+      Expected: Error message displayed in status message.
+
+2. Listing all visitors when there is at least one contact in address book
+
+   1. Prerequisites: At least one contact in address book.
+
+   2. Test case: `list`<br>
+      Expected: All contacts displayed in list, with all contacts sorted first by whether they are starred, and then in alphabetical order of their name. Success Message shown in the status message.
+
+   6. Other incorrect delete commands to try: `List`, `listx`, `...`<br>
+      Expected: Error message displayed in status message.
 
 ### Deleting a visitor
 
@@ -568,16 +591,37 @@ testers are expected to do more *exploratory* testing.
 
    1. Prerequisites: List all visitors using the `list` command. Multiple visitors in the list.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   2. Test case: `delete 1`<br>
+      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
 
-   1. Test case: `delete 0`<br>
+   3. Test case: `delete 0`<br>
       Expected: No visitor is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+   4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+### Adding a visitor
+
+1. Adding a visitor who is not currently in the addressbook
+
+   1. Prerequisites: No visitor with matching phone number and email address is displayed in addressbook when using `list` command.
+
+   2. Test case: `add n/John Doe a/John Doe Street e/johndoe@example.com p/+65 8888 8888`<br>
+      Expected: Contact is added to list. Contact List Card is selected in GUI. Contact Details are shown in Details Panel in GUI. Details of the added contact shown in the status message.
+
+   3. Test case: `add n/John Doe a/John Doe Street e/jd@example.com p/+65 88888888 t/guest m/no room cleaning b/StarHotel from/2025-04-01 to/2025-04-05 r/Needs Laundry Detergent`<br>
+      Expected: Contact is added to list. Contact List Card is selected in GUI. Contact Details are shown in Details Panel in GUI. Details of the added contact shown in the status message.
+
+   4. Test case: `add n/John Doe`<br>
+      Expected: No visitor is added. Error details shown in the status message.
+
+   5. Test case: `add n/John Doe a/John Doe Street e/johndoe@example.com p/123`<br>
+      Expected: No visitor is added. Error details shown in the status message.
+
+   6. Other incorrect delete commands to try: `Add`, `add abc`, `...`<br>
+      Expected: Similar to previous.
+
+
 
 ### Saving data
 
