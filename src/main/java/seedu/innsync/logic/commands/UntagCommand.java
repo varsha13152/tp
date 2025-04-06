@@ -102,7 +102,9 @@ public class UntagCommand extends Command {
             personToCopy.getTags(),
             personToCopy.getStarred());
         try {
-            copiedPerson.removeTag(toRemoveTag);
+            if (toRemoveTag != null) {
+                copiedPerson.removeTag(toRemoveTag);
+            }
         } catch (TagNotFoundException e) {
             throw new CommandException(String.format(MESSAGE_FAILURE_TAG, toRemoveTag));
         }
