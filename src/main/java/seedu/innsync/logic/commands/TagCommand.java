@@ -34,9 +34,11 @@ public class TagCommand extends Command {
             + PREFIX_BOOKINGTAG + "{property} from/{start-date} to/{end-date}\n"
             + "Example: " + COMMAND_WORD + " 1 t/friend b/Beach House from/2025-06-01 to/2025-06-10";
     public static final String MESSAGE_SUCCESS = String.format(
-            Messages.MESSAGE_COMMAND_SUCCESS, "Tag", "%s has been added to the contact's tag list!");
+            Messages.MESSAGE_COMMAND_SUCCESS, "Tag", "%s's tag list has been updated!");
     public static final String MESSAGE_FAILURE = String.format(
             Messages.MESSAGE_COMMAND_FAILURE, "Tag", "%s already exists in the contact's tag list!");
+    public static final String MESSAGE_FAILURE_OVERLAP = String.format(
+            Messages.MESSAGE_COMMAND_FAILURE, "Tag", "%s overlaps with existing booking tag!");
 
     private final Index index;
     private final Set<Tag> tagList;
@@ -90,8 +92,11 @@ public class TagCommand extends Command {
 
         for (BookingTag bookingTag : bookingTags) {
             for (BookingTag existingTag : updatedBookingTags) {
-                if (isOverlapping(existingTag, bookingTag)) {
+                if (existingTag.equals(bookingTag)) {
                     throw new CommandException(String.format(MESSAGE_FAILURE, bookingTag.toPrettier()));
+                }
+                if (isOverlapping(existingTag, bookingTag)) {
+                    throw new CommandException(String.format(MESSAGE_FAILURE_OVERLAP, bookingTag.toPrettier()));
                 }
             }
             updatedBookingTags.add(bookingTag);
