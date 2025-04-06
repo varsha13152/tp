@@ -99,19 +99,9 @@ public class UntagCommand extends Command {
         }
 
         if (toRemoveBookingTag != null && !toRemoveBookingTag.isEmpty()) {
-            BookingTag bookingTagToRemove = null;
-            boolean found = false;
-            for (BookingTag existingTag : bookingTagList) {
-                if (existingTag.getFullBookingTag().equals(toRemoveBookingTag)) {
-                    bookingTagToRemove = existingTag;
-                    found = true;
-                    break;
-                }
-            }
-            if (found) {
-                bookingTagList.remove(bookingTagToRemove);
-            } else {
-                throw new CommandException(String.format(MESSAGE_FAILURE_BOOKINGTAG, toRemoveBookingTag));
+            BookingTag bookingTagToRemove = new BookingTag(toRemoveBookingTag);
+            if (!bookingTagList.remove(bookingTagToRemove)) {
+                throw new CommandException(String.format(MESSAGE_FAILURE_BOOKINGTAG, bookingTagToRemove.toPrettier()));
             }
         }
 
