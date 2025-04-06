@@ -13,7 +13,7 @@
 
 ## **Acknowledgements**
 
-{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
+This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org).
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -50,7 +50,7 @@ The bulk of the app's work is done by the following four components:
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact with each other for the scenario where the Airbnb Host issues the command `delete 1`.
+The *Sequence Diagram* below shows how the components interact with each other for the scenario where the AirBnB Host issues the command `delete 1`.
 
 <puml src="diagrams/ArchitectureSequenceDiagram.puml" width="574" />
 
@@ -128,14 +128,6 @@ The `Model` component,
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-<box type="info" seamless>
-
-**Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
-
-<puml src="diagrams/BetterModelClassDiagram.puml" width="450" />
-
-</box>
-
 
 ### Storage component
 
@@ -160,7 +152,7 @@ This section describes some noteworthy details on how certain features are imple
 
 > Please note that certain aspects, such as UML classes, may have been simplified to fit within the diagram's constraints and maintain readability.
 ### \[Proposed\] Undo/redo feature
-
+The current undo feature undoes only the last recorded change, it does not maintain a history of commands or changes. Thus, users do not have the ability to undo more than one past change.
 #### Proposed Implementation
 
 The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
@@ -250,11 +242,6 @@ The following activity diagram summarizes what happens when a user executes a ne
     * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
     * Cons: We must ensure that the implementation of each individual command are correct.
 
-_{more aspects and alternatives to be added}_
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -290,61 +277,58 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | Priority | As a …​                                     | I want to …​                                    | So that I can…​                                                           |
 |----------|---------------------------------------------|-------------------------------------------------|---------------------------------------------------------------------------|
 | `* * *`  | new user                                    | see usage instructions                          | refer to instructions when I forget how to use the App                    |
-| `* * *`  | Airbnb host                                 | add a new visitor                               | keep track of who is visiting my property                                 | 
-| `* * *`  | Airbnb host                                 | edit a visitor                                  | update details of a visitor                                               | 
-| `* * *`  | Airbnb host                                 | list all visitors                               | see all the visitors I have added                                         | 
-| `* * *`  | Airbnb host                                 | delete a visitor                                | remove entries that I no longer need                                      |
-| `* * *`  | Airbnb host                                 | add a tag to visitor                            | categorize and identify them easily                                       |
-| `* * *`  | Airbnb host                                 | add a booking tag to visitor                    | quickly assign the visitor to their property                              |
-| `* * *`  | Airbnb host                                 | remove a tag from the visitor                   | to unassign the visitor tag                                               |
-| `* * *`  | Airbnb host                                 | remove a booking tag from the visitor           | to unassign the visitor booking tag                                       |
-| `* * *`  | Airbnb host                                 | find a visitor by name                          | quickly find a specific visitor                                           |
-| `* *`    | Airbnb host                                 | filter visitors by property booked              | quickly find visitors who visited a specific property                     |
-| `* *`    | Airbnb host                                 | filter visitors by date of stay                 | quickly find visitors using specific time periods                         |
-| `* *`    | Airbnb host                                 | filter visitors by tag                          | quickly find visitors using personalised categories                       |
-| `* *`    | Airbnb host                                 | filter visitors by next upcoming booking        | prepare for future bookings efficiently                                   |
-| `* *`    | Airbnb host                                 | add a request to visitor                        | fulfill the visitor request                                               | 
-| `* *`    | Airbnb host                                 | mark the request as completed in the visitor    | to mark visitor request as fulfilled                                      | 
-| `* * `   | Airbnb host                                 | unmark the request as incomplete in the visitor | to unmark visitor request as unfulfilled                                  | 
-| `* * `   | Airbnb host                                 | delete the request from the visitor             | to remove visitor request                                                 |
-| `* *`    | Airbnb host                                 | star a visitor                                  | favorite the visitor so that they appear at the top                       | 
-| `* *`    | Airbnb host                                 | unstar a visitor                                | remove favorite from the visitor so that they no longer appear at the top | 
-| `* *`    | Airbnb host                                 | list all the starred visitor                    | see all the favorite visitors I have starred                              |
-| `* * `   | Airbnb host                                 | add a memo to visitor                           | give a short note to describe the visitor                                 |
-| `* *`    | Airbnb host                                 | undo the last command                           | recover from mistakes                                                     |
-| `* *`    | Airbnb host                                 | clear all visitors                              | start over with a clean slate                                             |
-| `* *`    | Airbnb host                                 | save visitor details to a file                  | backup my address book                                                    |
-| `* *`    | Airbnb host                                 | load visitor details from a file                | restore my address book                                                   |
+| `* * *`  | AirBnB host                                 | add a new visitor                               | keep track of who is visiting my property                                 |
+| `* * *`  | AirBnB host                                 | edit a visitor                                  | update details of a visitor                                               |
+| `* * *`  | AirBnB host                                 | list all visitors                               | see all the visitors I have added                                         |
+| `* * *`  | AirBnB host                                 | delete a visitor                                | remove entries that I no longer need                                      |
+| `* * *`  | AirBnB host                                 | add a tag to visitor                            | categorize and identify them easily                                       |
+| `* * *`  | AirBnB host                                 | add a booking tag to visitor                    | quickly assign the visitor to their property                              |
+| `* * *`  | AirBnB host                                 | remove a tag from the visitor                   | to unassign the visitor tag                                               |
+| `* * *`  | AirBnB host                                 | remove a booking tag from the visitor           | to unassign the visitor booking tag                                       |
+| `* * *`  | AirBnB host                                 | find a visitor by name                          | quickly find a specific visitor                                           |
+| `* *`    | AirBnB host                                 | filter visitors by property booked              | quickly find visitors who visited a specific property                     |
+| `* *`    | AirBnB host                                 | filter visitors by date of stay                 | quickly find visitors using specific time periods                         |
+| `* *`    | AirBnB host                                 | filter visitors by tag                          | quickly find visitors using personalised categories                       |
+| `* *`    | AirBnB host                                 | filter visitors by next upcoming booking        | prepare for future bookings efficiently                                   |
+| `* *`    | AirBnB host                                 | add a request to visitor                        | fulfill the visitor request                                               |
+| `* *`    | AirBnB host                                 | mark the request as completed in the visitor    | to mark visitor request as fulfilled                                      |
+| `* * `   | AirBnB host                                 | unmark the request as incomplete in the visitor | to unmark visitor request as unfulfilled                                  |
+| `* * `   | AirBnB host                                 | delete the request from the visitor             | to remove visitor request                                                 |
+| `* *`    | AirBnB host                                 | star a visitor                                  | favorite the visitor so that they appear at the top                       |
+| `* *`    | AirBnB host                                 | unstar a visitor                                | remove favorite from the visitor so that they no longer appear at the top |
+| `* *`    | AirBnB host                                 | list all the starred visitor                    | see all the favorite visitors I have starred                              |
+| `* * `   | AirBnB host                                 | add a memo to visitor                           | give a short note to describe the visitor                                 |
+| `* *`    | AirBnB host                                 | undo the last command                           | recover from mistakes                                                     |
+| `* *`    | AirBnB host                                 | clear all visitors                              | start over with a clean slate                                             |
+| `* *`    | AirBnB host                                 | save visitor details to a file                  | backup my address book                                                    |
+| `* *`    | AirBnB host                                 | load visitor details from a file                | restore my address book                                                   |
 | `*`      | user with many visitors in the address book | sort visitors by name                           | find visitors efficiently                                                 |
 
 ### Use cases
 
-(For all use cases below, the **System** is `InnSync` and the **Actor** is `Airbnb Host`, unless specified otherwise)
+(For all use cases below, the **System** is `InnSync` and the **Actor** is `AirBnB Host`, unless specified otherwise)
 
 **Use case: UC01 - Add a visitor**
 
 **MSS**
 
-1. Airbnb Host requests to add a visitor with specified details.
+1. AirBnB Host requests to add a visitor with specified details.
 2. InnSync validates the input.
 3. InnSync adds the visitor.
 4. InnSync shows a success message.
-
-  * Use case ends.
+Use case ends.
 
 **Extensions**
 
 * 2a. The input format is invalid.
 
-    * 2a1. InnSync shows an error message and informs the Airbnb Host of the proper format.
-
-    * Use case resumes at step 1.
+    * 2a1. InnSync shows an error message and informs the AirBnB Host of the proper format. <br>
+      Use case resumes at step 1.
 
 * 2b. The visitor already exists in InnSync.
 
-    * 2b1. InnSync shows an error message and informs the Airbnb Host that the visitor already exists.
-
-    * Use case resumes at step 1.
+    * 2b1. InnSync shows an error message and informs the AirBnB Host that the visitor already exists. <br>
+      Use case resumes at step 1.
 
 * Guarantees: The contact is successfully created and stored in the system if the input data is valid. Duplicate contacts will not be created.
 
@@ -352,19 +336,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. Airbnb Host requests to delete a specific visitor.
+1. AirBnB Host requests to delete a specific visitor.
 2. InnSync deletes the visitor.
-3. InnSync displays a message for successful deletion of a visitor's contact.
-
+3. InnSync displays a message for successful deletion of a visitor's contact. <br>
     Use case ends.
 
 **Extensions**
 
 * 1a. The given index is invalid.
 
-    * 1a1. InnSync shows an error message and informs the Airbnb Host that the index is invalid.
-
-    * Use case resumes at step 1.
+    * 1a1. InnSync shows an error message and informs the AirBnB Host that the index is invalid. <br>
+      Use case resumes at step 1.
 
 *  Guarantees: The contact is successfully deleted from InnSync, and any persistent storage.
 
@@ -372,61 +354,53 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  Airbnb Host requests to list visitors
+1.  AirBnB Host requests to list visitors
 2.  InnSync shows a list of visitors
-3.  Airbnb Host requests to edit a specific visitor in the list
+3.  AirBnB Host requests to edit a specific visitor in the list
 4.  InnSync validates the entered detail
 5.  InnSync updates the contact with the new provided detail
 6.  InnSync shows the updated details of the visitor.
-7.  InnSync updates local JSON file with updated contact detail
-
+7.  InnSync updates local JSON file with updated contact detail <br>
     Use case ends.
 
 **Extensions**
 
 * 2a. The list is empty.
-   * 2a1. InnSync shows an error message that there are no saved contacts.
-
+   * 2a1. InnSync shows an error message that there are no saved contacts. <br>
     Use case ends.
 
 * 3a. The given index is invalid.
 
-    * 3a1. InnSync shows an error message.
-
+    * 3a1. InnSync shows an error message. <br>
       Use case resumes at step 2.
 
 * 3b. Input argument(s) are invalid  tag.
 
-    * 3b1. InnSync shows an error message.
-
+    * 3b1. InnSync shows an error message. <br>
       Use case resumes at step 2.
 
 * 3c. The contact already exists in InnSync
 
-    * 3c1. InnSync shows an error message that the contact already exists.
-
+    * 3c1. InnSync shows an error message that the contact already exists. <br>
       Use case resumes at step 2.
 
 **Use case: UC04 - Find a visitor by name**
 
 **MSS**
 
-1.  Airbnb Host requests to find a visitor by name
-2.  InnSync shows the details of the visitor if found.
-
+1.  AirBnB Host requests to find a visitor by name
+2.  InnSync shows the details of the visitor if found. <br>
     Use case ends.
 
 **Extensions**
 
 * 2a. The list is empty.
-  * 2a1. InnSync shows an error message that there are no contacts available
-
+  * 2a1. InnSync shows an error message that there are no contacts available <br>
   Use case ends.
 
 * 3a. The given name is invalid.
 
-    * 3a1. InnSync shows an error message.
-
+    * 3a1. InnSync shows an error message. <br>
       Use case ends.
 
 
@@ -434,103 +408,101 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  Airbnb Host requests to list visitors
+1.  AirBnB Host requests to list visitors
 2.  InnSync shows a list of visitors
-3.  Airbnb Host requests to add a tag to a specific visitor in the list
+3.  AirBnB Host requests to add a tag to a specific visitor in the list
 4.  InnSync validates the entered tag (ie. missing input)
 5.  InnSync updates the contact with the new provided tag
 6.  InnSync shows the updated details of the visitor.
-7.  InnSync updates local JSON file with updated contact detail
-
+7.  InnSync updates local JSON file with updated contact detail <br>
     Use case ends.
 
 **Extensions**
 
 * 2a. The list is empty.
-   * 2a1. InnSync shows an error message that there are no saved contacts.
-
+   * 2a1. InnSync shows an error message that there are no saved contacts. <br>
     Use case ends.
 
 * 3a. The given index is invalid.
 
-    * 3a1. InnSync shows an error message.
+    * 3a1. InnSync shows an error message. <br>
       Use case resumes at step 2.
 
 * 4a. Input argument(s) are invalid.
 
-    * 4a1. InnSync shows an error message.
+    * 4a1. InnSync shows an error message. <br>
       Use case resumes at step 2.
 
 **Use case: UC06 - Add Booking Tag to Contact**
 
 **MSS**
 
-1.  Airbnb Host requests to list visitors
+1.  AirBnB Host requests to list visitors
 2.  InnSync shows a list of visitors
-3.  Airbnb Host requests to add a booking tag to a specific visitor in the list
+3.  AirBnB Host requests to add a booking tag to a specific visitor in the list
 4.  InnSync validates the entered booking tag (ie. date format, missing input)
 5.  InnSync updates the contact with the new provided booking tag
 6.  InnSync shows the updated details of the visitor.
-7.  InnSync updates local JSON file with updated contact detail
-
+7.  InnSync updates local JSON file with updated contact detail <br>
     Use case ends.
 
 **Extensions**
 
 * 2a. The list is empty.
-   * 2a1. InnSync shows an error message that there are no saved contacts.
-
+   * 2a1. InnSync shows an error message that there are no saved contacts. <br>
     Use case ends.
 
 * 3a. The given index is invalid.
 
-    * 3a1. InnSync shows an error message.
+    * 3a1. InnSync shows an error message. <br>
       Use case resumes at step 2.
 
 * 4a. Input argument(s) are invalid.
 
-    * 4a1. InnSync shows an error message.
+    * 4a1. InnSync shows an error message. <br>
       Use case resumes at step 2.
 
 * 5a. The given booking tag date overlaps with an existing booking tag.
 
-    * 5a1. InnSync shows an error message.
+    * 5a1. InnSync shows an error message. <br>
       Use case resumes at step 2.
 
 **Use case: UC07 - List visitors**
 
 **MSS**
 
-1. Airbnb Host requests to list all visitors.
+1. AirBnB Host requests to list all visitors.
 2. InnSync displays a list of all visitors.
+
+**Extensions**
 
 * 2a. The list is empty.
 
-    * 2a1. InnSync shows a message that the list is empty.
+    * 2a1. InnSync shows a message that the list is empty. <br>
      Use case ends.
 
 **Use case: UC08 - Help**
 
 **MSS**
 
-1. Airbnb Host wants to see the user guide
-2. InnSync displays a pop up with a hyperlink to the user guide
+1. AirBnB Host wants to see the user guide
+2. InnSync displays a pop up with a hyperlink to the user guide <br>
    Use case ends.
 
 **Use case: UC09 - Clear**
 
 **MSS**
 
-1. Airbnb Host remove all visitor contacts in the database
-2. InnSync clears the database and updates local JSON file
+1. AirBnB Host remove all visitor contacts in the database
+2. InnSync clears the database and updates local JSON file <br>
    Use case ends.
 
-**Use case: UC09 - Exit**
+**Use case: UC10 - Exit**
 
 **MSS**
 
-1. Airbnb Host wants to exit the application
-2. InnSync is terminated
+1. AirBnB Host wants to exit the application
+2. InnSync is terminated <br>
    Use case ends.
 
 ### Non-Functional Requirements
@@ -548,9 +520,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Private contact detail**: A contact detail that is not meant to be shared with others
-* **Airbnb host**: An Airbnb host is an individual or business that list their property on the platform for short-term rentals. The host provide accommodations in the forms of apartments, houses or rooms for guests, typically for leisure activities.
-* **Visitor**:  Any individual who accesses an Airbnb property, including guests staying at the property, service providers performing work, or other authorized individuals. Visitors may include cleaners, maintenance personnel, property inspectors, delivery services, and other vendors.
-* **AB-3**: This represents the code name for the AddressBook Level 3 application, which was used as the base framework for student customized CLI management system to be developed.
+* **AirBnB host**: An AirBnB host is an individual or business that list their property on the platform for short-term rentals. The host provide accommodations in the forms of apartments, houses or rooms for guests, typically for leisure activities.
+* **Visitor**:  Any individual who accesses an AirBnB property, including guests staying at the property, property owners, service providers performing work, or other authorized individuals. Visitors may include cleaners, maintenance personnel, property inspectors, delivery services, and other vendors.
 * **CLI (Command Line Interface)**: A text-based interface where users interact with the application with a keyboard typing commands instead of using a graphical user interface.
 * **JAR**: A packed file format used in Java that contains compiled java codes to enable easy distribution, portability and execution that includes libraries and resources to allow the program to function.
 * **JSON (JavaScript Object Notation)**: A lightweight data format widely used for storing and exchanging structured data in a human-readable, that is often used in databases and APIs.
@@ -559,7 +530,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **MSS (Main Success Scenario)**:It describes the most straightforward interaction for a given use case, which assumes that nothing goes wrong.
 * **API (Application Programming Interface)**: A set of rules or protocols that govern the application to allow different software applications to work together by communication with each other.
 --------------------------------------------------------------------------------------------------------------------
+## **Appendix: Planned Enhancements**
+Team Size: 5    
 
+1. **Allow all command parsers to escape prefixes in all fields**: Currently, only the edit and add command allow escaping of prefixes, and only in the name argument. We plan to extend this to all commands and fields, in order to allow the user more freedom in their choice of arguments and keywords.
+
+--------------------------------------------------------------------------------------------------------------------
 ## **Appendix: Instructions for manual testing**
 
 Given below are instructions to test the app manually.
