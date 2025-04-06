@@ -12,8 +12,6 @@ import static seedu.innsync.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.innsync.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.innsync.testutil.TypicalPersons.getTypicalAddressBook;
 
-import java.util.Set;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -58,24 +56,22 @@ public class UntagCommandTest {
     public void execute_removeValidTag_success() {
         Index index = Index.fromZeroBased(INDEX_FIRST_PERSON.getZeroBased());
         Person personToEdit = model.getPersonList().get(index.getZeroBased());
+        Person personToEditCopy = new PersonBuilder(personToEdit).build();
 
-        // get tag from person
-        Set<Tag> tags = personToEdit.getTags();
-        Tag tagToRemove = tags.iterator().next();
-        assert (tagToRemove != null);
-
-        model.getTagElseCreate(tagToRemove);
+        Tag tagToRemove = new Tag(VALID_TAG_HUSBAND);
+        personToEdit.addTag(tagToRemove);
+        assertTrue(personToEdit.getTags().contains(new Tag(VALID_TAG_HUSBAND)));
 
         UntagCommand untagCommand = new UntagCommand(index, tagToRemove, null);
         String expectedMessage = String.format(UntagCommand.MESSAGE_SUCCESS, tagToRemove);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setPerson(personToEdit, personToEditCopy);
 
-        assertCommandSuccess(untagCommand, model, expectedMessage, expectedModel, personToEdit);
+        assertCommandSuccess(untagCommand, model, expectedMessage, expectedModel, personToEditCopy);
 
-        // add tag back to person
-        personToEdit.addTag(tagToRemove);
-        assertTrue(personToEdit.getTags().contains(tagToRemove));
+        personToEdit.removeTag(tagToRemove);
+        assertTrue(!personToEdit.getTags().contains(tagToRemove));
     }
 
     @Test
