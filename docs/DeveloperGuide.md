@@ -611,7 +611,7 @@ testers are expected to do more *exploratory* testing.
    2. Test case: `add n/John Doe a/John Doe Street e/johndoe@example.com p/+65 8888 8888`<br>
       Expected: Contact is added to list. Contact List Card is selected in GUI. Contact Details are shown in Details Panel in GUI. Details of the added contact shown in the status message.
 
-   3. Test case: `add n/John Doe a/John Doe Street e/jd@example.com p/+65 88888888 t/guest m/no room cleaning b/StarHotel from/2025-04-01 to/    2025-04-05 r/Needs Laundry Detergent`<br>
+   3. Test case: `add n/John Doe a/John Doe Street e/jd@example.com p/+65 88888888 t/guest m/no room cleaning b/StarHotel from/2025-04-01 to/2025-04-05 r/Needs Laundry Detergent`<br>
       Expected: Contact is added to list. Contact List Card is selected in GUI. Contact Details are shown in Details Panel in GUI. Details of the added contact shown in the status message.
 
    4. Test case: `add n/John Doe`<br>
