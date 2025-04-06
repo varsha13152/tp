@@ -357,8 +357,9 @@ Examples:
 
 Shows a list of all visitors in the address book.
 
-Format: `list`
-* Any additional text or parameters after the `list` command will be ignored.
+Format: `list`   
+  
+**Note:** Any additional text or parameters after the `list` command will be ignored.
 
 **Tip:** Listing without any visitors added will recommend you to add some.
 
