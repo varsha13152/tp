@@ -567,22 +567,22 @@ testers are expected to do more *exploratory* testing.
 
 1. Listing all visitors when there are no contacts
 
-   * Prerequisites: No contacts in addressbook. This can be done using the `clear` command.
+   1. Prerequisites: No contacts in addressbook. This can be done using the `clear` command.
 
-   * Test case: `list`<br>
+   2. Test case: `list`<br>
       Expected: No contacts displayed in list. Message stating that there are no contacts shown in the status message.
 
-   * Other incorrect list commands to try: `List`, `listx`, `...`<br>
+   3. Other incorrect list commands to try: `List`, `listx`, `...`<br>
       Expected: Error message displayed in status message.
 
 2. Listing all visitors when there is at least one contact in address book
 
-   * Prerequisites: At least one contact in address book.
+   1. Prerequisites: At least one contact in address book.
 
-   * Test case: `list`<br>
+   2. Test case: `list`<br>
       Expected: All contacts displayed in list, with all contacts sorted first by whether they are starred, and then in alphabetical order of their name. Success Message shown in the status message.
 
-   * Other incorrect list commands to try: `List`, `listx`, `...`<br>
+   3. Other incorrect list commands to try: `List`, `listx`, `...`<br>
       Expected: Error message displayed in status message.
 
 ### Deleting a visitor
@@ -604,43 +604,43 @@ testers are expected to do more *exploratory* testing.
 
 1. Adding a visitor who is not currently in the addressbook
 
-   * Prerequisites: No visitor with matching phone number and email address is displayed in addressbook when using `list` command.
+   1. Prerequisites: No visitor with matching phone number and email address is displayed in addressbook when using `list` command.
 
-   * Test case: `add n/John Doe a/John Doe Street e/johndoe@example.com p/+65 8888 8888`<br>
+   2. Test case: `add n/John Doe a/John Doe Street e/johndoe@example.com p/+65 8888 8888`<br>
       Expected: Contact is added to list. Contact List Card is selected in GUI. Contact Details are shown in Details Panel in GUI. Details of the added contact shown in the status message.
 
-   * Test case: `add n/John Doe a/John Doe Street e/jd@example.com p/+65 88888888 t/guest m/no room cleaning b/StarHotel from/2025-04-01 to/    2025-04-05 r/Needs Laundry Detergent`<br>
+   3. Test case: `add n/John Doe a/John Doe Street e/jd@example.com p/+65 88888888 t/guest m/no room cleaning b/StarHotel from/2025-04-01 to/    2025-04-05 r/Needs Laundry Detergent`<br>
       Expected: Contact is added to list. Contact List Card is selected in GUI. Contact Details are shown in Details Panel in GUI. Details of the added contact shown in the status message.
 
-   * Test case: `add n/John Doe`<br>
+   4. Test case: `add n/John Doe`<br>
       Expected: No visitor is added. Error details shown in the status message.
 
-   * Test case: `add n/John Doe a/John Doe Street e/johndoe@example.com p/123`<br>
+   5. Test case: `add n/John Doe a/John Doe Street e/johndoe@example.com p/123`<br>
       Expected: No visitor is added. Error details shown in the status message.
 
-   * Other incorrect add commands to try: `Add`, `add abc`, `...`<br>
+   6. Other incorrect add commands to try: `Add`, `add abc`, `...`<br>
       Expected: Similar to previous.
 
 ### Saving data
 
 1. Dealing with missing data files
 
-   * Navigate to the directory containing the .jar file
+   1. Navigate to the directory containing the .jar file
 
-   * Navigate into the 'data/' folder and locate the data file 'addressbook.json'
+   2. Navigate into the 'data/' folder and locate the data file 'addressbook.json'
 
-   * Delete the file 'addressbook.json'
+   3. Delete the file 'addressbook.json'
 
-   * Attempt to run the app. <br>
+   4. Attempt to run the app. <br>
       Expected: App populates address book with default list of contacts
 
 2. Dealing with corrupted data files
 
-   * Navigate to the directory containing the .jar file
+   1. Navigate to the directory containing the .jar file
 
-   * Navigate into the 'data/' folder and locate the data file 'addressbook.json'
+   2. Navigate into the 'data/' folder and locate the data file 'addressbook.json'
 
-   * Open the file and delete a semicolon (';'), or add random characters such as '/' anywhere in the file
+   3. Open the file and delete a semicolon (';'), or add random characters such as '/' anywhere in the file
 
-   * Attempt to run the app. <br>
+   4. Attempt to run the app. <br>
       Expected: App starts up using an empty address book.
