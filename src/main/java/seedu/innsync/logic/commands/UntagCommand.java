@@ -32,11 +32,11 @@ public class UntagCommand extends Command {
             + PREFIX_BOOKINGTAG + "{property} from/{start-date} to/{end-date}\n"
             + "Example: " + COMMAND_WORD + " 1 t/friends";
     public static final String MESSAGE_SUCCESS = String.format(
-            Messages.MESSAGE_COMMAND_SUCCESS, "Tag", "%s has been removed from the contact's tag list!");
+            Messages.MESSAGE_COMMAND_SUCCESS, "Unag", "%s has been removed from the contact's tag list!");
     public static final String MESSAGE_FAILURE_TAG = String.format(
-            Messages.MESSAGE_COMMAND_FAILURE, "Tag", "Contact does not have the tag %s!");
+            Messages.MESSAGE_COMMAND_FAILURE, "Untag", "Contact does not have the tag %s!");
     public static final String MESSAGE_FAILURE_BOOKINGTAG = String.format(
-            Messages.MESSAGE_COMMAND_FAILURE, "BookingTag", "Contact does not have the booking tag %s!");
+            Messages.MESSAGE_COMMAND_FAILURE, "Untag", "Contact does not have the booking tag %s!");
 
     private final Index index;
     private final Tag tag;
@@ -84,14 +84,12 @@ public class UntagCommand extends Command {
 
             Set<BookingTag> updatedBookingTags = new HashSet<>(personToCopy.getBookingTags());
 
-            if (toRemoveBookingTag != null && !toRemoveBookingTag.isEmpty()) {
-                BookingTag bookingTagToRemove = new BookingTag(toRemoveBookingTag);
-                try {
-                    updatedBookingTags.remove(bookingTagToRemove);
-                } catch (TagNotFoundException e) {
-                    throw new CommandException(String.format(MESSAGE_FAILURE_BOOKINGTAG, bookingTagToRemove.toPrettier()));
-                }
+        if (toRemoveBookingTag != null && !toRemoveBookingTag.isEmpty()) {
+            BookingTag bookingTagToRemove = new BookingTag(toRemoveBookingTag);
+            if (!bookingTagList.remove(bookingTagToRemove)) {
+                throw new CommandException(String.format(MESSAGE_FAILURE_BOOKINGTAG, bookingTagToRemove.toPrettier()));
             }
+        }
 
             Person copiedPerson = new Person(
                 personToCopy.getName(),

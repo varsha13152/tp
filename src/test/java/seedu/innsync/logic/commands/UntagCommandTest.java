@@ -24,6 +24,7 @@ import seedu.innsync.model.Model;
 import seedu.innsync.model.ModelManager;
 import seedu.innsync.model.UserPrefs;
 import seedu.innsync.model.person.Person;
+import seedu.innsync.model.tag.BookingTag;
 import seedu.innsync.model.tag.Tag;
 import seedu.innsync.testutil.PersonBuilder;
 
@@ -82,7 +83,8 @@ public class UntagCommandTest {
         Index index = Index.fromZeroBased(INDEX_FIRST_PERSON.getZeroBased());
 
         UntagCommand untagCommand = new UntagCommand(index, null, VALID_BOOKINGTAG_HOTEL);
-        String expectedMessage = String.format(UntagCommand.MESSAGE_FAILURE_BOOKINGTAG, VALID_BOOKINGTAG_HOTEL);
+        String expectedMessage = String.format(UntagCommand.MESSAGE_FAILURE_BOOKINGTAG,
+                new BookingTag(VALID_BOOKINGTAG_HOTEL).toPrettier());
 
         assertCommandFailure(untagCommand, model, expectedMessage);
     }

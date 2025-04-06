@@ -99,6 +99,7 @@ public class PersonDetailPanel extends UiPart<Region> {
         // Add memo
         if (person.getMemo() != null) {
             memoLabel.setText(requireNonNullElse(person.getMemo().value, ""));
+            memoLabel.setWrapText(true);
         }
 
         // Add requests with a checkbox beside each

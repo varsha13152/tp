@@ -137,14 +137,14 @@ public class TagCommandTest {
     public void execute_overlappingBookingTags_failure() {
         Index indexLastPerson = Index.fromOneBased(model.getPersonList().size());
 
-        BookingTag originalBookingTag = new BookingTag(VALID_BOOKINGTAG_BEACHHOUSE);
+        BookingTag originalBookingTag = new BookingTag(VALID_BOOKINGTAG_HOTEL);
         BookingTag overlappingBookingTag = new BookingTag(OVERLAPPING_BOOKINGTAG_INN);
 
         TagCommand bookingTagCommand = new TagCommand(indexLastPerson, null,
                 Set.of(originalBookingTag, overlappingBookingTag));
 
-        String expectedMessage1 = String.format(TagCommand.MESSAGE_FAILURE, overlappingBookingTag.toPrettier());
-        String expectedMessage2 = String.format(TagCommand.MESSAGE_FAILURE, originalBookingTag.toPrettier());
+        String expectedMessage1 = String.format(TagCommand.MESSAGE_FAILURE_OVERLAP, overlappingBookingTag.toPrettier());
+        String expectedMessage2 = String.format(TagCommand.MESSAGE_FAILURE_OVERLAP, originalBookingTag.toPrettier());
 
         assertCommandFailure(bookingTagCommand, model, new String[] {expectedMessage1, expectedMessage2});
     }
