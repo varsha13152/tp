@@ -29,8 +29,9 @@ public class UntagCommand extends Command {
             + ": Removes the tag from the contact identified by the index number used in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_TAG + "TAG\n" + "OR "
-            + PREFIX_BOOKINGTAG + "{property} from/{start-date} to/{end-date}\n"
-            + "Example: " + COMMAND_WORD + " 1 t/friends";
+            + PREFIX_BOOKINGTAG + "PROPERTY from/START_DATE to/END_DATE"
+            + "Example: " + COMMAND_WORD + " 1 t/friends\n"
+            + "Example: " + COMMAND_WORD + " 1 b/property from/2023-10-01 to/2023-10-31";
     public static final String MESSAGE_SUCCESS = String.format(
             Messages.MESSAGE_COMMAND_SUCCESS, "Untag", "%s has been removed from the contact's tag list!");
     public static final String MESSAGE_FAILURE_TAG = String.format(
