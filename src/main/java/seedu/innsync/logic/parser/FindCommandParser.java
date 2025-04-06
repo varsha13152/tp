@@ -23,6 +23,7 @@ import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.FindCommand;
 import seedu.innsync.logic.commands.FindCommand.SearchType;
 import seedu.innsync.logic.parser.exceptions.ParseException;
+import seedu.innsync.model.person.Name;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -101,39 +102,34 @@ public class FindCommandParser implements Parser<FindCommand> {
         requireNonNull(searchCriteria);
 
         List<String> keywords = new ArrayList<>();
+        List<String> invalidKeywords = new ArrayList<>();
 
-        // Add each complete prefix value as a keyword without splitting
         for (String value : prefixValues) {
             String trimmedValue = value.trim();
             if (!trimmedValue.isEmpty()) {
-                keywords.add(trimmedValue);
+                if (prefix.equals(PREFIX_NAME)) {
+                    try {
+                        Name parsedName = ParserUtil.parseName(trimmedValue);
+                        keywords.add(parsedName.toString());
+                    } catch (ParseException e) {
+                        invalidKeywords.add(trimmedValue);
+                    }
+                } else if (!isValidKeyword(trimmedValue, prefix)) {
+                    invalidKeywords.add(trimmedValue);
+                } else {
+                    keywords.add(trimmedValue);
+                }
             }
+        }
+
+        if (!invalidKeywords.isEmpty()) {
+            throw new ParseException(getErrorMessage(prefix, invalidKeywords));
         }
 
         validateKeywords(keywords, prefix);
         searchCriteria.put(searchType, keywords);
     }
 
-    /**
-     * Extracts keywords from a string, splitting by whitespace.
-     * This method is kept for backward compatibility but is no longer used
-     * in the main parsing flow.
-     *
-     * @param value The string to extract keywords from
-     * @return A list of keywords extracted from the string
-     */
-    private List<String> extractKeywords(String value) {
-        requireNonNull(value);
-
-        List<String> keywords = new ArrayList<>();
-        String[] keywordArray = value.trim().split("\\s+");
-        for (String keyword : keywordArray) {
-            if (!keyword.isEmpty()) {
-                keywords.add(keyword);
-            }
-        }
-        return keywords;
-    }
 
     /**
      * Validates keywords based on the provided prefix.

@@ -24,7 +24,7 @@ public class Messages {
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s)! " + Emoticons.ANGRY;
     public static final String MESSAGE_DUPLICATE_PERSONS = "This person already exists in the address book! "
-            + Emoticons.SAD;
+            + "To add or edit a contact, it must have a unique email address and phone number. " + Emoticons.SAD;
 
     public static final String MESSAGE_COMMAND_SUCCESS = "%s successful! " + Emoticons.PROUD + "\n%s";
     public static final String MESSAGE_COMMAND_FAILURE = "%s failed! " + Emoticons.SAD + "\n%s";

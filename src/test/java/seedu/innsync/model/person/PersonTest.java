@@ -36,23 +36,33 @@ public class PersonTest {
         // null -> returns false
         assertFalse(ALICE.isSamePerson(null));
 
-        // same name, all other attributes different -> returns true
-        Person editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
-                .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        // different name but same phone and email -> should be considered same person
+        Person editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertTrue(ALICE.isSamePerson(editedAlice));
 
-        // different name, all other attributes same -> returns false
-        editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSamePerson(editedAlice));
+        // same name but different phone and email -> should not be considered same person
+        Person differentContactDetails = new PersonBuilder(ALICE)
+                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        assertFalse(ALICE.isSamePerson(differentContactDetails));
 
-        // name differs in case, all other attributes same -> returns false
-        Person editedBob = new PersonBuilder(BOB).withName(VALID_NAME_BOB.toLowerCase()).build();
-        assertFalse(BOB.isSamePerson(editedBob));
+        // different name, different phone, different email -> returns false
+        Person completelyDifferent = new PersonBuilder(ALICE)
+                .withName(VALID_NAME_BOB)
+                .withPhone(VALID_PHONE_BOB)
+                .withEmail(VALID_EMAIL_BOB).build();
+        assertFalse(ALICE.isSamePerson(completelyDifferent));
 
-        // name has trailing spaces, all other attributes same -> returns false
-        String nameWithTrailingSpaces = VALID_NAME_BOB + " ";
-        editedBob = new PersonBuilder(BOB).withName(nameWithTrailingSpaces).build();
-        assertFalse(BOB.isSamePerson(editedBob));
+        // same phone but different email -> returns false
+        Person samePhoneDifferentEmail = new PersonBuilder(ALICE)
+                .withPhone(ALICE.getPhone().value)
+                .withEmail(VALID_EMAIL_BOB).build();
+        assertFalse(ALICE.isSamePerson(samePhoneDifferentEmail));
+
+        // same email but different phone -> returns false
+        Person sameEmailDifferentPhone = new PersonBuilder(ALICE)
+                .withPhone(VALID_PHONE_BOB)
+                .withEmail(ALICE.getEmail().value).build();
+        assertFalse(ALICE.isSamePerson(sameEmailDifferentPhone));
     }
 
     @Test
