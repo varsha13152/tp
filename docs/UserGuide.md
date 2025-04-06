@@ -318,7 +318,7 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG...] [b/BOOKING_TAG..
 e.g. To add a visitor with the name "murthu a/p", use the command `add n/murthu $a/p [...]`.
 </box>
 
-**Note:** New visitors added will be sorted alphabetically.
+**Note:** New visitors added will be sorted lexicographically among the ones without stars.
 
 Examples:
 * `add n/John Doe p/+65 98765432 e/johnd@example.com a/John street, block 123, #01-01`
@@ -381,6 +381,8 @@ Stars a visitor in the address book.
 Format: `star INDEX`
 
 * The index refers to the index number shown in the displayed visitor list. The index **must be a positive integer**.
+
+**Note:** New starred visitor will be sorted lexicographically among the starred visitors, separated from the unstar ones.
 
 ### 4.3.2 Unstar a visitor : `unstar`
 
