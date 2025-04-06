@@ -69,7 +69,6 @@ public class TagCommand extends Command {
 
         Person editedPerson = addTagsPerson(personToEdit, bookingTagList);
 
-        model.setPerson(personToEdit, editedPerson);
 
         for (Tag tag : modelTags) {
             try {
@@ -78,7 +77,7 @@ public class TagCommand extends Command {
                 throw new CommandException(String.format(Messages.MESSAGE_DUPLICATE_FIELD, tag));
             }
         }
-
+        model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedPerson.getName()), editedPerson);
     }
