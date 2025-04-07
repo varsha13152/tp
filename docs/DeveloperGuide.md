@@ -772,6 +772,51 @@ testers are expected to do more *exploratory* testing.
        <br>Parameters: INDEX (must be a positive integer)
        <br>Example: unstar 1
 
+### Deleting a request
+
+1. Deleting a request from a visitor who has requests
+
+    1. Prerequisites: List all visitors using the `list` command. At least one visitor in the list has one or more requests. If no visitor has requests, add a visitor with a request using the `add` command with the `r/REQUEST` parameter, or add a request to an existing visitor using the `req` command.
+
+    2. Test case: `deletereq INDEX r/REQUEST_INDEX`<br>
+       **Note:** Find a visitor with at least one request and use that visitor's INDEX. Use a valid REQUEST_INDEX (starting from 1).
+       <br>Expected: The specified request is deleted from the visitor. If selected, details of the visitor with the deleted request are shown in the Details Panel in GUI.
+       <br>Output: Delete request successful! (๑˘︶˘๑)
+       <br>REQUEST has been deleted from NAME's request list!
+
+    3. Test case: `deletereq INDEX r/REQUEST_INDEX`<br>
+       **Note:** Use a valid visitor INDEX but a REQUEST_INDEX that is greater than the number of requests the visitor has.
+       <br>Expected: No request is deleted. Error details shown in the status message.
+       <br>Output: This contact does not have a request of this index! (ｏ´_｀ｏ)
+
+    4. Test case: `deletereq 0 r/1`<br>
+       Expected: No request is deleted. Error details shown in the status message.
+       <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
+       <br>deletereq: Deletes a request from the contact identified by the index number in the displayed person list.
+       <br>Parameters: INDEX (must be a positive integer) r/REQUEST_INDEX (must be a positive integer)
+       <br>Example: deletereq 1 r/1
+
+    5. Test case: `deletereq INDEX r/0`<br>
+       Expected: No request is deleted. Error details shown in the status message.
+       <br>Output: Request index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
+       <br>deletereq: Deletes a request from the contact identified by the index number in the displayed person list.
+       <br>Parameters: INDEX (must be a positive integer) r/REQUEST_INDEX (must be a positive integer)
+       <br>Example: deletereq 1 r/1
+
+    6. Test case: `deletereq INDEX r/x` (where x is a non-numeric character)<br>
+       Expected: No request is deleted. Error details shown in the status message.
+       <br>Output: Request index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
+       <br>deletereq: Deletes a request from the contact identified by the index number in the displayed person list.
+       <br>Parameters: INDEX (must be a positive integer) r/REQUEST_INDEX (must be a positive integer)
+       <br>Example: deletereq 1 r/1
+
+    7. Other incorrect deletereq commands to try: `deletereq`, `deletereq x`, `deletereq INDEX` (without r/ parameter)<br>
+       Expected: No request is deleted. Error details shown in the status message.
+       <br>Output: Invalid command format! ヾ( ･`⌓´･)ﾉﾞ
+       <br>deletereq: Deletes a request from the contact identified by the index number in the displayed person list.
+       <br>Parameters: INDEX (must be a positive integer) r/REQUEST_INDEX (must be a positive integer)
+       <br>Example: deletereq 1 r/1
+
 ### Saving data
 
 1. Dealing with missing data files
