@@ -764,6 +764,13 @@ testers are expected to do more *exploratory* testing.
        <br>unstar: Unstars the contact identified by the index number used in the displayed person list.
        <br>Parameters: INDEX (must be a positive integer)
        <br>Example: unstar 1
+
+   5. Other incorrect star commands to try: `unstar`, `unstar x`, `...` (where x is larger than the list size)<br>
+      Expected: Similar to previous.
+      <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
+      <br>unstar: Unstars the contact identified by the index number used in the displayed person list.
+      <br>Parameters: INDEX (must be a positive integer)
+      <br>Example: unstar 1
    
 ### Adding a request to a visitor
 
