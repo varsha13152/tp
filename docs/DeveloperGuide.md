@@ -547,7 +547,7 @@ Use case ends.
 
 --------------------------------------------------------------------------------------------------------------------
 ## **Appendix: Planned Enhancements**
-Team Size: 5    
+Team Size: 5
 
 1. **Allow all command parsers to escape prefixes in all fields**: Currently, only the `edit` and `add` command allow escaping of prefixes such as `a/`, `e/`, and only in the `NAME` argument. We plan to extend this feature to all commands and fields, in order to allow the user more freedom in their choice of arguments and keywords.
 2. **Stricter validation for email**: The current validation for email only requires the existence of `@` character, and does not require the domain to conitain `.`. As such, invalid emails such as `johndoe@example` and `jd@mail` were accepted. In the future, we intend to modify the validation of the email parameter to require a `.`, followed by at least two alphanumeric characters after the presence of `@`.

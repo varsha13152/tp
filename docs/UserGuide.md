@@ -357,8 +357,8 @@ Examples:
 
 Shows a list of all visitors in the address book.
 
-Format: `list`   
-  
+Format: `list`
+
 **Note:** Any additional text or parameters after the `list` command will be ignored.
 
 **Tip:** Listing without any visitors added will recommend you to add some.
@@ -579,7 +579,7 @@ Format: `find [n/KEYWORD...] [p/KEYWORD...] [e/KEYWORD...] [a/KEYWORD...] [bp/KE
 **Searching by name:**
 * `find n/John` - Finds contacts with "John" in their name
 * `find n/Betsy n/Tim` - Finds contacts with either "Betsy" or "Tim" in their name
-  
+
 **Note:** `find` with ```$``` (i.e. `find n/$a/p`) actually finds users with names containing ```$a/p```,
 which does not exist as ```$``` is not allowed in names but you can still do it.
 **[Planned Enhancement]** There are ongoing plans to allow the use of ```$``` to escape any prefixes,
