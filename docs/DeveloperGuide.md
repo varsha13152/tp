@@ -765,7 +765,7 @@ testers are expected to do more *exploratory* testing.
        <br>Parameters: INDEX (must be a positive integer)
        <br>Example: unstar 1
 
-   5. Other incorrect star commands to try: `unstar`, `unstar x`, `...` (where x is larger than the list size)<br>
+   5. Other incorrect unstar commands to try: `unstar`, `unstar x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
       <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
       <br>unstar: Unstars the contact identified by the index number used in the displayed person list.
@@ -791,7 +791,7 @@ testers are expected to do more *exploratory* testing.
       <br>Output: Command will result in duplicate request!
 
    5. Test case: `req 1 r/`<br>
-      Expected: No visitor will have a request added. Error details shown in the status message. Status bar remains the same.
+      Expected: No request will be added. Error details shown in the status message. Status bar remains the same.
       <br>Output: Request cannot be empty!
 
    6. Test case: `req r/`<br>
@@ -817,7 +817,7 @@ testers are expected to do more *exploratory* testing.
       <br>Expected: No visitor will have a request added. Error details shown in the status message. Status bar remains the same.
       <br>Output: The person index provided is invalid! ヾ( ･`⌓´･)ﾉﾞ
 
-   10. Other incorrect star commands to try: `req`, `req x`, `...` (where x is larger than the list size)<br>
+   10. Other incorrect req commands to try: `req`, `req x`, `...` (where x is larger than the list size)<br>
       Expected: No visitor will have a request added. Error details shown in the status message. Status bar remains the same.
       <br>Output: Invalid command format! ヾ( ･`⌓´･)ﾉﾞ
       <br>req: Adds a request to the contact identified by the index number in the displayed person list.
