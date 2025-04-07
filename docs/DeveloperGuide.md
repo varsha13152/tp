@@ -239,7 +239,7 @@ Given below is an example usage scenario and how the list star mechanism behaves
 
 <box type="info" seamless>
 
-**Note:** If no contacts are starred, the filtered list will be empty. The command still succeeds as this is valid behavior.
+**Note:** If no contacts are starred, the filtered list will be empty. The command still succeeds as this is valid behaviour.
 
 </box>
 
@@ -254,13 +254,13 @@ Given below is an example usage scenario and how the list star mechanism behaves
     * Cons: Requires full list traversal
 
 * **Alternative 2:** Maintain a separate starred contacts list
-    * Pros: Faster access to favorites
+    * Pros: Faster access to favourites
     * Cons: More complex synchronization, increased memory usage
 
 **Aspect: When to apply filtering:**
 
 * **Alternative 1 (current choice):** Only when explicitly requested via `liststar`
-    * Pros: Clear user control, predictable behavior
+    * Pros: Clear user control, predictable behaviour
     * Cons: Requires explicit command
 
 * **Alternative 2:** Automatically filter when starring/unstarring
@@ -315,13 +315,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | AirBnB host                                        | filter visitors by date of stay                 | quickly find visitors using specific time periods                         |
 | `* *`    | AirBnB host                                        | filter visitors by tag                          | quickly find visitors using personalised categories                       |
 | `* *`    | AirBnB host                                        | filter visitors by next upcoming booking        | prepare for future bookings efficiently                                   |
-| `* *`    | AirBnB host                                        | add a request to visitor                        | fulfill the visitor request                                               |
+| `* *`    | AirBnB host                                        | add a request to visitor                        | fulfil the visitor request                                               |
 | `* *`    | AirBnB host                                        | mark the request as completed in the visitor    | to mark visitor request as fulfilled                                      |
 | `* * `   | AirBnB host                                        | unmark the request as incomplete in the visitor | to unmark visitor request as unfulfilled                                  |
 | `* * `   | AirBnB host                                        | delete the request from the visitor             | to remove visitor request                                                 |
-| `* *`    | AirBnB host                                        | star a visitor                                  | favorite the visitor so that they appear at the top                       |
-| `* *`    | AirBnB host                                        | unstar a visitor                                | remove favorite from the visitor so that they no longer appear at the top |
-| `* *`    | AirBnB host                                        | list all the starred visitor                    | see all the favorite visitors I have starred                              |
+| `* *`    | AirBnB host                                        | star a visitor                                  | favourite the visitor so that they appear at the top                       |
+| `* *`    | AirBnB host                                        | unstar a visitor                                | unfavourite the visitor so that they no longer appear at the top |
+| `* *`    | AirBnB host                                        | list all the starred visitor                    | see all the favourite visitors I have starred                              |
 | `* * `   | AirBnB host                                        | add a memo to visitor                           | give a short note to describe the visitor                                 |
 | `* *`    | AirBnB host                                        | undo the last command                           | recover from mistakes                                                     |
 | `* *`    | AirBnB host                                        | clear all visitors                              | start over with a clean slate                                             |
@@ -572,15 +572,15 @@ Use case ends.
 
 **Challenges Faced and Achievements:**
 
-* **Addition of Person Fields:** To better allow hosts to keep track of their visitors, we added the booking tag into our system, a major feature which allowed hosts to associate a property, start date, and end date with a visitor, crucial in recording a guest's period of stay at a property. Many tweaks to the system were necessary to accomodate the addition of this new field. In addition to the booking tag, we also allowed users to add requests, which could be marked as complete, and a memo, which could contain remarks about a visitor, to a contact.
+* **Addition of Person Fields:** To better allow hosts to keep track of their visitors, we added the booking tag into our system, a major feature which allowed hosts to associate a property, start date, and end date with a visitor, crucial in recording a guest's period of stay at a property. Many tweaks to the system were necessary to accommodate the addition of this new field. In addition to the booking tag, we also allowed users to add requests, which could be marked as complete, and a memo, which could contain remarks about a visitor, to a contact.
 
-* **Addition of Commands:** We had to significantly modify existing commmands (`add`, `find`, `edit`), and include multiple new additional commands (`tag`, `untag`, `req`, `mark`, `unmark`, `deletereq`, `liststar`, `memo`) to accomodate the creation, modification and deletion of our added fields to each contact. In addition to those commands, we also added the `undo` command to allow users to restore unintended changes, and implemented a system which made dangerous command such as `clear` require a confirmation to proceed. Finally, we added the `star` feature which allowed users to star contacts and have their favourite or most frequently accessed contacts displayed above the rest.
+* **Addition of Commands:** We had to significantly modify existing commands (`add`, `find`, `edit`), and include multiple new additional commands (`tag`, `untag`, `req`, `mark`, `unmark`, `deletereq`, `liststar`, `memo`) to accommodate the creation, modification and deletion of our added fields to each contact. In addition to those commands, we also added the `undo` command to allow users to restore unintended changes, and implemented a system which made dangerous command such as `clear` require a confirmation to proceed. Finally, we added the `star` feature which allowed users to star contacts and have their favourite or most frequently accessed contacts displayed above the rest.
 
 * **Parsing of parameters:** In order to cater to the possibility of names containing prefixes, such as `murthu a/p vara` which contains the `a/` prefix, we modified the existing parser system to allow prefixes to be escaped with the `$` symbol, allowing users more freedom in their choice of parameters.
 
 * **User Interface Enhancements:** To make the GUI more appealing and intuitive, we revamped the GUI changing its overall look, including the addition of the Persons Detail Panel, into our layout. We successfully displayed a contact's details in the panel both when selecting their card in the GUI with a mouse, and when a contact's details is modified through a command.
 
-**Effort Required:** We estimate that the project required more than double the expected effort due to the addition of various features, fields and commands in order to improve the user experience of the app and cater to the needs of our target users. We also exercised much effort in the testing of our program and complying with coding standards to ensure the maintanability of our program.
+**Effort Required:** We estimate that the project required more than double the expected effort due to the addition of various features, fields and commands in order to improve the user experience of the app and cater to the needs of our target users. We also exercised much effort in the testing of our program and complying with coding standards to ensure the maintainability of our program.
 
 --------------------------------------------------------------------------------------------------------------------
 ## **Appendix: Planned Enhancements**
@@ -591,10 +591,11 @@ Team Size: 5
 3. **Different parameter prefix for `REQUEST` and `REQUEST_INDEX`: Both parameters `REQUEST` and `REQUEST_INDEX` currently share the same prefix `r/`. We plan to change the parameter of `REQUEST_INDEX` to use `ri/` instead to avoid confusion.
 4. **Allow phone numbers to contain dashes and brackets**: The current `PHONE` parameter does not allow the presence of brackets `(`, `)` and dashes `-`. Due to this, users are unable to add numbers in formats such as `+1-242-3887654` and `+1 (242) 3887654`. We plan to modify the validation for the `PHONE` parameter to allow these characters.
 5. **Unique Index or ID for Booking Tags**: Currently, booking tags are identified by a combination of their property name, start date and end date. This results in inconvenience for users when using the `untag` command, due to having to re-enter all three parameters. We plan to provide a form of unique identification for booking tags to allow for easier deletion of booking tags in the future.
-6. **Edit request command**: The only way to edit a request of a contact is to delete it and add it again. We intend to add an edit request command to allow users the functionality of editting requests belongign to a contact.
+6. **Edit request command**: The only way to edit a request of a contact is to delete it and add it again. We intend to add an edit request command to allow users the functionality of editing requests belonging to a contact.
 7. **Case-insensitive command words**: The current command words are case-sensitive. However, users may enter `Add` or `ADD` instead of `add` by mistake. For convenience, we plan to modify the validation of command words to be case-insensitive.
 8. **Make `edit` success messages more detailed**: The current `edit` command's success message does not contain details of what was modified. We plan to make the success message more descriptive.
-9. **Specificity of error messages**: The current error messages for invalid command formats are too general. We plan to make error messages more specific by including the parameter which caused it (whehre applicable) and the reason it failed.
+9. **Specificity of error messages**: The current error messages for invalid command formats are too general. We plan to make error messages more specific by including the parameter which caused it (where applicable) and the reason it failed.
+10. **Allow specific tags and booking tags to be edited**: Currently, the only way to edit a tag or booking tag is to delete it and add it again. We plan to add a command to allow users to edit tags and booking tags directly.
 --------------------------------------------------------------------------------------------------------------------
 ## **Appendix: Instructions for manual testing**
 
@@ -646,7 +647,7 @@ testers are expected to do more *exploratory* testing.
    2. Test case: `list`<br>
       Expected: All contacts displayed in list, with all contacts sorted first by whether they are starred, and then in lexicographical order of their name. Success Message shown in the status message.
       <br>Output: List successful! (๑˘︶˘๑)
-      <br>Lising all persons in the address book!
+      <br>Listing all persons in the address book!
 
    3. Other incorrect list commands to try: `List`, `listx`, `...`<br>
       Expected: Error message displayed in status message.
@@ -664,13 +665,13 @@ testers are expected to do more *exploratory* testing.
       <br>NAME has been deleted from the address book!
 
    3. Test case: `delete 0`<br>
-      Expected: No visitor is deleted. Error details shown in the status message. Status bar remains the same.
+      Expected: No visitor is deleted. Error details shown in the status message.
       <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
       <br>delete: Deletes the person identified by the index number used in the displayed person list.
       <br>Parameters: INDEX (must be a positive integer)
       <br>Example: delete 1
 
-   4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+   4. Other incorrect delete commands to try: `Delete`, `deletex`, `...`<br>
       Expected: Similar to previous.
       <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
       <br>delete: Deletes the person identified by the index number used in the displayed person list.
@@ -707,7 +708,7 @@ testers are expected to do more *exploratory* testing.
 
    6. Other incorrect add commands to try: `Add`, `add abc`, `...`<br>
       Expected: No visitor is added. Error details shown in the status message.
-      <br> Output: Unknown command! (ｏ´_｀ｏ)
+      <br>Output: Unknown command! (ｏ´_｀ｏ)
 
 ### Starring a visitor
 
@@ -725,20 +726,17 @@ testers are expected to do more *exploratory* testing.
       <br>Expected: Error details shown in the status message.
       <br>Output: Star failed! (ｏ´_｀ｏ)
       <br>Contact NAME is already starred!
-  
+
    4. Test case: `star 0`<br>
-      Expected: Error details shown in the status message.
+      Expected: No visitor is starred. Error details shown in the status message.
       <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
       <br>star: Stars the contact identified by the index number used in the displayed person list.
       <br>Parameters: INDEX (must be a positive integer)
       <br>Example: star 1
 
-   5. Other incorrect star commands to try: `star`, `star x`, `...` (where x is larger than the list size)<br>
+   5. Other incorrect star commands to try: `Star`, `starx`, `...`<br>
       Expected: Similar to previous.
-      <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
-      <br>star: Stars the contact identified by the index number used in the displayed person list.
-      <br>Parameters: INDEX (must be a positive integer)
-      <br>Example: star 1
+      <br>Output: Unknown command! (ｏ´_｀ｏ)
 
 ### Unstarring a visitor
 
@@ -756,22 +754,19 @@ testers are expected to do more *exploratory* testing.
        **Note:** Attempt to unstar the same visitor you just unstarred in the above test case by locating and using the new index of that same visitor.
        <br>Expected: Error details shown in the status message.
        <br>Output: Unstar failed! (ｏ´_｀ｏ)
-       The contact NAME was not starred!
+       <br>The contact NAME was not starred!
 
     4. Test case: `unstar 0`<br>
-       Expected: Error details shown in the status message.
+       Expected: No visitor is unstarred. Error details shown in the status message.
        <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
        <br>unstar: Unstars the contact identified by the index number used in the displayed person list.
        <br>Parameters: INDEX (must be a positive integer)
        <br>Example: unstar 1
 
-   5. Other incorrect unstar commands to try: `unstar`, `unstar x`, `...` (where x is larger than the list size)<br>
+   5. Other incorrect unstar commands to try: `Unstar`, `unstarx`, `...`<br>
       Expected: Similar to previous.
-      <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
-      <br>unstar: Unstars the contact identified by the index number used in the displayed person list.
-      <br>Parameters: INDEX (must be a positive integer)
-      <br>Example: unstar 1
-   
+      <br>Output: Unknown command! (ｏ´_｀ｏ)
+
 ### Adding a request to a visitor
 
 1. Prerequisites: List all visitors using the `list` command. At least one visitor in the list.
@@ -783,46 +778,43 @@ testers are expected to do more *exploratory* testing.
 
    3. Test case: `req 1 r/REQUEST`<br>
       **Note:** Attempt to add a request where the visitor already has this specific request.
-      <br>Expected: No request will be added. Error details shown in the status message. Status bar remains the same.
+      <br>Expected: No request will be added. Error details shown in the status message.
       <br>Output: Command will result in duplicate request!
 
    4. Test case: `req 1 r/ASD r/ASD`<br>
-      Expected: No request will be added. Error details shown in the status message. Status bar remains the same.
+      Expected: No request will be added. Error details shown in the status message.
       <br>Output: Command will result in duplicate request!
 
    5. Test case: `req 1 r/`<br>
-      Expected: No request will be added. Error details shown in the status message. Status bar remains the same.
+      Expected: No request will be added. Error details shown in the status message.
       <br>Output: Request cannot be empty!
 
    6. Test case: `req r/`<br>
-      Expected: No visitor will have a request added. Error details shown in the status message. Status bar remains the same.
+      Expected: No visitor will have a request added. Error details shown in the status message.
       <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
       <br>req: Adds a request to the contact identified by the index number in the displayed person list.
       <br>Parameters: INDEX (must be a positive integer) r/REQUEST
       <br>Example: req 1 r/Need a bottle of champagne every morning
 
    7. Test case: `req 0 r/`<br>
-      Expected: No visitor will have a request added. Error details shown in the status message. Status bar remains the same.
+      Expected: No visitor will have a request added. Error details shown in the status message.
       <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
       <br>req: Adds a request to the contact identified by the index number in the displayed person list.
       <br>Parameters: INDEX (must be a positive integer) r/REQUEST
       <br>Example: req 1 r/Need a bottle of champagne every morning
 
-   8. Test case: `req 1 r/`<br>
-      Expected: No visitor will have a request added. Error details shown in the status message. Status bar remains the same.
-      <br>Output: Request cannot be empty!
-
-   9. Test case: `req 1 r/asd`<br>
+   8. Test case: `req 1 r/asd`<br>
       **Note:** Attempt to add a request when there is no visitor in the list.
-      <br>Expected: No visitor will have a request added. Error details shown in the status message. Status bar remains the same.
+      <br>Expected: No visitor will have a request added. Error details shown in the status message.
       <br>Output: The person index provided is invalid! ヾ( ･`⌓´･)ﾉﾞ
 
-   10. Other incorrect req commands to try: `req`, `req x`, `...` (where x is larger than the list size)<br>
-      Expected: No visitor will have a request added. Error details shown in the status message. Status bar remains the same.
-      <br>Output: Invalid command format! ヾ( ･`⌓´･)ﾉﾞ
-      <br>req: Adds a request to the contact identified by the index number in the displayed person list.
-      <br>Parameters: INDEX (must be a positive integer) r/REQUEST
-      <br>Example: req 1 r/Need a bottle of champagne every morning
+   9. Test case: `req 1 r/`<br>
+      Expected: No visitor will have a request added. Error details shown in the status message.
+      <br>Output: Request cannot be empty!
+
+   10. Other incorrect req commands to try: `Req`, `reqx`, `...`<br>
+       Expected: Similar to previous.
+       <br>Output: Unknown command! (ｏ´_｀ｏ)
 
 
 ### Marking a request of a visitor
@@ -832,28 +824,25 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: List all visitors using the `list` command. At least one visitor in the list (otherwise, add using `add` command). Visitor has at least one request (otherwise, add using `req` command) which is unmarked.
 
    2. Test case: `mark 1 r/1`<br>
-     Expected: First request of visitor is marked as complete. Contact Details of the starred visitor are shown in Details Panel in GUI. Checkbox of first request in list is ticked.
-     <br>Output: Mark request successful! (๑˘︶˘๑)
-     <br>Marked request as completed!
+      Expected: First request of visitor is marked as complete. Contact Details of the starred visitor are shown in Details Panel in GUI. Checkbox of first request in list is ticked.
+      <br>Output: Mark request successful! (๑˘︶˘๑)
+      <br>Marked request as completed!
 
    3. Test case: `mark 1 r/1`<br>
-   **Note:** Attempt to mark the same request you marked in the above test case.
-   <br>Expected: Error details shown in the status message.
-   <br>Output: The request REQUEST is already marked!(ｏ´_｀ｏ)
+      **Note:** Attempt to mark the same request you marked in the above test case.<br>
+      Expected: Error details shown in the status message.
+      <br>Output: The request REQUEST is already marked!(ｏ´_｀ｏ)
 
    4. Test case: `mark 0 r/1`<br>
-      Expected: No request is marked. Error details shown in the status message. Status bar remains the same.
+      Expected: No request is marked. Error details shown in the status message.
       <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
       <br>mark: Marks a request of the contact identified by the index number in the displayed person list as completed.
       <br>Parameters: INDEX (must be a positive integer) r/REQUEST_INDEX (must be a positive integer)
       <br>Example: mark 1 r/1
 
-   5. Other incorrect mark commands to try: `mark`, `mark x r/1`, `...` (where x is larger than the list size)<br>
+   5. Other incorrect mark commands to try: `Mark`, `markx`, `...`<br>
       Expected: Similar to previous.
-      <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
-      <br>mark: Marks a request of the contact identified by the index number in the displayed person list as completed.
-      <br>Parameters: INDEX (must be a positive integer) r/REQUEST_INDEX (must be a positive integer)
-      <br>Example: mark 1 r/1
+      <br>Output: Unknown command! (ｏ´_｀ｏ)
 
 ### Unmarking a request of a visitor
 
@@ -862,29 +851,26 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: List all visitors using the `list` command. At least one visitor in the list (otherwise, add using `add` command). Visitor has at least one request (otherwise, add using `req` command) which is marked.
 
    2. Test case: `unmark 1 r/1`<br>
-     Expected: First request of visitor is marked as complete. Contact Details of the starred visitor are shown in Details Panel in GUI. Checkbox of first request in list is ticked.
-     <br>Output: Unmark request successful! (๑˘︶˘๑)
-     <br>REQUEST has been unmarked!
+      Expected: First request of visitor is marked as complete. Contact Details of the starred visitor are shown in Details Panel in GUI. Checkbox of first request in list is ticked.
+      <br>Output: Unmark request successful! (๑˘︶˘๑)
+      <br>REQUEST has been unmarked!
 
    3. Test case: `unmark 1 r/1`<br>
-   **Note:** Attempt to unmark the same request you unmarked in the above test case.
-   <br>Expected: Error details shown in the status message.
-   <br>Output: Unmark request failed! (ｏ´_｀ｏ)
-   <br>The request REQUEST is not marked!
+      **Note:** Attempt to unmark the same request you unmarked in the above test case.<br>
+      Expected: No request will be unmarked. Error details shown in the status message.
+      <br>Output: Unmark request failed! (ｏ´_｀ｏ)
+      <br>The request REQUEST is not marked!
 
-   5. Test case: `unmark 0 r/1`<br>
-      Expected: Error details shown in the status message.
+   4. Test case: `unmark 0 r/1`<br>
+      Expected: No request will be unmarked. Error details shown in the status message.
       <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
       <br>unmark: Unmarks a request of the contact identified by the index number in the displayed person list from its completion status.
       <br>Parameters: INDEX (must be a positive integer) r/REQUEST_INDEX (must be a positive integer)
       <br>Example: mark 1 r/1
 
-   6. Other incorrect unmark commands to try: `unmark`, `unmark x r/1`, `...` (where x is larger than the list size)<br>
+   5. Other incorrect unmark commands to try: `Unmark`, `unmarkx`, `...`<br>
       Expected: Similar to previous.
-      <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
-      <br>unmark: Unmarks a request of the contact identified by the index number in the displayed person list from its completion status.
-      <br>Parameters: INDEX (must be a positive integer) r/REQUEST_INDEX (must be a positive integer)
-      <br>Example: unmark 1 r/1
+      <br>Output: Unknown command! (ｏ´_｀ｏ)
 
 ### Deleting a request
 
@@ -910,27 +896,16 @@ testers are expected to do more *exploratory* testing.
        <br>Parameters: INDEX (must be a positive integer) r/REQUEST_INDEX (must be a positive integer)
        <br>Example: deletereq 1 r/1
 
-    5. Test case: `deletereq INDEX r/0`<br>
+    5. Test case: `deletereq INDEX r/0` or `deletereq INDEX r/x` (where x is a non-numeric character)<br>
        Expected: No request is deleted. Error details shown in the status message.
        <br>Output: Request index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
        <br>deletereq: Deletes a request from the contact identified by the index number in the displayed person list.
        <br>Parameters: INDEX (must be a positive integer) r/REQUEST_INDEX (must be a positive integer)
        <br>Example: deletereq 1 r/1
 
-    6. Test case: `deletereq INDEX r/x` (where x is a non-numeric character)<br>
-       Expected: No request is deleted. Error details shown in the status message.
-       <br>Output: Request index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
-       <br>deletereq: Deletes a request from the contact identified by the index number in the displayed person list.
-       <br>Parameters: INDEX (must be a positive integer) r/REQUEST_INDEX (must be a positive integer)
-       <br>Example: deletereq 1 r/1
-
-    7. Other incorrect deletereq commands to try: `deletereq`, `deletereq x`, `deletereq INDEX` (without r/ parameter)<br>
-       Expected: No request is deleted. Error details shown in the status message.
-       <br>Output: Invalid command format! ヾ( ･`⌓´･)ﾉﾞ
-       <br>deletereq: Deletes a request from the contact identified by the index number in the displayed person list.
-       <br>Parameters: INDEX (must be a positive integer) r/REQUEST_INDEX (must be a positive integer)
-       <br>Example: deletereq 1 r/1
-
+    6. Other incorrect deletereq commands to try: `Deletereq`, `deletereqx`, `...`<br>
+       Expected: Similar to previous.
+       <br>Output: Unknown command! (ｏ´_｀ｏ)
 
 ### Tagging a visitor
 
@@ -959,33 +934,33 @@ testers are expected to do more *exploratory* testing.
       <br>Example 01 Oct 23 to 31 Oct 23 already exists in the contact's tag list!
 
    6. Test case: `tag 1 b/Example from/ to/2023-10-31`<br>
-      Expected: No visitor is tagged. Error details shown in the status message. Status bar remains the same.
+      Expected: No visitor is tagged. Error details shown in the status message.
       <br>Output: Start date cannot be empty!
 
    7. Test case: `tag 1 b/Example from/2023-02-29 to/2023-10-31`<br>
-      Expected: No visitor is tagged. Error details shown in the status message. Status bar remains the same.
+      Expected: No visitor is tagged. Error details shown in the status message.
       <br>Output: Start date is invalid!
 
    8. Test case: `tag 1 b/Example from/2023-10-01 to/`<br>
-      Expected: No visitor is tagged. Error details shown in the status message. Status bar remains the same.
+      Expected: No visitor is tagged. Error details shown in the status message.
       <br>Output: End date cannot be empty!
 
    9. Test case: `tag 1 b/Example from/2023-02-01 to/2023-02-29`<br>
-      Expected: No visitor is tagged. Error details shown in the status message. Status bar remains the same.
+      Expected: No visitor is tagged. Error details shown in the status message.
       <br>Output: End date is invalid!
 
   10. Test case: `tag 1 b/Example from/2023-10-01 to/2023-09-30`<br>
-      Expected: No visitor is tagged. Error details shown in the status message. Status bar remains the same.
+      Expected: No visitor is tagged. Error details shown in the status message.
       <br>Output: Error: Booking tag start date must be before end date.
 
   11. Test case: `tag 1 b/Example from/2023-10-01` or `tag 1 b/Example to/2023-10-31`<br>
-      Expected: No visitor is tagged. Error details shown in the status message. Status bar remains the same.
+      Expected: No visitor is tagged. Error details shown in the status message.
       <br>Output: Booking tags should be of the format PROPERTY from/START_DATE to/END_DATE where START_DATE and END_DATE are in the format yyyy-MM-dd.
       <br>The START_DATE must be before END_DATE.
       <br>PROPERTY must have 1 to 170 characters.
 
   12. Test case: `tag 0` or `tag`<br>
-      Expected: No visitor is tagged. Error details shown in the status message. Status bar remains the same.
+      Expected: No visitor is tagged. Error details shown in the status message.
       <br>Output: Invalid command format! ヾ( ･`⌓´･)ﾉﾞ
       <br>tag: Adds tag to the contact identified by the index number in the displayed person list.
       <br>Parameters: INDEX (must be a positive integer) t/TAG or
@@ -994,7 +969,7 @@ testers are expected to do more *exploratory* testing.
       <br>Example: tag 1 b/property from/2023-10-01 to/2023-10-31
 
   13. Test case: `tag INDEX t/` or `tag INDEX b/`<br>
-      Expected: No visitor is tagged. Error details shown in the status message. Status bar remains the same.
+      Expected: No visitor is tagged. Error details shown in the status message.
       **Note:** INDEX should be a valid index of a visitor in the list.
       <br>Output: Tag cannot be empty!
 
@@ -1030,17 +1005,17 @@ testers are expected to do more *exploratory* testing.
          <br>Contact does not have the booking tag Example 01 Oct 23 to 31 Oct 23!
 
       6. Test case: `untag 1 t/`<br>
-         Expected: No visitor is untagged. Error details shown in the status message. Status bar remains the same.
+         Expected: No visitor is untagged. Error details shown in the status message.
          <br>Output: Tag cannot be empty!
 
       7. Test case: `untag 1 b/`<br>
-         Expected: No visitor is untagged. Error details shown in the status message. Status bar remains the same.
+         Expected: No visitor is untagged. Error details shown in the status message.
          <br>Output: Booking tags should be of the format PROPERTY from/START_DATE to/END_DATE where START_DATE and END_DATE are in the format yyyy-MM-dd.
          <br>The START_DATE must be before END_DATE.
          <br>PROPERTY must have 1 to 170 characters.
 
       8. Test case: `untag 0` or `untag`<br>
-         Expected: No visitor is untagged. Error details shown in the status message. Status bar remains the same.
+         Expected: No visitor is untagged. Error details shown in the status message.
          <br>Output: Invalid command format! ヾ( ･`⌓´･)ﾉﾞ
          <br>untag: Removes tag from the contact identified by the index number in the displayed person list.
          <br>Parameters: INDEX (must be a positive integer) t/TAG
@@ -1051,7 +1026,6 @@ testers are expected to do more *exploratory* testing.
       9. Other incorrect untag commands to try: `Untag`, `untagx`, `...`<br>
          Expected: Similar to previous.
          <br>Output: Unknown command! (ｏ´_｀ｏ)
-
 
 ### Saving data
 
