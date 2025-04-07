@@ -670,7 +670,7 @@ testers are expected to do more *exploratory* testing.
       <br>Parameters: INDEX (must be a positive integer)
       <br>Example: delete 1
 
-   4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+   4. Other incorrect delete commands to try: `Delete`, `deletex`, `...`<br>
       Expected: Similar to previous.
       <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
       <br>delete: Deletes the person identified by the index number used in the displayed person list.
@@ -707,7 +707,7 @@ testers are expected to do more *exploratory* testing.
 
    6. Other incorrect add commands to try: `Add`, `add abc`, `...`<br>
       Expected: No visitor is added. Error details shown in the status message.
-      <br> Output: Unknown command! (ｏ´_｀ｏ)
+      <br>Output: Unknown command! (ｏ´_｀ｏ)
 
 ### Starring a visitor
 
@@ -733,12 +733,9 @@ testers are expected to do more *exploratory* testing.
       <br>Parameters: INDEX (must be a positive integer)
       <br>Example: star 1
 
-   5. Other incorrect star commands to try: `star`, `star x`, `...` (where x is larger than the list size)<br>
+   5. Other incorrect star commands to try: `Star`, `starx`, `...`<br>
       Expected: Similar to previous.
-      <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
-      <br>star: Stars the contact identified by the index number used in the displayed person list.
-      <br>Parameters: INDEX (must be a positive integer)
-      <br>Example: star 1
+      <br>Output: Unknown command! (ｏ´_｀ｏ)
 
 ### Unstarring a visitor
 
@@ -756,7 +753,7 @@ testers are expected to do more *exploratory* testing.
        **Note:** Attempt to unstar the same visitor you just unstarred in the above test case by locating and using the new index of that same visitor.
        <br>Expected: Error details shown in the status message.
        <br>Output: Unstar failed! (ｏ´_｀ｏ)
-       The contact NAME was not starred!
+       <br>The contact NAME was not starred!
 
     4. Test case: `unstar 0`<br>
        Expected: No visitor is unstarred. Error details shown in the status message.
@@ -765,12 +762,9 @@ testers are expected to do more *exploratory* testing.
        <br>Parameters: INDEX (must be a positive integer)
        <br>Example: unstar 1
 
-   5. Other incorrect unstar commands to try: `unstar`, `unstar x`, `...` (where x is larger than the list size)<br>
+   5. Other incorrect unstar commands to try: `Unstar`, `unstarx`, `...`<br>
       Expected: Similar to previous.
-      <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
-      <br>unstar: Unstars the contact identified by the index number used in the displayed person list.
-      <br>Parameters: INDEX (must be a positive integer)
-      <br>Example: unstar 1
+      <br>Output: Unknown command! (ｏ´_｀ｏ)
 
 ### Adding a request to a visitor
 
@@ -808,21 +802,18 @@ testers are expected to do more *exploratory* testing.
       <br>Parameters: INDEX (must be a positive integer) r/REQUEST
       <br>Example: req 1 r/Need a bottle of champagne every morning
 
-   8. Test case: `req 1 r/`<br>
-      Expected: No visitor will have a request added. Error details shown in the status message.
-      <br>Output: Request cannot be empty!
-
-   9. Test case: `req 1 r/asd`<br>
+   8. Test case: `req 1 r/asd`<br>
       **Note:** Attempt to add a request when there is no visitor in the list.
       <br>Expected: No visitor will have a request added. Error details shown in the status message.
       <br>Output: The person index provided is invalid! ヾ( ･`⌓´･)ﾉﾞ
 
-   10. Other incorrect req commands to try: `req`, `req x`, `...` (where x is larger than the list size)<br>
+   9. Test case: `req 1 r/`<br>
       Expected: No visitor will have a request added. Error details shown in the status message.
-      <br>Output: Invalid command format! ヾ( ･`⌓´･)ﾉﾞ
-      <br>req: Adds a request to the contact identified by the index number in the displayed person list.
-      <br>Parameters: INDEX (must be a positive integer) r/REQUEST
-      <br>Example: req 1 r/Need a bottle of champagne every morning
+      <br>Output: Request cannot be empty!
+
+   10. Other incorrect req commands to try: `Req`, `reqx`, `...`<br>
+       Expected: Similar to previous.
+       <br>Output: Unknown command! (ｏ´_｀ｏ)
 
 
 ### Marking a request of a visitor
@@ -848,12 +839,9 @@ testers are expected to do more *exploratory* testing.
       <br>Parameters: INDEX (must be a positive integer) r/REQUEST_INDEX (must be a positive integer)
       <br>Example: mark 1 r/1
 
-   5. Other incorrect mark commands to try: `mark`, `mark x r/1`, `...` (where x is larger than the list size)<br>
+   5. Other incorrect mark commands to try: `Mark`, `markx`, `...`<br>
       Expected: Similar to previous.
-      <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
-      <br>mark: Marks a request of the contact identified by the index number in the displayed person list as completed.
-      <br>Parameters: INDEX (must be a positive integer) r/REQUEST_INDEX (must be a positive integer)
-      <br>Example: mark 1 r/1
+      <br>Output: Unknown command! (ｏ´_｀ｏ)
 
 ### Unmarking a request of a visitor
 
@@ -879,12 +867,9 @@ testers are expected to do more *exploratory* testing.
       <br>Parameters: INDEX (must be a positive integer) r/REQUEST_INDEX (must be a positive integer)
       <br>Example: mark 1 r/1
 
-   5. Other incorrect unmark commands to try: `unmark`, `unmark x r/1`, `...` (where x is larger than the list size)<br>
+   5. Other incorrect unmark commands to try: `Unmark`, `unmarkx`, `...`<br>
       Expected: Similar to previous.
-      <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
-      <br>unmark: Unmarks a request of the contact identified by the index number in the displayed person list from its completion status.
-      <br>Parameters: INDEX (must be a positive integer) r/REQUEST_INDEX (must be a positive integer)
-      <br>Example: unmark 1 r/1
+      <br>Output: Unknown command! (ｏ´_｀ｏ)
 
 ### Deleting a request
 
@@ -910,27 +895,16 @@ testers are expected to do more *exploratory* testing.
        <br>Parameters: INDEX (must be a positive integer) r/REQUEST_INDEX (must be a positive integer)
        <br>Example: deletereq 1 r/1
 
-    5. Test case: `deletereq INDEX r/0`<br>
+    5. Test case: `deletereq INDEX r/0` or `deletereq INDEX r/x` (where x is a non-numeric character)<br>
        Expected: No request is deleted. Error details shown in the status message.
        <br>Output: Request index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
        <br>deletereq: Deletes a request from the contact identified by the index number in the displayed person list.
        <br>Parameters: INDEX (must be a positive integer) r/REQUEST_INDEX (must be a positive integer)
        <br>Example: deletereq 1 r/1
 
-    6. Test case: `deletereq INDEX r/x` (where x is a non-numeric character)<br>
-       Expected: No request is deleted. Error details shown in the status message.
-       <br>Output: Request index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
-       <br>deletereq: Deletes a request from the contact identified by the index number in the displayed person list.
-       <br>Parameters: INDEX (must be a positive integer) r/REQUEST_INDEX (must be a positive integer)
-       <br>Example: deletereq 1 r/1
-
-    7. Other incorrect deletereq commands to try: `deletereq`, `deletereq x`, `deletereq INDEX` (without r/ parameter)<br>
-       Expected: No request is deleted. Error details shown in the status message.
-       <br>Output: Invalid command format! ヾ( ･`⌓´･)ﾉﾞ
-       <br>deletereq: Deletes a request from the contact identified by the index number in the displayed person list.
-       <br>Parameters: INDEX (must be a positive integer) r/REQUEST_INDEX (must be a positive integer)
-       <br>Example: deletereq 1 r/1
-
+    6. Other incorrect deletereq commands to try: `Deletereq`, `deletereqx`, `...`<br>
+       Expected: Similar to previous.
+       <br>Output: Unknown command! (ｏ´_｀ｏ)
 
 ### Tagging a visitor
 
