@@ -142,7 +142,6 @@ First-time users are strongly encouraged to read the Quick Start section before 
 6. A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br><br>
    ![Ui](images/Ui.png)
 
-
 7. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
@@ -157,6 +156,8 @@ First-time users are strongly encouraged to read the Quick Start section before 
 * `exit` : Exits the app.
 
 8. Refer to the [Features](#4-features) below for details of each command.
+
+9. If you are unsure about specific technical terms used in this guide, refer to the [Glossary](#7-glossary) section for definitions.
 
 ### 3.2 Graphical User Interface Layout:
 
