@@ -48,12 +48,12 @@ public class MarkRequestCommandParserTest {
         assertParseFailure(parser, "1 r/" + exceedMaxInt, String.format(MESSAGE_PARSE_EXCEPTION,
                 MarkRequestCommand.MESSAGE_INVALID_REQUEST_INDEX_FORMAT,
                 MarkRequestCommand.MESSAGE_USAGE));
-        
+
         // Non-numeric request index
         assertParseFailure(parser, "1 r/a", String.format(MESSAGE_PARSE_EXCEPTION,
                 MarkRequestCommand.MESSAGE_INVALID_REQUEST_INDEX_FORMAT,
                 MarkRequestCommand.MESSAGE_USAGE));
-        
+
         // Zero request index
         assertParseFailure(parser, "1 r/0", String.format(MESSAGE_PARSE_EXCEPTION,
                 MarkRequestCommand.MESSAGE_INVALID_REQUEST_INDEX_FORMAT,

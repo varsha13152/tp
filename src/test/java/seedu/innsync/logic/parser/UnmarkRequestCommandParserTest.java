@@ -43,12 +43,12 @@ public class UnmarkRequestCommandParserTest {
         assertParseFailure(parser, "1 r/" + exceedMaxInt, String.format(MESSAGE_PARSE_EXCEPTION,
                 UnmarkRequestCommand.MESSAGE_INVALID_REQUEST_INDEX_FORMAT,
                 UnmarkRequestCommand.MESSAGE_USAGE));
-        
+
         // Non-numeric request index
         assertParseFailure(parser, "1 r/a", String.format(MESSAGE_PARSE_EXCEPTION,
                 UnmarkRequestCommand.MESSAGE_INVALID_REQUEST_INDEX_FORMAT,
                 UnmarkRequestCommand.MESSAGE_USAGE));
-        
+
         // Zero request index
         assertParseFailure(parser, "1 r/0", String.format(MESSAGE_PARSE_EXCEPTION,
                 UnmarkRequestCommand.MESSAGE_INVALID_REQUEST_INDEX_FORMAT,
