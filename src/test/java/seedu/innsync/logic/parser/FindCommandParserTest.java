@@ -82,7 +82,7 @@ public class FindCommandParserTest {
     public void parse_validNameArgs_returnsFindCommand() {
         //test parsing of names with special characters
         try {
-            FindCommand command = parser.parse("n/muthu $a/p vara");
+            FindCommand command = parser.parse("find n/muthu $a/p vara");
             Map<SearchType, List<String>> criteria = command.getSearchCriteria();
             assertTrue(criteria.containsKey(SearchType.NAME));
         } catch (ParseException pe) {
