@@ -756,13 +756,13 @@ testers are expected to do more *exploratory* testing.
 
     2. Test case: `unstar INDEX`<br>
        **Note:** Attempt to unstar a visitor you starred before, find the same visitor new INDEX.
-       Expected: Contact with respective INDEX is un starred and will be moved back in the list sorted lexicographically among the unstar visitor. Contact Details of the unstar visitor are shown in Details Panel in GUI.
+       <br>Expected: Contact with respective INDEX is un starred and will be moved back in the list sorted lexicographically among the unstar visitor. Contact Details of the unstar visitor are shown in Details Panel in GUI.
        <br>Output: Unstar successful! (๑˘︶˘๑)
        <br>The contact NAME was unstarred!
 
     3. Test case: `unstar INDEX`<br>
        **Note:** Attempt to unstar the same visitor you just unstar, find the same visitor new INDEX.
-       <br>Expected: Contact with respective INDEX is not unstar. Contact Details are shown in Details Panel in GUI for whoever is currenctly selected.
+       <br>Expected: Contact with respective INDEX is not unstar. Contact Details are shown in Details Panel in GUI for whoever is currently selected.
        <br>Output: Unstar failed! (ｏ´_｀ｏ)
        The contact NAME was not starred!
 
