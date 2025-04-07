@@ -916,8 +916,8 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: List all visitors using the `list` command. At least one visitor in the list.
 
    2. Test case: `tag 1 t/Example`<br>
-      Expected: First contact is tagged. Contact List Card is selected in GUI. Contact Details of the tagged visitor are shown in Details Panel in GUI.
-      <br>**Note:** First contact should not already have the tag `Example`.
+      **Note:** First contact should not already have the tag `Example`.
+      <br>Expected: First contact is tagged. Contact List Card is selected in GUI. Contact Details of the tagged visitor are shown in Details Panel in GUI.
       <br>Output: Tag successful! (๑˘︶˘๑)
       <br>NAME's tag list has been updated!
 
@@ -952,32 +952,32 @@ testers are expected to do more *exploratory* testing.
       <br>Output: End date is invalid!
 
    10. Test case: `tag 1 b/Example from/2023-10-01 to/2023-09-30`<br>
-      Expected: No visitor is tagged. Error details shown in the status message.
-      <br>Output: Error: Booking tag start date must be before end date.
+       Expected: No visitor is tagged. Error details shown in the status message.
+       <br>Output: Error: Booking tag start date must be before end date.
 
    11. Test case: `tag 1 b/Example from/2023-10-01` or `tag 1 b/Example to/2023-10-31`<br>
-      Expected: No visitor is tagged. Error details shown in the status message.
-      <br>Output: Booking tags should be of the format PROPERTY from/START_DATE to/END_DATE where START_DATE and END_DATE are in the format yyyy-MM-dd.
-      <br>The START_DATE must be before END_DATE.
-      <br>PROPERTY must have 1 to 170 characters.
+       Expected: No visitor is tagged. Error details shown in the status message.
+       <br>Output: Booking tags should be of the format PROPERTY from/START_DATE to/END_DATE where START_DATE and END_DATE are in the format yyyy-MM-dd.
+       <br>The START_DATE must be before END_DATE.
+       <br>PROPERTY must have 1 to 170 characters.
 
    12. Test case: `tag 0` or `tag`<br>
-      Expected: No visitor is tagged. Error details shown in the status message.
-      <br>Output: Invalid command format! ヾ( ･`⌓´･)ﾉﾞ
-      <br>tag: Adds tag to the contact identified by the index number in the displayed person list.
-      <br>Parameters: INDEX (must be a positive integer) t/TAG or
-      <br>b/PROPERTY from/START_DATE to/END_DATE
-      <br>Example: tag 1 t/friends
-      <br>Example: tag 1 b/property from/2023-10-01 to/2023-10-31
+       Expected: No visitor is tagged. Error details shown in the status message.
+       <br>Output: Invalid command format! ヾ( ･`⌓´･)ﾉﾞ
+       <br>tag: Adds tag to the contact identified by the index number in the displayed person list.
+       <br>Parameters: INDEX (must be a positive integer) t/TAG or
+       <br>b/PROPERTY from/START_DATE to/END_DATE
+       <br>Example: tag 1 t/friends
+       <br>Example: tag 1 b/property from/2023-10-01 to/2023-10-31
 
    13. Test case: `tag INDEX t/` or `tag INDEX b/`<br>
-      Expected: No visitor is tagged. Error details shown in the status message.
-      **Note:** INDEX should be a valid index of a visitor in the list.
-      <br>Output: Tag cannot be empty!
+       **Note:** INDEX should be a valid index of a visitor in the list.
+       <br>Expected: No visitor is tagged. Error details shown in the status message.
+       <br>Output: Tag cannot be empty!
 
    14. Other incorrect tag commands to try: `Tag`, `tagx`, `...`<br>
-      Expected: Similar to previous.
-      <br>Output: Unknown command! (ｏ´_｀ｏ)
+       Expected: Similar to previous.
+       <br>Output: Unknown command! (ｏ´_｀ｏ)
 
 ### Untagging a visitor
 
@@ -986,8 +986,8 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: List all visitors using the `list` command. At least one visitor in the list.
 
    2. Test case: `untag 1 t/Example`<br>
-      Expected: First contact is untagged. Contact List Card is selected in GUI. Contact Details of the untagged visitor are shown in Details Panel in GUI.
       **Note:** First contact should have the tag `Example`.
+      <br>Expected: First contact is untagged. Contact List Card is selected in GUI. Contact Details of the untagged visitor are shown in Details Panel in GUI.
       <br>Output: Untag successful! (๑˘︶˘๑)
       <br>[Example] has been removed from the contact's tag list!
 
