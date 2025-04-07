@@ -572,10 +572,12 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: No contacts in addressbook. This can be done using the `clear` command.
 
    2. Test case: `list`<br>
-      Expected: No contacts displayed in list. Message stating that there are no contacts shown in the status message.
+      Expected: No contacts displayed in list.
+      <br>Output: Listed no people, try adding someone with add feature!
 
    3. Other incorrect list commands to try: `List`, `listx`, `...`<br>
       Expected: Error message displayed in status message.
+      <br>Output: Unknown command! (ｏ´_｀ｏ)
 
 2. Listing all visitors when there is at least one contact in address book
 
@@ -583,9 +585,12 @@ testers are expected to do more *exploratory* testing.
 
    2. Test case: `list`<br>
       Expected: All contacts displayed in list, with all contacts sorted first by whether they are starred, and then in lexicographical order of their name. Success Message shown in the status message.
+      <br>Output: List successful! (๑˘︶˘๑)
+      <br>Lising all persons in the address book!
 
    3. Other incorrect list commands to try: `List`, `listx`, `...`<br>
       Expected: Error message displayed in status message.
+      <br>Output: Unknown command! (ｏ´_｀ｏ)
 
 ### Deleting a visitor
 
@@ -595,12 +600,22 @@ testers are expected to do more *exploratory* testing.
 
    2. Test case: `delete 1`<br>
       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
+      <br>Output: Delete successful! (๑˘︶˘๑)
+      <br>NAME has been deleted from the address book!
 
    3. Test case: `delete 0`<br>
       Expected: No visitor is deleted. Error details shown in the status message. Status bar remains the same.
+      <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
+      <br>delete: Deletes the person identified by the index number used in the displayed person list.
+      <br>Parameters: INDEX (must be a positive integer)
+      <br>Example: delete 1
 
    4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
+      <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
+      <br>delete: Deletes the person identified by the index number used in the displayed person list.
+      <br>Parameters: INDEX (must be a positive integer)
+      <br>Example: delete 1
 
 ### Adding a visitor
 
@@ -610,18 +625,92 @@ testers are expected to do more *exploratory* testing.
 
    2. Test case: `add n/John Doe a/John Doe Street e/johndoe@example.com p/+65 8888 8888`<br>
       Expected: Contact is added to list. Contact List Card is selected in GUI. Contact Details are shown in Details Panel in GUI. Details of the added contact shown in the status message.
+      <br>Output: Add successful! (๑˘︶˘๑)
+      <br>John Doe; Phone: +65 8888 8888; Email: johndoe@example.com; Address: John Doe Street; Memo: ; Requests: ; BookingTags: ; Tags: ; Starred: false has been added to the address book!
 
    3. Test case: `add n/John Doe a/John Doe Street e/jd@example.com p/+65 88888888 t/guest m/no room cleaning b/StarHotel from/2025-04-01 to/2025-04-05 r/Needs Laundry Detergent`<br>
       Expected: Contact is added to list. Contact List Card is selected in GUI. Contact Details are shown in Details Panel in GUI. Details of the added contact shown in the status message.
+      <br>Output: Add successful! (๑˘︶˘๑)
+      <br>John Doe; Phone: +65 88888888; Email: jd@example.com; Address: John Doe Street; Memo: no room cleaning; Requests: [Needs Laundry Detergent]; BookingTags: [StarHotel]; Tags: [guest]; Starred: false has been added to the address book!
 
    4. Test case: `add n/John Doe`<br>
       Expected: No visitor is added. Error details shown in the status message.
+      <br>Output: Invalid command format! ヾ( ･`⌓´･)ﾉﾞ
+      <br>add: Adds a person to the address book. Parameters: n/NAME p/PHONE e/EMAIL a/ADDRESS [r/REQUEST...] [b/BOOKING_TAG...] [t/TAG...] [m/MEMO]
+      <br>Example: add n/John Doe p/+65 98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 b/Beach House from/2025-06-01 to/2025-06-10 t/owes money m/Wants extra food
 
    5. Test case: `add n/John Doe a/John Doe Street e/johndoe@example.com p/123`<br>
       Expected: No visitor is added. Error details shown in the status message.
+      <br>Output: Phone numbers should be in format +[COUNTRY_CODE] [NUMBER],
+      <br>the country code must be valid and the number should be
+      <br>at least 7 digits long and at most 15 digits long.
 
    6. Other incorrect add commands to try: `Add`, `add abc`, `...`<br>
+      Expected: No visitor is added. Error details shown in the status message.
+      <br> Output: Unknown command! (ｏ´_｀ｏ)
+
+### Staring a visitor
+
+1. Star a visitor who is currently in the addressbook
+
+   1. Prerequisites: List all visitors using the `list` command. Multiple visitors in the list.
+
+   2. Test case: `star INDEX`<br>
+     Expected: Contact with respective INDEX is starred and will be moved up in the list sorted lexicographically among the starred visitor. Contact Details of the starred visitor are shown in Details Panel in GUI.
+     <br>Output: Star successful! (๑˘︶˘๑)
+     <br>Starred contact: NAME
+
+   3. Test case: `star INDEX`<br>
+   **Note:** Attempt to star the same visitor you starred above, find the same visitor new INDEX.
+   <br>Expected: Contact with respective INDEX is not starred. Contact Details are shown in Details Panel in GUI for whoever was selected.
+   <br>Output: Star failed! (ｏ´_｀ｏ)
+   <br>Contact NAME is already starred!
+
+   4. Test case: `star 0`<br>
+      Expected: No visitor is starred. Error details shown in the status message. Status bar remains the same.
+      <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
+      <br>star: Stars the contact identified by the index number used in the displayed person list.
+      <br>Parameters: INDEX (must be a positive integer)
+      <br>Example: star 1
+
+   5. Other incorrect star commands to try: `star`, `star x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
+      <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
+      <br>star: Stars the contact identified by the index number used in the displayed person list.
+      <br>Parameters: INDEX (must be a positive integer)
+      <br>Example: star 1
+
+### Unstar a visitor
+
+1. Unstar a visitor who is currently starred in the addressbook
+
+    1. Prerequisites: List all visitors using the `list` command. Multiple visitors in the list with a few starred.
+
+    2. Test case: `unstar INDEX`<br>
+       **Note:** Attempt to unstar a visitor you starred before, find the same visitor new INDEX.
+       Expected: Contact with respective INDEX is un starred and will be moved back in the list sorted lexicographically among the unstar visitor. Contact Details of the unstar visitor are shown in Details Panel in GUI.
+       <br>Output: Unstar successful! (๑˘︶˘๑)
+       <br>The contact NAME was unstarred!
+
+    3. Test case: `unstar INDEX`<br>
+       **Note:** Attempt to unstar the same visitor you just unstar, find the same visitor new INDEX.
+       <br>Expected: Contact with respective INDEX is not unstar. Contact Details are shown in Details Panel in GUI for whoever is currenctly selected.
+       <br>Output: Unstar failed! (ｏ´_｀ｏ)
+       The contact NAME was not starred!
+
+    4. Test case: `unstar 0`<br>
+       Expected: No visitor is starred. Error details shown in the status message. Status bar remains the same.
+       <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
+       <br>unstar: Unstars the contact identified by the index number used in the displayed person list.
+       <br>Parameters: INDEX (must be a positive integer)
+       <br>Example: unstar 1
+
+    5. Other incorrect star commands to try: `unstar`, `unstar x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
+       <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
+       <br>unstar: Unstars the contact identified by the index number used in the displayed person list.
+       <br>Parameters: INDEX (must be a positive integer)
+       <br>Example: unstar 1
 
 ### Saving data
 
