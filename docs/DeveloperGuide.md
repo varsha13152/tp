@@ -530,11 +530,20 @@ Use case ends.
 * **MSS (Main Success Scenario)**:It describes the most straightforward interaction for a given use case, which assumes that nothing goes wrong.
 * **API (Application Programming Interface)**: A set of rules or protocols that govern the application to allow different software applications to work together by communication with each other.
 --------------------------------------------------------------------------------------------------------------------
+## **Appendix: Effort**
+
+--------------------------------------------------------------------------------------------------------------------
 ## **Appendix: Planned Enhancements**
 Team Size: 5    
 
-1. **Allow all command parsers to escape prefixes in all fields**: Currently, only the edit and add command allow escaping of prefixes, and only in the name argument. We plan to extend this to all commands and fields, in order to allow the user more freedom in their choice of arguments and keywords.
-
+1. **Allow all command parsers to escape prefixes in all fields**: Currently, only the `edit` and `add` command allow escaping of prefixes such as `a/`, `e/`, and only in the `NAME` argument. We plan to extend this feature to all commands and fields, in order to allow the user more freedom in their choice of arguments and keywords.
+2. **Stricter validation for email**: The current validation for email only requires the existence of `@` character, and does not require the domain to conitain `.`. As such, invalid emails such as `johndoe@example` and `jd@mail` were accepted. In the future, we intend to modify the validation of the email parameter to require a `.`, followed by at least two alphanumeric characters after the presence of `@`.
+3. **Different parameter prefix for `REQUEST` and `REQUEST_INDEX`: Both parameters `REQUEST` and `REQUEST_INDEX` currently share the same prefix `r/`. We plan to change the parameter of `REQUEST_INDEX` to use `ri/` instead to avoid confusion.
+4. **Allow phone numbers to contain dashes and brackets**: The current `PHONE` parameter does not allow the presence of brackets `(`, `)` and dashes `-`. Due to this, users are unable to add numbers in formats such as `+1-242-3887654` and `+1 (242) 3887654`. We plan to modify the validation for the `PHONE` parameter to allow these characters.
+5. **Unique Index or ID for Booking Tags**: Currently, booking tags are identified by a combination of their property name, start date and end date. This results in inconvenience for users when using the `untag` command, due to having to re-enter all three parameters. We plan to provide a form of unique identification for booking tags to allow easier deletion of booking tags in the future.
+6. **Edit request command**: The only way to edit a request of a contact is to delete it and add it again. We intend to add an edit request command to allow users the functionality of editting requests belongign to a contact.
+7. **Case-insensitive command words**: The current command words are case-sensitive. However, users may enter `Add` or `ADD` instead of `add` by mistake. For convenience, we plan to modify the validation of command words to be case-insensitive.
+8. **Make `edit` success messages more detailed**: The current `edit` command's success message does not contain details of what was modified. We plan to make the success message more descriptive.
 --------------------------------------------------------------------------------------------------------------------
 ## **Appendix: Instructions for manual testing**
 
