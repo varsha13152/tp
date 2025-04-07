@@ -6,7 +6,7 @@ skinparam ClassBackgroundColor #FFFFAA
 
 title Initial state
 
-package States {
+package ModelManager {
     class State1 as "<u>backupAddressBook:AddressBook</u>"
     class State2 as "<u>addressBook:AddressBook</u>"
 }
