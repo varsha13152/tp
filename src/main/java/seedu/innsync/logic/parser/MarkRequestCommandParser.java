@@ -40,7 +40,8 @@ public class MarkRequestCommandParser implements Parser<MarkRequestCommand> {
         try {
             requestIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_REQUEST).orElse("1"));
         } catch (IllegalValueException ive) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            throw new ParseException(String.format(Messages.MESSAGE_PARSE_EXCEPTION,
+                    MarkRequestCommand.MESSAGE_INVALID_REQUEST_INDEX_FORMAT,
                     MarkRequestCommand.MESSAGE_USAGE), ive);
         }
 

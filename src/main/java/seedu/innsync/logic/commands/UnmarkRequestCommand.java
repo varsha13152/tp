@@ -33,6 +33,8 @@ public class UnmarkRequestCommand extends Command {
             Messages.MESSAGE_COMMAND_SUCCESS, "Unmark request", "%s has been unmarked!");
     public static final String MESSAGE_INVALID_REQUEST_INDEX = String.format(
             Messages.MESSAGE_INVALID_ITEM_INDEX, "request");
+    public static final String MESSAGE_INVALID_REQUEST_INDEX_FORMAT = "Request index is not a "
+            + "non-zero unsigned integer.";
     public static final String MESSAGE_FAILURE = String.format(
             Messages.MESSAGE_COMMAND_FAILURE, "Unmark request", "The request %s is not marked!");
 

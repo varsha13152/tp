@@ -34,6 +34,8 @@ public class MarkRequestCommand extends Command {
             "Mark request", "Marked request as completed!");
     public static final String MESSAGE_INVALID_REQUEST_INDEX = String.format(
             Messages.MESSAGE_INVALID_ITEM_INDEX, "request");
+    public static final String MESSAGE_INVALID_REQUEST_INDEX_FORMAT = "Request index is not a "
+            + "non-zero unsigned integer.";
     public static final String MESSAGE_FAILURE = "The request %s is already marked!"
             + Emoticons.SAD;
 
