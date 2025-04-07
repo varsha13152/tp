@@ -716,16 +716,16 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: List all visitors using the `list` command. Multiple visitors in the list with at least one not starred.
 
    2. Test case: `star INDEX`<br>
-     Expected: Contact with respective INDEX is starred and will be moved up in the list sorted lexicographically among the starred visitor. Contact Details of the starred visitor are shown in Details Panel in GUI.
-     <br>Output: Star successful! (๑˘︶˘๑)
-     <br>Starred contact: NAME
+      Expected: Contact with respective INDEX is starred and will be moved up in the list sorted lexicographically among the starred visitor. Contact Details of the starred visitor are shown in Details Panel in GUI.
+      <br>Output: Star successful! (๑˘︶˘๑)
+      <br>Starred contact: NAME
 
    3. Test case: `star INDEX`<br>
-   **Note:** Attempt to star the same visitor you starred in the above test case by locating and using the new index of that same visitor.
-   <br>Expected: Error details shown in the status message.
-   <br>Output: Star failed! (ｏ´_｀ｏ)
-   <br>Contact NAME is already starred!
-
+      **Note:** Attempt to star the same visitor you starred in the above test case by locating and using the new index of that same visitor.
+      <br>Expected: Error details shown in the status message.
+      <br>Output: Star failed! (ｏ´_｀ｏ)
+      <br>Contact NAME is already starred!
+  
    4. Test case: `star 0`<br>
       Expected: Error details shown in the status message.
       <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
@@ -765,12 +765,64 @@ testers are expected to do more *exploratory* testing.
        <br>Parameters: INDEX (must be a positive integer)
        <br>Example: unstar 1
 
-    5. Other incorrect star commands to try: `unstar`, `unstar x`, `...` (where x is larger than the list size)<br>
-       Expected: Similar to previous.
-       <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
-       <br>unstar: Unstars the contact identified by the index number used in the displayed person list.
-       <br>Parameters: INDEX (must be a positive integer)
-       <br>Example: unstar 1
+   5. Other incorrect star commands to try: `unstar`, `unstar x`, `...` (where x is larger than the list size)<br>
+      Expected: Similar to previous.
+      <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
+      <br>unstar: Unstars the contact identified by the index number used in the displayed person list.
+      <br>Parameters: INDEX (must be a positive integer)
+      <br>Example: unstar 1
+   
+### Adding a request to a visitor
+
+1. Prerequisites: List all visitors using the `list` command. At least one visitor in the list.
+
+    2. Test case: `req 1 r/REQUEST`<br>
+       Expected: Contact with respective INDEX has a request called "REQUEST" added to its request list. Contact Details of the visitor are shown in Details Panel in GUI.
+       <br>Output: Add request successful! (๑˘︶˘๑)
+       <br>Added request to NAME!
+
+   3. Test case: `req 1 r/REQUEST`<br>
+      **Note:** Attempt to add a request where the visitor already has this specific request.
+      <br>Expected: No request will be added. Error details shown in the status message. Status bar remains the same.
+      <br>Output: Command will result in duplicate request!
+
+   4. Test case: `req 1 r/ASD r/ASD`<br>
+      Expected: No request will be added. Error details shown in the status message. Status bar remains the same.
+      <br>Output: Command will result in duplicate request!
+
+   5. Test case: `req 1 r/`<br>
+      Expected: No visitor will have a request added. Error details shown in the status message. Status bar remains the same.
+      <br>Output: Request cannot be empty!
+
+   6. Test case: `req r/`<br>
+      Expected: No visitor will have a request added. Error details shown in the status message. Status bar remains the same.
+      <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
+      <br>req: Adds a request to the contact identified by the index number in the displayed person list.
+      <br>Parameters: INDEX (must be a positive integer) r/REQUEST
+      <br>Example: req 1 r/Need a bottle of champagne every morning
+
+   7. Test case: `req 0 r/`<br>
+      Expected: No visitor will have a request added. Error details shown in the status message. Status bar remains the same.
+      <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
+      <br>req: Adds a request to the contact identified by the index number in the displayed person list.
+      <br>Parameters: INDEX (must be a positive integer) r/REQUEST
+      <br>Example: req 1 r/Need a bottle of champagne every morning
+
+   8. Test case: `req 1 r/`<br>
+      Expected: No visitor will have a request added. Error details shown in the status message. Status bar remains the same.
+      <br>Output: Request cannot be empty!
+
+   9. Test case: `req 1 r/asd`<br>
+      **Note:** Attempt to add a request when there is no visitor in the list.
+      <br>Expected: No visitor will have a request added. Error details shown in the status message. Status bar remains the same.
+      <br>Output: The person index provided is invalid! ヾ( ･`⌓´･)ﾉﾞ
+
+   10. Other incorrect star commands to try: `req`, `req x`, `...` (where x is larger than the list size)<br>
+      Expected: No visitor will have a request added. Error details shown in the status message. Status bar remains the same.
+      <br>Output: Invalid command format! ヾ( ･`⌓´･)ﾉﾞ
+      <br>req: Adds a request to the contact identified by the index number in the displayed person list.
+      <br>Parameters: INDEX (must be a positive integer) r/REQUEST
+      <br>Example: req 1 r/Need a bottle of champagne every morning
 
 
 ### Marking a request of a visitor
