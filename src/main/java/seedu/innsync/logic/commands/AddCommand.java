@@ -7,6 +7,7 @@ import static seedu.innsync.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_MEMO;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.innsync.logic.parser.CliSyntax.PREFIX_REQUEST;
 import static seedu.innsync.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.innsync.commons.util.ToStringBuilder;
@@ -29,9 +30,10 @@ public class AddCommand extends Command {
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_ADDRESS + "ADDRESS "
-            + "[" + PREFIX_BOOKINGTAG + "BOOKING_TAG] "
-            + "[" + PREFIX_TAG + "TAG] "
-            + "[" + PREFIX_MEMO + "MEMO]...\n"
+            + "[" + PREFIX_REQUEST + "REQUEST...] "
+            + "[" + PREFIX_BOOKINGTAG + "BOOKING_TAG...] "
+            + "[" + PREFIX_TAG + "TAG...] "
+            + "[" + PREFIX_MEMO + "MEMO]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "+65 98765432 "
