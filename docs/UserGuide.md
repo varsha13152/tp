@@ -638,10 +638,10 @@ Format: `exit`
 
 ### 4.7.3 Undoing the last change : `undo`
 
-Undoes the last modification to the addressbook, reverting it to its original state before the last modification.
+Undoes the last modification to the address book, reverting it to its original state before the last modification.
 Commands `edit`, `add`, `delete`, `star`, `tag`, `untag`, `req`, `deletereq`, `mark`, `unmark`, `unstar`, `memo`, and even another `undo` are all modifications that can be undone.
 
-📌**Note:** Undoing the undo, undoes the undo
+📌**Note:** Using the `undo` command after another `ùndo` command will undo the first undo.
 
 Format: `undo`
 
