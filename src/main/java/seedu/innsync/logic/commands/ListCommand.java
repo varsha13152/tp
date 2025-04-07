@@ -14,7 +14,7 @@ public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
 
     public static final String MESSAGE_SUCCESS = String.format(Messages.MESSAGE_COMMAND_SUCCESS,
-            "List", "Lising all persons in the address book!");
+            "List", "Listing all persons in the address book!");
     public static final String MESSAGE_EMPTY = "There are no contacts in the address book. Use the 'add' command to"
             + " create new contacts!";
 
