@@ -151,11 +151,10 @@ Classes used by multiple components are in the `seedu.innsync.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 > Please note that certain aspects, such as UML classes, may have been simplified to fit within the diagram's constraints and maintain readability.
-### \[Proposed\] Undo/redo feature
-The current undo feature undoes only the last recorded change, it does not maintain a history of commands or changes. Thus, users do not have the ability to undo more than one past change.
-#### Proposed Implementation
 
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
+#### 1.Undo Implementation
+The current undo feature undoes only the last recorded change, it does not maintain a history of commands or changes. Thus, users do not have the ability to undo more than one past change.
+The proposed undo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
 
 * `VersionedAddressBook#commit()` — Saves the current address book state in its history.
 * `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
@@ -163,7 +162,7 @@ The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It ex
 
 These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+Given below is an example usage scenario and how the undo mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
 
@@ -190,7 +189,8 @@ Step 4. The user now decides that adding the person was a mistake, and decides t
 
 <box type="info" seamless>
 
-**Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
+**Note:** If the `currentStatePointer` is at index 0, pointing to the initial 
+state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
 than attempting to perform the undo.
 
 </box>
@@ -213,15 +213,15 @@ The `redo` command does the opposite — it calls `Model#redoAddressBook()`,
 
 <box type="info" seamless>
 
-**Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+**Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. .
 
 </box>
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
 
 <puml src="diagrams/UndoRedoState4.puml" alt="UndoRedoState4" />
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. This is the behavior that most modern desktop applications follow.
 
 <puml src="diagrams/UndoRedoState5.puml" alt="UndoRedoState5" />
 
@@ -231,16 +231,72 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 #### Design considerations:
 
-**Aspect: How undo & redo executes:**
+**Aspect: How undo executes:**
 
 * **Alternative 1 (current choice):** Saves the entire address book.
     * Pros: Easy to implement.
     * Cons: May have performance issues in terms of memory usage.
 
-* **Alternative 2:** Individual command knows how to undo/redo by
+* **Alternative 2:** Individual command knows how to undo by
   itself.
     * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
     * Cons: We must ensure that the implementation of each individual command are correct.
+
+### **Implementation**
+
+This section describes some noteworthy details on how certain features are implemented.
+
+> Please note that certain aspects, such as UML classes, may have been simplified to fit within the diagram's constraints and maintain readability.
+
+#### 2. List Star Implementation
+
+The list star feature is facilitated by `ListStarCommand`. It extends the basic listing functionality with contact filtering capability, using an internal `PREDICATE_SHOW_STARRED_PERSONS` and `Model#updateFilteredPersonList()`. The supported operations are:
+
+* `ListStarCommand#execute()` - Filters the contact list to show only starred entries
+* `Model#updateFilteredPersonList()` - Updates the UI with the filtered results
+
+Given below is an example usage scenario and how the list star mechanism behaves at each step.
+
+**Step 1.** The user launches the application. The `Model` contains the full list of contacts (both starred and unstarred).
+
+**Step 2.** The user executes `liststar` command to view starred contacts. The command is processed by:
+1. `LogicManager` receiving the command
+2. `AddressBookParser` creating a `ListStarCommand`
+3. The command executing and applying the filter predicate
+
+<puml src="diagrams/ListStarSequenceDiagram.puml" alt="ListStarSequenceDiagram"></puml>
+
+**Step 3.** The system updates the display to show only contacts where `isStarred == true`.
+
+<box type="info" seamless>
+
+**Note:** If no contacts are starred, the filtered list will be empty. The command still succeeds as this is valid behavior.
+
+</box>
+
+**Step 4.** The user sees only their starred contacts in the UI.
+
+#### Design Considerations:
+
+**Aspect: How filtering executes:**
+
+* **Alternative 1 (current choice):** Uses a predicate to filter the existing list
+    * Pros: Simple to implement, consistent with other commands
+    * Cons: Requires full list traversal
+
+* **Alternative 2:** Maintain a separate starred contacts list
+    * Pros: Faster access to favorites
+    * Cons: More complex synchronization, increased memory usage
+
+**Aspect: When to apply filtering:**
+
+* **Alternative 1 (current choice):** Only when explicitly requested via `liststar`
+    * Pros: Clear user control, predictable behavior
+    * Cons: Requires explicit command
+
+* **Alternative 2:** Automatically filter when starring/unstarring
+    * Pros: Immediate feedback
+    * Cons: May surprise users who want to see all contacts
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -274,35 +330,35 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                     | I want to …​                                    | So that I can…​                                                           |
-|----------|---------------------------------------------|-------------------------------------------------|---------------------------------------------------------------------------|
-| `* * *`  | new user                                    | see usage instructions                          | refer to instructions when I forget how to use the App                    |
-| `* * *`  | AirBnB host                                 | add a new visitor                               | keep track of who is visiting my property                                 |
-| `* * *`  | AirBnB host                                 | edit a visitor                                  | update details of a visitor                                               |
-| `* * *`  | AirBnB host                                 | list all visitors                               | see all the visitors I have added                                         |
-| `* * *`  | AirBnB host                                 | delete a visitor                                | remove entries that I no longer need                                      |
-| `* * *`  | AirBnB host                                 | add a tag to visitor                            | categorize and identify them easily                                       |
-| `* * *`  | AirBnB host                                 | add a booking tag to visitor                    | quickly assign the visitor to their property                              |
-| `* * *`  | AirBnB host                                 | remove a tag from the visitor                   | to unassign the visitor tag                                               |
-| `* * *`  | AirBnB host                                 | remove a booking tag from the visitor           | to unassign the visitor booking tag                                       |
-| `* * *`  | AirBnB host                                 | find a visitor by name                          | quickly find a specific visitor                                           |
-| `* *`    | AirBnB host                                 | filter visitors by property booked              | quickly find visitors who visited a specific property                     |
-| `* *`    | AirBnB host                                 | filter visitors by date of stay                 | quickly find visitors using specific time periods                         |
-| `* *`    | AirBnB host                                 | filter visitors by tag                          | quickly find visitors using personalised categories                       |
-| `* *`    | AirBnB host                                 | filter visitors by next upcoming booking        | prepare for future bookings efficiently                                   |
-| `* *`    | AirBnB host                                 | add a request to visitor                        | fulfill the visitor request                                               |
-| `* *`    | AirBnB host                                 | mark the request as completed in the visitor    | to mark visitor request as fulfilled                                      |
-| `* * `   | AirBnB host                                 | unmark the request as incomplete in the visitor | to unmark visitor request as unfulfilled                                  |
-| `* * `   | AirBnB host                                 | delete the request from the visitor             | to remove visitor request                                                 |
-| `* *`    | AirBnB host                                 | star a visitor                                  | favorite the visitor so that they appear at the top                       |
-| `* *`    | AirBnB host                                 | unstar a visitor                                | remove favorite from the visitor so that they no longer appear at the top |
-| `* *`    | AirBnB host                                 | list all the starred visitor                    | see all the favorite visitors I have starred                              |
-| `* * `   | AirBnB host                                 | add a memo to visitor                           | give a short note to describe the visitor                                 |
-| `* *`    | AirBnB host                                 | undo the last command                           | recover from mistakes                                                     |
-| `* *`    | AirBnB host                                 | clear all visitors                              | start over with a clean slate                                             |
-| `* *`    | AirBnB host                                 | save visitor details to a file                  | backup my address book                                                    |
-| `* *`    | AirBnB host                                 | load visitor details from a file                | restore my address book                                                   |
-| `*`      | user with many visitors in the address book | sort visitors by name                           | find visitors efficiently                                                 |
+| Priority | As a …​                                            | I want to …​                                    | So that I can…​                                                           |
+|----------|----------------------------------------------------|-------------------------------------------------|---------------------------------------------------------------------------|
+| `* * *`  | new user                                           | see usage instructions                          | refer to instructions when I forget how to use the App                    |
+| `* * *`  | AirBnB host                                        | add a new visitor                               | keep track of who is visiting my property                                 |
+| `* * *`  | AirBnB host                                        | edit a visitor                                  | update details of a visitor                                               |
+| `* * *`  | AirBnB host                                        | list all visitors                               | see all the visitors I have added                                         |
+| `* * *`  | AirBnB host                                        | delete a visitor                                | remove entries that I no longer need                                      |
+| `* * *`  | AirBnB host                                        | add a tag to visitor                            | categorize and identify them easily                                       |
+| `* * *`  | AirBnB host                                        | add a booking tag to visitor                    | quickly assign the visitor to their property                              |
+| `* * *`  | AirBnB host                                        | remove a tag from the visitor                   | to unassign the visitor tag                                               |
+| `* * *`  | AirBnB host                                        | remove a booking tag from the visitor           | to unassign the visitor booking tag                                       |
+| `* * *`  | AirBnB host                                        | find a visitor by name                          | quickly find a specific visitor                                           |
+| `* *`    | AirBnB host                                        | filter visitors by property booked              | quickly find visitors who visited a specific property                     |
+| `* *`    | AirBnB host                                        | filter visitors by date of stay                 | quickly find visitors using specific time periods                         |
+| `* *`    | AirBnB host                                        | filter visitors by tag                          | quickly find visitors using personalised categories                       |
+| `* *`    | AirBnB host                                        | filter visitors by next upcoming booking        | prepare for future bookings efficiently                                   |
+| `* *`    | AirBnB host                                        | add a request to visitor                        | fulfill the visitor request                                               |
+| `* *`    | AirBnB host                                        | mark the request as completed in the visitor    | to mark visitor request as fulfilled                                      |
+| `* * `   | AirBnB host                                        | unmark the request as incomplete in the visitor | to unmark visitor request as unfulfilled                                  |
+| `* * `   | AirBnB host                                        | delete the request from the visitor             | to remove visitor request                                                 |
+| `* *`    | AirBnB host                                        | star a visitor                                  | favorite the visitor so that they appear at the top                       |
+| `* *`    | AirBnB host                                        | unstar a visitor                                | remove favorite from the visitor so that they no longer appear at the top |
+| `* *`    | AirBnB host                                        | list all the starred visitor                    | see all the favorite visitors I have starred                              |
+| `* * `   | AirBnB host                                        | add a memo to visitor                           | give a short note to describe the visitor                                 |
+| `* *`    | AirBnB host                                        | undo the last command                           | recover from mistakes                                                     |
+| `* *`    | AirBnB host                                        | clear all visitors                              | start over with a clean slate                                             |
+| `* *`    | AirBnB host                                        | save visitor details to a file                  | backup my address book                                                    |
+| `* *`    | AirBnB host                                        | load visitor details from a file                | restore my address book                                                   |
+| `*`      | AirBnB host with many visitors in the address book | sort visitors by name                           | find visitors efficiently                                                 |
 
 ### Use cases
 
@@ -326,11 +382,12 @@ Use case ends.
       Use case resumes at step 1.
 
 * 2b. The visitor already exists in InnSync.
-
     * 2b1. InnSync shows an error message and informs the AirBnB Host that the visitor already exists. <br>
       Use case resumes at step 1.
 
-* Guarantees: The contact is successfully created and stored in the system if the input data is valid. Duplicate contacts will not be created.
+**Guarantees:**
+1. The contact is successfully created and the stored in InnSync. 
+2. Duplicate contacts will not happen.
 
 **Use case: UC02 - Delete a visitor**
 
@@ -356,11 +413,10 @@ Use case ends.
 
 1.  AirBnB Host requests to list visitors
 2.  InnSync shows a list of visitors
-3.  AirBnB Host requests to edit a specific visitor in the list
-4.  InnSync validates the entered detail
-5.  InnSync updates the contact with the new provided detail
-6.  InnSync shows the updated details of the visitor.
-7.  InnSync updates local JSON file with updated contact detail <br>
+3.  AirBnB Host requests to edit a specific visitor in the list and enters the details
+4.  InnSync validates the entered details
+5.  InnSync updates the contact with the new provided details
+6.  InnSync shows a success message and the updated details of the visitor. <br>
     Use case ends.
 
 **Extensions**
@@ -384,24 +440,28 @@ Use case ends.
     * 3c1. InnSync shows an error message that the contact already exists. <br>
       Use case resumes at step 2.
 
-**Use case: UC04 - Find a visitor by name**
+**Guarantees:**
+1. The contact is successfully edited and the stored in InnSync. 
+2. Any persistent storage have updated this contact. 
+3. Duplicate contacts will not happen.
+
+
+**Use case: UC04 - Find a visitor**
 
 **MSS**
 
-1.  AirBnB Host requests to find a visitor by name
-2.  InnSync shows the details of the visitor if found. <br>
-    Use case ends.
+1.  AirBnB Host requests to find a visitor by specified detail (e.g name, address, phone etc.)
+2.  InnSync validates the entered detail 
+3. InnSync displays a list of contacts matching the specified detail. <br> Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
-  * 2a1. InnSync shows an error message that there are no contacts available <br>
-  Use case ends.
-
-* 3a. The given name is invalid.
-
-    * 3a1. InnSync shows an error message. <br>
-      Use case ends.
+* 2a. The given detail is invalid.
+    * 2a1InnSync shows an error message. <br>
+      Use case resumes at step 1.
+  
+* 3a. The list is empty.
+  * 3a1. InnSync shows an error message that there are no contacts were found. <br> Use case ends.
 
 
 **Use case: UC05 - Add Tag to Contact**
@@ -413,9 +473,9 @@ Use case ends.
 3.  AirBnB Host requests to add a tag to a specific visitor in the list
 4.  InnSync validates the entered tag (ie. missing input)
 5.  InnSync updates the contact with the new provided tag
-6.  InnSync shows the updated details of the visitor.
-7.  InnSync updates local JSON file with updated contact detail <br>
+6.  InnSync shows a success message with the updated details of the visitor. <br>
     Use case ends.
+
 
 **Extensions**
 
@@ -433,6 +493,12 @@ Use case ends.
     * 4a1. InnSync shows an error message. <br>
       Use case resumes at step 2.
 
+
+**Guarantees:**
+1. The booking tag is successfully added and the stored in InnSync.
+2. Any persistent storage have added the booking tag to the contact.
+
+
 **Use case: UC06 - Add Booking Tag to Contact**
 
 **MSS**
@@ -442,9 +508,7 @@ Use case ends.
 3.  AirBnB Host requests to add a booking tag to a specific visitor in the list
 4.  InnSync validates the entered booking tag (ie. date format, missing input)
 5.  InnSync updates the contact with the new provided booking tag
-6.  InnSync shows the updated details of the visitor.
-7.  InnSync updates local JSON file with updated contact detail <br>
-    Use case ends.
+6.  InnSync shows the updated details of the visitor. <br> Use case ends.
 
 **Extensions**
 
@@ -481,12 +545,17 @@ Use case ends.
     * 2a1. InnSync shows a message that the list is empty. <br>
      Use case ends.
 
+* 2b. InnSync is unable to get saved contacts.
+
+    * 2b1. InnSync informs the user that the file is corrupted. <br> Use case ends.
+
+
 **Use case: UC08 - Help**
 
 **MSS**
 
 1. AirBnB Host wants to see the user guide
-2. InnSync displays a pop up with a hyperlink to the user guide <br>
+2. InnSync displays a hyperlink to the user guide <br>
    Use case ends.
 
 **Use case: UC09 - Clear**
@@ -519,7 +588,6 @@ Use case ends.
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
 * **AirBnB host**: An AirBnB host is an individual or business that list their property on the platform for short-term rentals. The host provide accommodations in the forms of apartments, houses or rooms for guests, typically for leisure activities.
 * **Visitor**:  Any individual who accesses an AirBnB property, including guests staying at the property, property owners, service providers performing work, or other authorized individuals. Visitors may include cleaners, maintenance personnel, property inspectors, delivery services, and other vendors.
 * **CLI (Command Line Interface)**: A text-based interface where users interact with the application with a keyboard typing commands instead of using a graphical user interface.
