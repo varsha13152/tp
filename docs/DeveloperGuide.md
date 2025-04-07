@@ -780,7 +780,7 @@ testers are expected to do more *exploratory* testing.
 
     2. Test case: `deletereq INDEX r/REQUEST_INDEX`<br>
        **Note:** Find a visitor with at least one request and use that visitor's INDEX. Use a valid REQUEST_INDEX (starting from 1).
-       <br>Expected: The specified request is deleted from the visitor. If selected, details of the visitor with the deleted request are shown in the Details Panel in GUI.
+       <br>Expected: The specified request is deleted from the visitor. If selected, details of the visitor with the deleted request are shown in the Details Panel in the GUI.
        <br>Output: Delete request successful! (๑˘︶˘๑)
        <br>REQUEST has been deleted from NAME's request list!
 
