@@ -744,31 +744,27 @@ testers are expected to do more *exploratory* testing.
 
 1. Unstarring a visitor who is currently starred in the addressbook
 
-    1. Prerequisites: List all visitors using the `list` command. At least one visitor in the list.
+    1. Prerequisites: List all visitors using the `list` command. Multiple visitors in the list with a few starred.
 
-    2. Test case: `req 1 r/REQUEST`<br>
-       Expected: Contact with respective INDEX has a request called "REQUEST" added to its request list. Contact Details of the visitor are shown in Details Panel in GUI.
-       <br>Output: Add request successful! (๑˘︶˘๑)
-       <br>Added request to NAME!
+    2. Test case: `unstar INDEX`<br>
+       **Note:** Attempt to unstar a visitor you starred before, find the same visitor new INDEX.
+       <br>Expected: Contact with respective INDEX is un starred and will be moved back in the list sorted lexicographically among the unstar visitor. Contact Details of the unstar visitor are shown in Details Panel in GUI.
+       <br>Output: Unstar successful! (๑˘︶˘๑)
+       <br>The contact NAME was unstarred!
 
-    3. Test case: `req 1 r/`<br>
-       Expected: No visitor will have a request added. Error details shown in the status message. Status bar remains the same.
-       <br>Output: Request cannot be empty!
-   
-    4. Test case: `req r/`<br>
-       Expected: No visitor will have a request added. Error details shown in the status message. Status bar remains the same.
-       <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
-       <br>req: Adds a request to the contact identified by the index number in the displayed person list.
-       <br>Parameters: INDEX (must be a positive integer) r/REQUEST
-       <br>Example: req 1 r/Need a bottle of champagne every morning
+    3. Test case: `unstar INDEX`<br>
+       **Note:** Attempt to unstar the same visitor you just unstar, find the same visitor new INDEX.
+       <br>Expected: Contact with respective INDEX is not unstar. Contact Details are shown in Details Panel in GUI for whoever is currently selected.
+       <br>Output: Unstar failed! (ｏ´_｀ｏ)
+       The contact NAME was not starred!
 
-    5. Other incorrect star commands to try: `unstar`, `unstar x`, `...` (where x is larger than the list size)<br>
-       Expected: Similar to previous.
+    4. Test case: `unstar 0`<br>
+       Expected: No visitor is starred. Error details shown in the status message. Status bar remains the same.
        <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
        <br>unstar: Unstars the contact identified by the index number used in the displayed person list.
        <br>Parameters: INDEX (must be a positive integer)
        <br>Example: unstar 1
-
+   
 ### Adding a request to a visitor
 
 1. Prerequisites: List all visitors using the `list` command. At least one visitor in the list.
