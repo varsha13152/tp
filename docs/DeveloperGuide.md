@@ -135,7 +135,7 @@ The `Model` component,
 
 <puml src="diagrams/StorageClassDiagram.puml" width="550" />
 
-**The `Storage` component,
+The `Storage` component,
 * can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
 * inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
@@ -159,7 +159,9 @@ The proposed undo mechanism is facilitated by `ModelManager`. In addition to the
 
 <puml src="diagrams/undo/InitialState.puml" alt="UndoState" />
 
-Whenever an operation modifying the address book is performed, the current address book is saved into the backup address book before the current address book is modified. To achieve this, ModelManager implements the method `ModelManager#revertToLastModified()` which will swap the contents of the address book with that of its backup. This operation is exposed in the `Model` interface as `Model#revertToLastModified()`.
+Whenever an operation modifying the address book is performed, the current address book is saved into the backup address book before the current address book is modified. ModelManager implements the method `ModelManager#backupAddressBook()` to achieve this. 
+
+When the `undo` command is performed, ModelManager will swap the contents of the address book with that of its backup through the implemented method `ModelManager#revertToLastModified()`. This operation is exposed in the `Model` interface as `Model#revertToLastModified()`.
 
 The following operations in `ModelManager` modify the address book and will hence result in a backup of the current address book:
 
@@ -173,11 +175,11 @@ Given below is an example usage scenario and how the undo mechanism behaves at e
 
 Step 1. The user launches the application for the first time. The variable `backupAddressBook` will be initialized with the contents of the current address book, thus containing the same contents as there are no modifications yet.
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#deletePerson()`, causing the current address book to be backed up into `backupAddressBook`, and the current addressbook to call `AddressBook#removePerson()`.
+Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `ModelManager#backupAddressBook()` and `Model#deletePerson()`, causing the current address book to be backed up into `backupAddressBook`, and the current addressbook to call `AddressBook#removePerson()`.
 
 <box type="info" seamless>
 
-**Note:** If a command fails its execution, it will not call any operations modifying the address book, so the address book state will not be saved into the backup `backupAddressBook`.
+**Note:** If a command fails its execution, it will not call any operations modifying the address book. Thus, `ModelManager#backupAddressBook()` is not called and the address book state will not be saved into the backup `backupAddressBook`.
 
 </box>
 
@@ -186,7 +188,7 @@ Step 3. The user now decides that deleting the person was a mistake, and decides
 
 <box type="info" seamless>
 
-**Note:** If the contents of `backupAddressBook` is the same as that of `addressBook`, then there are no previous AddressBook states to restore. The `undo` command checks within the `Model#revertToLastModified()` method to if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+**Note:** If the contents of `backupAddressBook` is the same as that of `addressBook`, then there are no previous AddressBook states to restore. ModelManager implements the method `ModelManager#hasUndoState()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 </box>
 

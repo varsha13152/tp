@@ -39,7 +39,8 @@ public class DeleteRequestCommandParser implements Parser<DeleteRequestCommand> 
             requestIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_REQUEST).get());
         } catch (ParseException pe) {
             throw new ParseException(String.format(Messages.MESSAGE_PARSE_EXCEPTION,
-                    pe.getMessage(), DeleteRequestCommand.MESSAGE_USAGE), pe);
+                    DeleteRequestCommand.MESSAGE_INVALID_REQUEST_INDEX_FORMAT,
+                    DeleteRequestCommand.MESSAGE_USAGE), pe);
         }
 
         return new DeleteRequestCommand(contactIndex, requestIndex);
