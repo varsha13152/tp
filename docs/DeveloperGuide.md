@@ -159,7 +159,7 @@ The proposed undo mechanism is facilitated by `ModelManager`. In addition to the
 
 <puml src="diagrams/undo/InitialState.puml" alt="UndoState" />
 
-Whenever an operation modifying the address book is performed, the current address book is saved into the backup address book before the current address book is modified. ModelManager implements the method `ModelManager#backupAddressBook()` to achieve this. 
+Whenever an operation modifying the address book is performed, the current address book is saved into the backup address book before the current address book is modified. ModelManager implements the method `ModelManager#backupAddressBook()` to achieve this.
 
 When the `undo` command is performed, ModelManager will swap the contents of the address book with that of its backup through the implemented method `ModelManager#revertToLastModified()`. This operation is exposed in the `Model` interface as `Model#revertToLastModified()`.
 
@@ -355,7 +355,7 @@ Use case ends.
       Use case resumes at step 1.
 
 **Guarantees:**
-1. The contact is successfully created and the stored in InnSync. 
+1. The contact is successfully created and the stored in InnSync.
 2. Duplicate contacts will not happen.
 
 **Use case: UC02 - Delete a visitor**
@@ -410,8 +410,8 @@ Use case ends.
       Use case resumes at step 2.
 
 **Guarantees:**
-1. The contact is successfully edited and the stored in InnSync. 
-2. Any persistent storage have updated this contact. 
+1. The contact is successfully edited and the stored in InnSync.
+2. Any persistent storage have updated this contact.
 3. Duplicate contacts will not happen.
 
 
@@ -420,7 +420,7 @@ Use case ends.
 **MSS**
 
 1.  AirBnB Host requests to find a visitor by specified detail (e.g name, address, phone etc.)
-2.  InnSync validates the entered detail 
+2.  InnSync validates the entered detail
 3. InnSync displays a list of contacts matching the specified detail. <br> Use case ends.
 
 **Extensions**
@@ -428,7 +428,7 @@ Use case ends.
 * 2a. The given detail is invalid.
     * 2a1InnSync shows an error message. <br>
       Use case resumes at step 1.
-  
+
 * 3a. The list is empty.
   * 3a1. InnSync shows an error message that there are no contacts were found. <br> Use case ends.
 
@@ -573,11 +573,11 @@ Use case ends.
 **Challenges Faced and Achievements:**
 
 * **Addition of Person Fields:** To better allow hosts to keep track of their visitors, we added the booking tag into our system, a major feature which allowed hosts to associate a property, start date, and end date with a visitor, crucial in recording a guest's period of stay at a property. Many tweaks to the system were necessary to accomodate the addition of this new field. In addition to the booking tag, we also allowed users to add requests, which could be marked as complete, and a memo, which could contain remarks about a visitor, to a contact.
-  
+
 * **Addition of Commands:** We had to significantly modify existing commmands (`add`, `find`, `edit`), and include multiple new additional commands (`tag`, `untag`, `req`, `mark`, `unmark`, `deletereq`, `liststar`, `memo`) to accomodate the creation, modification and deletion of our added fields to each contact. In addition to those commands, we also added the `undo` command to allow users to restore unintended changes, and implemented a system which made dangerous command such as `clear` require a confirmation to proceed. Finally, we added the `star` feature which allowed users to star contacts and have their favourite or most frequently accessed contacts displayed above the rest.
-  
+
 * **Parsing of parameters:** In order to cater to the possibility of names containing prefixes, such as `murthu a/p vara` which contains the `a/` prefix, we modified the existing parser system to allow prefixes to be escaped with the `$` symbol, allowing users more freedom in their choice of parameters.
-  
+
 * **User Interface Enhancements:** To make the GUI more appealing and intuitive, we revamped the GUI changing its overall look, including the addition of the Persons Detail Panel, into our layout. We successfully displayed a contact's details in the panel both when selecting their card in the GUI with a mouse, and when a contact's details is modified through a command.
 
 **Effort Required:** We estimate that the project required more than double the expected effort due to the addition of various features, fields and commands in order to improve the user experience of the app and cater to the needs of our target users. We also exercised much effort in the testing of our program and complying with coding standards to ensure the maintanability of our program.
@@ -930,6 +930,127 @@ testers are expected to do more *exploratory* testing.
        <br>deletereq: Deletes a request from the contact identified by the index number in the displayed person list.
        <br>Parameters: INDEX (must be a positive integer) r/REQUEST_INDEX (must be a positive integer)
        <br>Example: deletereq 1 r/1
+
+
+### Tagging a visitor
+
+1. Tagging a visitor who is currently in the addressbook with a tag/booking tag while all visitors are being shown.
+
+   1. Prerequisites: List all visitors using the `list` command. At least one visitor in the list.
+
+   2. Test case: `tag 1 t/Example`<br>
+      Expected: First contact is tagged. Contact List Card is selected in GUI. Contact Details of the tagged visitor are shown in Details Panel in GUI.
+      **Note:** First contact should not already have the tag `Example`.
+      <br>Output: Tag successful! (๑˘︶˘๑)
+      <br>NAME's tag list has been updated!
+
+   3. Test case: `tag 1 t/Example`<br>
+      **Note:** Perform the previous test case first. First contact should already have the tag `Example`.
+      <br>Expected: Command will result in duplicate [Example]!
+
+   4. Test case: `tag 1 b/Example from/2023-10-01 to/2023-10-31`<br>
+      Expected: First contact is tagged. Contact List Card is selected in GUI. Contact Details of the tagged visitor are shown in Details Panel in GUI.
+      <br>Output: Tag successful! (๑˘︶˘๑)
+      <br>NAME's tag list has been updated!
+
+   5. Test case: `tag 1 b/Example from/2023-10-01 to/2023-10-31`<br>
+      **Note:** Perform the previous test case first. First contact should already have the booking tag `Example from/2023-10-01 to/2023-10-31`.
+      <br>Output: Tag failed! (ｏ´_｀ｏ)
+      <br>Example 01 Oct 23 to 31 Oct 23 already exists in the contact's tag list!
+
+   6. Test case: `tag 1 b/Example from/ to/2023-10-31`<br>
+      Expected: No visitor is tagged. Error details shown in the status message. Status bar remains the same.
+      <br>Output: Start date cannot be empty!
+
+   7. Test case: `tag 1 b/Example from/2023-02-29 to/2023-10-31`<br>
+      Expected: No visitor is tagged. Error details shown in the status message. Status bar remains the same.
+      <br>Output: Start date is invalid!
+
+   8. Test case: `tag 1 b/Example from/2023-10-01 to/`<br>
+      Expected: No visitor is tagged. Error details shown in the status message. Status bar remains the same.
+      <br>Output: End date cannot be empty!
+
+   9. Test case: `tag 1 b/Example from/2023-02-01 to/2023-02-29`<br>
+      Expected: No visitor is tagged. Error details shown in the status message. Status bar remains the same.
+      <br>Output: End date is invalid!
+
+  10. Test case: `tag 1 b/Example from/2023-10-01 to/2023-09-30`<br>
+      Expected: No visitor is tagged. Error details shown in the status message. Status bar remains the same.
+      <br>Output: Error: Booking tag start date must be before end date.
+
+  11. Test case: `tag 1 b/Example from/2023-10-01` or `tag 1 b/Example to/2023-10-31`<br>
+      Expected: No visitor is tagged. Error details shown in the status message. Status bar remains the same.
+      <br>Output: Booking tags should be of the format PROPERTY from/START_DATE to/END_DATE where START_DATE and END_DATE are in the format yyyy-MM-dd.
+      <br>The START_DATE must be before END_DATE.
+      <br>PROPERTY must have 1 to 170 characters.
+
+  12. Test case: `tag 0` or `tag`<br>
+      Expected: No visitor is tagged. Error details shown in the status message. Status bar remains the same.
+      <br>Output: Invalid command format! ヾ( ･`⌓´･)ﾉﾞ
+      <br>tag: Adds tag to the contact identified by the index number in the displayed person list.
+      <br>Parameters: INDEX (must be a positive integer) t/TAG or
+      <br>b/PROPERTY from/START_DATE to/END_DATE
+      <br>Example: tag 1 t/friends
+      <br>Example: tag 1 b/property from/2023-10-01 to/2023-10-31
+
+  13. Test case: `tag INDEX t/` or `tag INDEX b/`<br>
+      Expected: No visitor is tagged. Error details shown in the status message. Status bar remains the same.
+      **Note:** INDEX should be a valid index of a visitor in the list.
+      <br>Output: Tag cannot be empty!
+
+  14. Other incorrect tag commands to try: `Tag`, `tagx`, `...`<br>
+      Expected: Similar to previous.
+      <br>Output: Unknown command! (ｏ´_｀ｏ)
+
+### Untagging a visitor
+
+   1. Untagging a visitor's tag/booking tag who is currently in the addressbook while all visitors are being shown.
+
+      1. Prerequisites: List all visitors using the `list` command. At least one visitor in the list.
+
+      2. Test case: `untag 1 t/Example`<br>
+         Expected: First contact is untagged. Contact List Card is selected in GUI. Contact Details of the untagged visitor are shown in Details Panel in GUI.
+         **Note:** First contact should have the tag `Example`.
+         <br>Output: Untag successful! (๑˘︶˘๑)
+         <br>[Example] has been removed from the contact's tag list!
+
+      3. Test case: `untag 1 t/Example`<br>
+         **Note:** Perform the previous test case first. First contact should not have the tag `Example`.
+         <br>Expected: Untag failed! (ｏ´_｀ｏ)
+         <br>Contact does not have the tag [Example]!
+
+      4. Test case: `untag 1 b/Example from/2023-10-01 to/2023-10-31`<br>
+         Expected: First contact is untagged. Contact List Card is selected in GUI. Contact Details of the untagged visitor are shown in Details Panel in GUI.
+         <br>Output: Untag successful! (๑˘︶˘๑)
+         <br>Example 01 Oct 23 to 31 Oct 23 has been removed from the contact's tag list!
+
+      5. Test case: `untag 1 b/Example from/2023-10-01 to/2023-10-31`<br>
+         **Note:** Perform the previous test case first. First contact should not have the booking tag `Example from/2023-10-01 to/2023-10-31`.
+         <br>Expected: Untag failed! (ｏ´_｀ｏ)
+         <br>Contact does not have the booking tag Example 01 Oct 23 to 31 Oct 23!
+
+      6. Test case: `untag 1 t/`<br>
+         Expected: No visitor is untagged. Error details shown in the status message. Status bar remains the same.
+         <br>Output: Tag cannot be empty!
+
+      7. Test case: `untag 1 b/`<br>
+         Expected: No visitor is untagged. Error details shown in the status message. Status bar remains the same.
+         <br>Output: Booking tags should be of the format PROPERTY from/START_DATE to/END_DATE where START_DATE and END_DATE are in the format yyyy-MM-dd.
+         <br>The START_DATE must be before END_DATE.
+         <br>PROPERTY must have 1 to 170 characters.
+
+      8. Test case: `untag 0` or `untag`<br>
+         Expected: No visitor is untagged. Error details shown in the status message. Status bar remains the same.
+         <br>Output: Invalid command format! ヾ( ･`⌓´･)ﾉﾞ
+         <br>untag: Removes tag from the contact identified by the index number in the displayed person list.
+         <br>Parameters: INDEX (must be a positive integer) t/TAG
+         <br>OR b/PROPERTY from/START_DATE to/END_DATE
+         <br>Example: untag 1 t/friends
+         <br>Example: untag 1 b/property from/2023-10-01 to/2023-10-31
+
+      9. Other incorrect untag commands to try: `Untag`, `untagx`, `...`<br>
+         Expected: Similar to previous.
+         <br>Output: Unknown command! (ｏ´_｀ｏ)
 
 
 ### Saving data
