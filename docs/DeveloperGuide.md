@@ -598,11 +598,34 @@ Use case ends.
 * **MSS (Main Success Scenario)**:It describes the most straightforward interaction for a given use case, which assumes that nothing goes wrong.
 * **API (Application Programming Interface)**: A set of rules or protocols that govern the application to allow different software applications to work together by communication with each other.
 --------------------------------------------------------------------------------------------------------------------
+## **Appendix: Effort**
+**Difficulty Level:** The project was moderately challenging due to the integration of multiple additional commands and person fields, and the complexity of building and maintaining relationships between them.
+
+**Challenges Faced and Achievements:**
+
+* **Addition of Person Fields:** To better allow hosts to keep track of their visitors, we added the booking tag into our system, a major feature which allowed hosts to associate a property, start date, and end date with a visitor, crucial in recording a guest's period of stay at a property. Many tweaks to the system were necessary to accomodate the addition of this new field. In addition to the booking tag, we also allowed users to add requests, which could be marked as complete, and a memo, which could contain remarks about a visitor, to a contact.
+  
+* **Addition of Commands:** We had to significantly modify existing commmands (`add`, `find`, `edit`), and include multiple new additional commands (`tag`, `untag`, `req`, `mark`, `unmark`, `deletereq`, `liststar`, `memo`) to accomodate the creation, modification and deletion of our added fields to each contact. In addition to those commands, we also added the `undo` command to allow users to restore unintended changes, and implemented a system which made dangerous command such as `clear` require a confirmation to proceed. Finally, we added the `star` feature which allowed users to star contacts and have their favourite or most frequently accessed contacts displayed above the rest.
+  
+* **Parsing of parameters:** In order to cater to the possibility of names containing prefixes, such as `murthu a/p vara` which contains the `a/` prefix, we modified the existing parser system to allow prefixes to be escaped with the `$` symbol, allowing users more freedom in their choice of parameters.
+  
+* **User Interface Enhancements:** To make the GUI more appealing and intuitive, we revamped the GUI changing its overall look, including the addition of the Persons Detail Panel, into our layout. We successfully displayed a contact's details in the panel both when selecting their card in the GUI with a mouse, and when a contact's details is modified through a command.
+
+**Effort Required:** We estimate that the project required more than double the expected effort due to the addition of various features, fields and commands in order to improve the user experience of the app and cater to the needs of our target users. We also exercised much effort in the testing of our program and complying with coding standards to ensure the maintanability of our program.
+
+--------------------------------------------------------------------------------------------------------------------
 ## **Appendix: Planned Enhancements**
 Team Size: 5
 
-1. **Allow all command parsers to escape prefixes in all fields**: Currently, only the edit and add command allow escaping of prefixes, and only in the name argument. We plan to extend this to all commands and fields, in order to allow the user more freedom in their choice of arguments and keywords.
-
+1. **Allow all command parsers to escape prefixes in all fields**: Currently, only the `edit` and `add` command allow escaping of prefixes such as `a/`, `e/`, and only in the `NAME` argument. We plan to extend this feature to all commands and fields, in order to allow the user more freedom in their choice of arguments and keywords.
+2. **Stricter validation for email**: The current validation for email only requires the existence of `@` character, and does not require the domain to contain `.`. As such, invalid emails such as `johndoe@example` and `jd@mail` were accepted. In the future, we intend to modify the validation of the email parameter to require a `.`, followed by at least two alphanumeric characters after the presence of `@`.
+3. **Different parameter prefix for `REQUEST` and `REQUEST_INDEX`: Both parameters `REQUEST` and `REQUEST_INDEX` currently share the same prefix `r/`. We plan to change the parameter of `REQUEST_INDEX` to use `ri/` instead to avoid confusion.
+4. **Allow phone numbers to contain dashes and brackets**: The current `PHONE` parameter does not allow the presence of brackets `(`, `)` and dashes `-`. Due to this, users are unable to add numbers in formats such as `+1-242-3887654` and `+1 (242) 3887654`. We plan to modify the validation for the `PHONE` parameter to allow these characters.
+5. **Unique Index or ID for Booking Tags**: Currently, booking tags are identified by a combination of their property name, start date and end date. This results in inconvenience for users when using the `untag` command, due to having to re-enter all three parameters. We plan to provide a form of unique identification for booking tags to allow for easier deletion of booking tags in the future.
+6. **Edit request command**: The only way to edit a request of a contact is to delete it and add it again. We intend to add an edit request command to allow users the functionality of editting requests belongign to a contact.
+7. **Case-insensitive command words**: The current command words are case-sensitive. However, users may enter `Add` or `ADD` instead of `add` by mistake. For convenience, we plan to modify the validation of command words to be case-insensitive.
+8. **Make `edit` success messages more detailed**: The current `edit` command's success message does not contain details of what was modified. We plan to make the success message more descriptive.
+9. **Specificity of error messages**: The current error messages for invalid command formats are too general. We plan to make error messages more specific by including the parameter which caused it (whehre applicable) and the reason it failed.
 --------------------------------------------------------------------------------------------------------------------
 ## **Appendix: Instructions for manual testing**
 
@@ -717,9 +740,9 @@ testers are expected to do more *exploratory* testing.
       Expected: No visitor is added. Error details shown in the status message.
       <br> Output: Unknown command! (ｏ´_｀ｏ)
 
-### Staring a visitor
+### Starring a visitor
 
-1. Star a visitor who is currently in the addressbook
+1. Starring a visitor who is currently in the addressbook
 
    1. Prerequisites: List all visitors using the `list` command. Multiple visitors in the list.
 
@@ -748,9 +771,9 @@ testers are expected to do more *exploratory* testing.
       <br>Parameters: INDEX (must be a positive integer)
       <br>Example: star 1
 
-### Unstar a visitor
+### Unstarring a visitor
 
-1. Unstar a visitor who is currently starred in the addressbook
+1. Unstarring a visitor who is currently starred in the addressbook
 
     1. Prerequisites: List all visitors using the `list` command. Multiple visitors in the list with a few starred.
 
