@@ -664,7 +664,7 @@ testers are expected to do more *exploratory* testing.
       <br>NAME has been deleted from the address book!
 
    3. Test case: `delete 0`<br>
-      Expected: No visitor is deleted. Error details shown in the status message. Status bar remains the same.
+      Expected: No visitor is deleted. Error details shown in the status message.
       <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
       <br>delete: Deletes the person identified by the index number used in the displayed person list.
       <br>Parameters: INDEX (must be a positive integer)
@@ -725,9 +725,9 @@ testers are expected to do more *exploratory* testing.
       <br>Expected: Error details shown in the status message.
       <br>Output: Star failed! (ｏ´_｀ｏ)
       <br>Contact NAME is already starred!
-  
+
    4. Test case: `star 0`<br>
-      Expected: Error details shown in the status message.
+      Expected: No visitor is starred. Error details shown in the status message.
       <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
       <br>star: Stars the contact identified by the index number used in the displayed person list.
       <br>Parameters: INDEX (must be a positive integer)
@@ -759,7 +759,7 @@ testers are expected to do more *exploratory* testing.
        The contact NAME was not starred!
 
     4. Test case: `unstar 0`<br>
-       Expected: Error details shown in the status message.
+       Expected: No visitor is unstarred. Error details shown in the status message.
        <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
        <br>unstar: Unstars the contact identified by the index number used in the displayed person list.
        <br>Parameters: INDEX (must be a positive integer)
@@ -771,7 +771,7 @@ testers are expected to do more *exploratory* testing.
       <br>unstar: Unstars the contact identified by the index number used in the displayed person list.
       <br>Parameters: INDEX (must be a positive integer)
       <br>Example: unstar 1
-   
+
 ### Adding a request to a visitor
 
 1. Prerequisites: List all visitors using the `list` command. At least one visitor in the list.
@@ -783,42 +783,42 @@ testers are expected to do more *exploratory* testing.
 
    3. Test case: `req 1 r/REQUEST`<br>
       **Note:** Attempt to add a request where the visitor already has this specific request.
-      <br>Expected: No request will be added. Error details shown in the status message. Status bar remains the same.
+      <br>Expected: No request will be added. Error details shown in the status message.
       <br>Output: Command will result in duplicate request!
 
    4. Test case: `req 1 r/ASD r/ASD`<br>
-      Expected: No request will be added. Error details shown in the status message. Status bar remains the same.
+      Expected: No request will be added. Error details shown in the status message.
       <br>Output: Command will result in duplicate request!
 
    5. Test case: `req 1 r/`<br>
-      Expected: No request will be added. Error details shown in the status message. Status bar remains the same.
+      Expected: No request will be added. Error details shown in the status message.
       <br>Output: Request cannot be empty!
 
    6. Test case: `req r/`<br>
-      Expected: No visitor will have a request added. Error details shown in the status message. Status bar remains the same.
+      Expected: No visitor will have a request added. Error details shown in the status message.
       <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
       <br>req: Adds a request to the contact identified by the index number in the displayed person list.
       <br>Parameters: INDEX (must be a positive integer) r/REQUEST
       <br>Example: req 1 r/Need a bottle of champagne every morning
 
    7. Test case: `req 0 r/`<br>
-      Expected: No visitor will have a request added. Error details shown in the status message. Status bar remains the same.
+      Expected: No visitor will have a request added. Error details shown in the status message.
       <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
       <br>req: Adds a request to the contact identified by the index number in the displayed person list.
       <br>Parameters: INDEX (must be a positive integer) r/REQUEST
       <br>Example: req 1 r/Need a bottle of champagne every morning
 
    8. Test case: `req 1 r/`<br>
-      Expected: No visitor will have a request added. Error details shown in the status message. Status bar remains the same.
+      Expected: No visitor will have a request added. Error details shown in the status message.
       <br>Output: Request cannot be empty!
 
    9. Test case: `req 1 r/asd`<br>
       **Note:** Attempt to add a request when there is no visitor in the list.
-      <br>Expected: No visitor will have a request added. Error details shown in the status message. Status bar remains the same.
+      <br>Expected: No visitor will have a request added. Error details shown in the status message.
       <br>Output: The person index provided is invalid! ヾ( ･`⌓´･)ﾉﾞ
 
    10. Other incorrect req commands to try: `req`, `req x`, `...` (where x is larger than the list size)<br>
-      Expected: No visitor will have a request added. Error details shown in the status message. Status bar remains the same.
+      Expected: No visitor will have a request added. Error details shown in the status message.
       <br>Output: Invalid command format! ヾ( ･`⌓´･)ﾉﾞ
       <br>req: Adds a request to the contact identified by the index number in the displayed person list.
       <br>Parameters: INDEX (must be a positive integer) r/REQUEST
@@ -832,17 +832,17 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: List all visitors using the `list` command. At least one visitor in the list (otherwise, add using `add` command). Visitor has at least one request (otherwise, add using `req` command) which is unmarked.
 
    2. Test case: `mark 1 r/1`<br>
-     Expected: First request of visitor is marked as complete. Contact Details of the starred visitor are shown in Details Panel in GUI. Checkbox of first request in list is ticked.
-     <br>Output: Mark request successful! (๑˘︶˘๑)
-     <br>Marked request as completed!
+      Expected: First request of visitor is marked as complete. Contact Details of the starred visitor are shown in Details Panel in GUI. Checkbox of first request in list is ticked.
+      <br>Output: Mark request successful! (๑˘︶˘๑)
+      <br>Marked request as completed!
 
    3. Test case: `mark 1 r/1`<br>
-   **Note:** Attempt to mark the same request you marked in the above test case.
-   <br>Expected: Error details shown in the status message.
-   <br>Output: The request REQUEST is already marked!(ｏ´_｀ｏ)
+      **Note:** Attempt to mark the same request you marked in the above test case.<br>
+      Expected: Error details shown in the status message.
+      <br>Output: The request REQUEST is already marked!(ｏ´_｀ｏ)
 
    4. Test case: `mark 0 r/1`<br>
-      Expected: No request is marked. Error details shown in the status message. Status bar remains the same.
+      Expected: No request is marked. Error details shown in the status message.
       <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
       <br>mark: Marks a request of the contact identified by the index number in the displayed person list as completed.
       <br>Parameters: INDEX (must be a positive integer) r/REQUEST_INDEX (must be a positive integer)
@@ -862,24 +862,24 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: List all visitors using the `list` command. At least one visitor in the list (otherwise, add using `add` command). Visitor has at least one request (otherwise, add using `req` command) which is marked.
 
    2. Test case: `unmark 1 r/1`<br>
-     Expected: First request of visitor is marked as complete. Contact Details of the starred visitor are shown in Details Panel in GUI. Checkbox of first request in list is ticked.
-     <br>Output: Unmark request successful! (๑˘︶˘๑)
-     <br>REQUEST has been unmarked!
+      Expected: First request of visitor is marked as complete. Contact Details of the starred visitor are shown in Details Panel in GUI. Checkbox of first request in list is ticked.
+      <br>Output: Unmark request successful! (๑˘︶˘๑)
+      <br>REQUEST has been unmarked!
 
    3. Test case: `unmark 1 r/1`<br>
-   **Note:** Attempt to unmark the same request you unmarked in the above test case.
-   <br>Expected: Error details shown in the status message.
-   <br>Output: Unmark request failed! (ｏ´_｀ｏ)
-   <br>The request REQUEST is not marked!
+      **Note:** Attempt to unmark the same request you unmarked in the above test case.<br>
+      Expected: No request will be unmarked. Error details shown in the status message.
+      <br>Output: Unmark request failed! (ｏ´_｀ｏ)
+      <br>The request REQUEST is not marked!
 
-   5. Test case: `unmark 0 r/1`<br>
-      Expected: Error details shown in the status message.
+   4. Test case: `unmark 0 r/1`<br>
+      Expected: No request will be unmarked. Error details shown in the status message.
       <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
       <br>unmark: Unmarks a request of the contact identified by the index number in the displayed person list from its completion status.
       <br>Parameters: INDEX (must be a positive integer) r/REQUEST_INDEX (must be a positive integer)
       <br>Example: mark 1 r/1
 
-   6. Other incorrect unmark commands to try: `unmark`, `unmark x r/1`, `...` (where x is larger than the list size)<br>
+   5. Other incorrect unmark commands to try: `unmark`, `unmark x r/1`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
       <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
       <br>unmark: Unmarks a request of the contact identified by the index number in the displayed person list from its completion status.
@@ -959,33 +959,33 @@ testers are expected to do more *exploratory* testing.
       <br>Example 01 Oct 23 to 31 Oct 23 already exists in the contact's tag list!
 
    6. Test case: `tag 1 b/Example from/ to/2023-10-31`<br>
-      Expected: No visitor is tagged. Error details shown in the status message. Status bar remains the same.
+      Expected: No visitor is tagged. Error details shown in the status message.
       <br>Output: Start date cannot be empty!
 
    7. Test case: `tag 1 b/Example from/2023-02-29 to/2023-10-31`<br>
-      Expected: No visitor is tagged. Error details shown in the status message. Status bar remains the same.
+      Expected: No visitor is tagged. Error details shown in the status message.
       <br>Output: Start date is invalid!
 
    8. Test case: `tag 1 b/Example from/2023-10-01 to/`<br>
-      Expected: No visitor is tagged. Error details shown in the status message. Status bar remains the same.
+      Expected: No visitor is tagged. Error details shown in the status message.
       <br>Output: End date cannot be empty!
 
    9. Test case: `tag 1 b/Example from/2023-02-01 to/2023-02-29`<br>
-      Expected: No visitor is tagged. Error details shown in the status message. Status bar remains the same.
+      Expected: No visitor is tagged. Error details shown in the status message.
       <br>Output: End date is invalid!
 
   10. Test case: `tag 1 b/Example from/2023-10-01 to/2023-09-30`<br>
-      Expected: No visitor is tagged. Error details shown in the status message. Status bar remains the same.
+      Expected: No visitor is tagged. Error details shown in the status message.
       <br>Output: Error: Booking tag start date must be before end date.
 
   11. Test case: `tag 1 b/Example from/2023-10-01` or `tag 1 b/Example to/2023-10-31`<br>
-      Expected: No visitor is tagged. Error details shown in the status message. Status bar remains the same.
+      Expected: No visitor is tagged. Error details shown in the status message.
       <br>Output: Booking tags should be of the format PROPERTY from/START_DATE to/END_DATE where START_DATE and END_DATE are in the format yyyy-MM-dd.
       <br>The START_DATE must be before END_DATE.
       <br>PROPERTY must have 1 to 170 characters.
 
   12. Test case: `tag 0` or `tag`<br>
-      Expected: No visitor is tagged. Error details shown in the status message. Status bar remains the same.
+      Expected: No visitor is tagged. Error details shown in the status message.
       <br>Output: Invalid command format! ヾ( ･`⌓´･)ﾉﾞ
       <br>tag: Adds tag to the contact identified by the index number in the displayed person list.
       <br>Parameters: INDEX (must be a positive integer) t/TAG or
@@ -994,7 +994,7 @@ testers are expected to do more *exploratory* testing.
       <br>Example: tag 1 b/property from/2023-10-01 to/2023-10-31
 
   13. Test case: `tag INDEX t/` or `tag INDEX b/`<br>
-      Expected: No visitor is tagged. Error details shown in the status message. Status bar remains the same.
+      Expected: No visitor is tagged. Error details shown in the status message.
       **Note:** INDEX should be a valid index of a visitor in the list.
       <br>Output: Tag cannot be empty!
 
@@ -1030,17 +1030,17 @@ testers are expected to do more *exploratory* testing.
          <br>Contact does not have the booking tag Example 01 Oct 23 to 31 Oct 23!
 
       6. Test case: `untag 1 t/`<br>
-         Expected: No visitor is untagged. Error details shown in the status message. Status bar remains the same.
+         Expected: No visitor is untagged. Error details shown in the status message.
          <br>Output: Tag cannot be empty!
 
       7. Test case: `untag 1 b/`<br>
-         Expected: No visitor is untagged. Error details shown in the status message. Status bar remains the same.
+         Expected: No visitor is untagged. Error details shown in the status message.
          <br>Output: Booking tags should be of the format PROPERTY from/START_DATE to/END_DATE where START_DATE and END_DATE are in the format yyyy-MM-dd.
          <br>The START_DATE must be before END_DATE.
          <br>PROPERTY must have 1 to 170 characters.
 
       8. Test case: `untag 0` or `untag`<br>
-         Expected: No visitor is untagged. Error details shown in the status message. Status bar remains the same.
+         Expected: No visitor is untagged. Error details shown in the status message.
          <br>Output: Invalid command format! ヾ( ･`⌓´･)ﾉﾞ
          <br>untag: Removes tag from the contact identified by the index number in the displayed person list.
          <br>Parameters: INDEX (must be a positive integer) t/TAG
@@ -1051,7 +1051,6 @@ testers are expected to do more *exploratory* testing.
       9. Other incorrect untag commands to try: `Untag`, `untagx`, `...`<br>
          Expected: Similar to previous.
          <br>Output: Unknown command! (ｏ´_｀ｏ)
-
 
 ### Saving data
 
