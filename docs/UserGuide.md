@@ -324,7 +324,7 @@ When the program checks for duplicates,
 * Person D is accepted - the email may be the same, but the phone is different!
 * Person E is accepted - both the email and phone are different!
 
-📌**Note:** Two phone numbers are considered identical as long as they contain the same country code, and their numbers have the same digits in the same order. The position and number of whitespaces are not considered. i.e. `+65 8888 8888` is considered the same as `+65 88888888`. 
+📌**Note:** Two phone numbers are considered identical as long as they contain the same country code, and their numbers have the same digits in the same order. The position and number of whitespaces are not considered. i.e. `+65 8888 8888` is considered the same as `+65 88888888`.
 
 ### 4.2.1 Adding a visitor: `add`
 
@@ -381,7 +381,7 @@ Examples:
 
 Shows a list of all visitors in the address book.
 
-Format: `list`   
+Format: `list`
 
 📌**Note:** Any additional text or parameters after the `list` command will be ignored.
 
@@ -568,7 +568,7 @@ Format: `memo INDEX m/MEMO`
 Examples:
 * `memo 1 m/recurring customer` Overwrites the memo of the 1st visitor on the list.
 
-> 💡**Tip:** You can remove a memo with `memo INDEX m/` intead of using the `edit` command!
+> 💡**Tip:** You can remove a memo with `memo INDEX m/` instead of using the `edit` command!
 
 ## 4.7 Features Related to Finding
 
@@ -663,7 +663,7 @@ Format: `exit`
 Undoes the last modification to the address book, reverting it to its original state before the last modification.
 Commands `edit`, `add`, `delete`, `star`, `tag`, `untag`, `req`, `deletereq`, `mark`, `unmark`, `unstar`, `memo`, and even another `undo` are all modifications that can be undone.
 
-📌**Note:** Using the `undo` command after another `ùndo` command will undo the first undo.
+📌**Note:** Using the `undo` command after another `undo` command will undo the first undo.
 
 Format: `undo`
 
