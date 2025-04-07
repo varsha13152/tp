@@ -304,6 +304,25 @@ e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 ## 4.2 Features related to visitor
 
+Visitors are uniquely identified by a combination of their **email** and **phone number**. Duplicate visitor contact details are not allowed in the address book.
+
+For example, let's say this contact exists in the address book:
+* Person A - Name: `John Doe`, Email: `john@example.com`, Phone: `+65 8888 8888`, ...
+
+Then, let's say we would like to add these contacts to the address book:
+* Person B - Name: `John Lee`, Email: `john@example.com`, Phone: `+65 8888 8888`, ...
+* Person C - Name: `John Lee`, Email: `johnlee@example.com`, Phone: `+65 8888 8888`, ...
+* Person D - Name: `John Doe`, Email: `john@example.com`, Phone: `+65 9999 9999`, ...
+* Person E - Name: `John Lee`, Email: `johnlee@example.com`, Phone: `+65 9999 9999`, ...
+
+When the program checks for duplicates,
+* Person B is rejected - the email and phone are identical!
+* Person C is accepted - the phone may be the same, but the email is different!
+* Person D is accepted - the email may be the same, but the phone is different!
+* Person E is accepted - both the email and phone are different!
+
+📌**Note:** Two phone numbers are considered identical as long as they contain the same country code, and their numbers have the same digits in the same order. The position and number of whitespaces are not considered. i.e. `+65 8888 8888` is considered the same as `+65 88888888`. 
+
 ### 4.2.1 Adding a visitor: `add`
 
 Adds a visitor to the address book.
