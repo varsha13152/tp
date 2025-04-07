@@ -222,7 +222,7 @@ Essentially, they are to be supplied by the user.
 
 | Parameter          | Prefix | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 |--------------------|--------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `NAME`             | `n/`   | Specifies the name of a visitor.<br><br>**Requirements:**<ul></li><li>Names cannot be empty.</li><li>Names cannot exceed 170 characters.</li><li>Names with only whitespace are not allowed.</li><li>In this system, names can contain any characters except ```$```, including prefixes like ```a/``` or ```e/```. However, names containing prefixes, such as ```murthu a/p vara``` must be preceded by a ```$``` to avoid the characters ```a/p``` from being interpreted as a prefix.<li> **For example:**<ul><li>```n/Muthu a/p vara``` → Name: Muthu, Address: p vara <li>```n/Muthu $a/p vara``` → Name: Muthu a/p vara (entire string is parsed as the name, and ```$a/p``` is ignored as a prefix) <li>The ```$``` is used to prevent the parser from treating the following string as a prefix — it tells the parser "don't treat this as a field, treat it as part of the value."</ul><li>You are unable to add names containing ```$```, as it is used for the purpose mentioned above. All ```$``` characters found in name parameters will be excluded from the contact's display name.</li><br><li>Used in Commands: `add`, `edit`, and `find`</li> |
+| `NAME`             | `n/`   | Specifies the name of a visitor.<br><br>**Requirements:**<ul></li><li>Names cannot be empty.</li><li>Names cannot exceed 170 characters.</li><li>Names with only whitespace are not allowed.</li><li>In this system, names can contain any characters except ```$```, including prefixes like ```a/``` or ```e/```. However, names containing prefixes, such as ```murthu a/p vara``` must be preceded by a ```$``` to avoid the characters ```a/p``` from being interpreted as a prefix.<li> **For example:**<ul><li>```n/Muthu a/p vara``` → Name: Muthu, Address: p vara <li>```n/Muthu $a/p vara``` → Name: Muthu a/p vara (entire string is parsed as the name, and ```$a/p``` is ignored as a prefix) <li>The ```$``` is used to prevent the parser from treating the following string as a prefix — it tells the parser "don't treat this as a field, treat it as part of the value."</ul><li>You are unable to add names containing ```$```, as it is used for the purpose mentioned above. All ```$``` characters found in name parameters will be excluded from the contact's name.</li><br><li>Used in Commands: `add`, `edit`, and `find`</li> |
 | `PHONE`            | `p/`   | Specifies the phone number of a visitor.<br><br>**Requirements:** <ul><li>Phone numbers should be in the format `+[COUNTRY_CODE] [NUMBER]`.</li><li>`COUNTRY_CODE` should be a valid country code.</li><li>`COUNTRY_CODE` should be 1-3 digits long.</li><li>`NUMBER` should be 7-15 digits long.</li><li>Digits in `NUMBER` can contain at most one space between them. i.e. +65 8822 3795, +82 10 1234 5678, +1 415 555 2671, ...</li><li>Phone number cannot be empty.</li></ul><br>Used in Commands: `add`, `edit`, and `find`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | `EMAIL`            | `e/`   | Specifies the email of a visitor.<br><br>**Requirements:** <ul><li>Emails should be of the format `local-part@domain`.</li><li>Emails cannot be empty.</li><li>Local-part should contain only alphanumeric characters and special characters.</li><li>Domain must follow standard domain name rules with proper labels separated by periods.</li></ul><br>Used in Commands: `add`, `edit`, and `find`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | `ADDRESS`          | `a/`   | Specifies the address of a visitor.<br><br>**Requirements:**<ul><li>Addresses can take any values.</li><li>Addresses cannot be empty.</li><li>Addresses cannot exceed 500 characters.</li></ul><br>Used in Commands: `add`, `edit`, and `find`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
@@ -232,7 +232,7 @@ Essentially, they are to be supplied by the user.
 | `TAG`              | `t/`   | Specifies the tag name of a visitor.<br><br> **Requirements:** <ul><li>Tags can take any values.</li><li>Tags cannot be empty.</li><li>Tags cannot exceed 170 characters.</li></ul><br>Used in Commands: `add`, `edit`, `tag`, `untag` and `find`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | `REQUEST`          | `r/`   | Specifies the request of a visitor.<br><br> **Requirements:** <ul><li>Requests can take any values.</li><li>Requests cannot be empty.</li><li>Requests cannot exceed 170 characters.</li></ul><br>Used in Commands: `add`, `edit`, `req`, and `deletereq`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | `REQUEST_INDEX`    | `r/`   | Refers to the index number shown in the Request panel.<br><br> **Requirements:** <ul><li>Must be a positive integer.</li><li>The value must fall within the valid range (1 to number of requests in the list).</li><li>Request index must also be less than or equal to ```2147483647```</ul><br>Used in Commands: `mark` and `unmark`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| `MEMO`             | `m/`   | Specifies the memo of a visitor.<br><br> **Requirements:** <ul><li>Memos can take any values.</li><li>Memos cannot be empty.</li><li>Memos cannot not exceed 500 characters.</li></ul><br>Used in Commands: `add`, `edit`, `memo` and `find`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `MEMO`             | `m/`   | Specifies the memo of a visitor.<br><br> **Requirements:** <ul><li>Memos can take any values.</li><li>Memos cannot not exceed 500 characters.</li></ul><br>Used in Commands: `add`, `edit`, `memo` and `find`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | `INDEX`            | N/A    | Refers to the index number shown in the List Panel.<br><br> **Requirements:** <ul><li>Must be a positive integer.</li><li>The value must fall within the valid range (1 to number of visitors in the list).</li><li>Index must also be less than or equal to ```2147483647```.</ul><br>Used in Commands: `edit`, `delete`, `req`, `deletereq`, `memo`, `tag`, `untag`, `mark`, `unmark`, `star` and `unstar`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 
 #### 3.3.3 Command Format:
@@ -244,11 +244,11 @@ To understand how a full command is interpreted, we will utilise the following e
 
 **Structure of Command:**<br>
 
-|         | Component        | Description                                            |
-|---------|------------------|--------------------------------------------------------|
-| `add`   | Command          | Executes Add Command to add a visitor.                 |
-| `n/`    | Parameter Prefix | Unique prefix to distinguish `NAME` from other prefix. |
-| `NAME`  | Parameter        | Represents placeholder for name of the visitor.        |
+|         | Component        | Description                                              |
+|---------|------------------|----------------------------------------------------------|
+| `add`   | Command          | Executes Add Command to add a visitor.                   |
+| `n/`    | Parameter Prefix | Unique prefix to distinguish `NAME` from other prefixes. |
+| `NAME`  | Parameter        | Represents placeholder for name of the visitor.          |
 
 📌**General Notes about InnSync:**<br>
 
@@ -257,17 +257,16 @@ To understand how a full command is interpreted, we will utilise the following e
 > 2. `COMMAND` + `PARAMETER_PREFIX` + `PARAMETER`
 > 3. `COMMAND` + `INDEX` + `PARAMETER_PREFIX` + `PARAMETER`
 
-<box type="info" seamless>
-
 📌**Notes about the command format:**<br>
 
+<box type="info" seamless>
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
 e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
 * Items in square brackets are optional.<br>
 e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
-* Items with `...`​ after them can be used multiple times including zero times.<br>
+* Items with `...`​ after them can be used multiple times (including zero).<br>
 e.g. `[t/TAG...]` can be used as ` `&nbsp;(i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
@@ -310,10 +309,10 @@ e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 Visitors are uniquely identified by a combination of their **email** and **phone number**. Duplicate visitor contact details are not allowed in the address book.
 
-For example, let's say this contact exists in the address book:
+Suppose this contact exists in the address book:
 * Person A - Name: `John Doe`, Email: `john@example.com`, Phone: `+65 8888 8888`, ...
 
-Then, let's say we would like to add these contacts to the address book:
+Then, suppose we would like to add these contacts to the address book:
 * Person B - Name: `John Lee`, Email: `john@example.com`, Phone: `+65 8888 8888`, ...
 * Person C - Name: `John Lee`, Email: `johnlee@example.com`, Phone: `+65 8888 8888`, ...
 * Person D - Name: `John Doe`, Email: `john@example.com`, Phone: `+65 9999 9999`, ...
@@ -380,7 +379,7 @@ Examples:
 
 ### 4.2.3 Listing All Visitors : `list`
 
-Shows a list of all visitors in the address book.
+Shows a list of all visitors in the address book. Starred visitors will be shown first, followed by unstarred visitors. Both groups will be sorted lexicographically within their respective groups.
 
 Format: `list`
 
@@ -401,6 +400,8 @@ Examples:
 
 ## 4.3 Features Related to Starring Visitors
 
+Starring a visitor allows you to mark them as important. Starred visitors will be shown first when listing all visitors.
+
 ### 4.3.1 Starring a Visitor : `star`
 
 Stars a visitor in the address book.
@@ -409,11 +410,11 @@ Format: `star INDEX`
 
 * The index refers to the index number shown in the displayed visitor list. The index **must be a positive integer**.
 
-📌**Note:** New starred visitor will be sorted lexicographically among the starred visitors, separated from the unstar ones.
+💡**Tip**: Use this command to keep track of your favourite or important visitors!
 
 ### 4.3.2 Unstarring a Visitor : `unstar`
 
-Unstar a starred visitor in the address book.
+Unstars a starred visitor in the address book.
 
 Format: `unstar INDEX`
 
@@ -421,7 +422,7 @@ Format: `unstar INDEX`
 
 ### 4.3.3 Listing All Starred Visitors : `liststar`
 
-Shows a list of all starred visitors in the address book.
+Shows a list of only all starred visitors in the address book.
 
 Format: `liststar`
 
@@ -471,6 +472,8 @@ Format: `untag INDEX b/PROPERTY from/START_DATE to/END_DATE`
 * When removing a booking tag that exists in the visitor, the booking tag will be removed.
 * When trying to remove a booking tag that does not exist in the visitor, the command will be rejected.
 
+💡**Tip:** If you want to remove all booking tags from a visitor, use `edit INDEX b/` where INDEX is the index of the visitor!
+
 Examples:
 * `untag 1 b/Hotel from/2025-10-10 to/2025-10-11` Removes the booking tag with matching booking tag on the 1st visitor in the list if they exist.
 * `untag 1 b/Hotel from/2025-10-10 to/2025-10-11` After running example above this line, it will throw an error saying this booking tag does not exist.
@@ -486,11 +489,15 @@ Format: `untag INDEX t/TAG`
 * When removing a tag that exists in the visitor, the tag will be removed.
 * When trying to remove a tag that does not exist in the visitor, the command will be rejected.
 
+💡**Tip:** If you want to remove all tags from a visitor, use `edit INDEX t/` where INDEX is the index of the visitor!
+
 Examples:
 * `untag 1 t/friend` Removes the tag with matching tag on the 1st visitor in the list if they exist.
 * `untag 1 t/friend` After running example above this line, it will throw an error saying this tag does not exist.
 
 ## 4.5 Features Related to Requests
+
+Adds a request to the visitor in the address book. Requests are used to keep track of what the visitor wants or needs. Each request can be marked as completed or incomplete.
 
 ### 4.5.1 Adding a Request: `req`
 
@@ -523,7 +530,7 @@ Format: `mark INDEX r/REQUEST_INDEX`
 
 Examples:
 * `mark 1 r/1` Marks the first request of the first visitor on the list as completed if it exists.
-* `mark 1 r/1` Marking again will be rejected.
+* `mark 1 r/1` Marking the same request again will be rejected.
 
 ### 4.5.3 Unmarking a Request: `unmark`
 
@@ -539,7 +546,7 @@ Format: `unmark INDEX r/REQUEST_INDEX`
 
 Examples:
 * `unmark 1 r/1` Unmarks the first request of the first visitor on the list as not completed if it exists.
-* `unmark 1 r/1` Unmarking again will be rejected.
+* `unmark 1 r/1` Unmarking the same request again will be rejected.
 
 ### 4.5.4 Deleting a Request: `deletereq`
 
@@ -584,18 +591,18 @@ Format: `find [n/KEYWORD...] [p/KEYWORD...] [e/KEYWORD...] [a/KEYWORD...] [bp/KE
 * Searches match by containment (e.g., `n/han` will match `Hans`).
 * When multiple keywords are provided for a single field type (e.g., `n/john n/doe`), visitors matching ANY of those keywords will be returned.
 * When multiple field types are specified (e.g., `n/john p/9123`), visitors matching ANY of the specified fields will be returned.
-* Each keyword is treated as a complete phrase.
+* Each keyword is treated as a complete phrase. (e.g., `n/john doe` will not match `john` or `doe` separately and will only match `john doe` as a whole).
 
 #### Search Modes:
 
 | Prefix | Field            | What You’re Searching      | What to Type (Format)                                                                                                                                                                                                                                                                                                       |
 |:------:|------------------|----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|  `n/`  | Name             | Contact names              | Any value (up to 170 characters). <br> In this system, names can contain any characters except ```$```, including prefixes like ```a/``` or ```e/```. However, names containing prefixes, such as ```murthu a/p vara``` must be preceded by a ```$``` to avoid the characters ```a/p``` from being interpreted as a prefix. |
+|  `n/`  | Name             | Contact names              | Any value (up to 170 characters). <br> In this system, names can contain any characters except ```$```, including prefixes like ```a/``` or ```e/```. However, names containing prefixes, such as ```murthu a/p vara``` must be preceded by a ```$``` to avoid the characters ```a/p``` from being interpreted as a prefix. All $ characters found in name parameters will be excluded. |
 |  `p/`  | Phone            | Phone numbers              | Digits (0 - 9)  with an optional `+` at the beginning                                                                                                                                                                                                                                                                       |
 |  `e/`  | Email            | Email addresses            | Any value with letters, numbers, and special characters:`@`, `.`, `_`, `-`, `+`.                                                                                                                                                                                                                                            |
 |  `a/`  | Address          | Physical addresses         | Any value (up to 500 characters).                                                                                                                                                                                                                                                                                           |
 | `bp/`  | Booking Property | Property names in bookings | Any value (up to 170 characters).                                                                                                                                                                                                                                                                                           |
-| `bd/`  | Booking Date     | Dates from bookings        | Use the format `yyyy-MM-dd` (e.g., `2025-01-15`).                                                                                                                                                                                                                                                                           |
+| `bd/`  | Booking Date     | Dates in bookings          | Use the format `yyyy-MM-dd` (e.g., `2025-01-15`).                                                                                                                                                                                                                                                                           |
 |  `t/`  | Tag              | Contact tags               | Any value (up to 170 characters).                                                                                                                                                                                                                                                                                           |
 |  `m/`  | Memo             | Notes or comments          | Any value (up to 500 characters).                                                                                                                                                                                                                                                                                           |
 
@@ -604,7 +611,7 @@ Format: `find [n/KEYWORD...] [p/KEYWORD...] [e/KEYWORD...] [a/KEYWORD...] [bp/KE
 **Searching by name:**
 * `find n/John` - Finds contacts with "John" in their name
 
-* `find n/Betsy n/Muthu $A/P Vara` - Finds contacts with either "Betsy" or "Muthu A/P Vara" in their name
+* `find n/Betsy n/muthu $a/p vara` - Finds contacts with either "Betsy" or "muthu a/p vara" in their name
 
 **Searching by phone:**
 * `find p/9123` - Finds contacts whose phone numbers contain "9123"
