@@ -713,9 +713,9 @@ testers are expected to do more *exploratory* testing.
 
 1. Starring a visitor who is currently in the addressbook
 
-   1. Prerequisites: List all visitors using the `list` command. Multiple visitors in the list.
+   1. Prerequisites: List all visitors using the `list` command. Multiple visitors in the list with at least one not starred.
 
-   2. Test case: `star 1`<br>
+   2. Test case: `star INDEX`<br>
      Expected: Contact with respective INDEX is starred and will be moved up in the list sorted lexicographically among the starred visitor. Contact Details of the starred visitor are shown in Details Panel in GUI.
      <br>Output: Star successful! (๑˘︶˘๑)
      <br>Starred contact: NAME
@@ -744,7 +744,7 @@ testers are expected to do more *exploratory* testing.
 
 1. Unstarring a visitor who is currently starred in the addressbook
 
-    1. Prerequisites: List all visitors using the `list` command. Multiple visitors in the list with a few starred.
+    1. Prerequisites: List all visitors using the `list` command. Multiple visitors in the list with at least one starred.
 
     2. Test case: `unstar 1`<br>
        **Note:** Attempt to unstar a visitor who is starred.
