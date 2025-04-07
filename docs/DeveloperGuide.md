@@ -239,7 +239,7 @@ Given below is an example usage scenario and how the list star mechanism behaves
 
 <box type="info" seamless>
 
-**Note:** If no contacts are starred, the filtered list will be empty. The command still succeeds as this is valid behavior.
+**Note:** If no contacts are starred, the filtered list will be empty. The command still succeeds as this is valid behaviour.
 
 </box>
 
@@ -254,13 +254,13 @@ Given below is an example usage scenario and how the list star mechanism behaves
     * Cons: Requires full list traversal
 
 * **Alternative 2:** Maintain a separate starred contacts list
-    * Pros: Faster access to favorites
+    * Pros: Faster access to favourites
     * Cons: More complex synchronization, increased memory usage
 
 **Aspect: When to apply filtering:**
 
 * **Alternative 1 (current choice):** Only when explicitly requested via `liststar`
-    * Pros: Clear user control, predictable behavior
+    * Pros: Clear user control, predictable behaviour
     * Cons: Requires explicit command
 
 * **Alternative 2:** Automatically filter when starring/unstarring
@@ -315,13 +315,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | AirBnB host                                        | filter visitors by date of stay                 | quickly find visitors using specific time periods                         |
 | `* *`    | AirBnB host                                        | filter visitors by tag                          | quickly find visitors using personalised categories                       |
 | `* *`    | AirBnB host                                        | filter visitors by next upcoming booking        | prepare for future bookings efficiently                                   |
-| `* *`    | AirBnB host                                        | add a request to visitor                        | fulfill the visitor request                                               |
+| `* *`    | AirBnB host                                        | add a request to visitor                        | fulfil the visitor request                                               |
 | `* *`    | AirBnB host                                        | mark the request as completed in the visitor    | to mark visitor request as fulfilled                                      |
 | `* * `   | AirBnB host                                        | unmark the request as incomplete in the visitor | to unmark visitor request as unfulfilled                                  |
 | `* * `   | AirBnB host                                        | delete the request from the visitor             | to remove visitor request                                                 |
-| `* *`    | AirBnB host                                        | star a visitor                                  | favorite the visitor so that they appear at the top                       |
-| `* *`    | AirBnB host                                        | unstar a visitor                                | remove favorite from the visitor so that they no longer appear at the top |
-| `* *`    | AirBnB host                                        | list all the starred visitor                    | see all the favorite visitors I have starred                              |
+| `* *`    | AirBnB host                                        | star a visitor                                  | favourite the visitor so that they appear at the top                       |
+| `* *`    | AirBnB host                                        | unstar a visitor                                | unfavourite the visitor so that they no longer appear at the top |
+| `* *`    | AirBnB host                                        | list all the starred visitor                    | see all the favourite visitors I have starred                              |
 | `* * `   | AirBnB host                                        | add a memo to visitor                           | give a short note to describe the visitor                                 |
 | `* *`    | AirBnB host                                        | undo the last command                           | recover from mistakes                                                     |
 | `* *`    | AirBnB host                                        | clear all visitors                              | start over with a clean slate                                             |
@@ -572,15 +572,15 @@ Use case ends.
 
 **Challenges Faced and Achievements:**
 
-* **Addition of Person Fields:** To better allow hosts to keep track of their visitors, we added the booking tag into our system, a major feature which allowed hosts to associate a property, start date, and end date with a visitor, crucial in recording a guest's period of stay at a property. Many tweaks to the system were necessary to accomodate the addition of this new field. In addition to the booking tag, we also allowed users to add requests, which could be marked as complete, and a memo, which could contain remarks about a visitor, to a contact.
+* **Addition of Person Fields:** To better allow hosts to keep track of their visitors, we added the booking tag into our system, a major feature which allowed hosts to associate a property, start date, and end date with a visitor, crucial in recording a guest's period of stay at a property. Many tweaks to the system were necessary to accommodate the addition of this new field. In addition to the booking tag, we also allowed users to add requests, which could be marked as complete, and a memo, which could contain remarks about a visitor, to a contact.
 
-* **Addition of Commands:** We had to significantly modify existing commmands (`add`, `find`, `edit`), and include multiple new additional commands (`tag`, `untag`, `req`, `mark`, `unmark`, `deletereq`, `liststar`, `memo`) to accomodate the creation, modification and deletion of our added fields to each contact. In addition to those commands, we also added the `undo` command to allow users to restore unintended changes, and implemented a system which made dangerous command such as `clear` require a confirmation to proceed. Finally, we added the `star` feature which allowed users to star contacts and have their favourite or most frequently accessed contacts displayed above the rest.
+* **Addition of Commands:** We had to significantly modify existing commands (`add`, `find`, `edit`), and include multiple new additional commands (`tag`, `untag`, `req`, `mark`, `unmark`, `deletereq`, `liststar`, `memo`) to accommodate the creation, modification and deletion of our added fields to each contact. In addition to those commands, we also added the `undo` command to allow users to restore unintended changes, and implemented a system which made dangerous command such as `clear` require a confirmation to proceed. Finally, we added the `star` feature which allowed users to star contacts and have their favourite or most frequently accessed contacts displayed above the rest.
 
 * **Parsing of parameters:** In order to cater to the possibility of names containing prefixes, such as `murthu a/p vara` which contains the `a/` prefix, we modified the existing parser system to allow prefixes to be escaped with the `$` symbol, allowing users more freedom in their choice of parameters.
 
 * **User Interface Enhancements:** To make the GUI more appealing and intuitive, we revamped the GUI changing its overall look, including the addition of the Persons Detail Panel, into our layout. We successfully displayed a contact's details in the panel both when selecting their card in the GUI with a mouse, and when a contact's details is modified through a command.
 
-**Effort Required:** We estimate that the project required more than double the expected effort due to the addition of various features, fields and commands in order to improve the user experience of the app and cater to the needs of our target users. We also exercised much effort in the testing of our program and complying with coding standards to ensure the maintanability of our program.
+**Effort Required:** We estimate that the project required more than double the expected effort due to the addition of various features, fields and commands in order to improve the user experience of the app and cater to the needs of our target users. We also exercised much effort in the testing of our program and complying with coding standards to ensure the maintainability of our program.
 
 --------------------------------------------------------------------------------------------------------------------
 ## **Appendix: Planned Enhancements**
@@ -591,10 +591,11 @@ Team Size: 5
 3. **Different parameter prefix for `REQUEST` and `REQUEST_INDEX`: Both parameters `REQUEST` and `REQUEST_INDEX` currently share the same prefix `r/`. We plan to change the parameter of `REQUEST_INDEX` to use `ri/` instead to avoid confusion.
 4. **Allow phone numbers to contain dashes and brackets**: The current `PHONE` parameter does not allow the presence of brackets `(`, `)` and dashes `-`. Due to this, users are unable to add numbers in formats such as `+1-242-3887654` and `+1 (242) 3887654`. We plan to modify the validation for the `PHONE` parameter to allow these characters.
 5. **Unique Index or ID for Booking Tags**: Currently, booking tags are identified by a combination of their property name, start date and end date. This results in inconvenience for users when using the `untag` command, due to having to re-enter all three parameters. We plan to provide a form of unique identification for booking tags to allow for easier deletion of booking tags in the future.
-6. **Edit request command**: The only way to edit a request of a contact is to delete it and add it again. We intend to add an edit request command to allow users the functionality of editting requests belongign to a contact.
+6. **Edit request command**: The only way to edit a request of a contact is to delete it and add it again. We intend to add an edit request command to allow users the functionality of editing requests belonging to a contact.
 7. **Case-insensitive command words**: The current command words are case-sensitive. However, users may enter `Add` or `ADD` instead of `add` by mistake. For convenience, we plan to modify the validation of command words to be case-insensitive.
 8. **Make `edit` success messages more detailed**: The current `edit` command's success message does not contain details of what was modified. We plan to make the success message more descriptive.
-9. **Specificity of error messages**: The current error messages for invalid command formats are too general. We plan to make error messages more specific by including the parameter which caused it (whehre applicable) and the reason it failed.
+9. **Specificity of error messages**: The current error messages for invalid command formats are too general. We plan to make error messages more specific by including the parameter which caused it (where applicable) and the reason it failed.
+10. **Allow specific tags and booking tags to be edited**: Currently, the only way to edit a tag or booking tag is to delete it and add it again. We plan to add a command to allow users to edit tags and booking tags directly.
 --------------------------------------------------------------------------------------------------------------------
 ## **Appendix: Instructions for manual testing**
 
@@ -646,7 +647,7 @@ testers are expected to do more *exploratory* testing.
    2. Test case: `list`<br>
       Expected: All contacts displayed in list, with all contacts sorted first by whether they are starred, and then in lexicographical order of their name. Success Message shown in the status message.
       <br>Output: List successful! (๑˘︶˘๑)
-      <br>Lising all persons in the address book!
+      <br>Listing all persons in the address book!
 
    3. Other incorrect list commands to try: `List`, `listx`, `...`<br>
       Expected: Error message displayed in status message.
