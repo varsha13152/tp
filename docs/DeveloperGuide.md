@@ -713,7 +713,7 @@ testers are expected to do more *exploratory* testing.
 
 1. Starring a visitor who is currently in the addressbook
 
-   1. Prerequisites: List all visitors using the `list` command. Multiple visitors in the list.
+   1. Prerequisites: List all visitors using the `list` command. Multiple visitors in the list with at least one not starred.
 
    2. Test case: `star INDEX`<br>
       Expected: Contact with respective INDEX is starred and will be moved up in the list sorted lexicographically among the starred visitor. Contact Details of the starred visitor are shown in Details Panel in GUI.
@@ -721,13 +721,13 @@ testers are expected to do more *exploratory* testing.
       <br>Starred contact: NAME
 
    3. Test case: `star INDEX`<br>
-      **Note:** Attempt to star the same visitor you starred above, find the same visitor new INDEX.
-      <br>Expected: Contact with respective INDEX is not starred. Contact Details are shown in Details Panel in GUI for whoever was selected.
+      **Note:** Attempt to star the same visitor you starred in the above test case by locating and using the new index of that same visitor.
+      <br>Expected: Error details shown in the status message.
       <br>Output: Star failed! (ｏ´_｀ｏ)
       <br>Contact NAME is already starred!
-
+  
    4. Test case: `star 0`<br>
-      Expected: No visitor is starred. Error details shown in the status message. Status bar remains the same.
+      Expected: Error details shown in the status message.
       <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
       <br>star: Stars the contact identified by the index number used in the displayed person list.
       <br>Parameters: INDEX (must be a positive integer)
@@ -744,22 +744,22 @@ testers are expected to do more *exploratory* testing.
 
 1. Unstarring a visitor who is currently starred in the addressbook
 
-    1. Prerequisites: List all visitors using the `list` command. Multiple visitors in the list with a few starred.
+    1. Prerequisites: List all visitors using the `list` command. Multiple visitors in the list with at least one starred.
 
-    2. Test case: `unstar INDEX`<br>
-       **Note:** Attempt to unstar a visitor you starred before, find the same visitor new INDEX.
+    2. Test case: `unstar 1`<br>
+       **Note:** Attempt to unstar a visitor who is starred.
        <br>Expected: Contact with respective INDEX is un starred and will be moved back in the list sorted lexicographically among the unstar visitor. Contact Details of the unstar visitor are shown in Details Panel in GUI.
        <br>Output: Unstar successful! (๑˘︶˘๑)
        <br>The contact NAME was unstarred!
 
     3. Test case: `unstar INDEX`<br>
-       **Note:** Attempt to unstar the same visitor you just unstar, find the same visitor new INDEX.
-       <br>Expected: Contact with respective INDEX is not unstar. Contact Details are shown in Details Panel in GUI for whoever is currently selected.
+       **Note:** Attempt to unstar the same visitor you just unstarred in the above test case by locating and using the new index of that same visitor.
+       <br>Expected: Error details shown in the status message.
        <br>Output: Unstar failed! (ｏ´_｀ｏ)
        The contact NAME was not starred!
 
     4. Test case: `unstar 0`<br>
-       Expected: No visitor is starred. Error details shown in the status message. Status bar remains the same.
+       Expected: Error details shown in the status message.
        <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
        <br>unstar: Unstars the contact identified by the index number used in the displayed person list.
        <br>Parameters: INDEX (must be a positive integer)
@@ -824,6 +824,68 @@ testers are expected to do more *exploratory* testing.
       <br>Parameters: INDEX (must be a positive integer) r/REQUEST
       <br>Example: req 1 r/Need a bottle of champagne every morning
 
+
+### Marking a request of a visitor
+
+1. Marking a request of a visitor who is currently in the addressbook
+
+   1. Prerequisites: List all visitors using the `list` command. At least one visitor in the list (otherwise, add using `add` command). Visitor has at least one request (otherwise, add using `req` command) which is unmarked.
+
+   2. Test case: `mark 1 r/1`<br>
+     Expected: First request of visitor is marked as complete. Contact Details of the starred visitor are shown in Details Panel in GUI. Checkbox of first request in list is ticked.
+     <br>Output: Mark request successful! (๑˘︶˘๑)
+     <br>Marked request as completed!
+
+   3. Test case: `mark 1 r/1`<br>
+   **Note:** Attempt to mark the same request you marked in the above test case.
+   <br>Expected: Error details shown in the status message.
+   <br>Output: The request REQUEST is already marked!(ｏ´_｀ｏ)
+
+   4. Test case: `mark 0 r/1`<br>
+      Expected: No request is marked. Error details shown in the status message. Status bar remains the same.
+      <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
+      <br>mark: Marks a request of the contact identified by the index number in the displayed person list as completed.
+      <br>Parameters: INDEX (must be a positive integer) r/REQUEST_INDEX (must be a positive integer)
+      <br>Example: mark 1 r/1
+
+   5. Other incorrect mark commands to try: `mark`, `mark x r/1`, `...` (where x is larger than the list size)<br>
+      Expected: Similar to previous.
+      <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
+      <br>mark: Marks a request of the contact identified by the index number in the displayed person list as completed.
+      <br>Parameters: INDEX (must be a positive integer) r/REQUEST_INDEX (must be a positive integer)
+      <br>Example: mark 1 r/1
+
+### Unmarking a request of a visitor
+
+1. Unmarking a request of a visitor who is currently in the addressbook
+
+   1. Prerequisites: List all visitors using the `list` command. At least one visitor in the list (otherwise, add using `add` command). Visitor has at least one request (otherwise, add using `req` command) which is marked.
+
+   2. Test case: `unmark 1 r/1`<br>
+     Expected: First request of visitor is marked as complete. Contact Details of the starred visitor are shown in Details Panel in GUI. Checkbox of first request in list is ticked.
+     <br>Output: Unmark request successful! (๑˘︶˘๑)
+     <br>REQUEST has been unmarked!
+
+   3. Test case: `unmark 1 r/1`<br>
+   **Note:** Attempt to unmark the same request you unmarked in the above test case.
+   <br>Expected: Error details shown in the status message.
+   <br>Output: Unmark request failed! (ｏ´_｀ｏ)
+   <br>The request REQUEST is not marked!
+
+   5. Test case: `unmark 0 r/1`<br>
+      Expected: Error details shown in the status message.
+      <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
+      <br>unmark: Unmarks a request of the contact identified by the index number in the displayed person list from its completion status.
+      <br>Parameters: INDEX (must be a positive integer) r/REQUEST_INDEX (must be a positive integer)
+      <br>Example: mark 1 r/1
+
+   6. Other incorrect unmark commands to try: `unmark`, `unmark x r/1`, `...` (where x is larger than the list size)<br>
+      Expected: Similar to previous.
+      <br>Output: Index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
+      <br>unmark: Unmarks a request of the contact identified by the index number in the displayed person list from its completion status.
+      <br>Parameters: INDEX (must be a positive integer) r/REQUEST_INDEX (must be a positive integer)
+      <br>Example: unmark 1 r/1
+
 ### Deleting a request
 
 1. Deleting a request from a visitor who has requests
@@ -868,6 +930,7 @@ testers are expected to do more *exploratory* testing.
        <br>deletereq: Deletes a request from the contact identified by the index number in the displayed person list.
        <br>Parameters: INDEX (must be a positive integer) r/REQUEST_INDEX (must be a positive integer)
        <br>Example: deletereq 1 r/1
+
 
 ### Saving data
 
