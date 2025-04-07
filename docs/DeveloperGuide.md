@@ -215,7 +215,7 @@ The following sequence diagram shows how an undo operation goes through the `Log
     * Cons: We must ensure that the implementation of each individual command are correct.
 
 
-#### 2. List Star Implementation
+### 2. List Star Implementation
 
 The list star feature is facilitated by `ListStarCommand`. It extends the basic listing functionality with contact filtering capability, using an internal `PREDICATE_SHOW_STARRED_PERSONS` and `Model#updateFilteredPersonList()`. The supported operations are:
 
