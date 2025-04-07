@@ -445,7 +445,7 @@ public class FindCommandParserTest {
 
     @Test
     public void parse_dateFormatValidation_worksProperly() {
-        //test parsing of date format
+    //test parsing of date format
         try {
             FindCommand command = parser.parse("find bd/2024-02-29"); // Leap year
             Map<SearchType, List<String>> criteria = command.getSearchCriteria();
