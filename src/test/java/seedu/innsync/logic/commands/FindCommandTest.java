@@ -439,9 +439,9 @@ public class FindCommandTest {
         assertEquals(Collections.emptyList(), model.getPersonList());
     }
 
+    // test multiple search fields
     @Test
     public void execute_multipleSearchCriteriaOr_personsFound() {
-       //  test multiple search fields
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.NAME, Collections.singletonList("Meier"));

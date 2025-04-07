@@ -371,19 +371,18 @@ public class FindCommandParserTest {
         assertParseFailure(parser, "find bd/2025/06/01", msg2);
     }
 
+    //test parsing of invalid booking property value
     @Test
     public void parse_invalidBookingPropertyFormat_throwsParseException() {
-        //test parsing of invalid booking property value
         String longProperty = "A".repeat(256); // Create a 256-character property name
         String expectedMessage = "Error: Booking property values should not exceed 170 characters. Invalid keyword(s): "
                 + longProperty + " " + Emoticons.ANGRY;
         assertParseFailure(parser, "find bp/" + longProperty, expectedMessage);
     }
 
-
+    //test parsing of multiple invalid values
     @Test
     public void parse_mixedValidInvalidKeywords_throwsParseException() {
-        //test parsing of multiple invalid values
         assertParseFailure(parser, "find p/12345678 p/9876-5432",
                 "Error: Invalid phone format. Phone numbers should contain digits, with an optional "
                         + "'+' at the beginning. Invalid keyword(s): 9876-5432 " + Emoticons.ANGRY);
@@ -410,9 +409,9 @@ public class FindCommandParserTest {
     }
 
 
+    //test parsing of all search prefixes
     @Test
     public void parse_allValidFieldsTogether_returnsFindCommand() {
-        //test parsing of all search prefixes
         try {
             FindCommand command = parser.parse("find n/John p/12345678 e/john@example.com a/Clementi t/friends "
                     + "m/important bd/2025-06-01 bp/Beach");
@@ -430,9 +429,9 @@ public class FindCommandParserTest {
         }
     }
 
+    //test parsing of invalid email values
     @Test
     public void parse_edgeCasesInValidation_handledCorrectly() {
-        //test parsing of invalid email values
         try {
             FindCommand command = parser.parse("find e/john.doe_123+test@example-domain.com");
             Map<SearchType, List<String>> criteria = command.getSearchCriteria();
@@ -443,9 +442,9 @@ public class FindCommandParserTest {
         }
     }
 
+    //test parsing of date format
     @Test
     public void parse_dateFormatValidation_worksProperly() {
-    //test parsing of date format
         try {
             FindCommand command = parser.parse("find bd/2024-02-29"); // Leap year
             Map<SearchType, List<String>> criteria = command.getSearchCriteria();
