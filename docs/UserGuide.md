@@ -715,3 +715,8 @@ Furthermore, certain edits can cause the InnSync to behave in unexpected ways (e
 * **JAR**: A packed file format used in Java that contains compiled java codes to enable easy distribution, portability and execution that includes libraries and resources to allow the program to function.
 * **JSON (JavaScript Object Notation)**: A lightweight data format widely used for storing and exchanging structured data in a human-readable, that is often used in databases and APIs.
 * **GUI (Graphical User Interface)**: A visual graphical interface that allows users to interact with the application using various graphical elements like search boxes, buttons, text boxes, and eta.
+* **Escape**: To escape a prefix means to add a `$` before the prefix to prevent it from being interpreted as a command prefix. For example, if you want to add a visitor with the name "murthu a/p", you would use the command `add n/murthu $a/p [...]`.
+* **Parser**: A parser is a component of the application that interprets and processes user input commands, breaking them down into their respective components (e.g., prefixes, parameters) for further processing.
+* **Prefix**: A prefix is a special character or string of characters that indicates the type of information being provided in a command. For example, `n/` is a prefix for the name of a visitor, `p/` is a prefix for the phone number, and so on.
+* **Parameter**: A parameter is a specific piece of information that follows a prefix in a command. For example, in the command `add n/John Doe`, `John Doe` is the parameter for the `n/` prefix.
+* **Command**: A command is a specific instruction given to the application to perform a certain action, such as adding a visitor, editing a visitor, or deleting a visitor.
