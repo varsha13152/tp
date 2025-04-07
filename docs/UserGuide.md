@@ -12,56 +12,59 @@ In this comprehensive user guide, we will take you to experience a full journey 
 ## Table of Contents
 
 [1. Introduction](#1-introduction)
-- [1.1 What is InnSync](#1-1-what-is-innsync)
+- [1.1 What Is InnSync](#1-1-what-is-innsync)
 - [1.2 User Proficiency and Expectations](#1-2-user-proficiency-and-expectations)
 - [1.3 Why This Guide Matters](#1-3-why-this-guide-matters)
 
-[2. How to use this User Guide](#2-how-to-use-this-user-guide)
+[2. How to Use This User Guide](#2-how-to-use-this-user-guide)
 - [2.1 Navigating the Document](#2-1-navigating-the-document)
 - [2.2 Sections](#2-2-sections)
 
-[3. Quick start](#3-quick-start)
+[3. Quick Start](#3-quick-start)
 - [3.1 Installation](#3-1-installation)
 - [3.2 Graphical User Interface Layout](#3-2-graphical-user-interface-layout)
   - [3.2.1 User Interface Overview](#3-2-1-user-interface-overview)
-  - [3.2.2 Additional UI Components](#3-2-2-other-ui-components)
-- [3.3 How to use InnSync features](#3-3-how-to-use-innsync-features)
+  - [3.2.2 Other UI Components](#3-2-2-other-ui-components)
+- [3.3 How to Use InnSync Features](#3-3-how-to-use-innsync-features)
   - [3.3.1 Parameter Prefixes](#3-3-1-parameter-prefixes)
   - [3.3.2 Parameters](#3-3-2-parameters)
   - [3.3.3 Command Format](#3-3-3-command-format)
 
 [4. Features](#4-features)
 - [4.1 Command Summary](#4-1-command-summary)
-- [4.2 Features related to visitor](#4-2-features-related-to-visitor)
-  - [4.2.1 Adding a visitor](#4-2-1-adding-a-visitor-add)
-  - [4.2.2 Editing a visitor](#4-2-2-editing-a-visitor-edit)
-  - [4.2.3 Listing all visitors](#4-2-3-listing-all-visitors-list)
-  - [4.2.4 Deleting a visitor](#4-2-4-deleting-a-visitor-delete)
-- [4.3 Features related to star a visitor](#4-3-features-related-to-star-a-visitor)
-  - [4.3.1 Star a visitor](#4-3-1-star-a-visitor-star)
-  - [4.3.2 Unstar a visitor](#4-3-2-unstar-a-visitor-unstar)
-  - [4.3.3 Listing all starred visitors](#4-3-3-listing-all-starred-visitors-liststar)
-- [4.4 Features related to tag a visitor](#4-4-features-related-to-tag-a-visitor)
-  - [4.4.1 Adding a booking tag](#4-4-1-adding-a-booking-tag-tag)
-  - [4.4.2 Adding a tag](#4-4-2-adding-a-tag)
-  - [4.4.3 Untagging a booking tag](#4-4-3-untagging-a-booking-tag-untag)
-  - [4.4.4 Untagging a tag](#4-4-4-untagging-a-tag-untag)
-- [4.5 Features related to request](#4-5-features-related-to-request)
-  - [4.5.1 Adding a request](#4-5-1-adding-a-request-req)
-  - [4.5.2 Marking a request](#4-5-2-marking-a-request-mark)
-  - [4.5.3 Unmarking a request](#4-5-3-unmarking-a-request-unmark)
-  - [4.5.4 Deleting a request](#4-5-4-deleting-a-request-deletereq)
-- [4.6 Features related to finding](#4-6-features-related-to-finding)
-  - [4.6.1 Locating visitors](#4-6-1-locating-visitors-find)
-- [4.7 General features](#4-7-general-features)
-  - [4.7.1 Clear all visitors](#4-7-1-clear-all-visitors-clear)
-  - [4.7.2 Exit the program](#4-7-2-exit-the-program-exit)
-  - [4.7.3 Undo the last command](#4-7-3-undo-the-last-command-undo)
-  - [4.7.4 Help](#4-7-4-help)
+- [4.2 Features Related to Visitors](#4-2-features-related-to-visitors)
+  - [4.2.1 Adding a Visitor](#4-2-1-adding-a-visitor-add)
+  - [4.2.2 Editing a Visitor](#4-2-2-editing-a-visitor-edit)
+  - [4.2.3 Listing All Visitors](#4-2-3-listing-all-visitors-list)
+  - [4.2.4 Deleting a Visitor](#4-2-4-deleting-a-visitor-delete)
+- [4.3 Features Related to Starring Visitors](#4-3-features-related-to-starring-visitors)
+  - [4.3.1 Starring a Visitor](#4-3-1-starring-a-visitor-star)
+  - [4.3.2 Unstarring a Visitor](#4-3-2-unstarring-a-visitor-unstar)
+  - [4.3.3 Listing All Starred Visitors](#4-3-3-listing-all-starred-visitors-liststar)
+- [4.4 Features Related to Tagging Visitors](#4-4-features-related-to-tagging-visitors)
+  - [4.4.1 Adding a Booking Tag](#4-4-1-adding-a-booking-tag-tag)
+  - [4.4.2 Adding a Tag](#4-4-2-adding-a-tag-tag)
+  - [4.4.3 Untagging a Booking Tag](#4-4-3-untagging-a-booking-tag-untag)
+  - [4.4.4 Untagging a Tag](#4-4-4-untagging-a-tag-untag)
+- [4.5 Features Related to Requests](#4-5-features-related-to-requests)
+  - [4.5.1 Adding a Request](#4-5-1-adding-a-request-req)
+  - [4.5.2 Marking a Request](#4-5-2-marking-a-request-mark)
+  - [4.5.3 Unmarking a Request](#4-5-3-unmarking-a-request-unmark)
+  - [4.5.4 Deleting a Request](#4-5-4-deleting-a-request-deletereq)
+- [4.6 Adding a Memo to a Visitor](#4-6-adding-a-memo-to-a-visitor-memo)
+- [4.7 Features Related to Finding](#4-7-features-related-to-finding)
+  - [4.7.1 Locating Visitors](#4-7-1-locating-visitors-find)
+- [4.8 General Features](#4-8-general-features)
+  - [4.8.1 Clearing All Visitors](#4-8-1-clearing-all-visitors-clear)
+  - [4.8.2 Exiting the Program](#4-8-2-exiting-the-program-exit)
+  - [4.8.3 Undoing the Last Command](#4-8-3-undoing-the-last-command-undo)
+  - [4.8.4 Getting Help](#4-8-4-getting-help-help)
+- [4.9 Saving the Data](#4-9-saving-the-data)
+- [4.10 Editing the Data File](#4-10-editing-the-data-file)
 
 [5. FAQ](#5-faq)
 
-[6. Known issues](#6-known-issues)
+[6. Known Issues](#6-known-issues)
 
 [7. Glossary](#7-glossary)
 
@@ -69,7 +72,7 @@ In this comprehensive user guide, we will take you to experience a full journey 
 
 ## 1. Introduction
 
-### 1.1 What is InnSync
+### 1.1 What Is InnSync
 
 InnSync is a desktop application designed specifically for managing contacts for AirBnB owners,
 optimized for use via a **Command Line Interface** (CLI) while still having the benefits of a
@@ -98,7 +101,7 @@ you can optimize your workflow and focus on delivering a great visitor experienc
 
 --------------------------------------------------------------------------------------------------------------------
 
-## 2. How to use this User Guide
+## 2. How to Use This User Guide
 This section explains how to navigate the guide and locate the information you need.
 
 ### 2.1 Navigating the Document:
@@ -118,7 +121,7 @@ First-time users are strongly encouraged to read the Quick Start section before 
 
 --------------------------------------------------------------------------------------------------------------------
 
-## 3. Quick start
+## 3. Quick Start
 
 ### 3.1 Installation
 
@@ -153,7 +156,7 @@ First-time users are strongly encouraged to read the Quick Start section before 
 
 * `exit` : Exits the app.
 
-8. Refer to the [Features](#features) below for details of each command.
+8. Refer to the [Features](#4-features) below for details of each command.
 
 ### 3.2 Graphical User Interface Layout:
 
@@ -182,7 +185,7 @@ First-time users are strongly encouraged to read the Quick Start section before 
 * __Unmark:__ Denote the request as not completed.
 * __Selected Visitor:__ Highlighted in pink, this component indicates the selected Visitor Detail Panel for viewing.
 
-### 3.3 How to use InnSync features:
+### 3.3 How to Use InnSync Features:
 InnSync operates mainly through CLI commands. Before exploring to the specific features in details under
 the feature section. Let's try to familiarize ourselves with the basic components and formats to execute a command.
 > 💡**Tip:** All the command words are case-sensitive!
@@ -302,7 +305,7 @@ e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 | **Undo**                  | `undo`                                                                                                                                                                                                    |
 | **Help**                  | `help`                                                                                                                                                                                                    |
 
-## 4.2 Features related to visitor
+## 4.2 Features Related to Visitors
 
 Visitors are uniquely identified by a combination of their **email** and **phone number**. Duplicate visitor contact details are not allowed in the address book.
 
@@ -345,7 +348,7 @@ Examples:
 * `add n/John Doe p/+65 98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/+65 1234567 t/criminal t/offence r/cool r/beans m/handsome`
 
-### 4.2.2 Editing a visitor : `edit`
+### 4.2.2 Editing a Visitor : `edit`
 
 Edits an existing visitor in the address book.
 
@@ -374,7 +377,7 @@ Examples:
 *  `edit 2 n/Betsy Crower r/` Edits the name of the 2nd visitor to be `Betsy Crower` and clears all existing requests.
 *  `edit 2 n/Betsy Crower m/` Edits the name of the 2nd visitor to be `Betsy Crower` and clears memo.
 
-### 4.2.3 Listing all visitors : `list`
+### 4.2.3 Listing All Visitors : `list`
 
 Shows a list of all visitors in the address book.
 
@@ -384,7 +387,7 @@ Format: `list`
 
 💡**Tip:** Listing without any visitors added will recommend you to add some.
 
-### 4.2.4 Deleting a visitor : `delete`
+### 4.2.4 Deleting a Visitor : `delete`
 
 Deletes the specified visitor from the address book.
 
@@ -395,9 +398,9 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd visitor in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st visitor in the results of the `find` command.
 
-## 4.3 Features related to star a visitor
+## 4.3 Features Related to Starring Visitors
 
-### 4.3.1 Star a visitor : `star`
+### 4.3.1 Starring a Visitor : `star`
 
 Stars a visitor in the address book.
 
@@ -407,7 +410,7 @@ Format: `star INDEX`
 
 📌**Note:** New starred visitor will be sorted lexicographically among the starred visitors, separated from the unstar ones.
 
-### 4.3.2 Unstar a visitor : `unstar`
+### 4.3.2 Unstarring a Visitor : `unstar`
 
 Unstar a starred visitor in the address book.
 
@@ -415,15 +418,15 @@ Format: `unstar INDEX`
 
 * The index refers to the index number shown in the displayed visitor list. The index **must be a positive integer**.
 
-### 4.3.3 Listing all starred visitors : `liststar`
+### 4.3.3 Listing All Starred Visitors : `liststar`
 
 Shows a list of all starred visitors in the address book.
 
 Format: `liststar`
 
-## 4.4 Features related to tag a visitor
+## 4.4 Features Related to Tagging Visitors
 
-### 4.4.1 Adding a booking tag : `tag`
+### 4.4.1 Adding a Booking Tag : `tag`
 
 Adds a booking tag into the visitor in the address book.
 
@@ -438,7 +441,7 @@ Examples:
 * `tag 1 b/Hotel from/2025-10-10 to/2025-10-11` Adds the booking tag to the 1st visitor on the list.
 * `tag 1 b/Hotel from/2025-10-10 to/2025-10-11` Adding the same booking tag again will be rejected due to overlapping dates.
 
-### 4.4.2 Adding a tag : `tag`
+### 4.4.2 Adding a Tag : `tag`
 
 Adds a tag into the visitor in the address book.
 
@@ -455,7 +458,7 @@ Examples:
 * `tag 1 t/friend` Adds the tag to the 1st visitor on the list.
 * `tag 1 t/friend` Adding the same tag again will be rejected due to duplicate tags.
 
-### 4.4.3 Untagging a booking tag : `untag`
+### 4.4.3 Untagging a Booking Tag : `untag`
 
 Removes a booking tag on the 1st visitor in the address book.
 
@@ -471,7 +474,7 @@ Examples:
 * `untag 1 b/Hotel from/2025-10-10 to/2025-10-11` Removes the booking tag with matching booking tag on the 1st visitor in the list if they exist.
 * `untag 1 b/Hotel from/2025-10-10 to/2025-10-11` After running example above this line, it will throw an error saying this booking tag does not exist.
 
-### 4.4.4 Untagging a tag : `untag`
+### 4.4.4 Untagging a Tag : `untag`
 
 Removes a tag on the 1st visitor in the address book.
 
@@ -486,9 +489,9 @@ Examples:
 * `untag 1 t/friend` Removes the tag with matching tag on the 1st visitor in the list if they exist.
 * `untag 1 t/friend` After running example above this line, it will throw an error saying this tag does not exist.
 
-## 4.5 Features related to request
+## 4.5 Features Related to Requests
 
-### 4.5.1 Adding a request: `req`
+### 4.5.1 Adding a Request: `req`
 
 Adds a request into the visitor in the address book.
 
@@ -505,7 +508,7 @@ Examples:
 * `req 1 r/Want banana` Adds the request to the 1st visitor on the list.
 * `req 1 r/Want banana` Will be rejected due to duplicating request own by this visitor.
 
-### 4.5.2 Marking a request: `mark`
+### 4.5.2 Marking a Request: `mark`
 
 Marks a request as completed for a specific visitor in the address book.
 
@@ -521,7 +524,7 @@ Examples:
 * `mark 1 r/1` Marks the first request of the first visitor on the list as completed if it exists.
 * `mark 1 r/1` Marking again will be rejected.
 
-### 4.5.3 Unmarking a request: `unmark`
+### 4.5.3 Unmarking a Request: `unmark`
 
 Unmarks a previously marked request for a specific visitor in the address book.
 
@@ -537,7 +540,7 @@ Examples:
 * `unmark 1 r/1` Unmarks the first request of the first visitor on the list as not completed if it exists.
 * `unmark 1 r/1` Unmarking again will be rejected.
 
-### 4.5.4 Deleting a request: `deletereq`
+### 4.5.4 Deleting a Request: `deletereq`
 
 Deletes a request from a specific visitor in the address book.
 
@@ -552,7 +555,7 @@ Examples:
 * `deletereq 1 r/1` Deletes the first request of the first visitor on the list.
 * `deletereq 1 r/1` If the visitor has no more requests, this command will be rejected.
 
-## 4.6 Memo a visitor : `memo`
+## 4.6 Adding a Memo to a Visitor : `memo`
 
 Adds a memo into the visitor in the address book.
 
@@ -567,9 +570,9 @@ Examples:
 
 > 💡**Tip:** You can remove a memo with `memo INDEX m/` intead of using the `edit` command!
 
-## 4.6 Features related to finding
+## 4.7 Features Related to Finding
 
-### 4.6.1 Locating visitors: `find`
+### 4.7.1 Locating Visitors: `find`
 
 Allows users to search for visitors whose details match the specified keywords.
 
@@ -638,9 +641,9 @@ Format: `find [n/KEYWORD...] [p/KEYWORD...] [e/KEYWORD...] [a/KEYWORD...] [bp/KE
 * **Empty keyword**: Please provide a keyword after the prefix.
 * **Exceeding character limits**: Ensure keywords don't exceed the maximum length for each field type.
 
-## 4.7 General features
+## 4.8 General Features
 
-### 4.7.1 Clearing all entries : `clear`
+### 4.8.1 Clearing All Visitors : `clear`
 
 Clears all entries from the address book.
 
@@ -649,13 +652,13 @@ Format: `clear`
 * After executing `clear`, the system will ask the user to confirm the action.
 * Entering `y` or `Y` will clear the address book, while any other input will cancel the command.
 
-### 4.7.2 Exiting the program : `exit`
+### 4.8.2 Exiting the Program : `exit`
 
 Exits the program.
 
 Format: `exit`
 
-### 4.7.3 Undoing the last change : `undo`
+### 4.8.3 Undoing the Last Command : `undo`
 
 Undoes the last modification to the address book, reverting it to its original state before the last modification.
 Commands `edit`, `add`, `delete`, `star`, `tag`, `untag`, `req`, `deletereq`, `mark`, `unmark`, `unstar`, `memo`, and even another `undo` are all modifications that can be undone.
@@ -664,19 +667,19 @@ Commands `edit`, `add`, `delete`, `star`, `tag`, `untag`, `req`, `deletereq`, `m
 
 Format: `undo`
 
-## 4.7.4 Viewing help : `help`
+### 4.8.4 Getting Help : `help`
 
-Shows a message explaning how to access the help page.
+Shows a message explaining how to access the help page.
 
 ![help message](images/helpMessage.png)
 
 Format: `help`
 
-### 4.8 Saving the data
+### 4.9 Saving the Data
 
 InnSync's address book data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
-### 4.9 Editing the data file
+### 4.10 Editing the Data File
 
 InnSync's address book data is saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
