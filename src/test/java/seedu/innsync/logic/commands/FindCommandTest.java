@@ -36,6 +36,7 @@ public class FindCommandTest {
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
+    //test for null in constructor
     public void constructor_nullSearchCriteria_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new FindCommand(null));
     }
@@ -106,6 +107,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_zeroKeywords_noPersonFound() {
+        //test for no matches found
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         // Use a keyword that won't match any names
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
@@ -117,13 +119,15 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_nullPerson_noExceptionThrown() {
+    public void execute_findName_noExceptionThrown() {
+        //test for find name
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.NAME, Collections.singletonList("Alice"));
     }
 
     @Test
     public void execute_emptySearchCriteria_returnsEmptyResult() {
+        //test empty search criteria
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         FindCommand command = new FindCommand(criteria);
 
@@ -134,6 +138,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_nullKeywordInList_nullsFilteredOut() {
+        // test null keywords
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         List<String> keywordsWithNull = Arrays.asList("valid", null, "keyword");
         criteria.put(FindCommand.SearchType.NAME, keywordsWithNull);
@@ -141,6 +146,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_multipleSearchTypes_multiplePersonsFound() {
+        //test multiple search types with multiple people found
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.NAME, Collections.singletonList("Kurz"));
@@ -155,6 +161,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_singleKeyword_multiplePersonsFound() {
+        //test single keyword but returns multiple matches
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.NAME, Collections.singletonList("Meier"));
@@ -166,6 +173,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_uniqueNameKeyword_onePersonFound() {
+        //test single key word with one person found
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.NAME, Collections.singletonList("Pauline"));
@@ -177,6 +185,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_phoneKeyword_personFound() {
+        //test search by phone number
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.PHONE, Collections.singletonList("87652533"));
@@ -188,6 +197,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_partialPhoneKeyword_multiplePersonsFound() {
+        //test partial keyword match
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.PHONE, Collections.singletonList("9482"));
@@ -199,6 +209,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_emailKeyword_personFound() {
+        //test find by email keyword
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.EMAIL, Collections.singletonList("anna"));
@@ -210,6 +221,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_domainEmailKeyword_allPersonsFound() {
+        //test find by email keyword which is a domain
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 7);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.EMAIL, Collections.singletonList("example.com"));
@@ -221,6 +233,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_addressKeyword_personsFound() {
+        //test find by address
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.ADDRESS, Collections.singletonList("street"));
@@ -232,6 +245,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_uniqueAddressKeyword_onePersonFound() {
+        //test find by address which only returns 1 match
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.ADDRESS, Collections.singletonList("tokyo"));
@@ -243,6 +257,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_tagKeyword_multiplePersonsFound() {
+        //test find by tag keyword which only returns multiple matches
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.TAG, Collections.singletonList("friends"));
@@ -254,6 +269,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_uniqueTagKeyword_onePersonFound() {
+        //test find by address keyword which only returns 1 match
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.TAG, Collections.singletonList("owes money"));
@@ -265,6 +281,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_multipleTagKeywords_multiplePersonsFound() {
+        //test find by multiple tag keywords which returns multiple matches
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.TAG, Arrays.asList("friends", "owes money"));
@@ -276,6 +293,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_caseInsensitiveSearch_personsFound() {
+        //test case insensitivity
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.NAME, Collections.singletonList("alice"));
@@ -303,6 +321,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_memoKeyword_personsFound() {
+        //test find by memo
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.MEMO, Collections.singletonList("term"));
@@ -314,6 +333,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_memoCaseInsensitive_personsFound() {
+        //test case insensitivity in memo keyword
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.MEMO, Collections.singletonList("FOOD"));
@@ -325,6 +345,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_multipleMemoKeywords_multiplePersonsFound() {
+        //test find by multiple memo keywords and multiple matches found
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.MEMO, Arrays.asList("stay", "extra"));
@@ -336,6 +357,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_bookingPropertyKeyword_personsFound() {
+        //test find by booking property
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.BOOKING_PROPERTY, Collections.singletonList("Beach"));
@@ -347,6 +369,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_bookingPropertyCaseInsensitive_personsFound() {
+        //test case sensitivity of booking property keyword search
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.BOOKING_PROPERTY, Collections.singletonList("beach"));
@@ -358,6 +381,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_bookingDateKeyword_personsFound() {
+        //test find by booking date
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.BOOKING_DATE, Collections.singletonList("2025-06-05"));
@@ -369,6 +393,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_bookingDateInvalidFormat_noExceptionThrown() {
+        //test invalid booking date format
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.BOOKING_DATE, Collections.singletonList("06-05-2025"));
@@ -380,6 +405,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_bookingDateStartDay_personsFound() {
+        //test find by booking date
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.BOOKING_DATE, Collections.singletonList("2025-06-01"));
@@ -391,6 +417,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_bookingDateEndDay_personsFound() {
+        //test find by booking date
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.BOOKING_DATE, Collections.singletonList("2025-06-10"));
@@ -402,7 +429,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_bookingDateOutsideRange_noPersonsFound() {
-        // Date "2025-06-11" (outside George's booking range) should not match any bookings
+        //test find by booking date with no results
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.BOOKING_DATE, Collections.singletonList("2025-06-11"));
@@ -414,9 +441,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_multipleSearchCriteriaOr_personsFound() {
-        // Using name "Meier" OR tag "friends" OR phone "87652533" should match Daniel, Benson, Alice
-        // (Daniel has Meier in name, friends tag, and that phone number; Benson has Meier in name and friends tag;
-        // Alice has friends tag)
+       //  test multiple search fields
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.NAME, Collections.singletonList("Meier"));
@@ -431,8 +456,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_bookingCriteriaWithOthers_personsFound() {
-        // Using name "George" OR booking property "Beach" OR address "street" should match
-        // George, Carl, and Daniel (George has all three, Carl and Daniel have "street" in address)
+        //test multiple search fields
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.NAME, Collections.singletonList("George"));
@@ -447,6 +471,7 @@ public class FindCommandTest {
 
     @Test
     public void toStringMethod() {
+        //test to string method
         Map<FindCommand.SearchType, List<String>> criteria = new HashMap<>();
         criteria.put(FindCommand.SearchType.NAME, Collections.singletonList("keyword"));
         FindCommand findCommand = new FindCommand(criteria);
