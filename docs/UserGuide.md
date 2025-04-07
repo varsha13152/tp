@@ -142,7 +142,6 @@ First-time users are strongly encouraged to read the Quick Start section before 
 6. A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br><br>
    ![Ui](images/Ui.png)
 
-
 7. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
@@ -157,6 +156,8 @@ First-time users are strongly encouraged to read the Quick Start section before 
 * `exit` : Exits the app.
 
 8. Refer to the [Features](#4-features) below for details of each command.
+
+9. If you are unsure about specific technical terms used in this guide, refer to the [Glossary](#7-glossary) section for definitions.
 
 ### 3.2 Graphical User Interface Layout:
 
@@ -324,7 +325,7 @@ When the program checks for duplicates,
 * Person D is accepted - the email may be the same, but the phone is different!
 * Person E is accepted - both the email and phone are different!
 
-📌**Note:** Two phone numbers are considered identical as long as they contain the same country code, and their numbers have the same digits in the same order. The position and number of whitespaces are not considered. i.e. `+65 8888 8888` is considered the same as `+65 88888888`. 
+📌**Note:** Two phone numbers are considered identical as long as they contain the same country code, and their numbers have the same digits in the same order. The position and number of whitespaces are not considered. i.e. `+65 8888 8888` is considered the same as `+65 88888888`.
 
 ### 4.2.1 Adding a visitor: `add`
 
@@ -381,7 +382,7 @@ Examples:
 
 Shows a list of all visitors in the address book.
 
-Format: `list`   
+Format: `list`
 
 📌**Note:** Any additional text or parameters after the `list` command will be ignored.
 
@@ -568,7 +569,7 @@ Format: `memo INDEX m/MEMO`
 Examples:
 * `memo 1 m/recurring customer` Overwrites the memo of the 1st visitor on the list.
 
-> 💡**Tip:** You can remove a memo with `memo INDEX m/` intead of using the `edit` command!
+> 💡**Tip:** You can remove a memo with `memo INDEX m/` instead of using the `edit` command!
 
 ## 4.7 Features Related to Finding
 
@@ -663,7 +664,7 @@ Format: `exit`
 Undoes the last modification to the address book, reverting it to its original state before the last modification.
 Commands `edit`, `add`, `delete`, `star`, `tag`, `untag`, `req`, `deletereq`, `mark`, `unmark`, `unstar`, `memo`, and even another `undo` are all modifications that can be undone.
 
-📌**Note:** Using the `undo` command after another `ùndo` command will undo the first undo.
+📌**Note:** Using the `undo` command after another `undo` command will undo the first undo.
 
 Format: `undo`
 
@@ -715,3 +716,8 @@ Furthermore, certain edits can cause the InnSync to behave in unexpected ways (e
 * **JAR**: A packed file format used in Java that contains compiled java codes to enable easy distribution, portability and execution that includes libraries and resources to allow the program to function.
 * **JSON (JavaScript Object Notation)**: A lightweight data format widely used for storing and exchanging structured data in a human-readable, that is often used in databases and APIs.
 * **GUI (Graphical User Interface)**: A visual graphical interface that allows users to interact with the application using various graphical elements like search boxes, buttons, text boxes, and eta.
+* **Escape**: To escape a prefix means to add a `$` before the prefix to prevent it from being interpreted as a command prefix. For example, if you want to add a visitor with the name "murthu a/p", you would use the command `add n/murthu $a/p [...]`.
+* **Parser**: A parser is a component of the application that interprets and processes user input commands, breaking them down into their respective components (e.g., prefixes, parameters) for further processing.
+* **Prefix**: A prefix is a special character or string of characters that indicates the type of information being provided in a command. For example, `n/` is a prefix for the name of a visitor, `p/` is a prefix for the phone number, and so on.
+* **Parameter**: A parameter is a specific piece of information that follows a prefix in a command. For example, in the command `add n/John Doe`, `John Doe` is the parameter for the `n/` prefix.
+* **Command**: A command is a specific instruction given to the application to perform a certain action, such as adding a visitor, editing a visitor, or deleting a visitor.
