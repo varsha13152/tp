@@ -85,7 +85,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.backupAddressBook.resetData(this.addressBook);
+        this.backupAddressBook();
         this.addressBook.resetData(addressBook);
     }
 
@@ -102,13 +102,13 @@ public class ModelManager implements Model {
 
     @Override
     public void deletePerson(Person target) {
-        this.backupAddressBook.resetData(this.addressBook);
+        this.backupAddressBook();
         this.addressBook.removePerson(target);
     }
 
     @Override
     public void addPerson(Person person) {
-        this.backupAddressBook.resetData(this.addressBook);
+        this.backupAddressBook();
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
@@ -116,19 +116,27 @@ public class ModelManager implements Model {
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
-        this.backupAddressBook.resetData(this.addressBook);
+        this.backupAddressBook();
         addressBook.setPerson(target, editedPerson);
     }
 
     @Override
     public boolean revertToLastModified() {
-        if (this.backupAddressBook.equals(this.addressBook)) {
+        if (!this.hasUndoState()) {
             return false;
         }
         AddressBook prevAddressBook = new AddressBook(this.addressBook);
         this.addressBook.resetData(this.backupAddressBook);
         this.backupAddressBook.resetData(prevAddressBook);
         return true;
+    }
+
+    private void backupAddressBook() {
+        this.backupAddressBook.resetData(this.addressBook);
+    }
+
+    private boolean hasUndoState() {
+        return !this.backupAddressBook.equals(this.addressBook);
     }
 
     @Override
