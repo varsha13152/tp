@@ -45,7 +45,18 @@ public class MarkRequestCommandParserTest {
     @Test
     public void parse_invalidRequestIndex_throwsParseException() {
         String exceedMaxInt = "2147483648";
-        assertParseFailure(parser, "1 r/" + exceedMaxInt, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+        assertParseFailure(parser, "1 r/" + exceedMaxInt, String.format(MESSAGE_PARSE_EXCEPTION,
+                MarkRequestCommand.MESSAGE_INVALID_REQUEST_INDEX_FORMAT,
+                MarkRequestCommand.MESSAGE_USAGE));
+
+        // Non-numeric request index
+        assertParseFailure(parser, "1 r/a", String.format(MESSAGE_PARSE_EXCEPTION,
+                MarkRequestCommand.MESSAGE_INVALID_REQUEST_INDEX_FORMAT,
+                MarkRequestCommand.MESSAGE_USAGE));
+
+        // Zero request index
+        assertParseFailure(parser, "1 r/0", String.format(MESSAGE_PARSE_EXCEPTION,
+                MarkRequestCommand.MESSAGE_INVALID_REQUEST_INDEX_FORMAT,
                 MarkRequestCommand.MESSAGE_USAGE));
     }
 }

@@ -48,15 +48,15 @@ public class DeleteRequestCommandParserTest {
     public void parse_invalidRequestIndex_throwsParseException() {
         // Non-numeric request index
         assertParseFailure(parser, "1 r/a", String.format(MESSAGE_PARSE_EXCEPTION,
-                ParserUtil.MESSAGE_INVALID_INDEX, DeleteRequestCommand.MESSAGE_USAGE));
+                DeleteRequestCommand.MESSAGE_INVALID_REQUEST_INDEX_FORMAT, DeleteRequestCommand.MESSAGE_USAGE));
 
         // Negative request index
         assertParseFailure(parser, "1 r/-1", String.format(MESSAGE_PARSE_EXCEPTION,
-                ParserUtil.MESSAGE_INVALID_INDEX, DeleteRequestCommand.MESSAGE_USAGE));
+                DeleteRequestCommand.MESSAGE_INVALID_REQUEST_INDEX_FORMAT, DeleteRequestCommand.MESSAGE_USAGE));
 
         // Zero request index
         assertParseFailure(parser, "1 r/0", String.format(MESSAGE_PARSE_EXCEPTION,
-                ParserUtil.MESSAGE_INVALID_INDEX, DeleteRequestCommand.MESSAGE_USAGE));
+                DeleteRequestCommand.MESSAGE_INVALID_REQUEST_INDEX_FORMAT, DeleteRequestCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -67,7 +67,7 @@ public class DeleteRequestCommandParserTest {
 
         // Empty request index
         assertParseFailure(parser, "1 r/", String.format(MESSAGE_PARSE_EXCEPTION,
-                ParserUtil.MESSAGE_INVALID_INDEX, DeleteRequestCommand.MESSAGE_USAGE));
+                DeleteRequestCommand.MESSAGE_INVALID_REQUEST_INDEX_FORMAT, DeleteRequestCommand.MESSAGE_USAGE));
     }
 
     @Test

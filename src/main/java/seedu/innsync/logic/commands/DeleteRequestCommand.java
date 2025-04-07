@@ -33,6 +33,8 @@ public class DeleteRequestCommand extends Command {
             "%s has been deleted from %s's request list!", "%s", "%s");
     public static final String MESSAGE_INVALID_REQUEST_INDEX = String.format(
             Messages.MESSAGE_INVALID_ITEM_INDEX, "request");
+    public static final String MESSAGE_INVALID_REQUEST_INDEX_FORMAT = "Request index is not a "
+            + "non-zero unsigned integer.";
 
     private final Index contactIndex;
     private final Index requestIndex;

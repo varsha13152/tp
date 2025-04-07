@@ -24,7 +24,7 @@ public class UnmarkRequestCommand extends Command {
     public static final String COMMAND_WORD = "unmark";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Unmarks a request of the contact identified by the index number"
+            + ": Unmarks a request of the contact identified by the index number "
             + "in the displayed person list from its completion status.\n"
             + "Parameters: INDEX (must be a positive integer) " + PREFIX_REQUEST
             + "REQUEST_INDEX (must be a positive integer)\n"
@@ -33,6 +33,8 @@ public class UnmarkRequestCommand extends Command {
             Messages.MESSAGE_COMMAND_SUCCESS, "Unmark request", "%s has been unmarked!");
     public static final String MESSAGE_INVALID_REQUEST_INDEX = String.format(
             Messages.MESSAGE_INVALID_ITEM_INDEX, "request");
+    public static final String MESSAGE_INVALID_REQUEST_INDEX_FORMAT = "Request index is not a "
+            + "non-zero unsigned integer.";
     public static final String MESSAGE_FAILURE = String.format(
             Messages.MESSAGE_COMMAND_FAILURE, "Unmark request", "The request %s is not marked!");
 
