@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -47,7 +48,7 @@ public class PersonDetailPanel extends UiPart<Region> {
     private FlowPane detailBookingTags;
 
     @FXML
-    private FlowPane detailRequests;
+    private VBox detailRequests;
 
     @FXML
     private ImageView detailStarIcon;
@@ -109,17 +110,20 @@ public class PersonDetailPanel extends UiPart<Region> {
 
             // Create a HBox for each request
             HBox hbox = new HBox(10);
-            hbox.setAlignment(Pos.CENTER_LEFT);
+            hbox.setAlignment(Pos.TOP_LEFT);
 
             // Create the checkbox for each request
             CheckBox checkBox = new CheckBox();
             checkBox.setId("checkbox_" + request.requestName);
             checkBox.setSelected(request.isCompleted());
             checkBox.setMouseTransparent(true);
+            checkBox.setAlignment(Pos.TOP_LEFT);
+            checkBox.setPadding(new Insets(1));
 
             // Create the label for each request
             Label requestLabel = new Label(String.format("%d. %s", i + 1, request.requestName));
             requestLabel.getStyleClass().add("detail-request");
+            requestLabel.setWrapText(true);
 
             // Add the checkbox and label to the HBox
             hbox.getChildren().addAll(checkBox, requestLabel);

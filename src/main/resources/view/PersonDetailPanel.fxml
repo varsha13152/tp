@@ -63,7 +63,7 @@
 
       <!-- Memo -->
       <Label text="Memo" styleClass="detail-section" />
-      <Label fx:id="memoLabel" styleClass="detail-memo" prefWidth="480.0" prefHeight="100.0"/>
+      <Label fx:id="memoLabel" styleClass="detail-memo" prefWidth="560.0" minHeight="100.0" maxHeight="200.0"/>
 
       <Region prefHeight="10.0" />
 
@@ -81,11 +81,11 @@
 
       <!-- Requests -->
       <Label text="Requests" styleClass="detail-section" />
-      <FlowPane fx:id="detailRequests" orientation="VERTICAL" hgap="5" vgap="5">
+      <VBox fx:id="detailRequests" spacing="5">
         <!-- A single request with a checkbox beside it -->
         <HBox spacing="10.0" alignment="CENTER_LEFT">
         </HBox>
-      </FlowPane>
+      </VBox>
     </VBox>
   </ScrollPane>
 </VBox>
