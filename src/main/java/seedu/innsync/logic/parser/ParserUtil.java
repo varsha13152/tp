@@ -10,6 +10,7 @@ import java.util.Set;
 
 import seedu.innsync.commons.core.index.Index;
 import seedu.innsync.commons.util.StringUtil;
+import seedu.innsync.logic.Messages;
 import seedu.innsync.logic.commands.RequestCommand;
 import seedu.innsync.logic.parser.exceptions.ParseException;
 import seedu.innsync.model.person.Address;
@@ -210,8 +211,15 @@ public class ParserUtil {
     public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
         requireNonNull(tags);
         final Set<Tag> tagSet = new HashSet<>();
+        final Set<String> seenTagNames = new HashSet<>();
+        
         for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
+            String trimmedTagName = tagName.trim();
+            if (seenTagNames.contains(trimmedTagName)) {
+                throw new ParseException(String.format(Messages.MESSAGE_DUPLICATE_FIELD, "tag"));
+            }
+            seenTagNames.add(trimmedTagName);
+            tagSet.add(parseTag(trimmedTagName));
         }
         return tagSet;
     }
