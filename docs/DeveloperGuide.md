@@ -152,52 +152,47 @@ This section describes some noteworthy details on how certain features are imple
 
 > Please note that certain aspects, such as UML classes, may have been simplified to fit within the diagram's constraints and maintain readability.
 
-#### 1.Undo Implementation
+### 1. Undo Implementation
 The current undo feature undoes only the last recorded change, it does not maintain a history of commands or changes. Thus, users do not have the ability to undo more than one past change.
-The proposed undo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
+The proposed undo mechanism is facilitated by `ModelManager`. In addition to the `addressBook` variable which represents the current state of the address book, a second variable `backupAddressBook` representing the previous state of the address book is maintained.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+<puml src="diagrams/undo/InitialState.puml" alt="UndoState" />
+
+Whenever an operation modifying the address book is performed, the current address book is saved into the backup address book before the current address book is modified. To achieve this, ModelManager implements the method `ModelManager#revertToLastModified()` which will swap the contents of the address book with that of its backup. This operation is exposed in the `Model` interface as `Model#revertToLastModified()`.
+
+The following operations in `ModelManager` modify the address book and will hence result in a backup of the current address book:
+
+* `ModelManager#setPerson()` — Modifies a person in the address book
+* `ModelManager#addPerson()` — Adds a person into the address book
+* `ModelManager#deletePerson()` — Deletes a person from the address book
+* `ModelManager#setAddressBook()` — Replaces the contents of the entire address book
+* `ModelManager#revertToLastModified()` — Restores the previously undone address book state
 
 Given below is an example usage scenario and how the undo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The variable `backupAddressBook` will be initialized with the contents of the current address book, thus containing the same contents as there are no modifications yet.
 
-<puml src="diagrams/UndoRedoState0.puml" alt="UndoRedoState0" />
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-<puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
-
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-<puml src="diagrams/UndoRedoState2.puml" alt="UndoRedoState2" />
+Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#deletePerson()`, causing the current address book to be backed up into `backupAddressBook`, and the current addressbook to call `AddressBook#removePerson()`.
 
 <box type="info" seamless>
 
-**Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+**Note:** If a command fails its execution, it will not call any operations modifying the address book, so the address book state will not be saved into the backup `backupAddressBook`.
 
 </box>
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-<puml src="diagrams/UndoRedoState3.puml" alt="UndoRedoState3" />
+Step 3. The user now decides that deleting the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 
 <box type="info" seamless>
 
-**Note:** If the `currentStatePointer` is at index 0, pointing to the initial 
-state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
+**Note:** If the contents of `backupAddressBook` is the same as that of `addressBook`, then there are no previous AddressBook states to restore. The `undo` command checks within the `Model#revertToLastModified()` method to if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 </box>
 
 The following sequence diagram shows how an undo operation goes through the `Logic` component:
 
-<puml src="diagrams/UndoSequenceDiagram-Logic.puml" alt="UndoSequenceDiagram-Logic" />
+<puml src="diagrams/undo/UndoSequenceDiagram.puml" alt="UndoSequenceDiagram" />
 
 <box type="info" seamless>
 
@@ -205,29 +200,6 @@ The following sequence diagram shows how an undo operation goes through the `Log
 
 </box>
 
-Similarly, how an undo operation goes through the `Model` component is shown below:
-
-<puml src="diagrams/UndoSequenceDiagram-Model.puml" alt="UndoSequenceDiagram-Model" />
-
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-<box type="info" seamless>
-
-**Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. .
-
-</box>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-<puml src="diagrams/UndoRedoState4.puml" alt="UndoRedoState4" />
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. This is the behavior that most modern desktop applications follow.
-
-<puml src="diagrams/UndoRedoState5.puml" alt="UndoRedoState5" />
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<puml src="diagrams/CommitActivityDiagram.puml" width="250" />
 
 #### Design considerations:
 
@@ -242,13 +214,8 @@ The following activity diagram summarizes what happens when a user executes a ne
     * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
     * Cons: We must ensure that the implementation of each individual command are correct.
 
-### **Implementation**
 
-This section describes some noteworthy details on how certain features are implemented.
-
-> Please note that certain aspects, such as UML classes, may have been simplified to fit within the diagram's constraints and maintain readability.
-
-#### 2. List Star Implementation
+### 2. List Star Implementation
 
 The list star feature is facilitated by `ListStarCommand`. It extends the basic listing functionality with contact filtering capability, using an internal `PREDICATE_SHOW_STARRED_PERSONS` and `Model#updateFilteredPersonList()`. The supported operations are:
 
@@ -664,7 +631,7 @@ testers are expected to do more *exploratory* testing.
 
    2. Test case: `list`<br>
       Expected: No contacts displayed in list.
-      <br>Output: Listed no people, try adding someone with add feature!
+      <br>Output: There are no contacts in the address book. Use the 'add' command to create new contacts!
 
    3. Other incorrect list commands to try: `List`, `listx`, `...`<br>
       Expected: Error message displayed in status message.
