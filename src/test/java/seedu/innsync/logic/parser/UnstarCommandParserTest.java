@@ -29,5 +29,9 @@ public class UnstarCommandParserTest {
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "a", String.format(Messages.MESSAGE_PARSE_EXCEPTION,
                 ParserUtil.MESSAGE_INVALID_INDEX, UnstarCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "-1", String.format(Messages.MESSAGE_PARSE_EXCEPTION,
+                ParserUtil.MESSAGE_INVALID_INDEX, UnstarCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "0", String.format(Messages.MESSAGE_PARSE_EXCEPTION,
+                ParserUtil.MESSAGE_INVALID_INDEX, UnstarCommand.MESSAGE_USAGE));
     }
 }
