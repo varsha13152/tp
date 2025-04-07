@@ -580,6 +580,7 @@ Format: `find [n/KEYWORD...] [p/KEYWORD...] [e/KEYWORD...] [a/KEYWORD...] [bp/KE
 
 **Searching by name:**
 * `find n/John` - Finds contacts with "John" in their name
+
 * `find n/Betsy n/Muthu $A/P Vara` - Finds contacts with either "Betsy" or "Muthu A/P Vara" in their name
 
 **Searching by phone:**

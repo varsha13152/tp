@@ -599,7 +599,7 @@ Use case ends.
 * **API (Application Programming Interface)**: A set of rules or protocols that govern the application to allow different software applications to work together by communication with each other.
 --------------------------------------------------------------------------------------------------------------------
 ## **Appendix: Planned Enhancements**
-Team Size: 5    
+Team Size: 5
 
 1. **Allow all command parsers to escape prefixes in all fields**: Currently, only the edit and add command allow escaping of prefixes, and only in the name argument. We plan to extend this to all commands and fields, in order to allow the user more freedom in their choice of arguments and keywords.
 
