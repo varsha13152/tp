@@ -419,8 +419,8 @@ Use case ends.
 
 **MSS**
 
-1.  AirBnB Host requests to find a visitor by specified detail (e.g name, address, phone etc.)
-2.  InnSync validates the entered detail
+1. AirBnB Host requests to find a visitor by specified detail (e.g name, address, phone etc.)
+2. InnSync validates the entered detail
 3. InnSync displays a list of contacts matching the specified detail. <br> Use case ends.
 
 **Extensions**
@@ -440,10 +440,10 @@ Use case ends.
 1.  AirBnB Host requests to list visitors
 2.  InnSync shows a list of visitors
 3.  AirBnB Host requests to add a tag to a specific visitor in the list
-4.  InnSync validates the entered tag (ie. missing input)
+4.  InnSync validates the entered tag
 5.  InnSync updates the contact with the new provided tag
 6.  InnSync shows a success message with the updated details of the visitor. <br>
-    Use case ends.
+Use case ends.
 
 
 **Extensions**
@@ -475,9 +475,10 @@ Use case ends.
 1.  AirBnB Host requests to list visitors
 2.  InnSync shows a list of visitors
 3.  AirBnB Host requests to add a booking tag to a specific visitor in the list
-4.  InnSync validates the entered booking tag (ie. date format, missing input)
+4.  InnSync validates the entered booking tag
 5.  InnSync updates the contact with the new provided booking tag
-6.  InnSync shows the updated details of the visitor. <br> Use case ends.
+6.  InnSync shows the updated details of the visitor. <br>
+Use case ends.
 
 **Extensions**
 
@@ -572,11 +573,11 @@ Use case ends.
 
 **Challenges Faced and Achievements:**
 
-* **Addition of Person Fields:** To better allow hosts to keep track of their visitors, we added the booking tag into our system, a major feature which allowed hosts to associate a property, start date, and end date with a visitor, crucial in recording a guest's period of stay at a property. Many tweaks to the system were necessary to accommodate the addition of this new field. In addition to the booking tag, we also allowed users to add requests, which could be marked as complete, and a memo, which could contain remarks about a visitor, to a contact.
+* **Addition of Person Fields:** To better allow hosts to keep track of their visitors, we added booking tags into our system, a major feature which allowed hosts to associate a booking tag containing a property, start date, and end date, with a visitor. This information is crucial in recording a guest's period of stay at a property. Many tweaks to the system were necessary to accommodate the addition of this new field. In addition to the booking tag, we also allowed users to add requests, which could be marked as complete, and a memo, which could contain remarks about a visitor, to a contact.
 
-* **Addition of Commands:** We had to significantly modify existing commands (`add`, `find`, `edit`), and include multiple new additional commands (`tag`, `untag`, `req`, `mark`, `unmark`, `deletereq`, `liststar`, `memo`) to accommodate the creation, modification and deletion of our added fields to each contact. In addition to those commands, we also added the `undo` command to allow users to restore unintended changes, and implemented a system which made dangerous command such as `clear` require a confirmation to proceed. Finally, we added the `star` feature which allowed users to star contacts and have their favourite or most frequently accessed contacts displayed above the rest.
+* **Addition of Commands:** We had to significantly modify existing commands (`add`, `find`, `edit`), and include multiple new additional commands (`tag`, `untag`, `req`, `mark`, `unmark`, `deletereq`, `liststar`, `memo`) to accommodate the creation, modification and deletion of our added fields to each contact. In addition to those commands, we also added the `undo` command to allow users to revert unintended changes. We also implemented a system which made dangerous commands such as `clear` require a confirmation to proceed. Finally, we added the `star` feature which allowed users to star contacts and have their favourite or most frequently accessed contacts displayed above the unstarred visitors.
 
-* **Parsing of parameters:** In order to cater to the possibility of names containing prefixes, such as `murthu a/p vara` which contains the `a/` prefix, we modified the existing parser system to allow prefixes to be escaped with the `$` symbol, allowing users more freedom in their choice of parameters.
+* **Parsing of parameters:** In order to cater to the possibility of names containing prefixes, such as `murthu a/p vara` which contains the `a/` prefix used for addresses, we modified the existing parser system to allow prefixes to be escaped with the `$` symbol, allowing users more freedom in their choice of parameters.
 
 * **User Interface Enhancements:** To make the GUI more appealing and intuitive, we revamped the GUI changing its overall look, including the addition of the Persons Detail Panel, into our layout. We successfully displayed a contact's details in the panel both when selecting their card in the GUI with a mouse, and when a contact's details is modified through a command.
 
@@ -588,9 +589,9 @@ Team Size: 5
 
 1. **Allow all command parsers to escape prefixes in all fields**: Currently, only the `edit` and `add` command allow escaping of prefixes such as `a/`, `e/`, and only in the `NAME` argument. We plan to extend this feature to all commands and fields, in order to allow the user more freedom in their choice of arguments and keywords.
 2. **Stricter validation for email**: The current validation for email only requires the existence of `@` character, and does not require the domain to contain `.`. As such, invalid emails such as `johndoe@example` and `jd@mail` were accepted. In the future, we intend to modify the validation of the email parameter to require a `.`, followed by at least two alphanumeric characters after the presence of `@`.
-3. **Different parameter prefix for `REQUEST` and `REQUEST_INDEX`: Both parameters `REQUEST` and `REQUEST_INDEX` currently share the same prefix `r/`. We plan to change the parameter of `REQUEST_INDEX` to use `ri/` instead to avoid confusion.
+3. **Different parameter prefixes for `REQUEST` and `REQUEST_INDEX`**: Both parameters `REQUEST` and `REQUEST_INDEX` currently share the same prefix `r/`. We plan to change the parameter of `REQUEST_INDEX` to use `ri/` instead to avoid confusion.
 4. **Allow phone numbers to contain dashes and brackets**: The current `PHONE` parameter does not allow the presence of brackets `(`, `)` and dashes `-`. Due to this, users are unable to add numbers in formats such as `+1-242-3887654` and `+1 (242) 3887654`. We plan to modify the validation for the `PHONE` parameter to allow these characters.
-5. **Unique Index or ID for Booking Tags**: Currently, booking tags are identified by a combination of their property name, start date and end date. This results in inconvenience for users when using the `untag` command, due to having to re-enter all three parameters. We plan to provide a form of unique identification for booking tags to allow for easier deletion of booking tags in the future.
+5. **Unique index for booking tags**: Currently, booking tags are identified by a combination of their property name, start date and end date. This results in inconvenience for users when using the `untag` command, due to having to re-enter all three parameters. We plan to provide a form of unique identification for booking tags to allow for easier deletion of booking tags in the future.
 6. **Edit request command**: The only way to edit a request of a contact is to delete it and add it again. We intend to add an edit request command to allow users the functionality of editing requests belonging to a contact.
 7. **Case-insensitive command words**: The current command words are case-sensitive. However, users may enter `Add` or `ADD` instead of `add` by mistake. For convenience, we plan to modify the validation of command words to be case-insensitive.
 8. **Make `edit` success messages more detailed**: The current `edit` command's success message does not contain details of what was modified. We plan to make the success message more descriptive.
@@ -645,7 +646,7 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: At least one contact in address book.
 
    2. Test case: `list`<br>
-      Expected: All contacts displayed in list, with all contacts sorted first by whether they are starred, and then in lexicographical order of their name. Success Message shown in the status message.
+      Expected: All contacts displayed in list. Starred visitors will be shown first, followed by unstarred visitors. Both groups will be sorted lexicographically within their respective groups.
       <br>Output: List successful! (๑˘︶˘๑)
       <br>Listing all persons in the address book!
 
@@ -712,17 +713,17 @@ testers are expected to do more *exploratory* testing.
 
 ### Starring a visitor
 
-1. Starring a visitor who is currently in the addressbook
+1. Starring a visitor who is currently in the addressbook while all visitors are being shown
 
-   1. Prerequisites: List all visitors using the `list` command. Multiple visitors in the list with at least one not starred.
+   1. Prerequisites: List all visitors using the `list` command. At least two visitors in the list. Both visitors are unstarred.
 
-   2. Test case: `star INDEX`<br>
-      Expected: Contact with respective INDEX is starred and will be moved up in the list sorted lexicographically among the starred visitor. Contact Details of the starred visitor are shown in Details Panel in GUI.
+   2. Test case: `star 2`<br>
+      Expected: Second contact is starred. Contact List Card is selected in GUI. Contact Details of the starred visitor are shown in Details Panel in GUI. Details of the starred contact shown in the status message.
       <br>Output: Star successful! (๑˘︶˘๑)
       <br>Starred contact: NAME
 
-   3. Test case: `star INDEX`<br>
-      **Note:** Attempt to star the same visitor you starred in the above test case by locating and using the new index of that same visitor.
+   3. Test case: `star 1`<br>
+      **Note:** Attempt to star a visitor who is already starred. The new first contact in the list should be the one you just starred in the above test case.
       <br>Expected: Error details shown in the status message.
       <br>Output: Star failed! (ｏ´_｀ｏ)
       <br>Contact NAME is already starred!
@@ -740,12 +741,12 @@ testers are expected to do more *exploratory* testing.
 
 ### Unstarring a visitor
 
-1. Unstarring a visitor who is currently starred in the addressbook
+1. Unstarring a visitor who is currently starred in the addressbook while all visitors are being shown
 
     1. Prerequisites: List all visitors using the `list` command. Multiple visitors in the list with at least one starred.
 
     2. Test case: `unstar 1`<br>
-       **Note:** Attempt to unstar a visitor who is starred.
+       **Note:** First contact in the list should be starred.
        <br>Expected: Contact with respective INDEX is un starred and will be moved back in the list sorted lexicographically among the unstar visitor. Contact Details of the unstar visitor are shown in Details Panel in GUI.
        <br>Output: Unstar successful! (๑˘︶˘๑)
        <br>The contact NAME was unstarred!
@@ -763,21 +764,24 @@ testers are expected to do more *exploratory* testing.
        <br>Parameters: INDEX (must be a positive integer)
        <br>Example: unstar 1
 
-   5. Other incorrect unstar commands to try: `Unstar`, `unstarx`, `...`<br>
-      Expected: Similar to previous.
-      <br>Output: Unknown command! (ｏ´_｀ｏ)
+    5. Other incorrect unstar commands to try: `Unstar`, `unstarx`, `...`<br>
+       Expected: Similar to previous.
+       <br>Output: Unknown command! (ｏ´_｀ｏ)
 
 ### Adding a request to a visitor
 
-1. Prerequisites: List all visitors using the `list` command. At least one visitor in the list.
+1. Adding a request to a visitor who is currently in the addressbook while all visitors are being shown
 
-    2. Test case: `req 1 r/REQUEST`<br>
-       Expected: Contact with respective INDEX has a request called "REQUEST" added to its request list. Contact Details of the visitor are shown in Details Panel in GUI.
-       <br>Output: Add request successful! (๑˘︶˘๑)
-       <br>Added request to NAME!
+   1. Prerequisites: List all visitors using the `list` command. At least one visitor in the list.
+
+   2. Test case: `req 1 r/REQUEST`<br>
+      **Note:** First contact in the list should not already have the request "REQUEST".
+      <br>Expected: First contact in the list has "REQUEST" added to its request list. Contact Details of the visitor are shown in Details Panel in GUI.
+      <br>Output: Add request successful! (๑˘︶˘๑)
+      <br>Added request to NAME!
 
    3. Test case: `req 1 r/REQUEST`<br>
-      **Note:** Attempt to add a request where the visitor already has this specific request.
+      **Note:** Perform the previous test case first to ensure that the first contact in the list has the request "REQUEST".
       <br>Expected: No request will be added. Error details shown in the status message.
       <br>Output: Command will result in duplicate request!
 
@@ -816,12 +820,11 @@ testers are expected to do more *exploratory* testing.
        Expected: Similar to previous.
        <br>Output: Unknown command! (ｏ´_｀ｏ)
 
-
 ### Marking a request of a visitor
 
 1. Marking a request of a visitor who is currently in the addressbook
 
-   1. Prerequisites: List all visitors using the `list` command. At least one visitor in the list (otherwise, add using `add` command). Visitor has at least one request (otherwise, add using `req` command) which is unmarked.
+   1. Prerequisites: List all visitors using the `list` command. At least one visitor in the list with at least one unmarked request.
 
    2. Test case: `mark 1 r/1`<br>
       Expected: First request of visitor is marked as complete. Contact Details of the starred visitor are shown in Details Panel in GUI. Checkbox of first request in list is ticked.
@@ -848,10 +851,10 @@ testers are expected to do more *exploratory* testing.
 
 1. Unmarking a request of a visitor who is currently in the addressbook
 
-   1. Prerequisites: List all visitors using the `list` command. At least one visitor in the list (otherwise, add using `add` command). Visitor has at least one request (otherwise, add using `req` command) which is marked.
+   1. Prerequisites: List all visitors using the `list` command. At least one visitor in the list with at least one marked request.
 
    2. Test case: `unmark 1 r/1`<br>
-      Expected: First request of visitor is marked as complete. Contact Details of the starred visitor are shown in Details Panel in GUI. Checkbox of first request in list is ticked.
+      Expected: First request of visitor is marked as complete. Contact Details of the starred visitor are shown in Details Panel in GUI. Checkbox of first request in list is not ticked.
       <br>Output: Unmark request successful! (๑˘︶˘๑)
       <br>REQUEST has been unmarked!
 
@@ -876,16 +879,15 @@ testers are expected to do more *exploratory* testing.
 
 1. Deleting a request from a visitor who has requests
 
-    1. Prerequisites: List all visitors using the `list` command. At least one visitor in the list has one or more requests. If no visitor has requests, add a visitor with a request using the `add` command with the `r/REQUEST` parameter, or add a request to an existing visitor using the `req` command.
+    1. Prerequisites: List all visitors using the `list` command. At least one visitor with at least one request.
 
-    2. Test case: `deletereq INDEX r/REQUEST_INDEX`<br>
-       **Note:** Find a visitor with at least one request and use that visitor's INDEX. Use a valid REQUEST_INDEX (starting from 1).
-       <br>Expected: The specified request is deleted from the visitor. If selected, details of the visitor with the deleted request are shown in the Details Panel in the GUI.
+    2. Test case: `deletereq 1 r/1`<br>
+       Expected: The specified request is deleted from the visitor. Contact Details of the visitor are shown in Details Panel in GUI.
        <br>Output: Delete request successful! (๑˘︶˘๑)
        <br>REQUEST has been deleted from NAME's request list!
 
-    3. Test case: `deletereq INDEX r/REQUEST_INDEX`<br>
-       **Note:** Use a valid visitor INDEX but a REQUEST_INDEX that is greater than the number of requests the visitor has.
+    3. Test case: `deletereq 1 r/REQUEST_INDEX`<br>
+       **Note:** Use a value for REQUEST_INDEX that is greater than the number of requests the visitor has.
        <br>Expected: No request is deleted. Error details shown in the status message.
        <br>Output: This contact does not have a request of this index! (ｏ´_｀ｏ)
 
@@ -896,7 +898,7 @@ testers are expected to do more *exploratory* testing.
        <br>Parameters: INDEX (must be a positive integer) r/REQUEST_INDEX (must be a positive integer)
        <br>Example: deletereq 1 r/1
 
-    5. Test case: `deletereq INDEX r/0` or `deletereq INDEX r/x` (where x is a non-numeric character)<br>
+    5. Test case: `deletereq 1 r/0` or `deletereq 1 r/x` (where x is a non-numeric character)<br>
        Expected: No request is deleted. Error details shown in the status message.
        <br>Output: Request index is not a non-zero unsigned integer. ヾ( ･`⌓´･)ﾉﾞ
        <br>deletereq: Deletes a request from the contact identified by the index number in the displayed person list.
@@ -979,53 +981,53 @@ testers are expected to do more *exploratory* testing.
 
 ### Untagging a visitor
 
-   1. Untagging a visitor's tag/booking tag who is currently in the addressbook while all visitors are being shown.
+1. Untagging a visitor's tag/booking tag who is currently in the addressbook while all visitors are being shown.
 
-      1. Prerequisites: List all visitors using the `list` command. At least one visitor in the list.
+   1. Prerequisites: List all visitors using the `list` command. At least one visitor in the list.
 
-      2. Test case: `untag 1 t/Example`<br>
-         Expected: First contact is untagged. Contact List Card is selected in GUI. Contact Details of the untagged visitor are shown in Details Panel in GUI.
-         **Note:** First contact should have the tag `Example`.
-         <br>Output: Untag successful! (๑˘︶˘๑)
-         <br>[Example] has been removed from the contact's tag list!
+   2. Test case: `untag 1 t/Example`<br>
+      Expected: First contact is untagged. Contact List Card is selected in GUI. Contact Details of the untagged visitor are shown in Details Panel in GUI.
+      **Note:** First contact should have the tag `Example`.
+      <br>Output: Untag successful! (๑˘︶˘๑)
+      <br>[Example] has been removed from the contact's tag list!
 
-      3. Test case: `untag 1 t/Example`<br>
-         **Note:** Perform the previous test case first. First contact should not have the tag `Example`.
-         <br>Expected: Untag failed! (ｏ´_｀ｏ)
-         <br>Contact does not have the tag [Example]!
+   3. Test case: `untag 1 t/Example`<br>
+      **Note:** Perform the previous test case first. First contact should not have the tag `Example`.
+      <br>Expected: Untag failed! (ｏ´_｀ｏ)
+      <br>Contact does not have the tag [Example]!
 
-      4. Test case: `untag 1 b/Example from/2023-10-01 to/2023-10-31`<br>
-         Expected: First contact is untagged. Contact List Card is selected in GUI. Contact Details of the untagged visitor are shown in Details Panel in GUI.
-         <br>Output: Untag successful! (๑˘︶˘๑)
-         <br>Example 01 Oct 23 to 31 Oct 23 has been removed from the contact's tag list!
+   4. Test case: `untag 1 b/Example from/2023-10-01 to/2023-10-31`<br>
+      Expected: First contact is untagged. Contact List Card is selected in GUI. Contact Details of the untagged visitor are shown in Details Panel in GUI.
+      <br>Output: Untag successful! (๑˘︶˘๑)
+      <br>Example 01 Oct 23 to 31 Oct 23 has been removed from the contact's tag list!
 
-      5. Test case: `untag 1 b/Example from/2023-10-01 to/2023-10-31`<br>
-         **Note:** Perform the previous test case first. First contact should not have the booking tag `Example from/2023-10-01 to/2023-10-31`.
-         <br>Expected: Untag failed! (ｏ´_｀ｏ)
-         <br>Contact does not have the booking tag Example 01 Oct 23 to 31 Oct 23!
+   5. Test case: `untag 1 b/Example from/2023-10-01 to/2023-10-31`<br>
+      **Note:** Perform the previous test case first. First contact should not have the booking tag `Example from/2023-10-01 to/2023-10-31`.
+      <br>Expected: Untag failed! (ｏ´_｀ｏ)
+      <br>Contact does not have the booking tag Example 01 Oct 23 to 31 Oct 23!
 
-      6. Test case: `untag 1 t/`<br>
-         Expected: No visitor is untagged. Error details shown in the status message.
-         <br>Output: Tag cannot be empty!
+   6. Test case: `untag 1 t/`<br>
+      Expected: No visitor is untagged. Error details shown in the status message.
+      <br>Output: Tag cannot be empty!
 
-      7. Test case: `untag 1 b/`<br>
-         Expected: No visitor is untagged. Error details shown in the status message.
-         <br>Output: Booking tags should be of the format PROPERTY from/START_DATE to/END_DATE where START_DATE and END_DATE are in the format yyyy-MM-dd.
-         <br>The START_DATE must be before END_DATE.
-         <br>PROPERTY must have 1 to 170 characters.
+   7. Test case: `untag 1 b/`<br>
+      Expected: No visitor is untagged. Error details shown in the status message.
+      <br>Output: Booking tags should be of the format PROPERTY from/START_DATE to/END_DATE where START_DATE and END_DATE are in the format yyyy-MM-dd.
+      <br>The START_DATE must be before END_DATE.
+      <br>PROPERTY must have 1 to 170 characters.
 
-      8. Test case: `untag 0` or `untag`<br>
-         Expected: No visitor is untagged. Error details shown in the status message.
-         <br>Output: Invalid command format! ヾ( ･`⌓´･)ﾉﾞ
-         <br>untag: Removes tag from the contact identified by the index number in the displayed person list.
-         <br>Parameters: INDEX (must be a positive integer) t/TAG
-         <br>OR b/PROPERTY from/START_DATE to/END_DATE
-         <br>Example: untag 1 t/friends
-         <br>Example: untag 1 b/property from/2023-10-01 to/2023-10-31
+   8. Test case: `untag 0` or `untag`<br>
+      Expected: No visitor is untagged. Error details shown in the status message.
+      <br>Output: Invalid command format! ヾ( ･`⌓´･)ﾉﾞ
+      <br>untag: Removes tag from the contact identified by the index number in the displayed person list.
+      <br>Parameters: INDEX (must be a positive integer) t/TAG
+      <br>OR b/PROPERTY from/START_DATE to/END_DATE
+      <br>Example: untag 1 t/friends
+      <br>Example: untag 1 b/property from/2023-10-01 to/2023-10-31
 
-      9. Other incorrect untag commands to try: `Untag`, `untagx`, `...`<br>
-         Expected: Similar to previous.
-         <br>Output: Unknown command! (ｏ´_｀ｏ)
+   9. Other incorrect untag commands to try: `Untag`, `untagx`, `...`<br>
+      Expected: Similar to previous.
+      <br>Output: Unknown command! (ｏ´_｀ｏ)
 
 ### Saving data
 
