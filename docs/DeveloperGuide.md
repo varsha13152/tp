@@ -673,9 +673,9 @@ testers are expected to do more *exploratory* testing.
       Expected: No visitor is added. Error details shown in the status message.
       <br> Output: Unknown command! (ｏ´_｀ｏ)
 
-### Staring a visitor
+### Starring a visitor
 
-1. Star a visitor who is currently in the addressbook
+1. Starring a visitor who is currently in the addressbook
 
    1. Prerequisites: List all visitors using the `list` command. Multiple visitors in the list.
 
@@ -704,9 +704,9 @@ testers are expected to do more *exploratory* testing.
       <br>Parameters: INDEX (must be a positive integer)
       <br>Example: star 1
 
-### Unstar a visitor
+### Unstarring a visitor
 
-1. Unstar a visitor who is currently starred in the addressbook
+1. Unstarring a visitor who is currently starred in the addressbook
 
     1. Prerequisites: List all visitors using the `list` command. Multiple visitors in the list with a few starred.
 
