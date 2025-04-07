@@ -212,7 +212,7 @@ public class ParserUtil {
         requireNonNull(tags);
         final Set<Tag> tagSet = new HashSet<>();
         final Set<String> seenTagNames = new HashSet<>();
-        
+
         for (String tagName : tags) {
             String trimmedTagName = tagName.trim();
             if (seenTagNames.contains(trimmedTagName)) {
