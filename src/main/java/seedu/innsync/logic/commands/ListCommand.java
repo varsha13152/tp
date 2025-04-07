@@ -15,8 +15,8 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = String.format(Messages.MESSAGE_COMMAND_SUCCESS,
             "List", "Lising all persons in the address book!");
-    public static final String MESSAGE_EMPTY = "Listed no people, try adding someone with " + AddCommand.COMMAND_WORD
-            + " feature!";
+    public static final String MESSAGE_EMPTY = "There are no contacts in the address book. Use the 'add' command to"
+            + " create new contacts!";
 
     @Override
     public CommandResult execute(Model model) {
